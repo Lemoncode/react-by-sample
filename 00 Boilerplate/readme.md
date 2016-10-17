@@ -20,13 +20,13 @@ Summary steps:
 - Create a test js file.
 - Create a simple HTML file.
 
-# Steps to build it
+# Prerequisites
 
 Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
 
 > Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
 
-## Prerequisites
+## Steps to build it
 
 - Navigate to the folder where you are going to create the empty project.
 
@@ -62,6 +62,27 @@ npm install css-loader style-loader file-loader url-loader html-webpack-plugin t
 
 ```
 npm install typescript --save-dev
+```
+
+- We need as well to drop a _tsconfig.json_ file in the root folder of
+our project
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "noLib": false,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "compileOnSave": false,
+  "exclude": [
+    "node_modules"
+  ]
+}
 ```
 
 - Let's install bootstrap:
