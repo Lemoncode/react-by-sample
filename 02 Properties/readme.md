@@ -11,11 +11,9 @@ We will take a startup point sample _01 Hello React_:
 
 Summary steps:
 
-- Move _helloworld_ stateless component to standard class component.
-- Create a property that will hold the _username_ value.
+- _helloworld_ stateless component, create a property that will hold the _username_ value.
+
 - Let's inform it from our parent control.
-- Let's create an _EditName_ control.
-- Let's instantiate it in the root control and wire it up.
 
 ## Prerequisites
 
@@ -27,4 +25,23 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 - Copy the content from _01 HelloReact_ and execute _npm install_.
 
-- 
+- Let's update _hello.tsx_ in order to reflect the new property added (_username_)
+and display it using interpolation (_{username}_).
+
+import * as React from 'react';
+
+```javascript
+export const HelloComponent = (props: {userName : string}) => {
+  return (
+    <h2>Hello user: {props.userName} !</h2>
+  );
+}
+```
+
+- Let's update _main.tsx_ and inform the _Username_ propery value:
+
+```javascript
+ReactDOM.render(
+  <HelloComponent userName="John" />
+  , document.getElementById('root'));
+```
