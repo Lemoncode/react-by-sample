@@ -5,9 +5,15 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var basePath = __dirname;
 
 module.exports = {
-  entry: {
-    app: './main.js'
+  context: path.join(basePath, "src"),
+  resolve: {
+      extensions: ['', '.js', '.ts', '.tsx']
   },
+
+  entry: [
+    './main.ts',
+    '../node_modules/bootstrap/dist/css/bootstrap.css'
+  ],
   output: {
     path: path.join(basePath, 'dist'),
     filename: 'bundle.js'

@@ -4,7 +4,7 @@
   "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-devserver --inline"
+    "start": "webpack-devserver --inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

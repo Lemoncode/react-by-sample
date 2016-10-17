@@ -79,7 +79,7 @@ npm install typescript --save-dev
   "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-devserver --inline"
+    "start": "webpack-devserver --inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -141,9 +141,15 @@ npm install typescript --save-dev
  var basePath = __dirname;
 
  module.exports = {
-   entry: {
-     app: './main.js'
+   context: path.join(basePath, "src"),
+   resolve: {
+       extensions: ['', '.js', '.ts', '.tsx']
    },
+
+   entry: [
+     './main.ts',
+     '../node_modules/bootstrap/dist/css/bootstrap.css'
+   ],
    output: {
      path: path.join(basePath, 'dist'),
      filename: 'bundle.js'
