@@ -189,7 +189,7 @@ our project
    module: {
      loaders: [
        {
-         test: /\.(ts)$/,
+         test: /\.(ts|tsx)$/,
          exclude: /node_modules/,
          loader: 'ts-loader'
        },

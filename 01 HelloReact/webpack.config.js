@@ -11,7 +11,7 @@ module.exports = {
   },
 
   entry: [
-    './main.ts',
+    './main.tsx',
     '../node_modules/bootstrap/dist/css/bootstrap.css'
   ],
   output: {
@@ -32,7 +32,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.(ts)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'ts-loader'
       },
