@@ -1,11 +1,8 @@
 # 02 Properties
 
-In this sample we will introduce a basic React concept, handling propertiers and
-callbacks.
+In this sample we will introduce a basic React concept, handling properties.
 
-We will add a _username_ property and display it in the helloWorld component,
-then we will create a second component that will let the user change the default
-name to another one and notify the parent control about it.
+We will add a _username_ property and display it in the helloWorld component.
 
 We will take a startup point sample _01 Hello React_:
 
