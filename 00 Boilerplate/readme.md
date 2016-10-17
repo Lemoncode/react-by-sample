@@ -73,6 +73,7 @@ our project
     "target": "es5",
     "module": "commonjs",
     "declaration": false,
+    "jsx": "react",
     "noImplicitAny": false,
     "sourceMap": true,
     "noLib": false,
