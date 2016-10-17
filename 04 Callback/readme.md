@@ -1,4 +1,4 @@
-# 03 State
+# 04 Callback + State
 
 In this sample we are going to add some refactor to the previous sample _03 State_
 
@@ -6,14 +6,13 @@ In this case we are going to update the name property only when the user cliks o
 a _change_ button, we will simplify as well the event itself.
 
 
-We will take a startup point sample _02 Properties_:
+We will take a startup point sample _03 State_:
 
 Summary steps:
 
-- An app component that will hold an state, this state will contain the current
-_username_ (by default assigned to "no user" value).
-- This app component will render the _HelloWorld_ component.
-- We will
+- Add a button to the _EditName_ component and a handler for this.
+- Submit the name only when the user clicks on the button.
+- Update _app_ component to handle the new simplified event.
 
 ## Prerequisites
 
@@ -23,108 +22,57 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 ## Steps to build it
 
-- Copy the content from _02 Properties_ and execute _npm install_.
+- Copy the content from _03 State_ and execute _npm install_.
 
-- Let's create an _app.tsx_ component (this component will display the _hello_world_ component).
+ - Since we are going to use an internal handler, let's transform this stateless
+ components, into a class component, and let's add some refactor on the naming.
 
-```javascript
-import * as React from 'react';
-import {HelloComponent} from './hello';
+ ```javascript
+ import * as React from 'react';
 
-export const App = () => {
-  return (
-    <HelloComponent userName="John" />
-  );
-}
-```
-
-- Let's update _main.tsx_ just to use the _app_ component that we have recently created.
-
-```javascript
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {App} from './app';
-
-ReactDOM.render(
-  <App/>
-  , document.getElementById('root'));
-```
-
-- Now we can check that things are still working as expected (nothing broken so far).
-
-```
-npm start
-```
-
-- It's time to revisit _app.tsx_, since we want to store the name of the user and let the
-user updated it, let's move this component to a class stateful component and define
-an state, including _username_ and pass this value to the _helloword_ component.
-
-```javascript
-import * as React from 'react';
-import {HelloComponent} from './hello';
-
-interface Props {
-
-}
-
-interface State {
-  userName : string;
-}
-
-export class App extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {userName: "defaultUserName"};
-  }
-
-  public render() {
-      return (
-       <HelloComponent userName={this.state.userName} />
-      );
+ interface Props {
+   initialUserName : string;
+   onNameUpdated : (newName : string) => any;
  }
-}
-```
 
-- Again, we can make a quick check point to test that everything is working as expected.
+ interface State {
+   editingName : string;
+ }
 
-```
-npm start
-```
+ export class NameEditComponent extends React.Component<Props, State> {
+   constructor(props: Props) {
+     super(props);
 
-- Now it's time to create an _NameEdit_ component, this component will let the user
-update his userName and will notify with a callback to the parent control whenver
-the _username_ gets updated.
+     // Watch out what would happen if we get this user name via an AJAX callback
+     // you will find a different implementatin on 05 sample
+     this.state = {editingName: props.initialUserName};
+   }
+
+   onChange(event : any) : any {
+     this.setState({editingName: event.target.value} as State);
+   }
+
+
+   onNameSubmit(event : any) : any {
+         this.props.onNameUpdated(this.state.editingName);
+   }
+
+   public render() {
+       return (
+         <div>
+           <label>Update Name:</label>
+           <input value={this.state.editingName} onChange={this.onChange.bind(this)}/>
+           <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit.bind(this)} />
+         </div>
+       );
+  }
+ }
+
+ ```
+
+- Let's wire this up in the app.tsx
 
 ```javascript
-import * as React from 'react';
-
-export const NameEditComponent = (props: {userName : string, onChange : (event : any) => any}) => {
-  return (
-    <div>
-      <label>Update Name:</label>
-      <input value={this.props.userName} onChange={this.props.onChange}/>
-    </div>
-  );
-}
-```
-
-- In the app.tsx let's add a callback and proper configure it.
-
-```javascript
-import * as React from 'react';
-import {HelloComponent} from './hello';
-import {NameEditComponent} from './nameEdit';
-
-interface Props {
-
-}
-
-interface State {
-  userName : string;
-}
-
 export class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -132,23 +80,24 @@ export class App extends React.Component<Props, State> {
     this.state = {userName: "defaultUserName"};
   }
 
-  setUsernameState(event) {
-    // If the state gets more complex we should use object.assign
-    this.setState({userName: event.target.value});
+  setUsernameState(newName : string) {
+    this.setState({userName: newName});
   }
 
   public render() {
       return (
        <div>
         <HelloComponent userName={this.state.userName} />
-        <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
+        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState.bind(this)} />
        </div>
       );
  }
 }
 ```
 
-- Now let's test the final sample
+Now we have got a clear event, strongly typed and simplified (straight forward).
+
+- Let's give a try:
 
 ```
 npm start

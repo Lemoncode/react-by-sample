@@ -17,16 +17,15 @@ export class App extends React.Component<Props, State> {
     this.state = {userName: "defaultUserName"};
   }
 
-  setUsernameState(event) {
-    // If the state gets more complex we should use object.assign
-    this.setState({userName: event.target.value});
+  setUsernameState(newName : string) {
+    this.setState({userName: newName});
   }
 
   public render() {
       return (
        <div>
         <HelloComponent userName={this.state.userName} />
-        <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
+        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState.bind(this)} />
        </div>
       );
  }
