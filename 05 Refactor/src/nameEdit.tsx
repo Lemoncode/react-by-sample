@@ -1,21 +1,22 @@
 import * as React from 'react';
 
-interface Props {  
+interface Props {
   editingUserName : string;
   onEditingNameUpdated : (newEditingName : string) => any;
-  onNameUpdateRequest : () => any;
+  onNameUpdateRequest : () => void;
 }
 
 interface State {
 
 }
 
-
+// Discuss here, use just {}
 export class NameEditComponent extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
   }
 
+  // this could be just placed inline in the render
   onChange(event : any) : any {
     this.props.onEditingNameUpdated(event.target.value);
   }
