@@ -210,3 +210,51 @@ export const ColorPicker = (props : Props) => {
   );
 }
 ```
+
+- Let's make this a bit more visual, it would be a good idea to display a rectangle
+filled with the selected color. Let's create a ColorDisplayer component (_colordisplayer.tsx_).
+
+```javascript
+import * as React from 'react';
+import {Color} from './color'
+
+interface Props {
+  color : Color;
+}
+
+export const ColorDisplayer = (props : Props) => {
+  // `rgb(${props.color.red},${props.color.green}, ${props.color.blue}) })`
+  // 'rgb(' + props.color.red + ', 40, 80)'
+  var divStyle = {
+    width: '120px',
+    height: '80px',
+    backgroundColor: `rgb(${props.color.red},${props.color.green}, ${props.color.blue})`
+  };
+
+
+  return (
+    <div style={divStyle}>    
+    </div>
+  );
+}
+```
+
+- And let's use it inside our App (_app.tsx_) component.
+
+```javascript
+public render() {
+    return (
+     <div>
+      <ColorDisplayer color={this.state.color}/>
+      <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
+      <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
+     </div>
+    );
+}
+```
+
+- Let's give a try and check the results
+
+```
+npm start
+```
