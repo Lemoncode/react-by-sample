@@ -4,6 +4,8 @@
 
 We will take a startup point sample _01 HelloReact_:
 
+>This sample is based on the following [egghead jsbin](https://jsbin.com/qiwoxax/4/edit?html,js,output), but adding some variations.
+
 Summary steps:
 
 - Rename hello.tsx file to colorpicker.tsx.
@@ -115,6 +117,7 @@ export const ColorPicker = (props : Props) => {
       <input type="range"
              min="0"
              max="255"
+             value={props.color.red}
              onChange={(event : any) => props.onColorUpdated(
                {red: event.target.value, green: props.color.green, blue: props.color.blue}
              )}
@@ -163,4 +166,47 @@ export class App extends React.Component<{}, State> {
 
 ```
 npm start
+```
+
+- Let's complete the component by adding sliders for the green and blue options:
+
+> Note: this will look a bit ugly, in the next sample we will refactor this to a cleaner solution
+
+```javascript
+export const ColorPicker = (props : Props) => {
+  return (
+    <div>
+      <input type="range"
+             min="0"
+             max="255"
+             value={props.color.red}
+             onChange={(event : any) => props.onColorUpdated(
+               {red: event.target.value, green: props.color.green, blue: props.color.blue}
+             )}
+      />
+      {props.color.red}
+      <br />
+      <input type="range"
+             min="0"
+             max="255"
+             value={props.color.green}
+             onChange={(event : any) => props.onColorUpdated(
+               {red: props.color.red, green: event.target.value, blue: props.color.blue}
+             )}
+      />
+      {props.color.green}
+      <br />
+      <input type="range"
+             min="0"
+             max="255"
+             value={props.color.blue}
+             onChange={(event : any) => props.onColorUpdated(
+               {red: props.color.red, green: props.color.green, blue: event.target.value}
+             )}
+      />
+      {props.color.blue}
+      <br />
+    </div>
+  );
+}
 ```
