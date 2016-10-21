@@ -34,7 +34,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #111; /* Black*/
+    background-color: #808080; /* Gray*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -196,3 +196,56 @@ export class App extends React.Component<Props, State> {
 
 - So far so good, but what happens if we want to make this sidebar a reusable component, we could
 just show the frame but the content should be dynamic.
+
+- Let's start by adding some content when instantiating the sidebar (_main.tsx_).
+
+```javascript
+<SidebarComponent isVisible={this.state.isSidebarVisible}>
+  <h1>Test content</h1>
+</SidebarComponent>
+```
+
+- Now in the _sidebar.tsx_ let's dump this content by using {this.props.children}
+
+```javascript
+import * as React from 'react';
+
+interface Props {
+  isVisible : boolean;
+}
+
+interface State {
+  divStyle : Object;
+}
+
+
+export class SidebarComponent extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      divStyle: {
+        width: '0px'
+      }
+    };
+  }
+
+  public componentWillReceiveProps(nextProps)
+  {
+    if(this.props.isVisible != nextProps.isVisible) {
+      const widthValue = (nextProps.isVisible) ? '250px':'0px';
+      // TODO we could remove this and try to use single source of truth
+      // a function that just calculates the value based on the visible flag
+      this.setState({divStyle: {width: widthValue}});
+    }
+  }
+
+  public render() {
+    return (
+      <div id="mySidenav" className="sidenav" style={this.state.divStyle}>
+            {this.props.children}
+      </div>
+    );
+  }
+}
+```
