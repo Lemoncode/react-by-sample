@@ -1,3 +1,4 @@
+import {} from 'core-js'
 import {} from 'whatwg-fetch';
 import {MemberEntity} from '../model/member';
 
