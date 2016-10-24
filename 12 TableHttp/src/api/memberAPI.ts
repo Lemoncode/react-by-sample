@@ -1,6 +1,6 @@
-import { Promise } from 'es6-promise';
-import {MemberEntity} from '../model/member';
 import {} from 'whatwg-fetch';
+import {MemberEntity} from '../model/member';
+
 
 // Sync mock data API, inspired from:
 // https://gist.github.com/coryhouse/fd6232f95f9d601158e4
