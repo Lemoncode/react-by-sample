@@ -28,7 +28,9 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 npm install core-js --save-dev
 ```
 
+```
 npm whatwg-fetch --save
+```
 
 ```
 npm install @types/core-js --save-dev
@@ -42,7 +44,6 @@ npm install @types/whatwg-fetch --save-dev
 - Let's replace _memberAPI_ load members with the fetch / promise one.
 
 ```javascript
-import { Promise } from 'es6-promise';
 import {MemberEntity} from '../model/member';
 import {} from 'whatwg-fetch';
 
