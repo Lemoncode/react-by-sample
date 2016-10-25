@@ -1,7 +1,12 @@
 import * as React from 'react';
 
-export const FaceComponent = (props : {level : number}) => {
-  function setSatisfactionClass(level : number) {
+interface Props {
+  level : number;
+}
+
+export class FaceComponent extends React.Component<Props, {}> {
+
+  setSatisfactionClass(level : number) {
     if(level < 100) {
           return "very-dissatisfied"
     }
@@ -21,7 +26,28 @@ export const FaceComponent = (props : {level : number}) => {
     return "very-satisfied"
   }
 
-  return (
-    <div className={setSatisfactionClass(props.level)}/>
-  );
+  shouldComponentUpdate(nextProps : Props, nextState)
+  {
+    const rangeChange = [100, 200, 300, 400];
+
+    let index =  0;
+    let isRangeChange = false;
+
+    while(!isRangeChange && index < rangeChange.length) {
+      isRangeChange = (this.props.level < rangeChange[index] && nextProps.level >= rangeChange[index])
+                    ||
+                      (this.props.level > rangeChange[index] && nextProps.level <= rangeChange[index])
+      ;
+
+      index++;
+    }
+
+     return isRangeChange;
+  }
+
+  render() {
+    return (
+      <div className={this.setSatisfactionClass(this.props.level)}/>
+    );
+  }
 }
