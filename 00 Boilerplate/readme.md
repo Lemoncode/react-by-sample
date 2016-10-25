@@ -52,7 +52,7 @@ about the project (e.g. set name to `samplereact`). Once you have successfully f
 our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</abbr>, TypeScript...).
 
  ```
- npm install css-loader style-loader file-loader url-loader html-webpack-plugin  ts-loader --save -dev
+ npm install css-loader style-loader file-loader url-loader html-webpack-plugin  ts-loader --save
  ```
 
 - In order to launch `webpack-dev-server`, modify the **package.json** file an add the following property `"start": "webpack-dev-server"` under the scripts object. It allows us to launch webpack from the command line through npm typing `npm start`.
