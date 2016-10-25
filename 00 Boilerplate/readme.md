@@ -6,17 +6,17 @@ We won't install anything related about React, just some basic plumbing. In samp
 React and ReactDOM.
 
 We will setup an initial <abbr title="Node.js package manager, a package manager for the JavaScript runtime environment Node.js">npm</abbr> project, give support to TypeScript, and install React.<br />
-Then we will create a `helloworld.ts` sample.
+Then we will create a **helloworld.ts** sample.
 
 Summary steps:
 
 - Prerequisites: Install Node.js
-- Initialize `package.json` (with `npm init`)
+- Initialize **package.json** (with `npm init`)
 - Install:
     - Webpack and webpack-dev-server.
     - TypeScript.
     - Bootstrap.
-- Setup `webpack.config.js`
+- Setup **webpack.config.js**
 - Create a test js file.
 - Create a simple HTML file.
 
@@ -31,7 +31,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.9.1) if they are not alrea
 - Create and navigate to the folder where you are going to create the empty project.
 
 - Execute `npm init`, you will be prompted to answer some information request
-about the project (e.g. set name to `samplereact`). Once you have successfully fullfilled them a **package.json** file we will generated.
+about the project (e.g. set name to _samplereact_). Once you have successfully fullfilled them a **package.json** file we will generated.
 
  ```
  npm init
@@ -55,7 +55,7 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
  npm install css-loader style-loader file-loader url-loader html-webpack-plugin  ts-loader --save
  ```
 
-- In order to launch `webpack-dev-server`, modify the **package.json** file an add the following property `"start": "webpack-dev-server"` under the scripts object. It allows us to launch webpack from the command line through npm typing `npm start`.
+- In order to launch `webpack-dev-server`, modify the **package.json** file an add the following property `"start": "webpack-dev-server --inline"` under the scripts object. It allows us to launch webpack from the command line through npm typing `npm start`.
 
 - Let's install locally TypeScript (version 2.0 or newer):
 
@@ -63,8 +63,7 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
  npm install typescript --save-dev
  ```
 
-- We need as well to drop a _tsconfig.json_ file in the root folder of
-our project
+- We need as well to drop a **tsconfig.json** file in the root folder of our project
 
  ```json
  {
@@ -91,13 +90,8 @@ our project
  npm install bootstrap --save
  ```
 
-- Set main file to `index.js` in `package.json`:
-
- ```json  
-  "main": "index.js",
- ```
-
- - Now, our **package.json** file should looks something like:
+- Set the _main_ property to _index.js_ in **package.json**: `"main": "index.js"`.<br />
+Now, our **package.json** file should looks something like:
 
  ```json
  {
@@ -128,19 +122,19 @@ our project
  }
  ```
 
- - Let's create a subfolder called _src_.
+- Let's create a subfolder called **src**.
 
  ```sh
  mkdir src
  ```
 
- - Let's create a basic _main.ts_ file (under src folder):
+- Let's create a basic **main.ts** file (under **src** folder):
 
  ```javascript
  document.write("Hello from main.ts !");
  ```
 
- - Let's create a basic _index.html_ file (under src folder):
+- Let's create a basic **index.html** file (under **src** folder):
 
  ```html
 <!DOCTYPE html>
@@ -157,12 +151,12 @@ our project
 </html>
  ```
 
-- Now it's time to create a basic `webpack.config.js` file, this configuration will
+- Now it's time to create a basic **webpack.config.js** file, this configuration will
  include plumbing for:
  - Launching a web dev server.
  - Transpiling from TypeScript to JavaScript.
  - Setup Twitter Bootstrap (including fonts, etc...).
- - Generating the build under a _dist_ folder.
+ - Generating the build under a **dist** folder.
 
  ```javascript
 var path = require('path');
@@ -240,6 +234,6 @@ module.exports = {
 
 - Run webpack with:
 
-```
-npm start
-```
+ ```
+ npm start
+ ```
