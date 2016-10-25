@@ -1,6 +1,6 @@
-# 03 State
+# 14 ReactRouter
 
-In this sample we will introduce a basic React concept, handling State.
+In this sample we will start using React-Router (spa navigation).
 
 In this case scenario we will provide a default userName but let the user update
 it.
