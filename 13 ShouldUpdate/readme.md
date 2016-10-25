@@ -161,12 +161,77 @@ npm start
 for that in _face.tsx_
 
 ```javascript
+export const FaceComponent = (props : {level : number}) => {
+  function setSatisfactionClass(level : number) {
+    if(level < 100) {
+          return "very-dissatisfied"
+    }
+
+    if(level < 200) {
+          return "somewhat-dissatisfied"
+    }
+
+    if(level < 300) {
+          return "neither"
+    }
+
+    if(level < 400) {
+          return "somewhat-satisfied"
+    }
+
+    return "very-satisfied"
+  }
+
+  return (
+    <div className={setSatisfactionClass(props.level)}/>
+  );
+}
 ```
 
 - In _app.tsx_ let's add a state variable to hold the current satisfaction level plus
 an slider to let the user update it.
 
+```
+import * as React from 'react';
+import {FaceComponent} from './face'
+
+interface Props {
+}
+
+interface State {
+  satisfactionLevel : number;
+}
+
+export class App extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {satisfactionLevel: 300};
+  }
+  public render() {
+      return (
+       <div>
+         <input type="range"
+                min="0"
+                max="500"
+                value={this.state.satisfactionLevel}
+                onChange={(event : any) => this.setState({satisfactionLevel :event.target.value} as State)}
+         />
+         <br/>
+         <span>{this.state.satisfactionLevel}</span>
+         <br/>
+         <FaceComponent level ={this.state.satisfactionLevel}/>
+       </div>
+      );
+ }
+}
+```
+
 - Let's run the sample:
+
+```
+npm startup
+```
 
 - Let's add a rendering optimization, we should only trigger the render whenever
 the level just changes the range:
