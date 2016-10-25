@@ -22,8 +22,8 @@ module.exports = {
   devtool: 'source-map',
 
   devServer: {
-       contentBase: './dist', //Content base
-       inline: true, //Enable watch and live reload
+       contentBase: './dist', // Content base
+       inline: true, // Enable watch and live reload
        host: 'localhost',
        port: 8080,
        stats: 'errors-only'
