@@ -215,8 +215,105 @@ export const Form = () => {
 }
 ```
 
-- Let's add login validation fake api.
+- Let's define an entity for the loginInfo let's create the following path and file
+_src/model/login.ts_
 
-- Let's connect it into the login button logic.
+```javascript
 
-- Let's add some form validation (mandatory fields, minlength).
+export class LoginEntity {
+  public login : string;
+  public password : string;
+}
+```
+
+- Let's add login validation fake restApi: create a folder _src/api_. and a file called
+_login.ts_
+
+```javascript
+import {LoginEntity} from '../model/login';
+
+
+// Just a fake loginAPI
+class LoginAPI {
+  public isValidLogin(loginInfo : LoginEntity) : boolean
+  {
+    return (loginInfo.login === 'test' && loginInfo.password === 'test');
+  }
+}
+
+export const loginApi = new LoginAPI();
+```
+
+
+- Now we can integrate it into _form.tsx_ login button, but.. it's  time to think
+about how do we want to structure this, Do we want _form.tsx_ to hold the state
+of current user logged in and current password, plus button handler? This should
+be responsibility of the container control (loginPage.tsx). So let's the define
+as state of the _loginPage_ this information plus function and pass it down to
+the _form_ component. Let's start with _loginPage_
+
+```javascript
+import * as React from "react"
+import {Link} from 'react-router';
+import {Header} from './header';
+import {Form} from './form'
+import {hashHistory} from 'react-router'
+import {LoginEntity} from '../../model/login';
+import {loginApi} from '../../restApi/login';
+
+interface State {
+  loginEntity : LoginEntity;
+}
+
+interface Props {
+
+}
+
+
+export class LoginPage extends React.Component<Props, State> {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {loginEntity: new LoginEntity()};
+  }
+
+  performLogin() {
+      if(loginApi.isValidLogin(this.state.loginEntity)) {
+         hashHistory.push('/pageB');
+      }
+  }
+
+  public render() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4 col-md-offset-4">
+            <div className="panel panel-default">
+              <Header/>
+              <Form/>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+```
+
+- Let's now define the properties that the _form_ child controller will accept
+
+```javascript
+import * as React from "react"
+import {hashHistory} from 'react-router'
+import {LoginEntity} from '../../model/login';
+
+interface Props {
+   loginInfo : LoginEntity;
+   performLogin : () => void;
+}
+
+export const Form = (props: Props) => {
+```
+
+- Let's apply this props in the components and propagate the login change.
