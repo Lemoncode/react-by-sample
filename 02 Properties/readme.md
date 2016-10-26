@@ -2,13 +2,13 @@
 
 In this sample we will introduce a basic React concept, handling properties.
 
-We will add a _username_ property and display it in the helloWorld component.
+We will add a _username_ property and display it in the _hello_ component.
 
-We will take a startup point sample _01 Hello React_:
+We will take a startup point sample **01 Hello React**:
 
 Summary steps:
 
-- _helloworld_ stateless component, create a property that will hold the _username_ value.
+- _hello_ stateless component: create a property that will hold the _username_ value.
 
 - Let's inform it from our parent control.
 
@@ -20,25 +20,29 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 ## Steps to build it
 
-- Copy the content from _01 HelloReact_ and execute _npm install_.
+- Copy the content from _01 HelloReact_ and execute `npm install`.
 
-- Let's update _hello.tsx_ in order to reflect the new property added (_username_)
-and display it using interpolation (_{username}_).
+- Let's update **hello.tsx** in order to reflect the new property added (_userName_) and display it using interpolation (_{userName}_):
 
-import * as React from 'react';
+ ```javascript
+ import * as React from 'react';
 
-```javascript
-export const HelloComponent = (props: {userName : string}) => {
-  return (
-    <h2>Hello user: {props.userName} !</h2>
-  );
-}
-```
+ export const HelloComponent = (props: {userName : string}) => {
+   return (
+     <h2>Hello user: {props.userName} !</h2>
+   );
+ }
+ ```
 
-- Let's update _main.tsx_ and inform the _Username_ propery value:
+- Let's update **main.tsx** and inform the _userName_ propery value:
 
-```javascript
-ReactDOM.render(
-  <HelloComponent userName="John" />
-  , document.getElementById('root'));
-```
+ ```javascript
+ import * as React from 'react';
+ import * as ReactDOM from 'react-dom';
+ import {HelloComponent} from './hello';
+
+ ReactDOM.render(
+   <HelloComponent userName="John" />
+   , document.getElementById('root')
+ );
+ ```
