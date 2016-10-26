@@ -31,16 +31,17 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.9.1) if they are not alrea
 - Create and navigate to the folder where you are going to create the empty project.
 
 - Execute `npm init`, you will be prompted to answer some information request
-about the project (e.g. set name to _samplereact_). Once you have successfully fullfilled them a **package.json** file we will generated.
+about the project (e.g. set name to _samplereact_ and description to _Sample working with React,TypeScript and Webpack_).
+Once you have successfully fullfilled them a **package.json** file we will generated.
 
  ```
  npm init
  ```
 
-- Install **webpack** as a dependency.
+- Install **webpack** as a development dependency.
 
  ```
- npm install webpack --save
+ npm install webpack --save-dev
  ```
 - Install **webpack-dev-server** locally, as a development dependency (the reason to install it locally and not globally is to be easy to setup, e.g. can be launched on a clean machine without having to install anything globally but nodejs).
 
@@ -52,7 +53,7 @@ about the project (e.g. set name to _samplereact_). Once you have successfully f
 our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</abbr>, TypeScript...).
 
  ```
- npm install css-loader style-loader file-loader url-loader html-webpack-plugin ts-loader --save
+ npm install css-loader style-loader file-loader url-loader html-webpack-plugin ts-loader --save-dev
  ```
 
 - In order to launch `webpack-dev-server`, modify the **package.json** file an add the following property `"start": "webpack-devserver --inline",` under the scripts object. It allows us to launch webpack from the command line through npm typing `npm start`.
