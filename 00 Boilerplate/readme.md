@@ -94,32 +94,32 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
 - Now, our **package.json** file should looks something like:
 
  ```json
- {
-     "name": "samplereact",
-     "version": "1.0.0",
-     "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
-     "main": "index.js",
-     "scripts": {
-       "start": "webpack-devserver --inline",
-       "test": "echo \"Error: no test specified\" && exit 1"
-     },
-     "author": "",
-     "license": "ISC",
-     "dependencies": {
-       "bootstrap": "^3.3.7",
-       "css-loader": "^0.25.0",
-       "file-loader": "^0.9.0",
-       "html-webpack-plugin": "^2.24.0",
-       "style-loader": "^0.13.1",
-       "ts-loader": "^0.9.5",
-       "url-loader": "^0.5.7",
-       "webpack": "^1.13.2"
-     },
-     "devDependencies": {
-       "typescript": "^2.0.3",
-       "webpack-devserver": "0.0.6"
-     }
- }
+  {
+    "name": "samplereact",
+    "version": "1.0.0",
+    "description": "Sample working with React,TypeScript and Webpack",
+    "main": "index.js",
+    "scripts": {
+      "start": "webpack-devserver --inline",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "css-loader": "^0.25.0",
+      "file-loader": "^0.9.0",
+      "html-webpack-plugin": "^2.24.0",
+      "style-loader": "^0.13.1",
+      "ts-loader": "^0.9.5",
+      "typescript": "^2.0.6",
+      "url-loader": "^0.5.7",
+      "webpack": "^1.13.3",
+      "webpack-devserver": "0.0.6"
+    },
+    "dependencies": {
+      "bootstrap": "^3.3.7"
+    }
+  }
  ```
 
 - Let's create a subfolder called **src**.
