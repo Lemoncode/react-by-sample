@@ -23,7 +23,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Update _nameEdit.tsx_, port it to stateless component and add the methods inline. It should look like:
 
- ```javascript
+ ```jsx
  import * as React from 'react';
 
  interface Props {
