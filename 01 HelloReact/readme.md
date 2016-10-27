@@ -3,76 +3,108 @@
 In this sample we will create our first react component and connect it with the
 DOM via react-dom.
 
-We will take a startup point sanple _00 Boilerplate
+We will take a startup point sample _00 Boilerplate_.
 
 Summary steps:
 
 - Install react and react-dom libraries.
 - Install react and react-dom typescript definitions.
-- Update the index.html to create a placeholder for the react components
+- Update the index.html to create a placeholder for the react components.
 - Create a simple react component.
 - Wire up this component by using react-dom.
 
 ## Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already
+installed on your computer.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v`
+in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
-- Copy the content from _00 Boilerplate_ and execute _npm install_.
+- Copy the content of the `00 Boilerplate` folder to an empty folder for the sample.
 
+- Install the npm packages described in the `package.json` and verify that it works:
 
-- Let's install react and react-dom libraries:
+ ```bash
+ $ npm install
+ ```
 
-````
-npm install react react-dom --save
-````
+- Install `react` and `react-dom` libraries as project dependencies.
 
-- Let's install typescript definitions for _react_ and _react-dom_
+ ```bash
+ $ npm install react react-dom --save
+ ```
 
-```
-npm install @types/react @types/react-dom --save
-```
+- Install also the typescript definitions for `react` and `react-dom`
+but as dev dependencies.
 
-- Update the index.html to create a placeholder for the react components
+ ```bash
+ $ npm install @types/react @types/react-dom --save-dev
+ ```
 
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>Sample app</h1>
-    <div id="root">
-    </div>    
-  </body>
-</html>
-```
+- Update the `index.html` to create a placeholder for the react components.
 
-- Create a simple react component (let's create it under a new file called _hello.tsx_)
+ ```html
+ <!DOCTYPE html>
+ <html>
+   <head>
+     <meta charset="utf-8">
+     <title></title>
+   </head>
+   <body>
+     <h1>Sample app</h1>
+     <div id="root"></div>
+   </body>
+ </html>
+ ```
 
-```javascript
-export const HelloComponent = () => {
-  return (
-    <h2>Hello component !</h2>
-  );
-}
-```
+- Create a simple react component (let's create it within a new file called `hello.tsx`).
 
+ ```javascript
+ import * as React from 'react';
 
-- Wire up this component by using react-dom under _main.tsx_ (we have to rename this file
-  from ts to tsx and replace the content).
+ export const HelloComponent = () => {
+   return (
+     <h2>Hello component !</h2>
+   );
+ }
+ ```
 
-```javascript
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import HelloComponent from './hello';
+- Wire up this component by using `react-dom` under `main.tsx` (we have to rename
+  this file extension from `ts` to `tsx` and replace the content).
 
-ReactDOM.render(
-  <HelloComponent/>
-  , document.getElementById('root'));
-```
+ ```javascript
+ import * as React from 'react';
+ import * as ReactDOM from 'react-dom';
+
+ import { HelloComponent } from './hello';
+
+ ReactDOM.render(
+   <HelloComponent/>,
+   document.getElementById('root')
+ );
+ ```
+
+- Modify the `webpack.config.js` file and change the entry point from `./main.ts`
+to `./main.tsx`.
+
+ ```javascript
+ ...
+ entry: [
+   './main.tsx',
+   '../node_modules/bootstrap/dist/css/bootstrap.css'
+ ],
+ ...
+ ```
+
+- Execute the example:
+
+ ```bash
+ $ npm start
+ ```
+
+- Then, load http://localhost:8080/ in a browser to see the output.
+
+ ![Browser Output](../99_readme_resources/01 HelloReact/browser_output.png "Browser Output")
