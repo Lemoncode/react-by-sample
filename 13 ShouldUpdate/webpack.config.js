@@ -11,8 +11,9 @@ module.exports = {
   },
 
   entry: [
-    './main.ts',
-    '../node_modules/bootstrap/dist/css/bootstrap.css'
+    './main.tsx',
+    '../node_modules/bootstrap/dist/css/bootstrap.css',
+    './content/site.css'
   ],
   output: {
     path: path.join(basePath, 'dist'),
@@ -22,8 +23,8 @@ module.exports = {
   devtool: 'source-map',
 
   devServer: {
-       contentBase: './dist', // Content base
-       inline: true, // Enable watch and live reload
+       contentBase: './dist', //Content base
+       inline: true, //Enable watch and live reload
        host: 'localhost',
        port: 8080,
        stats: 'errors-only'
@@ -39,6 +40,11 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
+      },
+      {
+      				test: /\.(png|jpg)$/,
+      				exclude: /node_modules/,
+      				loader: 'url-loader?limit=10000'
       },
       // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
       // Using here url-loader and file-loader

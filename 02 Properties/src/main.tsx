@@ -4,4 +4,5 @@ import {HelloComponent} from './hello';
 
 ReactDOM.render(
   <HelloComponent userName="John" />
-  , document.getElementById('root'));
+  , document.getElementById('root')
+);
