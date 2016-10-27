@@ -62,7 +62,7 @@ Una vez cumplimentes la información se generará un fichero **package.json**.
  npm install typescript --save-dev
  ```
 
-- Necesitaremos también generar un fichero **tsconfig.json** en el directorio raiz de nuestro proyecto:
+- Necesitaremos también generar un fichero **tsconfig.json** en el directorio raíz de nuestro proyecto
 
  ```json
  {
@@ -89,7 +89,7 @@ Una vez cumplimentes la información se generará un fichero **package.json**.
  npm install bootstrap --save
  ```
 
-- Ahora nuestro fichero **package.json** debería quedar así:
+- Ahora nuestro fichero **package.json** debería quedar tal que así:
 
  ```json
   {
