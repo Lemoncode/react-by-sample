@@ -23,7 +23,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's start by adding a condition to disable the field whenever is empty. Replace only the input tag in _src/nameEdit.tsx_ with the following code:
 
- ```
+ ```jsx
   <input type="submit" value="Change"
     className="btn btn-default"
     onClick={props.onNameUpdateRequest}
