@@ -252,3 +252,84 @@ just show the frame but the content should be dynamic.
     }
   }
   ```
+
+- We can refact to transform the SidebarComponent again to be an stateless Component. We should keep the interim step, but end up with something like:
+
+  ```jsx
+  import * as React from 'react';
+
+  interface Props {
+    isVisible : boolean;
+    children? : any;
+  }
+
+  export function SidebarComponent (props:Props) {
+
+    function calculateDivWidth() {
+      const widthpx = (props.isVisible) ? '250px':'0px';
+      const style = {width: widthpx}
+
+      return style;
+    }
+
+    return (
+      <div id="mySidenav" className="sidenav" style={calculateDivWidth()}>
+          {props.children}
+      </div>
+    );
+  }
+  ```
+
+  We have removed `this` and `State` interface in SidebarComponent.
+
+- We can move the calculateDivWidth to an external resource. We create a file with name _mystyles.ts_:
+
+  ```javascript
+  export function calculateDivWidth(isVisible : boolean) {
+    const widthpx = (isVisible) ? '250px' : '0px';
+    const style = {width: widthpx}
+
+    return style;
+  }
+  ```
+
+  And then import and use the function in _sidebar.tsx_:
+
+  ```jsx
+  import * as React from 'react';
+  import {calculateDivWidth} from './mystyles';
+
+  interface Props {
+    isVisible : boolean;
+    children? : any;
+  }
+
+  export function SidebarComponent (props:Props) {
+
+    return (
+        <div id="mySidenav" className="sidenav" style={calculateDivWidth(props.isVisible)}>
+          {props.children}
+      </div>
+    );
+  }
+  ```  
+
+- But the best solution is more simple when calculateDivWidth is an small code.
+As final step we add as well:
+
+  ```jsx
+  import * as React from 'react';
+
+  interface Props {
+    isVisible : boolean;
+    children? : any;
+  }
+
+  export function SidebarComponent (props:Props) {
+    return (
+      <div id="mySidenav" className="sidenav" style={{width: (props.isVisible) ? '250px' : 0}}>
+          {props.children}
+      </div>
+    );
+  }
+  ```
