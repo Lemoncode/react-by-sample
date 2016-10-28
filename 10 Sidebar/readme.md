@@ -102,11 +102,11 @@ import {SidebarComponent} from './sidebar';
 
 ```jsx
 return (
- <div>
-  <SidebarComponent/>
-  <HelloComponent userName={this.state.userName} />
-  <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
- </div>
+  <div>
+    <SidebarComponent/>
+    <HelloComponent userName={this.state.userName} />
+    <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
+  </div>
 );
 ```
 
@@ -181,9 +181,7 @@ export class App extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <SidebarComponent isVisible={this.state.isSidebarVisible}>
-          <h1>Test content</h1>
-        </SidebarComponent>
+        <SidebarComponent isVisible={this.state.isSidebarVisible} />
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
         <input type="submit"
