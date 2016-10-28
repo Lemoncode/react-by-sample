@@ -15,13 +15,13 @@ Summary steps:
 
 ## Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already installed on your computer.
 
 > Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
-- Copy the content from _03 State_ and execute _npm install_.
+- Copy the content from _03 State_ and execute `npm install`.
 
 - Create a file called src/styles.css and add the following styles (http://www.w3schools.com/howto/howto_js_sidenav.asp):
 
@@ -65,38 +65,42 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 - Add this css file to the webpack entry point:
 
-```javascript
-entry: [
-  './main.tsx',
-  '../node_modules/bootstrap/dist/css/bootstrap.css',
-  'styles.css'
-],
-```
+  ```javascript
+  entry: [
+    './main.tsx',
+    '../node_modules/bootstrap/dist/css/bootstrap.css',
+    './styles.css'
+  ],
+  ```
 
-- We are going to create now a sidebar component, _src/sidebar.tsx_ right now we will create just
+- We are going to create now a sidebar component, _src/sidebar.tsx_. Right now we will create just
 a rectangle and we will interact with the animation.
 
-```javascript
-import * as React from 'react';
+  ```jsx
+  import * as React from 'react';
 
-export const SidebarComponent = () => {
-  return (
-    <div id="mySidenav" className="sidenav">
-        <span>Basic side bar, first steps</span>
-    </div>
-  );
-}
-```
+  export const SidebarComponent = () => {
+    return (
+      <div id="mySidenav" className="sidenav">
+          <span>Basic side bar, first steps</span>
+      </div>
+    );
+  }
+  ```
 
 - We are going to add a known id to to body section of _src/index.html_ page
 
-```html
-<body id="main">
+  ```html
+  <body id="main">
+  ```
+
+- Let's place the component adding into the app.tsx:
+
+```jsx
+import {SidebarComponent} from './sidebar';
 ```
 
-- Let's place the component, under app.tsx:
-
-```javascript
+```jsx
 return (
  <div>
   <SidebarComponent/>
@@ -115,34 +119,34 @@ npm start
 - Let's start with the interesting part of this implementation, let's add a flag to show/hide the
 sidebar _sidebar.tsx_.
 
-```javascript
+```jsx
 export const SidebarComponent = (props: {isVisible : boolean}) => {
-    return (
-      <div id="mySidenav" className="sidenav">
-          <span>Basic side bar, first steps</span>
-      </div>
-    );
+  return (
+    <div id="mySidenav" className="sidenav">
+      <span>Basic side bar, first steps</span>
+    </div>
+  );
 }
 ```
 
 - Now let's add some logic to show / display the sidebar in case the flag gets
 updated
 
-```javascript
+```jsx
 export const SidebarComponent = (props: {isVisible : boolean}) => {
   var divStyle = {
-     width: (props.isVisible) ?  '250px':'0px'
-   };
+    width: (props.isVisible) ?  '250px':'0px'
+  };
 
-    return (
-      <div id="mySidenav" className="sidenav" style={divStyle}>
-          <span>Basic side bar, first steps</span>
-      </div>
-    );
+  return (
+    <div id="mySidenav" className="sidenav" style={divStyle}>
+      <span>Basic side bar, first steps</span>
+    </div>
+  );
 }
 ```
 
-- Now at app level we can add a new member to the state (a boolean flag) and a button to turn it
+- Now at app level (in file _app.tsx_) we can add a new member to the state (a boolean flag) and a button to turn it
 off and on.
 
 ```javascript
@@ -152,7 +156,7 @@ interface State {
 }
 ```
 
-```javascript
+```jsx
 export class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -175,9 +179,11 @@ export class App extends React.Component<Props, State> {
    };
 
   public render() {
-      return (
-       <div>
-        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
+    return (
+      <div>
+        <SidebarComponent isVisible={this.state.isSidebarVisible}>
+          <h1>Test content</h1>
+        </SidebarComponent>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
         <input type="submit"
@@ -186,9 +192,9 @@ export class App extends React.Component<Props, State> {
           style={this.ButtonStyle}
           onClick={this.toggleSidebarVisibility.bind(this)}
           />
-       </div>
-      );
- }
+      </div>
+    );
+  }
 }
 ```
 
@@ -197,9 +203,9 @@ export class App extends React.Component<Props, State> {
 - So far so good, but what happens if we want to make this sidebar a reusable component, we could
 just show the frame but the content should be dynamic.
 
-- Let's start by adding some content when instantiating the sidebar (_main.tsx_).
+- Let's start by adding some content when instantiating the sidebar (_app.tsx_).
 
-```javascript
+```jsx
 <SidebarComponent isVisible={this.state.isSidebarVisible}>
   <h1>Test content</h1>
 </SidebarComponent>
@@ -217,7 +223,6 @@ interface Props {
 interface State {
   divStyle : Object;
 }
-
 
 export class SidebarComponent extends React.Component<Props, State> {
 
@@ -243,7 +248,7 @@ export class SidebarComponent extends React.Component<Props, State> {
   public render() {
     return (
       <div id="mySidenav" className="sidenav" style={this.state.divStyle}>
-            {this.props.children}
+        {this.props.children}
       </div>
     );
   }

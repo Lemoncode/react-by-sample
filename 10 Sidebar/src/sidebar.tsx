@@ -8,7 +8,6 @@ interface State {
   divStyle : Object;
 }
 
-
 export class SidebarComponent extends React.Component<Props, State> {
 
   constructor(props: Props) {
@@ -33,7 +32,7 @@ export class SidebarComponent extends React.Component<Props, State> {
   public render() {
     return (
       <div id="mySidenav" className="sidenav" style={this.state.divStyle}>
-            {this.props.children}
+        {this.props.children}
       </div>
     );
   }
