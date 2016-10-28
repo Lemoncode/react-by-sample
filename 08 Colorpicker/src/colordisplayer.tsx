@@ -14,9 +14,8 @@ export const ColorDisplayer = (props : Props) => {
     backgroundColor: `rgb(${props.color.red},${props.color.green}, ${props.color.blue})`
   };
 
-
   return (
-    <div style={divStyle}>    
+    <div style={divStyle}>
     </div>
   );
 }

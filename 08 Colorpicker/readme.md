@@ -104,7 +104,6 @@ as a property to setup the color (_colorpicker.tsx_).
     onColorUpdated : (color : Color) => void;
   }
 
-
   export const ColorPicker = (props) => {
   ```
 
