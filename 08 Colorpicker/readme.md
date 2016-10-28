@@ -8,7 +8,7 @@ We will take a startup point sample _01 HelloReact_:
 
 Summary steps:
 
-- Rename _hello.tsx_ file to colorpicker.tsx.
+- Rename _hello.tsx_ file to _colorpicker.tsx_.
 - Define the properties and state.
 - Create the UI.
 
@@ -79,7 +79,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   }
   ```
 
-- We need to update main.tsx to indicate the change
+- We need to update _main.tsx_ to indicate the change
 
   ```jsx
   import * as React from 'react';
