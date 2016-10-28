@@ -23,7 +23,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Copy the content from _08 ColorPicker_ and execute `npm install`.
 
-- Let's define a ColorSlider component (_colorslider.tsx_).
+- Let's define a ColorSliderComponent component (_colorslider.tsx_).
 
   ```jsx
   import * as React from 'react';
@@ -34,7 +34,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
     onValueUpdated : (newValue : number) => void;
   }
 
-  export const ColorSlider = (props : Props) => {
+  export const ColorSliderComponent = (props : Props) => {
 
     return (
       <div>
@@ -53,14 +53,14 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 - Let's refactor our _colorpicker.tsx_.
 
   ```jsx
-  import {ColorSlider} from './colorslider';
+  import {ColorSliderComponent} from './colorslider';
   ```
 
   ```jsx
   export const ColorPicker = (props : Props) => {
     return (
       <div>
-        <ColorSlider
+        <ColorSliderComponent
           value = {props.color.red}
           onValueUpdated={(value) => props.onColorUpdated(
             {
@@ -71,7 +71,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
           }
         />
         <br />
-        <ColorSlider
+        <ColorSliderComponent
           value = {props.color.green}
           onValueUpdated={(value) => props.onColorUpdated(
             {
@@ -82,7 +82,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
           }
         />
         <br />
-        <ColorSlider
+        <ColorSliderComponent
           value = {props.color.blue}
           onValueUpdated={(value) => props.onColorUpdated(
             {
