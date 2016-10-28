@@ -6,7 +6,7 @@ interface Props {
   onValueUpdated : (newValue : number) => void;
 }
 
-export const ColorSlider = (props : Props) => {
+export const ColorSliderComponent = (props : Props) => {
 
   return (
     <div>
