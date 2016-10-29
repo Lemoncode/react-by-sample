@@ -15,71 +15,90 @@ Summary steps:
 
 ## Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already installed on your computer.
 
 > Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
-- Copy the content from _08 ColorPicker_ and execute _npm install_.
+- Copy the content from _08 ColorPicker_ and execute `npm install`.
 
-- Let's define a ColorSlider component (_colorslider.tsx_).
+- Let's define a ColorSliderComponent component (_colorslider.tsx_).
 
-```javascript
-import * as React from 'react';
-import {Color} from './color'
+  ```jsx
+  import * as React from 'react';
+  import {Color} from './color';
 
-interface Props {
-  value : number;
-  onValueUpdated : (newValue : number) => void;
-}
+  interface Props {
+    value : number;
+    onValueUpdated : (newValue : number) => void;
+  }
 
-export const ColorSlider = (props : Props) => {
+  export const ColorSliderComponent = (props : Props) => {
 
-  return (
-    <div>
-      <input type="range"
-             min="0"
-             max="255"
-             value={props.value}
-             onChange={(event : any) => props.onValueUpdated(event.target.value)}
-      />
-      {props.value}
-    </div>
-  );
-}
-```
+    return (
+      <div>
+        <input type="range"
+               min="0"
+               max="255"
+               value={props.value}
+               onChange={(event : any) => props.onValueUpdated(event.target.value)}
+        />
+        {props.value}
+      </div>
+    );
+  }
+  ```
 
 - Let's refactor our _colorpicker.tsx_.
 
-```javascript
-export const ColorPicker = (props : Props) => {
-  return (
-    <div>
-      <ColorSlider
-        value = {props.color.red}
-        onValueUpdated={(value) => props.onColorUpdated(
-          {red: value, green: props.color.green, blue: props.color.blue}) }
-      />
-      <br />
-      <ColorSlider
-        value = {props.color.green}
-        onValueUpdated={(value) => props.onColorUpdated(
-          {red: props.color.red, green: value, blue: props.color.blue}) }
-      />
-      <br />
-      <ColorSlider
-        value = {props.color.blue}
-        onValueUpdated={(value) => props.onColorUpdated(
-          {red: props.color.red, green: props.color.green, blue: value}) }
-      />
-    </div>
-  );
-}
-```
+  ```jsx
+  import {ColorSliderComponent} from './colorslider';
+  ```
+
+  ```jsx
+  export const ColorPicker = (props : Props) => {
+    return (
+      <div>
+        <ColorSliderComponent
+          value = {props.color.red}
+          onValueUpdated={(value) => props.onColorUpdated(
+            {
+              red: value,
+              green: props.color.green,
+              blue:  props.color.blue
+            })
+          }
+        />
+        <br />
+        <ColorSliderComponent
+          value = {props.color.green}
+          onValueUpdated={(value) => props.onColorUpdated(
+            {
+              red:  props.color.red,
+              green: value,
+              blue: props.color.blue
+            })
+          }
+        />
+        <br />
+        <ColorSliderComponent
+          value = {props.color.blue}
+          onValueUpdated={(value) => props.onColorUpdated(
+            {
+              red:   props.color.red,
+              green: props.color.green,
+              blue: value
+            })
+          }
+        />
+      </div>
+    );
+  }
+  ```
 
 - Let's give a try and check that everything is still working as expected.
 
-```
-npm start
-```
+  ```
+  npm start
+  ```
