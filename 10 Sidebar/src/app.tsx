@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {HelloComponent} from './hello';
 import {NameEditComponent} from './nameEdit';
-import {SidebarComponent} from './sidebar'
+import {SidebarComponent} from './sidebar';
 
 interface Props {
 
@@ -33,10 +33,9 @@ export class App extends React.Component<Props, State> {
      marginLeft: '450px'
    };
 
-
   public render() {
-      return (
-       <div>
+    return (
+      <div>
         <SidebarComponent isVisible={this.state.isSidebarVisible}>
           <h1>Test content</h1>
         </SidebarComponent>
@@ -48,7 +47,7 @@ export class App extends React.Component<Props, State> {
           style={this.ButtonStyle}
           onClick={this.toggleSidebarVisibility.bind(this)}
           />
-       </div>
-      );
- }
+      </div>
+    );
+  }
 }
