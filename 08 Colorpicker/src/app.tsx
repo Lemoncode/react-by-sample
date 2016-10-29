@@ -19,12 +19,23 @@ export class App extends React.Component<{}, State> {
   }
 
   public render() {
-      return (
-       <div>
-        <ColorDisplayer color={this.state.color}/>
-        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
-        <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
-       </div>
-      );
- }
+    return (
+      <div>
+        <ColorDisplayer
+          color={this.state.color}
+        />
+        <span>
+          Color: [
+            red:    {this.state.color.red},
+            green:  {this.state.color.green},
+            blue:   {this.state.color.blue}
+          ]
+        </span>
+        <ColorPicker
+          color={this.state.color}
+          onColorUpdated={this.setColorState.bind(this)}
+        />
+      </div>
+    );
+  }
 }
