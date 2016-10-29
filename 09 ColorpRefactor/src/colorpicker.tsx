@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Color} from './color'
-import {ColorSlider} from './colorslider'
+import {Color} from './color';
+import {ColorSliderComponent} from './colorslider';
 
 interface Props {
   color : Color;
@@ -10,22 +10,37 @@ interface Props {
 export const ColorPicker = (props : Props) => {
   return (
     <div>
-      <ColorSlider
+      <ColorSliderComponent
         value = {props.color.red}
         onValueUpdated={(value) => props.onColorUpdated(
-          {red: value, green: props.color.green, blue: props.color.blue}) }
+          {
+            red: value,
+            green: props.color.green,
+            blue:  props.color.blue
+          })
+        }
       />
       <br />
-      <ColorSlider
+      <ColorSliderComponent
         value = {props.color.green}
         onValueUpdated={(value) => props.onColorUpdated(
-          {red: props.color.red, green: value, blue: props.color.blue}) }
+          {
+            red:  props.color.red,
+            green: value,
+            blue: props.color.blue
+          })
+        }
       />
       <br />
-      <ColorSlider
+      <ColorSliderComponent
         value = {props.color.blue}
         onValueUpdated={(value) => props.onColorUpdated(
-          {red: props.color.red, green: props.color.green, blue: value}) }
+          {
+            red:   props.color.red,
+            green: props.color.green,
+            blue: value
+          })
+        }
       />
     </div>
   );

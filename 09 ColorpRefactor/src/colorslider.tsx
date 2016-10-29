@@ -1,12 +1,11 @@
 import * as React from 'react';
-import {Color} from './color'
 
 interface Props {
   value : number;
   onValueUpdated : (newValue : number) => void;
 }
 
-export const ColorSlider = (props : Props) => {
+export const ColorSliderComponent = (props : Props) => {
 
   return (
     <div>
