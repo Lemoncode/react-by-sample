@@ -15,7 +15,7 @@ export class NameEditComponent extends React.Component<Props, State> {
 
     // Watch out what would happen if we get this user name via an AJAX callback
     // you will find a different implementatin on 05 sample
-    this.state = {editingName: props.initialUserName};
+    this.state = {editingName: this.props.initialUserName};
   }
 
   onChange(event : any) : any {
