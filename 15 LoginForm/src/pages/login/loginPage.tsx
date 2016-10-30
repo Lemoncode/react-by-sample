@@ -1,8 +1,9 @@
-import * as React from "react"
+import * as React from "react";
 import {Link} from 'react-router';
 import {Header} from './header';
-import {Form} from './form'
-import {hashHistory} from 'react-router'
+import {Form} from './form';
+import {CenteredComponent} from '../common/centered'
+import {hashHistory} from 'react-router';
 import {LoginEntity} from '../../model/login';
 import {loginApi} from '../../restApi/login';
 
@@ -35,19 +36,13 @@ export class LoginPage extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4 col-md-offset-4">
-            <div className="panel panel-default">
-              <Header/>
-              <Form loginInfo={this.state.loginInfo}
-                    updateLoginInfo={this.updateLoginEntity.bind(this)}
-                    performLogin={this.performLogin.bind(this)}
-                    />
-            </div>
-          </div>
-        </div>
-      </div>
+      <CenteredComponent>
+        <Header />
+        <Form loginInfo={this.state.loginInfo}
+          updateLoginInfo={this.updateLoginEntity.bind(this)}
+          performLogin={this.performLogin.bind(this)}
+          />
+      </CenteredComponent>
     );
   }
 }
