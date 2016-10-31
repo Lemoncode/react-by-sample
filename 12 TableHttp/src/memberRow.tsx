@@ -11,7 +11,7 @@ export const MemberRow = (props: Props) => {
      return (
        <tr>
          <td>
-           <img src={props.member.avatar_url} className="avatar"/>
+           <img src={props.member.avatar_url} className="avatar img-responsive" style={{maxWidth: '100px'}}/>
          </td>
          <td>
            <span>{props.member.id}</span>

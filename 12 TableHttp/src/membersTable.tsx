@@ -22,13 +22,13 @@ export class MembersTable extends React.Component<Props, State> {
   }
 
 
-   // Standard react lifecycle function:
-   // https://facebook.github.io/react/docs/component-specs.html
-   public componentWillMount() {
-     memberAPI.getAllMembers().then((members) => {
-        this.setState({members: members})
-     });
-   }
+  // Standard react lifecycle function:
+  // https://facebook.github.io/react/docs/component-specs.html
+  public componentWillMount() {
+    memberAPI.getAllMembers().then((members) =>
+      this.setState({members: members})
+    );
+  }
 
    public render() {
 
