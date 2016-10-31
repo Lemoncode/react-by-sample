@@ -17,6 +17,7 @@ Summary steps:
 - Let's add navigation on login button clicked.
 - Let's add login validation fake api.
 - Let's connect it into the login button logic.
+- Let's do a bit of refactor and clean up extracting functionality to reusable components.
 - Let's add some form validation (mandatory fields, minlength).
 
 ## Prerequisites
@@ -358,5 +359,142 @@ to the _form_ component
       performLogin={this.performLogin.bind(this)}
       />
 ```
+
+- Congratulations, you already have the example running. It is time to do some refator and clean up.
+
+- First we will extract all the divs in charge of generate a centered container to a new common centeredContainer component.
+
+- Create a folder _pages\common_ and a file _centered.tsx_ underneath
+
+```javascript
+import * as React from "react"
+
+interface Props {
+   children? : any;
+}
+
+export const CenteredContainer = (props: Props) => {
+  return (    
+      <div className="container">
+          <div className="row">
+              <div className="col-md-4 col-md-offset-4">
+                  <div className="panel panel-default">
+                        {props.children}
+                  </div>
+              </div>
+          </div>
+      </div>
+  );
+}
+```
+
+- Add a new _index.ts_ file to the same folder
+
+```javascript
+import {CenteredContainer} from './centered'
+
+export {
+  CenteredContainer
+}
+```
+
+- Now we have a component that can be used to center its content, lets use it in our _loginPage.tsx_, the render function should look like this 
+
+```javascript
+public render() {
+    return (
+      <CenteredContainer>
+        <Header />
+        <Form loginInfo={this.state.loginInfo}
+          updateLoginInfo={this.updateLoginEntity.bind(this)}
+          performLogin={this.performLogin.bind(this)}
+          />
+      </CenteredContainer>
+    );
+  }
+```
+
+- Time now to do some clean up in the form component, lets start creating a _formField.tsx_ file in the _common_ folder
+
+```javascript
+import * as React from "react"
+
+interface Props {
+   text : string;
+   name : string;
+   type : string;
+   value?: string;
+   updateFieldValue : (fieldName: string, fieldValue: any) => void;
+}
+
+export const FormField = (props: Props) => {
+
+
+  return (
+      <div className="form-group">
+          <input className="form-control" 
+                placeholder={props.text} 
+                name={props.name} 
+                type={props.type}
+                value={props.value}
+                onChange={(e: any) => props.updateFieldValue(props.name, e.target.value)}
+              />
+      </div>
+  );
+}
+```
+
+- And add it to the _index.ts_ in the same folder
+
+```javascript
+import {CenteredContainer} from './centered'
+import {FormField} from './formField'
+
+export {
+  CenteredContainer,
+  FormField
+}
+```
+
+- As you can see in the code above, now we have a component that can be used 
+to define any input field within a form and which will inform of the value changes 
+to the parent component. Time to use it!
+
+```javascript
+import * as React from "react"
+import {hashHistory} from 'react-router'
+import {LoginEntity} from '../../model/login';
+import {FormField} from '../common/formField';
+
+interface Props {
+   loginInfo : LoginEntity;
+   updateLoginInfo : (loginInfo : LoginEntity) => void;
+   performLogin : () => void;
+}
+
+ function updateFieldValue(fieldName: string, fieldValue: any){
+    const newLoginEntity = this.props.loginInfo;
+    newLoginEntity[fieldName] = fieldValue;
+    this.props.updateLoginInfo(newLoginEntity);
+  }
+
+export const Form = () => {
+    return (
+      <div className="panel-body">
+        <form role="form">
+          <fieldset>
+            <FormField name="login" type="text" text="E-mail" updateFieldValue={this.updateFieldValue.bind(this)} />
+            <FormField name="password" type="password" text="Password" updateFieldValue={this.updateFieldValue.bind(this)} />
+            <input className="btn btn-lg btn-success btn-block" value="Login"
+              onClick={(e) => { this.props.performLogin() } }
+              />
+          </fieldset>
+        </form>
+      </div>
+    );
+}
+```
+- Pay attention to the new _updateFieldValue_ function which will be in charge of 
+receive changes in all the fields within the form and pass it to the parent component as a new LoginEntity
 
 - Pending to implement (easy and discussion): add a red label indicating that login failed.
