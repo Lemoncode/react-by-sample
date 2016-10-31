@@ -39,7 +39,6 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   import * as React from 'react';
 
   interface Props {
-
   }
 
   interface State {
@@ -106,7 +105,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   ],
   ```
 
-- We need to add as well a loder to handle images in _webpackconfig.js
+- We need to add as well a loder to handle images in _webpackconfig.js_:
 
   ```javascript
   {
@@ -122,7 +121,7 @@ something hardcoded in file _src/face.tsx_:
   ```jsx
   import * as React from 'react';
 
-  export const faceComponent = (props : {level : number}) => {
+  export const FaceComponent = (props : {level : number}) => {
     return (
       <div className="somewhat-satisfied"/>
     );
@@ -133,7 +132,7 @@ something hardcoded in file _src/face.tsx_:
 
   ```jsx
   import * as React from 'react';
-  import {FaceComponent} from './face'
+  import {FaceComponent} from './face';
 
   interface Props {
   }
@@ -166,6 +165,8 @@ something hardcoded in file _src/face.tsx_:
 for that in _face.tsx_
 
   ```jsx
+  import * as React from 'react';
+
   export const FaceComponent = (props : {level : number}) => {
 
     function setSatisfactionClass(level : number) {
