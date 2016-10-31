@@ -42,9 +42,9 @@ module.exports = {
         loader: 'style-loader!css-loader'
       },
       {
-      				test: /\.(png|jpg)$/,
-      				exclude: /node_modules/,
-      				loader: 'url-loader?limit=10000'
+        test: /\.(png|jpg)$/,
+        exclude: /node_modules/,
+        loader: 'url-loader?limit=10000'
       },
       // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
       // Using here url-loader and file-loader

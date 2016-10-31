@@ -14,20 +14,21 @@ export class App extends React.Component<Props, State> {
 
     this.state = {satisfactionLevel: 300};
   }
+
   public render() {
-      return (
-       <div>
-         <input type="range"
+    return (
+      <div>
+        <input type="range"
                 min="0"
                 max="500"
                 value={this.state.satisfactionLevel}
                 onChange={(event : any) => this.setState({satisfactionLevel :event.target.value} as State)}
-         />
-         <br/>
-         <span>{this.state.satisfactionLevel}</span>
-         <br/>
-         <FaceComponent level ={this.state.satisfactionLevel}/>
-       </div>
-      );
- }
+        />
+        <br/>
+        <span>{this.state.satisfactionLevel}</span>
+        <br/>
+        <FaceComponent level={this.state.satisfactionLevel}/>
+      </div>
+    );
+  }
 }
