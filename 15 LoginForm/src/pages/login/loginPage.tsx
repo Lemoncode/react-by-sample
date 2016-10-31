@@ -2,7 +2,7 @@ import * as React from "react";
 import {Link} from 'react-router';
 import {Header} from './header';
 import {Form} from './form';
-import {CenteredComponent} from '../common/centered'
+import {CenteredContainer} from '../common/centered'
 import {hashHistory} from 'react-router';
 import {LoginEntity} from '../../model/login';
 import {loginApi} from '../../restApi/login';
@@ -36,13 +36,13 @@ export class LoginPage extends React.Component<Props, State> {
 
   public render() {
     return (
-      <CenteredComponent>
+      <CenteredContainer>
         <Header />
         <Form loginInfo={this.state.loginInfo}
           updateLoginInfo={this.updateLoginEntity.bind(this)}
           performLogin={this.performLogin.bind(this)}
           />
-      </CenteredComponent>
+      </CenteredContainer>
     );
   }
 }

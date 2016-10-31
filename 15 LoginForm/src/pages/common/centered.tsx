@@ -4,7 +4,7 @@ interface Props {
    children? : any;
 }
 
-export const CenteredComponent = (props: Props) => {
+export const CenteredContainer = (props: Props) => {
   return (    
       <div className="container">
           <div className="row">

@@ -9,15 +9,13 @@ interface Props {
    performLogin : () => void;
 }
 
-export class Form extends React.Component<Props, {}> {
-
-  updateFieldValue(fieldName: string, fieldValue: any){
+ function updateFieldValue(fieldName: string, fieldValue: any){
     const newLoginEntity = this.props.loginInfo;
     newLoginEntity[fieldName] = fieldValue;
     this.props.updateLoginInfo(newLoginEntity);
   }
 
-  public render() {
+export const Form = () => {
     return (
       <div className="panel-body">
         <form role="form">
@@ -31,5 +29,4 @@ export class Form extends React.Component<Props, {}> {
         </form>
       </div>
     );
-}
 }

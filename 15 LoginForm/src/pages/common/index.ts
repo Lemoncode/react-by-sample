@@ -1,7 +1,7 @@
-import {CenteredComponent} from './centered'
+import {CenteredContainer} from './centered'
 import {FormField} from './formField'
 
 export {
-  CenteredComponent,
+  CenteredContainer,
   FormField
 }
