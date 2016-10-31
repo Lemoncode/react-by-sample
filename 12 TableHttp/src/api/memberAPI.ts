@@ -13,8 +13,8 @@ class MemberAPI {
     return fetch(gitHubMembersUrl)
       .then((response) => this.checkStatus(response))
       .then((response) => this.parseJSON(response))
-      .then((data) => this.resolveMembers(data))
-	}
+      .then((data) => this.resolveMembers(data));
+  }
 
   private checkStatus(response : Response) : Promise<Response> {
     if (response.status >= 200 && response.status < 300) {
