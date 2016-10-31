@@ -20,7 +20,11 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 ## Steps to build it
 
-- Copy the content from _11 TableMock_ and execute `npm install`.
+- Copy the content from _11 TableMock_ and execute:
+
+  ```
+  npm install
+  ```
 
 - Let's add the dependencies to manage promises and typescript definitions
 
@@ -109,4 +113,10 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
       this.setState({members: members})
     );
   }
+  ```
+
+- Let's give a try and check the results
+
+  ```
+  npm start
   ```
