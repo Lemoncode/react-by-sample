@@ -2,30 +2,34 @@
 
 In this sample we will introduce a basic React concept, handling State.
 
-In this case scenario we will provide a default userName but let the user update
+In this scenario we will provide a default username but let the user update
 it.
 
+We will take as a starting point sample _02 Properties_:
 
-We will take a startup point sample _02 Properties_:
+## Summary steps:
 
-Summary steps:
-
-- An app component that will hold an state, this state will contain the current
-_username_ (by default assigned to "no user" value).
-- This app component will render the _HelloWorld_ component.
-- We will
+- Create an _App_ component that will hold the state, this state will contain the current
+username (by default assigned to "defaultUserName" value). 
+This _App_ component will render the _Hello_ component. At first we will create a simple stateless
+_App_ component.
+- Update _main.tsx_ file to include our _App_ component.
+- Change _App_ component to a statful class component to hold the _userName_ state.
+- Create a _NameEdit_ component to let the user change the username. This will change the _App_ state
+using a function from _App_.
+- Check everything is working properly.
 
 ## Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Install [Node.js and npm](https://nodejs.org) if they are not already installed on your computer.
 
 > Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
-- Copy the content from _02 Properties_ and execute _npm install_.
+- Copy the content from _02 Properties_ and execute `npm install`.
 
-- Let's create an _app.tsx_ component (this component will display the _hello_world_ component).
+- Let's create an _App_ component under a new file named _app.tsx_ (this component will display the _Hello_ component).
 
 ```javascript
 import * as React from 'react';
@@ -38,7 +42,7 @@ export const App = () => {
 }
 ```
 
-- Let's update _main.tsx_ just to use the _app_ component that we have recently created.
+- Let's update _main.tsx_ just to use the _App_ component that we have recently created.
 
 ```javascript
 import * as React from 'react';
@@ -58,7 +62,7 @@ npm start
 
 - It's time to revisit _app.tsx_, since we want to store the name of the user and let the
 user updated it, let's move this component to a class stateful component and define
-an state, including _username_ and pass this value to the _helloword_ component.
+a state, including _userName_ and pass this value to the _Hello_ component.
 
 ```javascript
 import * as React from 'react';
@@ -76,60 +80,58 @@ export class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = {userName: "defaultUserName"};
+    this.state = {userName: 'defaultUserName'};
   }
 
   public render() {
-      return (
-       <HelloComponent userName={this.state.userName} />
-      );
- }
+    return (
+      <HelloComponent userName={this.state.userName} />
+    );
+  }
 }
 ```
 
-- Again, we can make a quick check point to test that everything is working as expected.
+- Again, we can do a quick check to test that everything is working as expected.
 
 ```
 npm start
 ```
 
 - Now it's time to create an _NameEdit_ component, this component will let the user
-update his userName and will notify with a callback to the parent control whenver
-the _username_ gets updated.
+update his username and will notify with a callback to the parent control whenever
+the _userName_ gets updated.
 
 ```javascript
 import * as React from 'react';
 
-export const NameEditComponent = (props: {userName : string, onChange : (event : any) => any}) => {
+export const NameEditComponent = (props : { userName : string, onChange : (event : any) => any }) => {
   return (
     <div>
       <label>Update Name:</label>
-      <input value={this.props.userName} onChange={this.props.onChange}/>
+      <input value={props.userName} onChange={props.onChange} />
     </div>
   );
 }
 ```
 
-- In the app.tsx let's add a callback and proper configure it.
+- In the _app.tsx_ file let's add a function to set the changed _userName_ in the state.
 
 ```javascript
 import * as React from 'react';
 import {HelloComponent} from './hello';
 import {NameEditComponent} from './nameEdit';
 
-interface Props {
-
-}
+interface Props {}
 
 interface State {
   userName : string;
 }
 
 export class App extends React.Component<Props, State> {
-  constructor(props: Props) {
+  constructor(props : Props) {
     super(props);
 
-    this.state = {userName: "defaultUserName"};
+    this.state = {userName: 'defaultUserName'};
   }
 
   setUsernameState(event) {
@@ -138,17 +140,18 @@ export class App extends React.Component<Props, State> {
   }
 
   public render() {
-      return (
-       <div>
+    return (
+      <div>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-       </div>
-      );
- }
+      </div>
+    );
+  }
 }
+
 ```
 
-- Now let's test the final sample
+- Finally let's test the final sample.
 
 ```
 npm start

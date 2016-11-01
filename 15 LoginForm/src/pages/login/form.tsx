@@ -1,6 +1,7 @@
 import * as React from "react"
 import {hashHistory} from 'react-router'
 import {LoginEntity} from '../../model/login';
+import {FormField} from '../common/formField';
 
 interface Props {
    loginInfo : LoginEntity;
@@ -8,30 +9,24 @@ interface Props {
    performLogin : () => void;
 }
 
-export const Form = (props: Props) => {
+ function updateFieldValue(fieldName: string, fieldValue: any){
+    const newLoginEntity = this.props.loginInfo;
+    newLoginEntity[fieldName] = fieldValue;
+    this.props.updateLoginInfo(newLoginEntity);
+  }
 
-
-  return (
-    <div className="panel-body">
-      <form role="form">
-        <fieldset>
-          <div className="form-group">
-      		  <input className="form-control" placeholder="E-mail" name="email" type="text"
-              value={props.loginInfo.login}
-              onChange={(e : any) => props.updateLoginInfo({login: e.target.value, password: props.loginInfo.password })}
-            />
-      		</div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Password" name="password" type="password"
-              value={props.loginInfo.password}
-              onChange={(e : any) => props.updateLoginInfo({login: props.loginInfo.login, password: e.target.value })}
-            />
-          </div>
-          <input className="btn btn-lg btn-success btn-block" value="Login"
-            onClick={(e) => {props.performLogin()}}
-          />
-        </fieldset>
-      </form>
-    </div>
-  );
+export const Form = () => {
+    return (
+      <div className="panel-body">
+        <form role="form">
+          <fieldset>
+            <FormField name="login" type="text" text="E-mail" updateFieldValue={this.updateFieldValue.bind(this)} />
+            <FormField name="password" type="password" text="Password" updateFieldValue={this.updateFieldValue.bind(this)} />
+            <input className="btn btn-lg btn-success btn-block" value="Login"
+              onClick={(e) => { this.props.performLogin() } }
+              />
+          </fieldset>
+        </form>
+      </div>
+    );
 }

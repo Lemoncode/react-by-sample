@@ -1,7 +1,6 @@
-import {} from 'core-js'
-import {} from 'whatwg-fetch';
 import {MemberEntity} from '../model/member';
-
+import {} from 'core-js';
+import {} from 'whatwg-fetch';
 
 // Sync mock data API, inspired from:
 // https://gist.github.com/coryhouse/fd6232f95f9d601158e4
@@ -12,10 +11,10 @@ class MemberAPI {
     const gitHubMembersUrl : string = 'https://api.github.com/orgs/lemoncode/members';
 
     return fetch(gitHubMembersUrl)
-    .then((response) => this.checkStatus(response))
-    .then((response) => this.parseJSON(response))
-    .then((data) => this.resolveMembers(data))
-	}
+      .then((response) => this.checkStatus(response))
+      .then((response) => this.parseJSON(response))
+      .then((data) => this.resolveMembers(data));
+  }
 
   private checkStatus(response : Response) : Promise<Response> {
     if (response.status >= 200 && response.status < 300) {
@@ -41,7 +40,6 @@ class MemberAPI {
 
       return member;
     });
-
 
     return Promise.resolve(members);
   }

@@ -10,17 +10,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/core-js": "^0.9.34",
+    "@types/whatwg-fetch": "0.0.32",
+    "core-js": "^2.4.1",
     "typescript": "^2.0.3",
     "webpack": "^1.13.2",
     "webpack-devserver": "0.0.6"
   },
   "dependencies": {
-    "@types/core-js": "^0.9.34",
     "@types/react": "^0.14.41",
     "@types/react-dom": "^0.14.18",
-    "@types/whatwg-fetch": "0.0.32",
     "bootstrap": "^3.3.7",
-    "core-js": "^2.4.1",
     "css-loader": "^0.25.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",

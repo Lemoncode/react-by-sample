@@ -14,89 +14,109 @@ Summary steps:
 
 ## Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already installed on your computer.
 
 > Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
-- Copy the content from _11 TableMock_ and execute _npm install_.
+- Copy the content from _11 TableMock_ and execute:
+
+  ```
+  npm install
+  ```
 
 - Let's add the dependencies to manage promises and typescript definitions
 
-```
-npm install core-js --save-dev
-```
+ - **[core-js](https://github.com/zloirock/core-js)**: includes polyfills for ECMAScript 5, ECMAScript 6: **promises**, symbols, collections, iterators, typed arrays, ECMAScript 7+ proposals, setImmediate, etc.
 
-```
-npm whatwg-fetch --save
-```
+    ```
+    npm install core-js --save-dev
+    ```
 
-```
-npm install @types/core-js --save-dev
-```
-```
-npm install @types/whatwg-fetch --save-dev
-```
+ - **[whatwg-fetch](https://github.com/github/fetch)**: AJAX calls.
 
-- Let's remove the fil _mermberMockData.tsx_
+    ```
+    npm install whatwg-fetch --save
+    ```
 
-- Let's replace _memberAPI_ load members with the fetch / promise one.
+ - Typescript definitions for core-js and whatwg-fetch.
 
-```javascript
-import {MemberEntity} from '../model/member';
-import {} from 'whatwg-fetch';
+    ```
+    npm install @types/core-js --save-dev
+    npm install @types/whatwg-fetch --save-dev
+    ```
 
-// Sync mock data API, inspired from:
-// https://gist.github.com/coryhouse/fd6232f95f9d601158e4
-class MemberAPI {
+- Let's remove the file _mermberMockData.ts_ in _src/api_ directory.
 
-  // Just return a copy of the mock data
-  getAllMembers() : Array<MemberEntity> {
-    const gitHubMembersUrl : string = 'https://api.github.com/orgs/lemoncode/members';
+- Let's replace _memberAPI_ load members with the fetch / promise one:
 
-    return fetch(gitHubMembersUrl)
-    .then((response) => this.checkStatus(response))
-    .then((response) => this.parseJSON(response))
-    .then((data) => this.resolveMembers(data))
-	}
+  ```javascript
+  import {MemberEntity} from '../model/member';
+  import {} from 'core-js';
+  import {} from 'whatwg-fetch';
 
-  private checkStatus(response : Response) : Promise<Response> {
-    if (response.status >= 200 && response.status < 300) {
-      return Promise.resolve(response);
-    } else {
-      let error = new Error(response.statusText);
-      throw error;
+  // Sync mock data API, inspired from:
+  // https://gist.github.com/coryhouse/fd6232f95f9d601158e4
+  class MemberAPI {
+
+    // Just return a copy of the mock data
+    getAllMembers() : Promise<MemberEntity[]> {
+      const gitHubMembersUrl : string = 'https://api.github.com/orgs/lemoncode/members';
+
+      return fetch(gitHubMembersUrl)
+        .then((response) => this.checkStatus(response))
+        .then((response) => this.parseJSON(response))
+        .then((data) => this.resolveMembers(data));
+    }
+
+    private checkStatus(response : Response) : Promise<Response> {
+      if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(response);
+      } else {
+        let error = new Error(response.statusText);
+        throw error;
+      }
+    }
+
+    private parseJSON(response : Response) : any {
+      return response.json();
+    }
+
+    private resolveMembers (data : any) : Promise<MemberEntity[]> {
+
+      const members = data.map((gitHubMember) => {
+        var member : MemberEntity = new MemberEntity();
+
+        member.id = gitHubMember.id;
+        member.login = gitHubMember.login;
+        member.avatar_url = gitHubMember.avatar_url;
+
+        return member;
+      });
+
+      return Promise.resolve(members);
     }
   }
 
-  private parseJSON(response : Response) : any {
-    return response.json();
+  export const memberAPI = new MemberAPI();
+  ```
+
+- Now it's time to update our _membersTable_ component. <br />
+  Let's consume the new promise base method to retrieve the users:
+
+  ```jsx
+  // Standard react lifecycle function:
+  // https://facebook.github.io/react/docs/component-specs.html
+  public componentWillMount() {
+    memberAPI.getAllMembers().then((members) =>
+      this.setState({members: members})
+    );
   }
+  ```
 
-  private resolveMembers (data : any) : Promise<MemberEntity[]> {
+- Let's give a try and check the results
 
-    const members = data.map((gitHubMember) => {
-      var member : MemberEntity = new MemberEntity();
-
-      member.id = gitHubMember.id;
-      member.login = gitHubMember.login;
-      member.avatar_url = gitHubMember.avatar_url;
-
-      return member;
-    });
-
-
-    return Promise.resolve(members);
-  }
-}
-
-export const memberAPI = new MemberAPI();
-```
-
-- Now it's time to update our _membersTable_ component, let's consume the new
-promise base method to retrieve the users.
-
-```javascript
-
-```
+  ```
+  npm start
+  ```
