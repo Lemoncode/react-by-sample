@@ -2,37 +2,24 @@ import * as React from 'react';
 
 interface Props {
   editingUserName : string;
-  onEditingNameUpdated : (newEditingName : string) => any;
+  onEditingNameUpdated : (newEditingName : string) => void;
   onNameUpdateRequest : () => void;
 }
 
-interface State {
-
-}
-
-// Discuss here, use just {}
-export class NameEditComponent extends React.Component<Props, State> {
+export class NameEditComponent extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
   }
 
-  // this could be just placed inline in the render
-  onChange(event : any) : any {
-    this.props.onEditingNameUpdated(event.target.value);
+  render() {
+    return (
+      <div>
+        <label>Update Name:</label>
+        <input value={this.props.editingUserName} 
+          onChange={(e) : void => this.props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
+        <input type="submit" value="Change" className="btn btn-default" 
+          onClick={this.props.onNameUpdateRequest} />
+      </div>
+    );
   }
-
-
-  onNameSubmit(event : any) : any {
-    this.props.onNameUpdateRequest();
-  }
-
-  public render() {
-      return (
-        <div>
-          <label>Update Name:</label>
-          <input value={this.props.editingUserName} onChange={this.onChange.bind(this)}/>
-          <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit.bind(this)} />
-        </div>
-      );
- }
 }

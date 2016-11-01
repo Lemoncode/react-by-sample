@@ -2,40 +2,36 @@ import * as React from 'react';
 import {HelloComponent} from './hello';
 import {NameEditComponent} from './nameEdit';
 
-interface Props {
-
-}
-
 interface State {
   userName : string;
   editingUserName : string;
 }
 
-export class App extends React.Component<Props, State> {
-  constructor(props: Props) {
+export class App extends React.Component<{}, State> {
+  constructor(props) {
     super(props);
 
-    const defaultUserName = "defaultUserName";
+    const defaultUserName = 'defaultUserName';
     this.state = {userName: defaultUserName, editingUserName: defaultUserName};
   }
 
-  setUsernameState() {
+  setUsernameState() : void {
     this.setState({userName: this.state.editingUserName} as State);
   }
 
-  updateEditingName(editingName : string) {
+  updateEditingName(editingName : string) : void {
     this.setState({editingUserName: editingName} as State);
   }
 
-  public render() {
-      return (
-       <div>
+  render() {
+    return (
+      <div>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent
           editingUserName={this.state.editingUserName}
           onEditingNameUpdated={this.updateEditingName.bind(this)}
           onNameUpdateRequest={this.setUsernameState.bind(this)} />
-       </div>
-      );
- }
+      </div>
+    );
+  }
 }
