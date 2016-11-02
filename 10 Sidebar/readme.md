@@ -1,4 +1,4 @@
-# 03 Sidebar
+# 10 Sidebar
 
 In this sample we are going to implement a single sidebar.
 
