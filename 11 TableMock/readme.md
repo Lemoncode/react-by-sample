@@ -1,4 +1,4 @@
-# 03 State
+# 11 TableMock
 
 Let's render a table and use a child component to render each row.
 
