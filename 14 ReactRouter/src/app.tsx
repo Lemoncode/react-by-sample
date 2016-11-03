@@ -6,12 +6,12 @@ export class App extends React.Component<{}, {}> {
   }
 
   public render() {
-      return (
-       <div>
+    return (
+      <div>
         <h1>App router sample</h1>
         <br/>
         {this.props.children}
-       </div>
-      );
- }
+      </div>
+    );
+  }
 }

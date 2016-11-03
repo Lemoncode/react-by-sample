@@ -1,8 +1,8 @@
 # 14 ReactRouter
 
-In this sample we will start using React-Router (spa navigation).
+In this sample we will start using React-Router (<acronym title="Single Page Application">SPA</acronym> navigation).
 
-In this case scenario we will provide a default userName but let the user update
+In this case we will provide a default `userName` but let the user update
 it.
 
 
@@ -11,149 +11,152 @@ We will take a startup point sample _03 State_:
 Summary steps:
 
 - Let's make first some cleanup: remove _hello.tsx_ and _nameEdit.tsx_
-- Let's create two components PageA and PageB
-- Let's install the dependencies _react-router_ and typescript definitions for this.
+- Let's create two components _PageA_ and _PageB_
+- Let's install the dependencies to _react-router_ and typescript definitions for this.
 - Let's define the routing.
-- Let's define a navigation from PageA to PageB.
-- Let's define a navigation from PageB to PageA
+- Let's define a navigation from _PageA_ to _PageB_.
+- Let's define a navigation from _PageB_ to _PageA_.
 
 ## Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already installed on your computer.
 
 > Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
-- Copy the content from _03 State_ and execute _npm install_.
+- Copy the content from _03 State_ and execute:
 
-- Let's make some cleanup (remove _hello.tsx_ and _nameEdit.tsx_).
+  ```
+  npm install
+  ```
 
-- Let's create a component called PageA:
+- Let's make some cleanup (remove _src/hello.tsx_ and _src/nameEdit.tsx_ files).
 
-```javascript
-import * as React from "react"
+- Let's create a component called _PageA_ as _src/pageA.tsx_:
 
-export const PageA = () => {
-  return (
-    <div>
-      <h2> Hello from page A</h2>
-    </div>
-  )
-}
-```
+  ```jsx
+  import * as React from "react"
 
-- Let's create a component called PageB:
+  export const PageA = () => {
+    return (
+      <div>
+        <h2>Hello from page A</h2>
+      </div>
+    )
+  }
+  ```
 
-```javascript
-import * as React from "react"
+- Let's create a component called _PageB_ as _src/pageB.tsx_:
 
-export const PageB = () => {
-  return (
-    <div>
-      <h2> Hello from page B</h2>
-    </div>
-  )
-}
-```
+  ```jsx
+  import * as React from "react"
+
+  export const PageB = () => {
+    return (
+      <div>
+        <h2>Hello from page B</h2>
+      </div>
+    )
+  }
+  ```
 
 - Let's install the dependencies _react-router_ and typescript definitions for this.
 
-```
-npm install react-router --save
-```
-```
-npm install @types/react-router --save
-```
-> Note at the time of this writing, we install react-roter typescript definitions 2.0.37 (2.0.38 seemed to had issues)
+  ```
+  npm install react-router --save
+  npm install @types/react-router --save
+  npm install @types/history --save
+  ```
+  > Note at the time of this writing, we install react-roter typescript definitions 2.0.37 (2.0.38 seemed to had issues)
 
-- Let's define the routing in main.tsx_
+- Let's define the routing in _main.tsx_:
 
-```javascript
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {App} from './app';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
-import {PageA} from './pageA';
-import {PageB} from './pageB';
+  ```jsx
+  import * as React from 'react';
+  import * as ReactDOM from 'react-dom';
+  import {App} from './app';
+  import {Router, Route, IndexRoute, hashHistory} from 'react-router';
+  import {PageA} from './pageA';
+  import {PageB} from './pageB';
 
-ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route  path="/" component={App} >
-      <IndexRoute component={PageA}/>
-      <Route path="/pageA" component={PageA} />
-      <Route path="/pageB"  component={PageB} />
-    </Route>
-  </Router>
+  ReactDOM.render(
+    <Router history={hashHistory}>
+      <Route  path="/" component={App} >
+        <IndexRoute component={PageA}/>
+        <Route path="/pageA" component={PageA} />
+        <Route path="/pageB" component={PageB} />
+      </Route>
+    </Router>,
+    document.getElementById('root')
+  );
+  ```
 
-  , document.getElementById('root'));
-```
+- Let's update _app.tsx_ and indicate a place holder to draw the pages.
 
-- Let's update app.tsx and indicate a place holder to draw the pages.
+  ```jsx
+  import * as React from 'react';
 
-```javascript
-import * as React from 'react';
+  export class App extends React.Component<{}, {}> {
+    constructor(props) {
+      super(props);
+    }
 
-export class App extends React.Component<{}, {}> {
-  constructor(props) {
-    super(props);
-  }
-
-  public render() {
+    public render() {
       return (
-       <div>
-        <h1>App router sample</h1>
-        <br/>
-        {this.props.children}
-       </div>
+        <div>
+          <h1>App router sample</h1>
+          <br/>
+          {this.props.children}
+        </div>
       );
- }
-}
-```
+    }
+  }
+  ```
 
 - It's time to check that we are following the right track:
 
-```
-npm start
-```
+  ```
+  npm start
+  ```
 
-- Let's define a navigation from PageA to PageB (_pageA.tsx_).
+- Let's define a navigation from PageA to PageB (_src/pageA.tsx_).
 
-```
-import * as React from "react"
-import {Link} from 'react-router';
+  ```jsx
+  import * as React from "react"
+  import {Link} from "react-router";
 
-export const PageA = () => {
-  return (
-    <div>
-      <h2> Hello from page A</h2>
-      <br/>
-      <Link to="/pageB">Navigate to Page B</Link>
-    </div>
-  )
-}
-```
+  export const PageA = () => {
+    return (
+      <div>
+        <h2> Hello from page A</h2>
+        <br/>
+        <Link to="/pageB">Navigate to Page B</Link>
+      </div>
+    )
+  }
+  ```
 
 - Let's define a navigation from PageB to PageA  (_pageA.tsx_)
 
-```
-import * as React from "react"
-import {Link} from 'react-router';
+  ```jsx
+  import * as React from "react"
+  import {Link} from 'react-router';
 
-export const PageB = () => {
-  return (
-    <div>
-      <h2> Hello from page B</h2>
-      <br/>
-      <Link to="/pageA">Navigate to Page B</Link>
-    </div>
-  )
-}
-```
+  export const PageB = () => {
+    return (
+      <div>
+        <h2> Hello from page B</h2>
+        <br/>
+        <Link to="/pageA">Navigate to Page B</Link>
+      </div>
+    )
+  }
+  ```
 
 
 - Let's run the app and check that the navigation links are working
 
-```
-npm start
-```
+  ```
+  npm start
+  ```
