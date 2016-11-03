@@ -82,10 +82,10 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
   ReactDOM.render(
     <Router history={hashHistory}>
-      <Route  path="/" component={App} >
+      <Route  path="/" component={App}>
         <IndexRoute component={PageA}/>
-        <Route path="/pageA" component={PageA} />
-        <Route path="/pageB" component={PageB} />
+        <Route path="/pageA" component={PageA}/>
+        <Route path="/pageB" component={PageB}/>
       </Route>
     </Router>,
     document.getElementById('root')
@@ -124,12 +124,12 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
   ```jsx
   import * as React from "react"
-  import {Link} from "react-router";
+  import {Link} from 'react-router';
 
   export const PageA = () => {
     return (
       <div>
-        <h2> Hello from page A</h2>
+        <h2>Hello from page A</h2>
         <br/>
         <Link to="/pageB">Navigate to Page B</Link>
       </div>
@@ -146,7 +146,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   export const PageB = () => {
     return (
       <div>
-        <h2> Hello from page B</h2>
+        <h2>Hello from page B</h2>
         <br/>
         <Link to="/pageA">Navigate to Page B</Link>
       </div>
