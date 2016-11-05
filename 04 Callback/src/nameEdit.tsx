@@ -23,7 +23,7 @@ export class NameEditComponent extends React.Component<Props, State> {
   }
 
   onNameSubmit(event: any): any {
-        this.props.onNameUpdated(this.state.editingName);
+    this.props.onNameUpdated(this.state.editingName);
   }
 
   public render() {

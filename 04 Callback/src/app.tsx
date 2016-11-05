@@ -4,7 +4,6 @@ import { HelloComponent } from './hello';
 import { NameEditComponent } from './nameEdit';
 
 interface Props {
-
 }
 
 interface State {
