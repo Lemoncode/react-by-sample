@@ -20,29 +20,33 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 ## Steps to build it
 
-- Copy the content from _01 HelloReact_ and execute `npm install`.
+- Copy the content from _01 HelloReact_ and execute:
 
-- Let's update **hello.tsx** in order to reflect the new property added (_userName_) and display it using interpolation (_{userName}_):
+  ```
+  npm install
+  ```
 
- ```javascript
- import * as React from 'react';
+- Let's update _hello.tsx_ in order to reflect the new property added (_userName_) and display it using interpolation (_{userName}_):
 
- export const HelloComponent = (props: {userName : string}) => {
-   return (
-     <h2>Hello user: {props.userName} !</h2>
-   );
- }
- ```
+  ```jsx
+  import * as React from 'react';
 
-- Let's update **main.tsx** and inform the _userName_ propery value:
+  export const HelloComponent = (props: {userName : string}) => {
+    return (
+      <h2>Hello user: {props.userName} !</h2>
+    );
+  }
+  ```
 
- ```javascript
- import * as React from 'react';
- import * as ReactDOM from 'react-dom';
- import {HelloComponent} from './hello';
+- Let's update _main.tsx_ and inform the _userName_ propery value:
 
- ReactDOM.render(
-   <HelloComponent userName="John" />
-   , document.getElementById('root')
- );
- ```
+  ```jsx
+  import * as React from 'react';
+  import * as ReactDOM from 'react-dom';
+  import {HelloComponent} from './hello';
+
+  ReactDOM.render(
+    <HelloComponent userName="John" />,
+    document.getElementById('root')
+  );
+  ```
