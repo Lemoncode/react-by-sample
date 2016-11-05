@@ -37,79 +37,79 @@ Install [Node.js and npm](https://nodejs.org/en/) if they are not already instal
 - Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it
 from the state.
 
-```javascript
-import * as React from 'react';
+  ```jsx
+  import * as React from 'react';
 
-interface Props {
-  editingUserName : string;
-  onEditingNameUpdated : (newEditingName : string) => void;
-  onNameUpdateRequest : () => void;
-}
-
-export class NameEditComponent extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
+  interface Props {
+    editingUserName : string;
+    onEditingNameUpdated : (newEditingName : string) => void;
+    onNameUpdateRequest : () => void;
   }
 
-  render() {
-    return (
-      <div>
-        <label>Update Name:</label>
-        <input value={this.props.editingUserName} 
-          onChange={(e) : void => this.props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
-        <input type="submit" value="Change" className="btn btn-default" 
-          onClick={this.props.onNameUpdateRequest} />
-      </div>
-    );
-  }
-}
+  export class NameEditComponent extends React.Component<Props, {}> {
+    constructor(props: Props) {
+      super(props);
+    }
 
-```
+    render() {
+      return (
+        <div>
+          <label>Update Name:</label>
+          <input value={this.props.editingUserName}
+            onChange={(e) : void => this.props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
+          <input type="submit" value="Change" className="btn btn-default"
+            onClick={this.props.onNameUpdateRequest} />
+        </div>
+      );
+    }
+  }
+
+  ```
 
 - Update _app.tsx_ to hold the new editing property in the state, pass it to the
 children control and perform the proper update on the callback event from the
 child control.
 
 
-```javascript
-import * as React from 'react';
-import {HelloComponent} from './hello';
-import {NameEditComponent} from './nameEdit';
+  ```jsx
+  import * as React from 'react';
+  import {HelloComponent} from './hello';
+  import {NameEditComponent} from './nameEdit';
 
-interface State {
-  userName : string;
-  editingUserName : string;
-}
-
-export class App extends React.Component<{}, State> {
-  constructor(props) {
-    super(props);
-
-    const defaultUserName = 'defaultUserName';
-    this.state = {userName: defaultUserName, editingUserName: defaultUserName};
+  interface State {
+    userName : string;
+    editingUserName : string;
   }
 
-  setUsernameState() : void {
-    this.setState({userName: this.state.editingUserName} as State);
-  }
+  export class App extends React.Component<{}, State> {
+    constructor(props) {
+      super(props);
 
-  updateEditingName(editingName : string) : void {
-    this.setState({editingUserName: editingName} as State);
-  }
+      const defaultUserName = 'defaultUserName';
+      this.state = {userName: defaultUserName, editingUserName: defaultUserName};
+    }
 
-  render() {
-    return (
-      <div>
-        <HelloComponent userName={this.state.userName} />
-        <NameEditComponent
-          editingUserName={this.state.editingUserName}
-          onEditingNameUpdated={this.updateEditingName.bind(this)}
-          onNameUpdateRequest={this.setUsernameState.bind(this)} />
-      </div>
-    );
-  }
-}
-```
+    setUsernameState() : void {
+      this.setState({userName: this.state.editingUserName} as State);
+    }
 
-Finally we can check the sample is working as _04 Callback_ executing from the command line 
+    updateEditingName(editingName : string) : void {
+      this.setState({editingUserName: editingName} as State);
+    }
+
+    render() {
+      return (
+        <div>
+          <HelloComponent userName={this.state.userName} />
+          <NameEditComponent
+            editingUserName={this.state.editingUserName}
+            onEditingNameUpdated={this.updateEditingName.bind(this)}
+            onNameUpdateRequest={this.setUsernameState.bind(this)} />
+        </div>
+      );
+    }
+  }
+  ```
+
+Finally we can check the sample is working as _04 Callback_ executing from the command line
 `npm start` and opening [http://localhost:8080](http://localhost:8080).
