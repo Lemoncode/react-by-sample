@@ -35,7 +35,7 @@ from a stateless component into a class component, then we will add some refacto
 
  The `nameEdit.tsx` file should looks like this:
 
-  ```tsx
+  ```jsx
   import * as React from 'react';
 
   interface Props {
