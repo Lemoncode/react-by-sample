@@ -26,90 +26,88 @@ and make this your current folder.
 
 - Install the npm packages described in the `package.json` and verify that it works:
 
- ```bash
- $ npm install
- ```
+  ```bash
+  npm install
+  ```
 
 - Since we are going to use an internal handler, we'll transform the `NameEditComponent`
 from a stateless component into a class component, then we will add some refactor on the naming.
 
  The `nameEdit.tsx` file should looks like this:
 
- ```javascript
- import * as React from 'react';
+  ```tsx
+  import * as React from 'react';
 
- interface Props {
-   initialUserName: string;
-   onNameUpdated: (newName: string) => any;
- }
+  interface Props {
+    initialUserName: string;
+    onNameUpdated: (newName: string) => any;
+  }
 
- interface State {
-   editingName: string;
- }
+  interface State {
+    editingName: string;
+  }
 
- export class NameEditComponent extends React.Component<Props, State> {
+  export class NameEditComponent extends React.Component<Props, State> {
 
-   constructor(props: Props) {
-     super(props);
-     // Watch out what would happen if we get this user name via an AJAX callback
-     // you will find a different implementatin on 05 sample
-     this.state = {editingName: this.props.initialUserName};
-   }
+    constructor(props: Props) {
+      super(props);
+      // Watch out what would happen if we get this user name via an AJAX callback
+      // you will find a different implementatin on 05 sample
+      this.state = {editingName: this.props.initialUserName};
+    }
 
-   onChange(event: any): any {
-     this.setState({editingName: event.target.value} as State);
-   }
+    onChange(event: any): any {
+      this.setState({editingName: event.target.value} as State);
+    }
 
-   onNameSubmit(event: any): any {
-         this.props.onNameUpdated(this.state.editingName);
-   }
+    onNameSubmit(event: any): any {
+      this.props.onNameUpdated(this.state.editingName);
+    }
 
-   public render() {
-     return (
-       <div>
-         <label>Update Name:</label>
-         <input value={this.state.editingName} onChange={this.onChange.bind(this)} />
-         <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit.bind(this)} />
-       </div>
-     );
-   }
-
- }
- ```
+    public render() {
+      return (
+        <div>
+          <label>Update Name:</label>
+          <input value={this.state.editingName} onChange={this.onChange.bind(this)} />
+          <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit.bind(this)} />
+        </div>
+      );
+    }
+  }
+  ```
 
 - Let's wire this up in the `app.tsx` file.
 
- ```javascript
- export class App extends React.Component<Props, State> {
+  ```jsx
+  export class App extends React.Component<Props, State> {
 
-   constructor(props: Props) {
-     super(props);
-     this.state = {userName: "defaultUserName"};
-   }
+    constructor(props: Props) {
+      super(props);
+      this.state = {userName: "defaultUserName"};
+    }
 
-   setUsernameState(newName: string) {
-     this.setState({userName: newName});
-   }
+    setUsernameState(newName: string) {
+      this.setState({userName: newName});
+    }
 
-   public render() {
-     return (
-       <div>
-         <HelloComponent userName={this.state.userName} />
-         <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState.bind(this)} />
-       </div>
-     );
-   }
-
- }
- ```
+    public render() {
+      return (
+        <div>
+          <HelloComponent userName={this.state.userName} />
+          <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState.bind(this)} />
+        </div>
+      );
+    }
+  }
+  ```
 
  Now we've got a clear event, strongly typed and simplified (straight forward).
 
 - Let's give it a try:
 
- ```bash
- $ npm start
- ```
+  ```bash
+  npm start
+  ```
 
 - Then, load http://localhost:8080/ in a browser to see the output.
 
