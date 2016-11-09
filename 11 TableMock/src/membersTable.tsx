@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {MemberEntity} from './model/member';
 import {memberAPI} from './api/memberAPI';
-import {MemberRow} from './memberRow';
+import {MemberRowComponent} from './memberRow';
 
-interface Props extends React.Props<MembersTable> {
+interface Props extends React.Props<MembersTableComponent> {
 }
 
 // We define members as a state (the compoment holding this will be a container
@@ -13,7 +13,7 @@ interface State {
 }
 
 // Nice tsx guide: https://github.com/Microsoft/TypeScript/wiki/JSX
-export class MembersTable extends React.Component<Props, State> {
+export class MembersTableComponent extends React.Component<Props, State> {
 
   constructor(props : Props){
         super(props);
@@ -31,7 +31,7 @@ export class MembersTable extends React.Component<Props, State> {
    public render() {
 
        return (
-        <div className="row">
+        <div className="row-no-margin">
           <h2> Members Page</h2>
           <table className="table">
             <thead>
@@ -50,7 +50,7 @@ export class MembersTable extends React.Component<Props, State> {
             <tbody>
               {
                 this.state.members.map((member : MemberEntity) =>
-                  <MemberRow key={member.id} member = {member}/>
+                  <MemberRowComponent member = {member}/>
                 )
               }
             </tbody>

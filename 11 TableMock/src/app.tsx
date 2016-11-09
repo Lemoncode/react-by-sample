@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {MembersTable} from './membersTable';
+import {MembersTableComponent} from './membersTable';
 
 interface State {
   userName : string;
@@ -8,8 +8,8 @@ interface State {
 export class App extends React.Component<{}, State> {
   public render() {
       return (
-       <div>
-        <MembersTable/>
+       <div className="col-xs-12">
+        <MembersTableComponent/>
        </div>
       );
  }

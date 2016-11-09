@@ -1,10 +1,11 @@
 {
-  "name": "samplereact",
+  "name": "11TableMock",
   "version": "1.0.0",
   "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-devserver --inline",
+    "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

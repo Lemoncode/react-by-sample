@@ -11,7 +11,7 @@ Summary steps:
 - Define a model entity (we will call it _member_).
 - Define a fake api (to take thing simple we will just make it synchronous)
 - We will row component, we will call it _memberRow_.
-- Create a table component, we will call it _memberTable_ and make use of _memberRow?
+- Create a table component, we will call it _memberTable_ and make use of _memberRow
 
 
 ## Prerequisites
@@ -24,7 +24,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 - Copy the content from _03 State_ and execute _npm install_.
 
-- Let's define a model entity in _src/model/member.tsx
+- Let's define a model entity in _src/model/member.ts_:
 
 ```javascript
 export default class MemberEntity {
@@ -40,11 +40,11 @@ export default class MemberEntity {
 }
 ```
 
-- Let's create some mock data:
-
-import {MemberEntity} from '../model/member';
+- Let's create some mock data  in _src/api/memberMockData.ts_:
 
 ```javascript
+import {MemberEntity} from '../model/member';
+
 var	MembersMockData : MemberEntity[] =
 	[
 		{
@@ -62,7 +62,7 @@ var	MembersMockData : MemberEntity[] =
   export default MembersMockData;
 ```
 
-- Define a fake api (to take thing simple we will just make it synchronous)
+- Define a fake api (to take thing simple we will just make it synchronous) in _src/api/memberAPI.ts_:
 
 ```javascript
 import {MemberEntity} from '../model/member';
@@ -82,7 +82,7 @@ class MemberAPI {
 	}
 }
 
-export default new MemberAPI();
+export const memberAPI = new MemberAPI();
 ```
 
 - Now it's time jump into the interesting part, let's delete _hello.tsx_ and _nameEdit.tsx_.
@@ -93,17 +93,12 @@ export default new MemberAPI();
 import * as React from 'react';
 import {MemberEntity} from './model/member';
 
-
-interface Props  {
-  member : MemberEntity;
-}
-
-export const MemberRow = (props: Props) => {
+export const MemberRow = (props: {member : MemberEntity}) => {
 
      return (
        <tr>
          <td>
-           <img src={props.member.avatar_url} className="avatar"/>
+           <img src={props.member.avatar_url} style ={{maxWidth: '150px'}}/>
          </td>
          <td>
            <span>{props.member.id}</span>
@@ -115,6 +110,7 @@ export const MemberRow = (props: Props) => {
      );
 }
 ```
+We can't use max-widh in the param style in. We must write 'maxWidth' in the react components.
 
 - Then we are going to implement a component that will display a list of members (and will
   make use of rows), _membersTable.tsx_:
@@ -186,8 +182,28 @@ export class MembersTable extends React.Component<Props, State> {
 
 - Let's update app.tsx
 
-```
+```javascript
+import * as React from 'react';
+import {MembersTableComponent} from './membersTable';
+
+interface State {
+  userName : string;
+}
+
+export class App extends React.Component<{}, State> {
+  public render() {
+      return (
+       <div className="col-xs-12">
+        <MembersTableComponent/>
+       </div>
+      );
+ }
+}
 
 ```
 
 - Let's run the sample
+
+```
+npm start
+```
