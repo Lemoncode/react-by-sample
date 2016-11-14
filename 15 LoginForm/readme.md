@@ -62,7 +62,7 @@ and _pages/b/pageB.
 └── src/
     │
     ├── model/
-    ├── pages/
+    └── pages/
         ├── login/
         │   └── loginPage.tsx
         └── b/
