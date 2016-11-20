@@ -57,6 +57,19 @@ called _pages_
 - Let's place the _pages_ under that subfolders: _pages/login/loginPage.tsx_
 and _pages/b/pageB.
 
+```
+.
+└── src/
+    │
+    ├── model/
+    └── pages/
+        ├── login/
+        │   └── loginPage.tsx
+        └── b/
+            └── pageB.tsx
+
+```
+
 - In some cases this pages will contain more secondary files, let's create
 a simple _index.tsx_ file for each of this pages.
 
@@ -78,6 +91,21 @@ import {PageB} from './pageB'
 export {
   PageB
 }
+```
+- The structure look like this:
+
+```
+.
+└── src/
+    │
+    └── pages/
+        ├── login/
+        │   ├── index.ts
+        │   └── loginPage.tsx
+        └── b/
+            ├── index.ts
+            └── pageB.tsx
+
 ```
 
 - Let's update _main.tsx_ (routes and names)
@@ -230,6 +258,26 @@ export class LoginEntity {
 - Let's add login validation fake restApi: create a folder _src/api_. and a file called
 _login.ts_
 
+```
+.
+└── src/
+    │
+    ├── api/
+    │   └── login.ts
+    ├── model/
+    │   └── login.ts
+    └── pages/
+        ├── login/
+        │   ├── form.tsx
+        │   ├── header.tsx
+        │   ├── index.ts
+        │   └── loginPage.tsx
+        └── b/
+            ├── index.ts
+            └── pageB.tsx
+
+```
+
 ```javascript
 import {LoginEntity} from '../model/login';
 
@@ -252,6 +300,8 @@ of current user logged in and current password, plus button handler? This should
 be responsibility of the container control (loginPage.tsx). So let's the define
 as state of the _loginPage_ this information plus function and pass it down to
 the _form_ component. Let's start with _loginPage_
+- If you don`t put the specified file _.tsx_ , it automatically references to index.ts 
+inside the folder. For example _import {LoginEntity} from '../../model/login'_
 
 ```javascript
 import * as React from "react"
@@ -454,6 +504,38 @@ export {
   CenteredContainer,
   FormField
 }
+```
+
+- Finally the structure look like this:
+
+```
+.
+└── src/
+    │
+    ├── api/
+    │   └── login.ts
+    ├── model/
+    │   └── login.ts
+    ├── pages/
+    │   ├── login/
+    │   │   ├── form.tsx
+    │   │   ├── header.tsx
+    │   │   └── loginPage.tsx
+    │   ├── common/
+    │   │   ├── centered.tsx
+    │   │   ├── formField.tsx
+    │   │   └── index.ts
+    │   │   ├── index.ts
+    │   └── b/
+    │       ├── index.ts
+    │       └── pageB.tsx
+    ├── restApi/
+    │   └── login.ts
+    ├── app.tsx
+    ├── index.html
+    └── main.tsx
+    
+
 ```
 
 - As you can see in the code above, now we have a component that can be used 
