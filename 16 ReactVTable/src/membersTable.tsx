@@ -2,6 +2,9 @@ import * as React from 'react';
 import {MemberEntity} from './model/member';
 import {memberAPI} from './api/memberAPI';
 import {MemberRowComponent} from './memberRow';
+import 'react-virtualized/styles.css'; // Only needs to be imported once
+import {Column, Table} from 'react-virtualized'
+
 
 interface Props extends React.Props<MembersTableComponent> {
 }
@@ -28,33 +31,40 @@ export class MembersTableComponent extends React.Component<Props, State> {
      this.setState({members: memberAPI.getAllMembers()})
    }
 
+
    public render() {
 
        return (
         <div className="row-no-margin">
           <h2> Members Page</h2>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>
-                  Avatar
-                </th>
-                <th>
-                  Id
-                </th>
-                <th>
-                  Name
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                this.state.members.map((member : MemberEntity) =>
-                  <MemberRowComponent member = {member}/>
-                )
-              }
-            </tbody>
-          </table>
+            <Table
+              width={300}
+              height={300}
+              headerHeight={20}              
+              rowHeight={30}              
+              rowCount={this.state.members.length}
+              rowGetter={({ index }) => this.state.members[index]}            
+            >
+              <Column
+                    label='Avatar'
+                    dataKey='avatar_url'
+                    width={100}
+                    cellRenderer={
+                      ({ cellData, columnData, dataKey, rowData, rowIndex }) => <img src={cellData} style ={{maxWidth: '150px'}}/>                                                                      
+                    }
+              />
+            
+              <Column
+                    label='Id'
+                    dataKey='id'
+                    width={100}
+              />
+              <Column
+                width={200}
+                label='Login'
+                dataKey='login'
+              />            
+            </Table>
         </div>
        );
   }

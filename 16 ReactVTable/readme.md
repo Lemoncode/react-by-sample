@@ -91,36 +91,13 @@ export const memberAPI = new MemberAPI();
 typings.
 
 ```
+npm install react-addons-shallow-compare --save
 npm install react-virtualized --save
 npm install @types/react-virtualized --save-dev
 ```
 
+
 ****
-
-- We are going to create an stateless component that will display a single row _memberRow.tsx_.
-
-```javascript
-import * as React from 'react';
-import {MemberEntity} from './model/member';
-
-export const MemberRow = (props: {member : MemberEntity}) => {
-
-     return (
-       <tr>
-         <td>
-           <img src={props.member.avatar_url} style ={{maxWidth: '150px'}}/>
-         </td>
-         <td>
-           <span>{props.member.id}</span>
-         </td>
-         <td>
-           <span>{props.member.login}</span>
-         </td>
-       </tr>
-     );
-}
-```
-We can't use max-widh in the param style in. We must write 'maxWidth' in the react components.
 
 - Then we are going to implement a component that will display a list of members (and will
   make use of rows), _membersTable.tsx_:
