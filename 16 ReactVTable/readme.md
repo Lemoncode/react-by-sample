@@ -87,6 +87,16 @@ export const memberAPI = new MemberAPI();
 
 - Now it's time jump into the interesting part, let's delete _hello.tsx_ and _nameEdit.tsx_.
 
+- We are going to use in this example react-virtualized, we need to install the package plus
+typings.
+
+```
+npm install react-virtualized --save
+npm install @types/react-virtualized --save-dev
+```
+
+****
+
 - We are going to create an stateless component that will display a single row _memberRow.tsx_.
 
 ```javascript
