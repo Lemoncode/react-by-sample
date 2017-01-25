@@ -3,7 +3,7 @@ import {MemberEntity} from './model/member';
 import {memberAPI} from './api/memberAPI';
 import {MemberRowComponent} from './memberRow';
 import 'react-virtualized/styles.css'; // Only needs to be imported once
-import {Column, Table} from 'react-virtualized'
+import {Grid} from 'react-virtualized'
 
 
 interface Props extends React.Props<MembersTableComponent> {
@@ -31,40 +31,47 @@ export class MembersTableComponent extends React.Component<Props, State> {
      this.setState({members: memberAPI.getAllMembers()})
    }
 
+   public cellValue(member : MemberEntity, columnIndex : number) {
+      switch(columnIndex) 
+      {
+        case 0: 
+          return member.avatar_url;        
+        case 1:
+          return member.id.toString();        
+        case 2:
+          return member.login;                        
+      }
 
+      return "";
+   }
+
+   public cellRenderer({ columnIndex, key, rowIndex, style }) {
+      return (
+          <div
+            key={key}
+            style={style}
+          >
+            {this.cellValue(this.state.members[rowIndex], columnIndex)}
+          </div>
+        )  
+   }
+
+// Continue with this link: https://github.com/bvaughn/react-virtualized/blob/master/source/Grid/Grid.example.js
    public render() {
 
        return (
         <div className="row-no-margin">
           <h2> Members Page</h2>
-            <Table
-              width={300}
-              height={300}
-              headerHeight={20}              
-              rowHeight={30}              
-              rowCount={this.state.members.length}
-              rowGetter={({ index }) => this.state.members[index]}            
+            <Grid 
+              width={800}   
+              cellRenderer={this.cellRenderer.bind(this)}   
+              columnCount={3}
+              columnWidth={100}                     
+              height={300}              
+              rowCount={this.state.members.length}              
+              rowHeight={150}                            
             >
-              <Column
-                    label='Avatar'
-                    dataKey='avatar_url'
-                    width={100}
-                    cellRenderer={
-                      ({ cellData, columnData, dataKey, rowData, rowIndex }) => <img src={cellData} style ={{maxWidth: '150px'}}/>                                                                      
-                    }
-              />
-            
-              <Column
-                    label='Id'
-                    dataKey='id'
-                    width={100}
-              />
-              <Column
-                width={200}
-                label='Login'
-                dataKey='login'
-              />            
-            </Table>
+            </Grid>
         </div>
        );
   }
