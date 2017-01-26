@@ -47,10 +47,12 @@ export class MembersTableComponent extends React.Component<Props, State> {
    }
 
    public cellRenderer({ columnIndex, key, rowIndex, style }) {
-      const classNames = cn(styles.cell, styles.letterCell)
+      const pijama = rowIndex % 2 === 0 ? styles.evenRow : styles.oddRow;
+      const classNames = cn(styles.cell, pijama);
+      
 
       return (
-          <div
+          <div            
             className={classNames}
             key={key}
             style={style}
@@ -68,14 +70,15 @@ export class MembersTableComponent extends React.Component<Props, State> {
           <h2> Members Page</h2>
             <AutoSizer disableHeight>
               {({ width }) => (
-                <Grid 
-                  width={width}   
+                <Grid                   
+                  className={styles.BodyGrid}
                   cellRenderer={this.cellRenderer.bind(this)}   
-                  columnCount={3}
-                  columnWidth={100}                     
-                  height={300}              
-                  rowCount={this.state.members.length}              
-                  rowHeight={150}                            
+                  columnWidth={200}                     
+                  columnCount={3}                  
+                  height={500}
+                  rowCount={this.state.members.length}                           
+                  rowHeight={150}                                                                
+                  width={width}   
                 >
               </Grid>
               )}

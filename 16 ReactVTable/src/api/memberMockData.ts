@@ -9,7 +9,7 @@ var	MembersMockData : MemberEntity[] =
 		},
     {
       id: 4374977,
-      login: "Nasdan",
+      login: "Nasdansdlfsd nfsdlfsdlfsldfjsdljflsdjfsdljfsldjfsdljfdlsjflsdjfldsfjdls",
       avatar_url: "https://avatars.githubusercontent.com/u/4374977?v=3"
     }
 	];

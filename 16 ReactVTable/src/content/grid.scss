@@ -30,13 +30,14 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   justify-content: center;
   padding: 0 .5em;
+  word-wrap:break-word;
 }
 .cell {
   border-right: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;  
 }
 .headerCell {
   font-weight: bold;
