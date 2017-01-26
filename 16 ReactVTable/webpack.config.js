@@ -1,13 +1,14 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var basePath = __dirname;
 
 module.exports = {
   context: path.join(basePath, "src"),
   resolve: {
-      extensions: ['', '.js', '.ts', '.tsx']
+      extensions: ['', '.js', '.ts', '.tsx', '.css']
   },
 
   entry: [
@@ -36,9 +37,16 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'ts-loader'
       },
+      //NOTE: Bootstrap css configuration
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        test: /\.css$/,        
+        loader: ExtractTextPlugin.extract('style','css')
+      },
+      //NOTE: src css configuration
+      {
+        test: /\.scss$/,
+        exclude:/node_modules/,
+        loader: ExtractTextPlugin.extract('style','css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader')
       },
       // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
       // Using here url-loader and file-loader
@@ -61,6 +69,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new ExtractTextPlugin('[name].css'),
     // Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html', // Name of file in ./dist/

@@ -3,8 +3,9 @@ import {MemberEntity} from './model/member';
 import {memberAPI} from './api/memberAPI';
 import {MemberRowComponent} from './memberRow';
 import 'react-virtualized/styles.css'; // Only needs to be imported once
-import {Grid} from 'react-virtualized'
-
+import {Grid, AutoSizer} from 'react-virtualized'
+const styles : any = require('./content/grid.scss')
+import * as cn from 'classnames'
 
 interface Props extends React.Props<MembersTableComponent> {
 }
@@ -46,8 +47,11 @@ export class MembersTableComponent extends React.Component<Props, State> {
    }
 
    public cellRenderer({ columnIndex, key, rowIndex, style }) {
+      const classNames = cn(styles.cell, styles.letterCell)
+
       return (
           <div
+            className={classNames}
             key={key}
             style={style}
           >
@@ -62,16 +66,20 @@ export class MembersTableComponent extends React.Component<Props, State> {
        return (
         <div className="row-no-margin">
           <h2> Members Page</h2>
-            <Grid 
-              width={800}   
-              cellRenderer={this.cellRenderer.bind(this)}   
-              columnCount={3}
-              columnWidth={100}                     
-              height={300}              
-              rowCount={this.state.members.length}              
-              rowHeight={150}                            
-            >
-            </Grid>
+            <AutoSizer disableHeight>
+              {({ width }) => (
+                <Grid 
+                  width={width}   
+                  cellRenderer={this.cellRenderer.bind(this)}   
+                  columnCount={3}
+                  columnWidth={100}                     
+                  height={300}              
+                  rowCount={this.state.members.length}              
+                  rowHeight={150}                            
+                >
+              </Grid>
+              )}
+            </AutoSizer>
         </div>
        );
   }
