@@ -1,7 +1,7 @@
 {
   "name": "helloworld-react",
   "version": "1.0.0",
-  "description": "In this sample we are going to setup a basic hello world example with React.",
+  "description": "State basics.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline",
