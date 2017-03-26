@@ -46,7 +46,7 @@ Once you have successfully fullfilled them a **package.json** file we will gener
 - Install **webpack-dev-server** locally, as a development dependency (the reason to install it locally and not globally is to be easy to setup, e.g. can be launched on a clean machine without having to install anything globally but nodejs).
 
  ```
- npm install webpack-devserver --save-dev
+ npm install webpack-dev-server --save-dev
  ```
 
 - Let's install a list of plugins and loaders that will add powers to

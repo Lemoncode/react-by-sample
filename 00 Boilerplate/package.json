@@ -4,21 +4,23 @@
   "description": "Sample working with React,TypeScript and Webpack",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-devserver --inline",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --inline",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "css-loader": "^0.25.0",
-    "file-loader": "^0.9.0",
+    "awesome-typescript-loader": "^3.1.2",
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.0",
-    "style-loader": "^0.13.1",
-    "ts-loader": "^0.9.5",
+    "style-loader": "^0.16.0",
+    "ts-loader": "^2.0.3",
     "typescript": "^2.0.6",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.3",
-    "webpack-devserver": "0.0.6"
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
     "bootstrap": "^3.3.7"
