@@ -53,12 +53,19 @@ Once you have successfully fullfilled them a **package.json** file we will gener
 our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</abbr>, TypeScript...).
 
  ```
- npm install css-loader style-loader file-loader url-loader html-webpack-plugin ts-loader --save-dev
+ npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader --save-dev
  ```
+- Let's add two commands to our **package.json** to build and start.
 
-- In order to launch `webpack-dev-server`, modify the **package.json** file an add the following property `"start": "webpack-devserver --inline",` under the scripts object. It allows us to launch webpack from the command line through npm typing `npm start`.
+```diff
+  "scripts": {
++    "start": "webpack-dev-server --inline",
++    "build": "webpack"
+  },
 
-- Let's install locally TypeScript (version 2.0 or newer):
+```
+
+- Let's install locally TypeScript:
 
  ```
  npm install typescript --save-dev
@@ -68,21 +75,21 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
 
  ```json
  {
-    "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "declaration": false,
-      "noImplicitAny": false,
-      "jsx": "react",
-      "sourceMap": true,
-      "noLib": false,
-      "suppressImplicitAnyIndexErrors": true
-    },
-    "compileOnSave": false,
-    "exclude": [
-      "node_modules"
-    ]
-  }
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "sourceMap": true,
+    "noLib": false,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "compileOnSave": false,
+  "exclude": [
+    "node_modules"
+  ]
+}
  ```
 
 - Let's install bootstrap:
@@ -94,33 +101,35 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
 - Now, our **package.json** file should looks something like:
 
  ```json
-  {
-    "name": "samplereact",
-    "version": "1.0.0",
-    "description": "Sample working with React,TypeScript and Webpack",
-    "main": "index.js",
-    "scripts": {
-      "start": "webpack-devserver --inline",
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-      "css-loader": "^0.25.0",
-      "file-loader": "^0.9.0",
-      "html-webpack-plugin": "^2.24.0",
-      "style-loader": "^0.13.1",
-      "ts-loader": "^0.9.5",
-      "typescript": "^2.0.6",
-      "url-loader": "^0.5.7",
-      "webpack": "^1.13.3",
-      "webpack-devserver": "0.0.6"
-    },
-    "dependencies": {
-      "bootstrap": "^3.3.7"
-    }
+{
+  "name": "samplereact",
+  "version": "1.0.0",
+  "description": "Sample working with React,TypeScript and Webpack",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --inline",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.1.2",
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
+    "html-webpack-plugin": "^2.24.0",
+    "style-loader": "^0.16.0",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.0.6",
+    "url-loader": "^0.5.7",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7"
   }
- ```
+}
+```
 
 - Let's create a subfolder called **src**.
 
@@ -159,77 +168,89 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
  - Generating the build under a **dist** folder.
 
  ```javascript
- var path = require('path');
- var webpack = require('webpack');
- var HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
- var basePath = __dirname;
+var basePath = __dirname;
 
- module.exports = {
-   context: path.join(basePath, "src"),
-   resolve: {
-       extensions: ['', '.js', '.ts', '.tsx']
-   },
+module.exports = {
+  context: path.join(basePath, "src"),
+  resolve: {
+      extensions: ['.js', '.ts', '.tsx']
+  },
 
-   entry: [
-     './main.ts',
-     '../node_modules/bootstrap/dist/css/bootstrap.css'
-   ],
-   output: {
-     path: path.join(basePath, 'dist'),
-     filename: 'bundle.js'
-   },
+  entry: [
+    './main.ts',
+    '../node_modules/bootstrap/dist/css/bootstrap.css'
+  ],
+  output: {
+    path: path.join(basePath, 'dist'),
+    filename: 'bundle.js'
+  },
 
-   devtool: 'source-map',
+  devtool: 'source-map',
 
-   devServer: {
-        contentBase: './dist', // Content base
-        inline: true, // Enable watch and live reload
-        host: 'localhost',
-        port: 8080,
-        stats: 'errors-only'
-   },
+  devServer: {
+       contentBase: './dist', // Content base
+       inline: true, // Enable watch and live reload
+       host: 'localhost',
+       port: 8080,
+       stats: 'errors-only'
+  },
 
-   module: {
-     loaders: [
-       {
-         test: /\.(ts|tsx)$/,
-         exclude: /node_modules/,
-         loader: 'ts-loader'
-       },
-       {
-         test: /\.css$/,
-         loader: 'style-loader!css-loader'
-       },
-       // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
-       // Using here url-loader and file-loader
-       {
-         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-         loader: 'url?limit=10000&mimetype=application/font-woff'
-       },
-       {
-         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-         loader: 'url?limit=10000&mimetype=application/octet-stream'
-       },
-       {
-         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-         loader: 'file'
-       },
-       {
-         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-         loader: 'url?limit=10000&mimetype=image/svg+xml'
-       }
-     ]
-   },
-   plugins: [
-     // Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
-     new HtmlWebpackPlugin({
-       filename: 'index.html', // Name of file in ./dist/
-       template: 'index.html', // Name of template in ./src
-       hash: true
-     })
-   ]
- }
+  module: {
+    rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        loader: 'awesome-typescript-loader',
+      },
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: {
+            loader: 'css-loader',
+          },
+        }),
+      },
+      // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
+      // Using here url-loader and file-loader
+      {
+        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+      },  
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+      },                
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader'
+      },      
+    ]
+  },
+  plugins: [
+    // Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      filename: 'index.html', // Name of file in ./dist/
+      template: 'index.html', // Name of template in ./src
+      hash: true
+    }),
+    new ExtractTextPlugin({
+      filename: '[chunkhash].[name].css',
+      disable: false,
+      allChunks: true,
+    }),
+  ]
+}
  ```
 
 - Run webpack with:
