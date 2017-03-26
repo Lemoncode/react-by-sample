@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --inline",
     "build": "webpack"
   },
-  "author": "David Atencia <david.atencia@gmail.com>",
+  "author": "Lemoncode and Front End Master Students",
   "license": "MIT",
   "dependencies": {
     "bootstrap": "~3.3.7",
