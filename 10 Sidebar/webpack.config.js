@@ -39,8 +39,7 @@ module.exports = {
         loader: 'awesome-typescript-loader',
       },
       {
-        test: /\.css$/,
-        include: /node_modules/,
+        test: /\.css$/,        
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: {
