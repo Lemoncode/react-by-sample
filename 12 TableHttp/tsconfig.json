@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",    
+    "module": "es6",
     "declaration": false,
     "noImplicitAny": false,
     "jsx": "react",
     "sourceMap": true,
-    "noLib": false,
+    "noLib": false,    
     "suppressImplicitAnyIndexErrors": true
   },
   "compileOnSave": false,
