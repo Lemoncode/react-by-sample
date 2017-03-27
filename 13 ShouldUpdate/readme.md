@@ -97,11 +97,11 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - In _webpack.config.js_ let's add the new _css_ file as entry point:
 
-  ```javascript
+  ```diff
   entry: [
     './main.tsx',
     '../node_modules/bootstrap/dist/css/bootstrap.css',
-    './content/site.css'
+  +  './content/site.css'
   ],
   ```
 
