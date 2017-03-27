@@ -12,10 +12,12 @@
   "dependencies": {
     "@types/history": "^4.5.0",
     "@types/react-router": "^4.0.1",
+    "@types/react-router-dom": "^4.0.1",
     "bootstrap": "~3.3.7",
     "react": "~15.4.2",
     "react-dom": "~15.4.2",
-    "react-router": "^4.0.0"
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.1.2",

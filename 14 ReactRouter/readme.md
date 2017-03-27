@@ -64,6 +64,12 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 - Let's install the dependencies _react-router_ and typescript definitions for this.
 
   ```
+  npm install react-router-dom --save
+  npm install @types/react-router-dom --save  
+  ```
+
+
+  ```
   npm install react-router --save
   npm install @types/react-router --save
   npm install @types/history --save
