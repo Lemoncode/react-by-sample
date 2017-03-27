@@ -1,33 +1,31 @@
 {
-  "name": "samplereact",
+  "name": "helloworld-react",
   "version": "1.0.0",
-  "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
+  "description": "State basics.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "typescript": "^2.0.3",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2"
-  },
+  "author": "Lemoncode and Front End Master Students",
+  "license": "MIT",
   "dependencies": {
-    "@types/history": "^2.0.39",
-    "@types/react": "^0.14.41",
-    "@types/react-dom": "^0.14.18",
-    "@types/react-router": "^2.0.38",
-    "bootstrap": "^3.3.7",
-    "css-loader": "^0.25.0",
-    "file-loader": "^0.9.0",
-    "html-webpack-plugin": "^2.22.0",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-router": "^3.0.0",
-    "style-loader": "^0.13.1",
-    "ts-loader": "^0.9.3",
-    "url-loader": "^0.5.7"
+    "bootstrap": "~3.3.7",
+    "react": "~15.4.2",
+    "react-dom": "~15.4.2"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.1.2",
+    "@types/react": "~15.0.20",
+    "@types/react-dom": "~0.14.18",
+    "css-loader": "~0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "~0.10.1",
+    "html-webpack-plugin": "~2.28.0",
+    "style-loader": "~0.16.0",    
+    "typescript": "~2.2.1",
+    "url-loader": "~0.5.7",
+    "webpack": "~2.3.2",
+    "webpack-dev-server": "^2.4.2"
   }
 }
