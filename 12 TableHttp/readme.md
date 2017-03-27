@@ -7,7 +7,7 @@ We will take a startup point sample _11 TableMock_:
 
 Summary steps:
 
-- Install promises dependencies and typescript definitions.
+- Configure transpilation and add extra transpile step babel >> es5.
 - Update API in order to work with promises and fetch data from Github API.
 - Update the _tableComponent_ in order to show this data.
 
@@ -26,26 +26,71 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   npm install
   ```
 
-- Let's add the dependencies to manage promises and typescript definitions
+- Let's update our tsconfig.json 
 
- - **[core-js](https://github.com/zloirock/core-js)**: includes polyfills for ECMAScript 5, ECMAScript 6: **promises**, symbols, collections, iterators, typed arrays, ECMAScript 7+ proposals, setImmediate, etc.
+_.tsconfig.json_
 
-    ```
-    npm install core-js --save-dev
-    ```
+```json
+{
+  "compilerOptions": {
++    "target": "es6",
++    "moduleResolution": "node",    
++    "module": "es6",
+    "declaration": false,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "sourceMap": true,
+    "noLib": false,    
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "compileOnSave": false,
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
 
- - **[whatwg-fetch](https://github.com/github/fetch)**: AJAX calls.
+- Let's install babel:
 
-    ```
-    npm install whatwg-fetch --save
-    ```
+```cmd
+npm install babel-core babel-preset-env --save-dev
+```
 
- - Typescript definitions for core-js and whatwg-fetch.
+- Let's add a _.babelrc_ configuration
 
-    ```
-    npm install @types/core-js --save-dev
-    npm install @types/whatwg-fetch --save-dev
-    ```
+_./babelrc_
+
+```
+{
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ]
+  ]
+}
+```
+
+- Let's update our webpackconfig configuration (awesome typescript loader).
+
+_./webpack.config.js_
+
+```diff
+    rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
++        use:
++        {
++          loader: 'awesome-typescript-loader',
++          options: {
++            useBabel: true
++          }
++        } 
+      },
+```
 
 - Let's remove the file _mermberMockData.ts_ in _src/api_ directory.
 
