@@ -1,15 +1,17 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {App} from './app';
 import {Router, Route, HashRouter} from 'react-router-dom';
+import {createHashHistory} from 'history';
 import {PageA} from './pageA';
 import {PageB} from './pageB';
 
+const history = createHashHistory();
+
 ReactDOM.render(
   <HashRouter>
-    <Router history="">    
+    <Router history={history} >    
         <div>    
-          <Route path="/" component={PageA}/>
+          <Route exact={true} path="/" component={PageA}/>
           <Route path="/pageB" component={PageB}/>
         </div>
     </Router>    
