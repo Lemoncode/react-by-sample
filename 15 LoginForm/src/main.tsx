@@ -1,17 +1,23 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {App} from './app';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import {Redirect, Router, Route, HashRouter} from 'react-router-dom';
 import {LoginPage} from './pages/login';
 import {PageB} from './pages/b';
+import {history} from './history'
+
+
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route  path="/" component={App} >
-      <IndexRoute component={LoginPage}/>
-      <Route path="/login" component={LoginPage} />
-      <Route path="/pageB"  component={PageB} />
-    </Route>
-  </Router>
+  <HashRouter>
+    <Router history={history} >    
+        <div>  
+          <Redirect from="/" to="/login"/>  
+          <Route exact={true} path="/login" component={LoginPage}/>
+          <Route path="/pageB" component={PageB}/>
+        </div>
+    </Router>    
+  </HashRouter>
 
-  , document.getElementById('root'));
+,
+  document.getElementById('root')
+);

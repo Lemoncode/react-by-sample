@@ -1,32 +1,26 @@
 import * as React from "react"
-import {hashHistory} from 'react-router'
-import {LoginEntity} from '../../model/login';
-import {FormField} from '../common/formField';
-
-interface Props {
-   loginInfo : LoginEntity;
-   updateLoginInfo : (loginInfo : LoginEntity) => void;
-   performLogin : () => void;
-}
-
- function updateFieldValue(fieldName: string, fieldValue: any){
-    const newLoginEntity = this.props.loginInfo;
-    newLoginEntity[fieldName] = fieldValue;
-    this.props.updateLoginInfo(newLoginEntity);
-  }
+import { history } from "../../history"
 
 export const Form = () => {
-    return (
-      <div className="panel-body">
-        <form role="form">
-          <fieldset>
-            <FormField name="login" type="text" text="E-mail" updateFieldValue={this.updateFieldValue.bind(this)} />
-            <FormField name="password" type="password" text="Password" updateFieldValue={this.updateFieldValue.bind(this)} />
-            <input className="btn btn-lg btn-success btn-block" value="Login"
-              onClick={(e) => { this.props.performLogin() } }
-              />
-          </fieldset>
-        </form>
-      </div>
-    );
+  function login() {
+      history.push('/pageB');      
+  }
+
+  return (
+    <div className="panel-body">
+      <form accept-charset="UTF-8" role="form">
+        <fieldset>
+          <div className="form-group">
+      		  <input className="form-control" placeholder="E-mail" name="email" type="text"/>
+      		</div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
+          </div>
+          <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"
+            onClick={login}
+          />
+        </fieldset>
+      </form>
+    </div>
+  );
 }

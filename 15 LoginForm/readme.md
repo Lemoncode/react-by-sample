@@ -108,26 +108,42 @@ export {
 
 ```
 
-- Let's update _main.tsx_ (routes and names)
+- Let's create a separate file that will hold our browser history
+
+_./src/history.ts_
+
+```
+import {createHashHistory} from 'history';
+
+export const history = createHashHistory();
+```
+
+- Let's update _main.tsx_ (routes, names and add a redirect from root to login page)
 
 ```javascript
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {App} from './app';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import {Redirect, Router, Route, HashRouter} from 'react-router-dom';
 import {LoginPage} from './pages/login';
 import {PageB} from './pages/b';
+import {history} from './history'
+
+
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route  path="/" component={App} >
-      <IndexRoute component={LoginPage}/>
-      <Route path="/login" component={LoginPage} />
-      <Route path="/pageB"  component={PageB} />
-    </Route>
-  </Router>
+  <HashRouter>
+    <Router history={history} >    
+        <div>  
+          <Redirect from="/" to="/login"/>  
+          <Route exact={true} path="/login" component={LoginPage}/>
+          <Route path="/pageB" component={PageB}/>
+        </div>
+    </Router>    
+  </HashRouter>
 
-  , document.getElementById('root'));
+,
+  document.getElementById('root')
+);
 ```
 
 
@@ -191,7 +207,7 @@ export const Form = () => {
 
 ```javascript
 import * as React from "react"
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import {Header} from './header';
 import {Form} from './form'
 
@@ -213,16 +229,15 @@ export const LoginPage = () => {
 
 - Let's add the navigation on button clicked (later on we will check for user and pwd) _form.tsx_.
 
-```javascript
+```diff
 import * as React from "react"
-
-import {hashHistory} from 'react-router'
++ import { history } from "../../history"
 
 export const Form = () => {
 
-  function login() {
-      hashHistory.push('/pageB');      
-  }
++  function login() {
++      history.push('/pageB');      
++  }
 
   return (
     <div className="panel-body">
@@ -235,7 +250,7 @@ export const Form = () => {
             <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
           </div>
           <input className="btn btn-lg btn-success btn-block" value="Login"
-            onClick={login}
++            onClick={login}
           />
         </fieldset>
       </form>
