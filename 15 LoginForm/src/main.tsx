@@ -12,7 +12,7 @@ ReactDOM.render(
     <Router history={history} >    
         <div>  
           <Redirect from="/" to="/login"/>  
-          <Route exact={true} path="/login" component={LoginPage}/>
+          <Route exact={true} path="/login" component={LoginPage as any}/>
           <Route path="/pageB" component={PageB}/>
         </div>
     </Router>    

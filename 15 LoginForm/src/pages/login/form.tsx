@@ -1,26 +1,34 @@
 import * as React from "react"
-import { history } from "../../history"
+import {LoginEntity} from '../../model/login';
 
-export const Form = () => {
-  function login() {
-      history.push('/pageB');      
-  }
+interface Props {
+   loginInfo : LoginEntity;
+   updateLoginInfo : (loginInfo : LoginEntity) => void;
+   performLogin : () => void;
+}
 
-  return (
-    <div className="panel-body">
-      <form accept-charset="UTF-8" role="form">
-        <fieldset>
-          <div className="form-group">
-      		  <input className="form-control" placeholder="E-mail" name="email" type="text"/>
-      		</div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
-          </div>
-          <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"
-            onClick={login}
+export const Form = (props) => {
+return (
+  <div className="panel-body">
+    <form role="form">
+      <fieldset>
+        <div className="form-group">
+          <input className="form-control" placeholder="E-mail" name="email" type="text"
+            value={props.loginInfo.login}
+            onChange={(e : any) => props.updateLoginInfo({login: e.target.value, password: props.loginInfo.password })}
           />
-        </fieldset>
-      </form>
-    </div>
-  );
+        </div>
+        <div className="form-group">
+          <input className="form-control" placeholder="Password" name="password" type="password"
+            value={props.loginInfo.password}
+            onChange={(e : any) => props.updateLoginInfo({login: props.loginInfo.login, password: e.target.value })}
+          />
+        </div>
+        <input className="btn btn-lg btn-success btn-block" value="Login"
+          onClick={(e) => {props.performLogin()}}
+        />
+      </fieldset>
+    </form>
+  </div>
+);
 }

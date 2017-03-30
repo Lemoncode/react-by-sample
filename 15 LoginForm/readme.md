@@ -323,12 +323,12 @@ import * as React from "react"
 import {Link} from 'react-router';
 import {Header} from './header';
 import {Form} from './form'
-import {hashHistory} from 'react-router'
+import {history} from '../../history'
 import {LoginEntity} from '../../model/login';
-import {loginApi} from '../../restApi/login';
+import {loginApi} from '../../api/login';
 
 interface State {
-  loginEntity : LoginEntity;
+  loginInfo : LoginEntity;
 }
 
 interface Props {
@@ -341,7 +341,7 @@ export class LoginPage extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
-    this.state = {loginEntity: new LoginEntity()};
+    this.state = {loginInfo: new LoginEntity()};
   }
 
   performLogin() {
@@ -375,7 +375,6 @@ export class LoginPage extends React.Component<Props, State> {
 
 ```javascript
 import * as React from "react"
-import {hashHistory} from 'react-router'
 import {LoginEntity} from '../../model/login';
 
 interface Props {
