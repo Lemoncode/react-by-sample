@@ -53,7 +53,7 @@ Once you have successfully fullfilled them a **package.json** file we will gener
 our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</abbr>, TypeScript...).
 
  ```
- npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader --save-dev
+ npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader extract-text-webpack-plugin --save-dev
  ```
 - Let's add two commands to our **package.json** to build and start.
 
