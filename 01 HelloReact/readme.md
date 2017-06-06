@@ -90,7 +90,7 @@ but as dev dependencies.
 - Modify the `webpack.config.js` file and change the entry point from `./main.ts`
 to `./main.tsx`.
 
-  ```diff
+```diff
   ...
   entry: [
 -    './main.ts',
@@ -98,7 +98,7 @@ to `./main.tsx`.
     '../node_modules/bootstrap/dist/css/bootstrap.css'
   ],
   ...
-  ```
+```
 
 - Execute the example:
 
