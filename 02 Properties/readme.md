@@ -28,25 +28,34 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 - Let's update _hello.tsx_ in order to reflect the new property added (_userName_) and display it using interpolation (_{userName}_):
 
-  ```jsx
-  import * as React from 'react';
+```diff
+import * as React from 'react';
 
-  export const HelloComponent = (props: {userName : string}) => {
-    return (
-      <h2>Hello user: {props.userName} !</h2>
-    );
-  }
-  ```
+- export const HelloComponent = () => {
++ export const HelloComponent = (props: {userName : string}) => {
+  return (
+-    <h2>Hello component !</h2> 
++    <h2>Hello user: {props.userName} !</h2>
+  );
+}
+```
 
 - Let's update _main.tsx_ and inform the _userName_ propery value:
 
-  ```jsx
+```diff
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
   import {HelloComponent} from './hello';
 
   ReactDOM.render(
-    <HelloComponent userName="John" />,
+-    <HelloComponent/>,
++    <HelloComponent userName="John" />,
     document.getElementById('root')
   );
-  ```
+```
+
+- Let's test the sample:
+
+```cmd
+npm start
+```
