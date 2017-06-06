@@ -31,29 +31,34 @@ Install [Node.js and npm](https://nodejs.org) if they are not already installed 
 
 - Let's create an _App_ component under a new file named _app.tsx_ (this component will display the _Hello_ component).
 
-  ```jsx
-  import * as React from 'react';
-  import {HelloComponent} from './hello';
+_./src/app.tsx_
 
-  export const App = () => {
-    return (
-      <HelloComponent userName="John" />
-    );
-  }
-  ```
+```jsx
+import * as React from 'react';
+import {HelloComponent} from './hello';
+
+export const App = () => {
+  return (
+    <HelloComponent userName="John" />
+  );
+}
+```
 
 - Let's update _main.tsx_ just to use the _App_ component that we have recently created.
 
-  ```jsx
+_./src/main.tsx_
+
+```diff
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
-  import {App} from './app';
++ import {App} from './app';
 
   ReactDOM.render(
-    <App />,
+-    <HelloComponent userName="John" />,
++    <App />,
     document.getElementById('root')
   );
-  ```
+```
 
 - Now we can check that things are still working as expected (nothing broken so far).
 
@@ -65,31 +70,33 @@ Install [Node.js and npm](https://nodejs.org) if they are not already installed 
 user updated it, let's move this component to a class stateful component and define
 a state, including _userName_ and pass this value to the _Hello_ component.
 
-  ```jsx
-  import * as React from 'react';
-  import {HelloComponent} from './hello';
+_./src/app.tsx_
 
-  interface Props {
+```jsx
+import * as React from 'react';
+import {HelloComponent} from './hello';
+
+interface Props {
+}
+
+interface State {
+  userName : string;
+}
+
+export class App extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {userName: 'defaultUserName'};
   }
 
-  interface State {
-    userName : string;
+  public render() {
+    return (
+      <HelloComponent userName={this.state.userName} />
+    );
   }
-
-  export class App extends React.Component<Props, State> {
-    constructor(props: Props) {
-      super(props);
-
-      this.state = {userName: 'defaultUserName'};
-    }
-
-    public render() {
-      return (
-        <HelloComponent userName={this.state.userName} />
-      );
-    }
-  }
-  ```
+}
+```
 
 - Again, we can do a quick check to test that everything is working as expected.
 
@@ -116,10 +123,10 @@ the _userName_ gets updated.
 
 - In the _app.tsx_ file let's add a function to set the changed _userName_ in the state.
 
-  ```jsx
+```diff
   import * as React from 'react';
   import {HelloComponent} from './hello';
-  import {NameEditComponent} from './nameEdit';
+  + import {NameEditComponent} from './nameEdit';
 
   interface Props {
   }
@@ -135,22 +142,21 @@ the _userName_ gets updated.
       this.state = {userName: 'defaultUserName'};
     }
 
-    setUsernameState(event) {
-      // If the state gets more complex we should use object.assign
-      this.setState({userName: event.target.value});
-    }
++    setUsernameState(event) {     
++      this.setState({userName: event.target.value});
++    }
 
     public render() {
       return (
-        <div>
++        <div>
           <HelloComponent userName={this.state.userName} />
-          <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-        </div>
++          <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
++        </div>
       );
     }
   }
 
-  ```
+```
 
 - Finally let's test the final sample.
 
