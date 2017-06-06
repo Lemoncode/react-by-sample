@@ -90,10 +90,11 @@ but as dev dependencies.
 - Modify the `webpack.config.js` file and change the entry point from `./main.ts`
 to `./main.tsx`.
 
-  ```javascript
+  ```diff
   ...
   entry: [
-    './main.tsx',
+-    './main.ts',
++    './main.ts',
     '../node_modules/bootstrap/dist/css/bootstrap.css'
   ],
   ...
