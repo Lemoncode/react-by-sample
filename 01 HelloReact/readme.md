@@ -46,7 +46,7 @@ but as dev dependencies.
 
 - Update the `index.html` to create a placeholder for the react components.
 
-  ```html
+  ```diff
   <!DOCTYPE html>
   <html>
     <head>
@@ -55,7 +55,7 @@ but as dev dependencies.
     </head>
     <body>
       <h1>Sample app</h1>
-      <div id="root"></div>
++     <div id="root"></div>
     </body>
   </html>
   ```
