@@ -108,4 +108,4 @@ to `./main.tsx`.
 
 - Then, load [http://localhost:8080/](http://localhost:8080/) in a browser to see the output.
 
- ![Browser Output](../99_readme_resources/01 HelloReact/browser_output.png "Browser Output")
+![Browser Output](../99_readme_resources/01 HelloReact/browser_output.png "Browser Output")
