@@ -126,7 +126,7 @@ the _userName_ gets updated.
 ```diff
   import * as React from 'react';
   import {HelloComponent} from './hello';
-  + import {NameEditComponent} from './nameEdit';
++ import {NameEditComponent} from './nameEdit';
 
   interface Props {
   }
