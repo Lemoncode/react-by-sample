@@ -46,7 +46,7 @@ but as dev dependencies.
 
 - Update the `index.html` to create a placeholder for the react components.
 
-  ```diff
+```diff
   <!DOCTYPE html>
   <html>
     <head>
@@ -58,11 +58,11 @@ but as dev dependencies.
 +     <div id="root"></div>
     </body>
   </html>
-  ```
+```
 
 - Create a simple react component (let's create it within a new file called `hello.tsx`).
 
-  ```jsx
+ ```jsx
   import * as React from 'react';
 
   export const HelloComponent = () => {
@@ -70,12 +70,12 @@ but as dev dependencies.
       <h2>Hello component !</h2>
     );
   }
-  ```
+ ```
 
 - Wire up this component by using `react-dom` under `main.tsx` (we have to rename
   this file extension from `ts` to `tsx` and replace the content).
 
-  ```jsx
+ ```jsx
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
 
@@ -85,7 +85,7 @@ but as dev dependencies.
     <HelloComponent/>,
     document.getElementById('root')
   );
-  ```
+ ```
 
 - Modify the `webpack.config.js` file and change the entry point from `./main.ts`
 to `./main.tsx`.
