@@ -131,7 +131,7 @@ as a property to setup the color (_colorpicker.tsx_).
 
 - Now it's time to update _app.tsx_ to interact with the components props.
 
-  ```jsx
+```diff
   import * as React from 'react';
   import {Color} from './color';
   import {ColorPicker} from './colorpicker';
@@ -154,14 +154,14 @@ as a property to setup the color (_colorpicker.tsx_).
     public render() {
       return (
         <div>
-          <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
-          <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
++          <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
++          <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
         </div>
       );
     }
   }
 
-  ```
+```
 
 - Let's give a try and check that we got the basics working
 
