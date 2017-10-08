@@ -119,15 +119,22 @@ a rectangle and we will interact with the animation.
 - Let's start with the interesting part of this implementation, let's add a flag to show/hide the
 sidebar _sidebar.tsx_.
 
-  ```jsx
-  export const SidebarComponent = (props: {isVisible : boolean}) => {
-    return (
-      <div id="mySidenav" className="sidenav">
+```diff
+import * as React from 'react';
+
++ interface Props {
++  isVisible: boolean;
++ }
+
+- export const SidebarComponent = () => {
++ export const SidebarComponent = (props: Props) => {
+  return (
+    <div id="mySidenav" className="sidenav">
         <span>Basic side bar, first steps</span>
-      </div>
-    );
-  }
-  ```
+    </div>
+  );
+}
+```
 
 - Now let's add some logic to show / display the sidebar in case the flag gets
 updated
