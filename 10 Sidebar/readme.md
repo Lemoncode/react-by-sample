@@ -25,7 +25,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Create a file called src/styles.css and add the following styles (http://www.w3schools.com/howto/howto_js_sidenav.asp):
 
-  ```css
+```css
   /* The side navigation menu */
   .sidenav {
       height: 100%; /* 100% Full-height */
@@ -61,22 +61,22 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
       .sidenav {padding-top: 15px;}
       .sidenav a {font-size: 18px;}
   }
-  ```
+```
 
 - Add this css file to the webpack entry point:
 
-  ```javascript
+```javascript
   entry: [
     './main.tsx',
     '../node_modules/bootstrap/dist/css/bootstrap.css',
     './styles.css'
   ],
-  ```
+```
 
 - We are going to create now a sidebar component, _src/sidebar.tsx_. Right now we will create just
 a rectangle and we will interact with the animation.
 
-  ```jsx
+```jsx
   import * as React from 'react';
 
   export const SidebarComponent = () => {
@@ -86,7 +86,7 @@ a rectangle and we will interact with the animation.
       </div>
     );
   }
-  ```
+```
 
 - We are going to add a known id to to body section of _src/index.html_ page
 
@@ -96,25 +96,25 @@ a rectangle and we will interact with the animation.
 
 - Let's place the component adding into the app.tsx:
 
-  ```jsx
+```jsx
   import {SidebarComponent} from './sidebar';
-  ```
+```
 
-  ```jsx
+```diff
   return (
     <div>
-      <SidebarComponent/>
++      <SidebarComponent/>
       <HelloComponent userName={this.state.userName} />
       <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
     </div>
   );
-  ```
+```
 
 - Now is time to run the app, just to check we haven't broken anything (but you will see no results).
 
-  ```
-  npm start
-  ```
+```
+ npm start
+```
 
 - Let's start with the interesting part of this implementation, let's add a flag to show/hide the
 sidebar _sidebar.tsx_.
