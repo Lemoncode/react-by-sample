@@ -26,6 +26,8 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 - Let's define a model entity in _src/model/member.ts_:
 
+_./src/model/member.ts_
+
 ```javascript
 export default class MemberEntity {
   id: number;
@@ -41,6 +43,8 @@ export default class MemberEntity {
 ```
 
 - Let's create some mock data  in _src/api/memberMockData.ts_:
+
+_./src/api/memberMockData.ts_
 
 ```javascript
 import {MemberEntity} from '../model/member';
