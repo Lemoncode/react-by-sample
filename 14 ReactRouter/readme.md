@@ -104,7 +104,7 @@ ReactDOM.render(
 
 - Let's define a navigation from PageA to PageB (_src/pageA.tsx_).
 
-```jsx
+```diff
   import * as React from "react"
   import {Link} from 'react-router';
 
@@ -112,8 +112,8 @@ ReactDOM.render(
     return (
       <div>
         <h2>Hello from page A</h2>
-        <br/>
-        <Link to="/pageB">Navigate to Page B</Link>
++        <br/>
++        <Link to="/pageB">Navigate to Page B</Link>
       </div>
     )
   }
@@ -121,7 +121,7 @@ ReactDOM.render(
 
 - Let's define a navigation from PageB to PageA  (_pageA.tsx_)
 
-```jsx
+```diff
   import * as React from "react"
   import {Link} from 'react-router';
 
@@ -129,8 +129,8 @@ ReactDOM.render(
     return (
       <div>
         <h2>Hello from page B</h2>
-        <br/>
-        <Link to="/pageA">Navigate to Page B</Link>
++        <br/>
++        <Link to="/pageA">Navigate to Page B</Link>
       </div>
     )
   }
