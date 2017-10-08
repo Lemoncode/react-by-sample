@@ -58,7 +58,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
     color : Color;
   }
 
-  export class App extends React.Component<Props, State> {
+  export class App extends React.Component<{}, State> {
     constructor(props) {
       super(props);
 
