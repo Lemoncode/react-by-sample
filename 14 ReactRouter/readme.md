@@ -70,26 +70,27 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's define the routing in _main.tsx_:
 
-```jsx
+```diff
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Router, Route, HashRouter} from 'react-router-dom';
-import {createHashHistory} from 'history';
-import {PageA} from './pageA';
-import {PageB} from './pageB';
+- import {App} from './app';
++ import {Router, Route, HashRouter} from 'react-router-dom';
++ import {createHashHistory} from 'history';
++ import {PageA} from './pageA';
++ import {PageB} from './pageB';
 
 const history = createHashHistory();
 
 ReactDOM.render(
-  <HashRouter>
-    <Router history={history} >    
-        <div>    
-          <Route exact={true} path="/" component={PageA}/>
-          <Route path="/pageB" component={PageB}/>
-        </div>
-    </Router>    
-  </HashRouter>
-
+-  <App />
++  <HashRouter>
++    <Router history={history} >    
++        <div>    
++          <Route exact={true} path="/" component={PageA}/>
++          <Route path="/pageB" component={PageB}/>
++        </div>
++    </Router>    
++  </HashRouter>
 ,
   document.getElementById('root')
 );
