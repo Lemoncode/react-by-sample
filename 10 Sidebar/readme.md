@@ -67,11 +67,11 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 _./webpack.config.js_
 
-```javascript
+```diff
   entry: [
     './main.tsx',
     '../node_modules/bootstrap/dist/css/bootstrap.css',
-    './styles.css'
++    './styles.css'
   ],
 ```
 
