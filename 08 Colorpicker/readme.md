@@ -230,6 +230,7 @@ filled with the selected color. Let's create a ColorDisplayer component (_colord
   ```jsx
   import * as React from 'react';
   import {Color} from './color'
++  import {ColorDisplayer} from './colordisplayer';
 
   interface Props {
     color : Color;
@@ -253,32 +254,37 @@ filled with the selected color. Let's create a ColorDisplayer component (_colord
 
 - And let's use it inside our App (_app.tsx_) component.
 
-  ```jsx
-  import {ColorDisplayer} from './colordisplayer';
-  ```
+```diff
+import * as React from 'react';
+import {Color} from './color';
+import {ColorPicker} from './colorpicker';
 
-  ```jsx
+interface State {
+  color : Color;
+}
+
+export class App extends React.Component<{}, State> {
+  constructor(props) {
+    super(props);
+
+    this.state = {color: {red: 90, green: 50, blue: 70}};
+  }
+
+  setColorState(newColor : Color) {
+    this.setState({color: newColor});
+  }
+
   public render() {
     return (
       <div>
-        <ColorDisplayer
-          color={this.state.color}
-        />
-        <span>
-          Color: [
-            red:    {this.state.color.red},
-            green:  {this.state.color.green},
-            blue:   {this.state.color.blue}
-          ]
-        </span>
-        <ColorPicker
-          color={this.state.color}  
-          onColorUpdated={this.setColorState.bind(this)}
-        />
+        <ColorDisplayer color={this.state.color} />      
+        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
+        <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
       </div>
     );
   }
-  ```
+}
+```
 
 - Let's give a try and check the results
 
