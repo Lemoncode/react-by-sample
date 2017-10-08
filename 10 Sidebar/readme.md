@@ -249,7 +249,7 @@ just show the frame but the content should be dynamic.
 
 - Now in the _sidebar.tsx_ let's dump this content by using {this.props.children}
 
-```
+```diff
 import * as React from 'react';
 
 interface Props {
@@ -270,4 +270,12 @@ interface Props {
     </div>
   );
 }
+```
+
+> This code can be enhanced, excercise: try to extra the width calculation to a separate function (isolated form  the SidebarComponent).
+
+- Let's try the sample
+
+```cmd
+npm start
 ```
