@@ -199,7 +199,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div>
 -        <SidebarComponent/>
-+        <SidebarComponent isVisible={this.state.isSidebarVisible}>
++        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
 +        <input type="submit"
