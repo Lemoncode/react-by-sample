@@ -65,6 +65,8 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Add this css file to the webpack entry point:
 
+_./webpack.config.js_
+
 ```javascript
   entry: [
     './main.tsx',
@@ -72,6 +74,23 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
     './styles.css'
   ],
 ```
+
+- We will need to remove as well an include "node_modules" entry on the css loader (we want to handle node_modules folder entry and custom app entries).
+
+```diff
+      {
+        test: /\.css$/,
+-        include: /node_modules/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: {
+            loader: 'css-loader',
+          },
+        }),
+      },
+
+```
+
 
 - We are going to create now a sidebar component, _src/sidebar.tsx_. Right now we will create just
 a rectangle and we will interact with the animation.
