@@ -230,7 +230,6 @@ filled with the selected color. Let's create a ColorDisplayer component (_colord
 ```jsx
   import * as React from 'react';
   import {Color} from './color'
-+  import {ColorDisplayer} from './colordisplayer';
 
   interface Props {
     color : Color;
@@ -258,6 +257,7 @@ filled with the selected color. Let's create a ColorDisplayer component (_colord
 import * as React from 'react';
 import {Color} from './color';
 import {ColorPicker} from './colorpicker';
++  import {ColorDisplayer} from './colordisplayer';
 
 interface State {
   color : Color;
@@ -277,7 +277,7 @@ export class App extends React.Component<{}, State> {
   public render() {
     return (
       <div>
-        <ColorDisplayer color={this.state.color} />      
++        <ColorDisplayer color={this.state.color} />      
         <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
         <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
       </div>
