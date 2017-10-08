@@ -29,7 +29,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 _./src/model/member.ts_
 
 ```javascript
-export default class MemberEntity {
+export class MemberEntity {
   id: number;
   login: string;
   avatar_url: string;
@@ -67,6 +67,8 @@ var	MembersMockData : MemberEntity[] =
 ```
 
 - Define a fake api (to take thing simple we will just make it synchronous) in _src/api/memberAPI.ts_:
+
+ _src/api/memberAPI.ts_
 
 ```javascript
 import {MemberEntity} from '../model/member';
