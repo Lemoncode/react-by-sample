@@ -63,14 +63,14 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's install the dependencies _react-router_ and typescript definitions for this.
 
-  ```
+```
   npm install react-router-dom --save
   npm install @types/react-router-dom --save-dev  
-  ```
+```
 
 - Let's define the routing in _main.tsx_:
 
-  ```jsx
+```jsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Router, Route, HashRouter} from 'react-router-dom';
