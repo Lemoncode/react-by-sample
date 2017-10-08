@@ -163,52 +163,56 @@ export const SidebarComponent = (props: Props) => {
 - Now at app level (in file _app.tsx_) we can add a new member to the state (a boolean flag) and a button to turn it
 off and on.
 
-  ```javascript
+```diff
   interface State {
     userName : string;
-    isSidebarVisible : boolean;
++    isSidebarVisible : boolean;
   }
-  ```
+```
 
-  ```jsx
-  export class App extends React.Component<Props, State> {
-    constructor(props: Props) {
-      super(props);
+```diff
+export class App extends React.Component<{}, State> {
+  constructor(props) {
+    super(props);
 
-      this.state = {userName: "defaultUserName", isSidebarVisible: false};
-    }
-
-    setUsernameState(event) {
-      this.setState({userName: event.target.value} as State);
-    }
-
-    toggleSidebarVisibility() {
-      const newVisibleState = !this.state.isSidebarVisible;
-
-      this.setState({isSidebarVisible: newVisibleState} as State);
-    }
-
-    ButtonStyle = {
-       marginLeft: '450px'
-     };
-
-    public render() {
-      return (
-        <div>
-          <SidebarComponent isVisible={this.state.isSidebarVisible} />
-          <HelloComponent userName={this.state.userName} />
-          <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-          <input type="submit"
-            value="Toggle Sidear"
-            className="btn btn-default"
-            style={this.ButtonStyle}
-            onClick={this.toggleSidebarVisibility.bind(this)}
-            />
-        </div>
-      );
-    }
+-    this.state = {userName: 'defaultUserName'};
++     this.state = {userName: "defaultUserName", isSidebarVisible: false};
   }
-  ```
+
+  setUsernameState(event) {
+    // If the state gets more complex we should use object.assign
+    this.setState({userName: event.target.value});
+  }
+
++   toggleSidebarVisibility() {
++     const newVisibleState = !this.state.isSidebarVisible;
++
++     this.setState({isSidebarVisible: newVisibleState} as State);
++   }
+
++   ButtonStyle = {
++      marginLeft: '450px'
++   };
+
+
+  public render() {
+    return (
+      <div>
+        <SidebarComponent/>
+        <HelloComponent userName={this.state.userName} />
+        <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
++        <input type="submit"
++          value="Toggle Sidear"
++          className="btn btn-default"
++          style={this.ButtonStyle}
++          onClick={this.toggleSidebarVisibility.bind(this)}
++          />
+        
+      </div>
+    );
+  }
+}
+```
 
 - If we run our sample, we can see how the sidebar is shown / hidden.
 
@@ -217,15 +221,15 @@ just show the frame but the content should be dynamic.
 
 - Let's start by adding some content when instantiating the sidebar (_app.tsx_).
 
-  ```jsx
+```jsx
   <SidebarComponent isVisible={this.state.isSidebarVisible}>
     <h1>Test content</h1>
   </SidebarComponent>
-  ```
+```
 
 - Now in the _sidebar.tsx_ let's dump this content by using {this.props.children}
 
-  ```jsx
+```jsx
   import * as React from 'react';
 
   interface Props {
@@ -265,7 +269,7 @@ just show the frame but the content should be dynamic.
       );
     }
   }
-  ```
+```
 
 - We can refact to transform the SidebarComponent again to be an stateless Component. We should keep the interim step, but end up with something like:
 
