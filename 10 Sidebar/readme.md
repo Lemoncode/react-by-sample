@@ -90,9 +90,9 @@ a rectangle and we will interact with the animation.
 
 - We are going to add a known id to to body section of _src/index.html_ page
 
-  ```html
+```html
   <body id="main">
-  ```
+```
 
 - Let's place the component adding into the app.tsx:
 
@@ -139,19 +139,26 @@ import * as React from 'react';
 - Now let's add some logic to show / display the sidebar in case the flag gets
 updated
 
-  ```jsx
-  export const SidebarComponent = (props: {isVisible : boolean}) => {
-    var divStyle = {
-      width: (props.isVisible) ?  '250px':'0px'
-    };
+```diff
+import * as React from 'react';
 
-    return (
-      <div id="mySidenav" className="sidenav" style={divStyle}>
+interface Props {
+  isVisible: boolean;
+};
+
+export const SidebarComponent = (props: Props) => {
++    var divStyle = {
++      width: (props.isVisible) ?  '250px':'0px'
++    };
+
+  return (
+-    <div id="mySidenav" className="sidenav">
++    <div id="mySidenav" className="sidenav" style={divStyle}>
         <span>Basic side bar, first steps</span>
-      </div>
-    );
-  }
-  ```
+    </div>
+  );
+}
+```
 
 - Now at app level (in file _app.tsx_) we can add a new member to the state (a boolean flag) and a button to turn it
 off and on.
