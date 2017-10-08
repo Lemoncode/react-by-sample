@@ -127,7 +127,7 @@ import {MemberEntity} from './model/member';
 import {memberAPI} from './api/memberAPI';
 import {MemberRow} from './memberRow';
 
-interface Props extends React.Props<MembersTable> {
+interface Props {
 }
 
 // We define members as a state (the compoment holding this will be a container
@@ -137,7 +137,7 @@ interface State {
 }
 
 // Nice tsx guide: https://github.com/Microsoft/TypeScript/wiki/JSX
-export class MembersTable extends React.Component<Props, State> {
+export class MembersTableComponent extends React.Component<Props, State> {
 
   constructor(props : Props){
         super(props);
@@ -186,7 +186,7 @@ export class MembersTable extends React.Component<Props, State> {
 
 ```
 
-- Let's update app.tsx
+- Let's update an app.tsx
 
 ```javascript
 import * as React from 'react';
