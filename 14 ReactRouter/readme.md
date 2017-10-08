@@ -106,7 +106,7 @@ ReactDOM.render(
 
 ```diff
   import * as React from "react"
-+  import {Link} from 'react-router';
++  import {Link} from 'react-router-dom';
 
   export const PageA = () => {
     return (
@@ -123,14 +123,14 @@ ReactDOM.render(
 
 ```diff
   import * as React from "react"
-+  import {Link} from 'react-router';
++  import {Link} from 'react-router-dom';
 
   export const PageB = () => {
     return (
       <div>
         <h2>Hello from page B</h2>
 +        <br/>
-+        <Link to="/pageA">Navigate to Page B</Link>
++        <Link to="/">Navigate to Page B</Link>
       </div>
     )
   }
