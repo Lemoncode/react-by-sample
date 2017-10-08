@@ -106,7 +106,7 @@ ReactDOM.render(
 
 ```diff
   import * as React from "react"
-  import {Link} from 'react-router';
++  import {Link} from 'react-router';
 
   export const PageA = () => {
     return (
@@ -123,7 +123,7 @@ ReactDOM.render(
 
 ```diff
   import * as React from "react"
-  import {Link} from 'react-router';
++  import {Link} from 'react-router';
 
   export const PageB = () => {
     return (
