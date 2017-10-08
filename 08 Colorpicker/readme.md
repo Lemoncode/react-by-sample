@@ -81,22 +81,24 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - We need to update _main.tsx_ to indicate the change
 
-  ```jsx
+```diff
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
-  import {App} from './app';
+-  import { HelloComponent } from './hello';
++  import {App} from './app';
 
   ReactDOM.render(
-    <App/>
-    , document.getElementById('root'));
-  ```
+-   <HelloComponent/>  
++   <App/>,
+    document.getElementById('root'));
+```
 
 
 
 - We are going to change as well the content of the file let's define a color and callback
 as a property to setup the color (_colorpicker.tsx_).
 
-  ```jsx
+```jsx
   import {Color} from './color'
 
   interface Props {
@@ -105,7 +107,7 @@ as a property to setup the color (_colorpicker.tsx_).
   }
 
   export const ColorPicker = (props) => {
-  ```
+```
 
 - Let's start by defining only one slider to control the red component of a given color (_colorpicker.tsx_).
 
