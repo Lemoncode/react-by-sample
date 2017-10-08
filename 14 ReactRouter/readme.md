@@ -93,17 +93,17 @@ ReactDOM.render(
 ,
   document.getElementById('root')
 );
-  ```
+```
 
 - It's time to check that we are following the right track:
 
-  ```
+```
   npm start
-  ```
+```
 
 - Let's define a navigation from PageA to PageB (_src/pageA.tsx_).
 
-  ```jsx
+```jsx
   import * as React from "react"
   import {Link} from 'react-router';
 
@@ -116,11 +116,11 @@ ReactDOM.render(
       </div>
     )
   }
-  ```
+```
 
 - Let's define a navigation from PageB to PageA  (_pageA.tsx_)
 
-  ```jsx
+```jsx
   import * as React from "react"
   import {Link} from 'react-router';
 
@@ -133,11 +133,11 @@ ReactDOM.render(
       </div>
     )
   }
-  ```
+```
 
 
 - Let's run the app and check that the navigation links are working
 
-  ```
+```
   npm start
-  ```
+```
