@@ -106,7 +106,7 @@ as a property to setup the color (_colorpicker.tsx_).
     onColorUpdated : (color : Color) => void;
   }
 
-  export const ColorPicker = (props) => {
+  export const ColorPicker = (props : Props) => {
 ```
 
 - Let's start by defining only one slider to control the red component of a given color (_colorpicker.tsx_).
