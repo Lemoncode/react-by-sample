@@ -65,7 +65,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
   ```
   npm install react-router-dom --save
-  npm install @types/react-router-dom --save  
+  npm install @types/react-router-dom --save-dev  
   ```
 
 - Let's define the routing in _main.tsx_:
