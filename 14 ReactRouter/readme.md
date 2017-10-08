@@ -79,7 +79,7 @@ import * as ReactDOM from 'react-dom';
 + import {PageA} from './pageA';
 + import {PageB} from './pageB';
 
-const history = createHashHistory();
++ const history = createHashHistory();
 
 ReactDOM.render(
 -  <App />
