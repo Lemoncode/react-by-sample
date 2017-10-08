@@ -34,7 +34,7 @@ _.tsconfig.json_
 {
   "compilerOptions": {
 +    "target": "es6",
-+    "moduleResolution": "node",    
+     "moduleResolution": "commonjs",    
 +    "module": "es6",
     "declaration": false,
     "noImplicitAny": false,
