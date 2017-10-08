@@ -58,7 +58,7 @@ npm install babel-core babel-preset-env --save-dev
 
 - Let's add a _.babelrc_ configuration
 
-_./babelrc_
+_./.babelrc_
 
 ```
 {
