@@ -102,3 +102,66 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   ```
   npm start
   ```
+  
+- We have still room for improvement, why not having a single handler for all colors? if we currified the colorupdated handler we can !
+
+```diff
+import * as React from 'react';
+import { Color } from './color'
+import {ColorSliderComponent} from './colorslider';
+
+interface Props {
+  color: Color;
+  onColorUpdated: (color: Color) => void;
+}
+
++ const updateColor = (props : Props, colorId) => (value) => {
++    props.onColorUpdated({
++      ...props.color,
++      [colorId]: value
++    });
++ };
+
+export const ColorPicker = (props: Props) => {
+  return (
+    <div>
+      <ColorSliderComponent
+      value = {props.color.red}
++      onValueUpdated={updateColor(props, 'red')}
+-      onValueUpdated={(value) => props.onColorUpdated(
+-        {
+-          red: value,
+-          green: props.color.green,
+-          blue:  props.color.blue
+-        })
+-      }
+    />
+    <br />
+    <ColorSliderComponent
+      value = {props.color.green}
++      onValueUpdated={updateColor(props, 'green')}
+-      onValueUpdated={(value) => props.onColorUpdated(
+-        {
+-          red:  props.color.red,
+-          green: value,
+-          blue: props.color.blue
+-        })
+-      }
+    />
+    <br />
+    <ColorSliderComponent
+      value = {props.color.blue}
++      onValueUpdated={updateColor(props, 'blue')}
+-      onValueUpdated={(value) => props.onColorUpdated(
+-        {
+-          red:   props.color.red,
+-          green: props.color.green,
+-          blue: value
+-        })
+-      }
+    />
+    <br />
+    </div>
+  );
+}
+```
