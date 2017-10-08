@@ -30,7 +30,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 _.tsconfig.json_
 
-```json
+```diff
 {
   "compilerOptions": {
 +    "target": "es6",
