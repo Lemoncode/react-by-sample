@@ -82,6 +82,7 @@ _./webpack.config.js_
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
+-        loader: 'awesome-typescript-loader',
 +        use:
 +        {
 +          loader: 'awesome-typescript-loader',
