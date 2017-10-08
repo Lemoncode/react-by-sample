@@ -165,15 +165,15 @@ as a property to setup the color (_colorpicker.tsx_).
 
 - Let's give a try and check that we got the basics working
 
-  ```
+```
   npm start
-  ```
+```
 
 - Let's complete the component by adding sliders for the green and blue options:
 
 > Note: this will look a bit ugly, in the next sample we will refactor this to a cleaner solution
 
-  ```jsx
+```jsx
   export const ColorPicker = (props : Props) => {
     return (
       <div>
@@ -222,12 +222,12 @@ as a property to setup the color (_colorpicker.tsx_).
       </div>
     );
   }
-  ```
+```
 
 - Let's make this a bit more visual, it would be a good idea to display a rectangle
 filled with the selected color. Let's create a ColorDisplayer component (_colordisplayer.tsx_).
 
-  ```jsx
+```jsx
   import * as React from 'react';
   import {Color} from './color'
 +  import {ColorDisplayer} from './colordisplayer';
@@ -250,7 +250,7 @@ filled with the selected color. Let's create a ColorDisplayer component (_colord
       </div>
     );
   }
-  ```
+```
 
 - And let's use it inside our App (_app.tsx_) component.
 
