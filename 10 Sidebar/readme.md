@@ -266,7 +266,8 @@ interface Props {
 
   return (
     <div id="mySidenav" className="sidenav" style={divStyle}>
-      <span>Basic side bar, first steps</span>
+-       <span>Basic side bar, first steps</span>
++       {props.children}
     </div>
   );
 }
