@@ -42,7 +42,7 @@ export class App extends React.Component<Props, State> {
             className="btn btn-default"
             onClick={this.toggleSidebarVisibility}>
             Toggle Sidebar
-        </button>
+          </button>
         </div>
       </div>
     );
