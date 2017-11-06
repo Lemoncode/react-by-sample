@@ -5,9 +5,12 @@ interface Props {
   children? : any;
 }
 
-export function SidebarComponent (props:Props) {
+export const SidebarComponent = (props: Props) => {
+  const divStyle: React.CSSProperties = {
+    width: (props.isVisible) ? '250px' : '0px'
+  };
   return (
-    <div id="mySidenav" className="sidenav" style={{width: (props.isVisible) ? '250px' : 0}}>
+    <div id="mySidenav" className="sidenav" style={divStyle}>
         {props.children}
     </div>
   );
