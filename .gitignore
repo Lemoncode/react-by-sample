@@ -8,3 +8,4 @@ typings/
 */src/**/*.js.map
 **/.vscode/
 10 Sidebar/npm-debug.log
+package-lock.json
