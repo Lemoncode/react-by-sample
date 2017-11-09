@@ -229,15 +229,11 @@ export class App extends React.Component<{}, State> {
     this.setState({userName: event.target.value});
   }
 
-+   toggleSidebarVisibility() {
++   toggleSidebarVisibility () => {
 +     const newVisibleState = !this.state.isSidebarVisible;
 +
 +     this.setState({isSidebarVisible: newVisibleState} as State);
 +   }
-
-+   ButtonStyle = {
-+      marginLeft: '450px'
-+   };
 
 
   public render() {
@@ -247,12 +243,13 @@ export class App extends React.Component<{}, State> {
 +        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-+        <input type="submit"
-+          value="Toggle Sidear"
-+          className="btn btn-default"
-+          style={this.ButtonStyle}
-+          onClick={this.toggleSidebarVisibility.bind(this)}
-+          />
++       <div className="pull-right">
++         <button
++           className="btn btn-default"
++           onClick={this.toggleSidebarVisibility}>
++           Toggle Sidebar
++         </button>
++       </div>
         
       </div>
     );
