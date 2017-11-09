@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@types/react": "^16.0.10",
-    "@types/react-dom": "^16.0.1",
+    "@types/react-dom": "^16.0.2",
     "awesome-typescript-loader": "^3.2.3",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.1",
