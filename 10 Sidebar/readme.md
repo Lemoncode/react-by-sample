@@ -166,7 +166,7 @@ interface Props {
 };
 
 export const SidebarComponent = (props: Props) => {
-+    var divStyle = {
++    const divStyle : React.CSSProperties = {
 +      width: (props.isVisible) ?  '250px':'0px'
 +    };
 
