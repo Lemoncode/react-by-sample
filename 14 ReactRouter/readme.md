@@ -35,110 +35,117 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's create a component called _PageA_ as _src/pageA.tsx_:
 
-  ```jsx
-  import * as React from "react"
+### ./src/pageA.tsx
 
-  export const PageA = () => {
-    return (
-      <div>
-        <h2>Hello from page A</h2>
-      </div>
-    )
-  }
-  ```
+```jsx
+import * as React from "react"
+
+export const PageA = () => {
+  return (
+    <div>
+      <h2>Hello from page A</h2>
+    </div>
+  )
+}
+
+```
+
+### ./src/pageB.tsx
 
 - Let's create a component called _PageB_ as _src/pageB.tsx_:
 
-  ```jsx
-  import * as React from "react"
+```jsx
+import * as React from "react"
 
-  export const PageB = () => {
-    return (
-      <div>
-        <h2>Hello from page B</h2>
-      </div>
-    )
-  }
-  ```
-
-- Let's install the dependencies _react-router_ and typescript definitions for this.
+export const PageB = () => {
+  return (
+    <div>
+      <h2>Hello from page B</h2>
+    </div>
+  )
+}
 
 ```
-  npm install react-router-dom --save
-  npm install @types/react-router-dom --save-dev  
+
+- Let's install the dependencies [`react-router-dom`](https://github.com/ReactTraining/react-router) and typescript definitions for this.
+
+```bash
+npm install react-router-dom --save
+npm install @types/react-router-dom --save-dev  
 ```
 
 - Let's define the routing in _main.tsx_:
+
+### ./src/main.tsx
 
 ```diff
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 - import {App} from './app';
-+ import {Router, Route, HashRouter} from 'react-router-dom';
-+ import {createHashHistory} from 'history';
++ import { HashRouter, Switch, Route } from 'react-router-dom';
 + import {PageA} from './pageA';
 + import {PageB} from './pageB';
 
-+ const history = createHashHistory();
-
 ReactDOM.render(
--  <App />
-+  <HashRouter>
-+    <Router history={history} >    
-+        <div>    
-+          <Route exact={true} path="/" component={PageA}/>
-+          <Route path="/pageB" component={PageB}/>
-+        </div>
-+    </Router>    
-+  </HashRouter>
-,
-  document.getElementById('root')
+- <App />
++ <HashRouter>
++   <Switch>
++     <Route exact={true} path="/" component={PageA} />
++     <Route path="/pageB" component={PageB} />
++   </Switch>
++ </HashRouter>
+  , document.getElementById('root')
 );
+
 ```
 
 - It's time to check that we are following the right track:
 
-```
-  npm start
+```bash
+npm start
 ```
 
 - Let's define a navigation from PageA to PageB (_src/pageA.tsx_).
 
-```diff
-  import * as React from "react"
-+  import {Link} from 'react-router-dom';
+### ./src/pageA.tsx
 
-  export const PageA = () => {
-    return (
-      <div>
-        <h2>Hello from page A</h2>
-+        <br/>
-+        <Link to="/pageB">Navigate to Page B</Link>
-      </div>
-    )
-  }
+```diff
+import * as React from "react"
++ import { Link } from 'react-router-dom';
+
+export const PageA = () => {
+  return (
+    <div>
+      <h2>Hello from page A</h2>
++     <br />
++     <Link to="/pageB">Navigate to Page B</Link>
+    </div>
+  )
+}
+
 ```
 
 - Let's define a navigation from PageB to PageA  (_pageA.tsx_)
 
 ```diff
-  import * as React from "react"
-+  import {Link} from 'react-router-dom';
+import * as React from "react"
++ import { Link } from 'react-router-dom';
 
-  export const PageB = () => {
-    return (
-      <div>
-        <h2>Hello from page B</h2>
-+        <br/>
-+        <Link to="/">Navigate to Page B</Link>
-      </div>
-    )
-  }
+export const PageB = () => {
+  return (
+    <div>
+      <h2>Hello from page B</h2>
++     <br />
++     <Link to="/">Navigate to Page A</Link>
+    </div>
+  )
+}
+
 ```
 
 
 - Let's run the app and check that the navigation links are working
 
-```
-  npm start
+```bash
+npm start
 ```
