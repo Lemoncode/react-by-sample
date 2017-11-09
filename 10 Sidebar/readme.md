@@ -23,7 +23,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Copy the content from _03 State_ and execute `npm install`.
 
-- Create a file called src/styles.css and add the following styles (http://www.w3schools.com/howto/howto_js_sidenav.asp):
+- Create a file called src/sidebar.css and add the following styles (http://www.w3schools.com/howto/howto_js_sidenav.asp):
 
 ```css
   /* The side navigation menu */
@@ -118,7 +118,7 @@ a rectangle and we will interact with the animation.
 ```jsx
   import * as React from 'react';
 
-  const classNames = require('./styles.css');
+  const classNames = require('./sidebar.css');
 
   export const SidebarComponent = () => {
     return (
@@ -163,7 +163,7 @@ sidebar _sidebar.tsx_.
 ```diff
 import * as React from 'react';
 
-const classNames = require('./styles.css');
+const classNames = require('./sidebar.css');
 
 + interface Props {
 +  isVisible: boolean;
@@ -185,7 +185,7 @@ updated
 ```diff
 import * as React from 'react';
 
-const classNames = require('./styles.css');
+const classNames = require('./sidebar.css');
 
 interface Props {
   isVisible: boolean;
@@ -278,7 +278,7 @@ just show the frame but the content should be dynamic.
 ```diff
 import * as React from 'react';
 
-const classNames = require('./styles.css');
+const classNames = require('./sidebar.css');
 
 interface Props {
   isVisible: boolean;

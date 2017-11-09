@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const classNames = require('./styles.css');
+const classNames = require('./sidebar.css');
 
 interface Props {
   isVisible : boolean;
