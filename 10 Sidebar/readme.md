@@ -165,11 +165,11 @@ interface Props {
   isVisible: boolean;
 };
 
-export const SidebarComponent = (props: Props) => {
-+    const divStyle : React.CSSProperties = {
-+      width: (props.isVisible) ?  '250px':'0px'
-+    };
++    const divStyle = (props): React.CSSProperties => ({
++      width: (props.isVisible) ? '250px' : '0px'
++    });
 
+export const SidebarComponent = (props: Props) => {
   return (
 -    <div id="mySidenav" className="sidenav">
 +    <div id="mySidenav" className="sidenav" style={divStyle}>
@@ -254,12 +254,12 @@ interface Props {
 +  children? : ReactNode;  
 };
 
+const divStyle = (props): React.CSSProperties => ({
+  width: (props.isVisible) ? '250px' : '0px'
+});
+
 - export const SidebarComponent = (props: Props) => {
 + export const SidebarComponent : React.StatelessComponent<Props> = (props: Props) => {
-
-  var divStyle = {
-    width: (props.isVisible) ? '250px' : '0px'
-  };
 
   return (
     <div id="mySidenav" className="sidenav" style={divStyle}>
