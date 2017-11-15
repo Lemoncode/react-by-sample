@@ -23,7 +23,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Copy the content from _03 State_ and execute `npm install`.
 
-- Create a file called src/styles.css and add the following styles (http://www.w3schools.com/howto/howto_js_sidenav.asp):
+- Create a file called src/sidebar.css and add the following styles (http://www.w3schools.com/howto/howto_js_sidenav.asp):
 
 ```css
   /* The side navigation menu */
@@ -63,31 +63,51 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   }
 ```
 
-- Add this css file to the webpack entry point:
+- We are going to use CSS Modules, so let's configure it.
 
 _./webpack.config.js_
 
 ```diff
-  entry: [
-    './main.tsx',
-    '../node_modules/bootstrap/dist/css/bootstrap.css',
-+    './styles.css'
-  ],
+  module.exports = {
+    context: path.join(basePath, "src"),
+    resolve: {
+-      extensions: ['.js', '.ts', '.tsx']
++      extensions: ['.js', '.ts', '.tsx', '.css']
+    },
 ```
 
-- We will need to remove as well an include "node_modules" entry on the css loader (we want to handle node_modules folder entry and custom app entries).
+- We will only use CSS Modules for custom app stylesheets. We will not use CSS Modules for other CSS files, like Bootstrap (folder node_modules).
 
 ```diff
-      {
-        test: /\.css$/,
--        include: /node_modules/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: {
-            loader: 'css-loader',
-          },
-        }),
-      },
++  // Use CSS modules for custom stylesheets
++  {
++    test: /\.css$/,
++    exclude: /node_modules/,
++    loader: ExtractTextPlugin.extract({
++      fallback: 'style-loader',
++      use: [
++        {
++          loader: 'css-loader',
++          options: {
++            modules: true,
++            localIdentName: '[name]__[local]___[hash:base64:5]',
++            camelCase: true,
++          },
++        },
++      ]
++    }),
++  },
++  // Do not use CSS modules in node_modules folder
+  {
+    test: /\.css$/,
++    include: /node_modules/,
+    loader: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: {
+        loader: 'css-loader',
+      },          
+    }),
+  },
 
 ```
 
@@ -98,9 +118,11 @@ a rectangle and we will interact with the animation.
 ```jsx
   import * as React from 'react';
 
+  const classNames = require('./sidebar.css');
+
   export const SidebarComponent = () => {
     return (
-      <div id="mySidenav" className="sidenav">
+      <div id="mySidenav" className={classNames.sidenav}>
           <span>Basic side bar, first steps</span>
       </div>
     );
@@ -141,6 +163,8 @@ sidebar _sidebar.tsx_.
 ```diff
 import * as React from 'react';
 
+const classNames = require('./sidebar.css');
+
 + interface Props {
 +  isVisible: boolean;
 + }
@@ -148,7 +172,7 @@ import * as React from 'react';
 - export const SidebarComponent = () => {
 + export const SidebarComponent = (props: Props) => {
   return (
-    <div id="mySidenav" className="sidenav">
+    <div id="mySidenav" className={classNames.sidenav}>
         <span>Basic side bar, first steps</span>
     </div>
   );
@@ -161,18 +185,20 @@ updated
 ```diff
 import * as React from 'react';
 
+const classNames = require('./sidebar.css');
+
 interface Props {
   isVisible: boolean;
 };
 
-+    const divStyle = (props): React.CSSProperties => ({
++    const divStyle = (props: React.CSSProperties) => ({
 +      width: (props.isVisible) ? '250px' : '0px'
 +    });
 
 export const SidebarComponent = (props: Props) => {
   return (
--    <div id="mySidenav" className="sidenav">
-+    <div id="mySidenav" className="sidenav" style={divStyle}>
+-    <div id="mySidenav" className={classNames.sidenav}>
++    <div id="mySidenav" className={classNames.sidenav} style={divStyle(props)}>
         <span>Basic side bar, first steps</span>
     </div>
   );
@@ -249,12 +275,14 @@ just show the frame but the content should be dynamic.
 ```diff
 import * as React from 'react';
 
+const classNames = require('./sidebar.css');
+
 interface Props {
   isVisible: boolean;
 +  children? : ReactNode;  
 };
 
-const divStyle = (props): React.CSSProperties => ({
+const divStyle = (props: React.CSSProperties) => ({
   width: (props.isVisible) ? '250px' : '0px'
 });
 
@@ -262,7 +290,7 @@ const divStyle = (props): React.CSSProperties => ({
 + export const SidebarComponent : React.StatelessComponent<Props> = (props: Props) => {
 
   return (
-    <div id="mySidenav" className="sidenav" style={divStyle}>
+    <div id="mySidenav" className={classNames.sidenav} style={divStyle(props)}>
 -       <span>Basic side bar, first steps</span>
 +       {props.children}
     </div>
