@@ -12,7 +12,7 @@ module.exports = {
   },
 
   entry: [
-    './main.tsx',
+    './main.ts',
     '../node_modules/bootstrap/dist/css/bootstrap.css'
   ],
   output: {
