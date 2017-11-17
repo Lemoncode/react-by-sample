@@ -15,10 +15,10 @@ Summary steps:
 
 ## Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already
+Install [Node.js and npm](https://nodejs.org/en/) (v8.6.0 or newer) if they are not already
 installed on your computer.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v`
+> Verify that you are running at least node v8.x.x and npm 5.x.x by running `node -v` and `npm -v`
 in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
