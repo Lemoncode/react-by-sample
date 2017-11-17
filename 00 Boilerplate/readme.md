@@ -15,6 +15,7 @@ Summary steps:
 - Install:
     - Webpack and webpack-dev-server.
     - TypeScript.
+    - Babel.
     - Bootstrap.
 - Setup **webpack.config.js**
 - Create a test js file.
@@ -22,9 +23,9 @@ Summary steps:
 
 # Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.9.1) if they are not already installed on your computer.
+Install [Node.js and npm](https://nodejs.org/en/) (v8.9.1) if they are not already installed on your computer.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verify that you are running at least node v8.x.x and npm 5.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
@@ -59,7 +60,7 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
 
 ```diff
   "scripts": {
-+    "start": "webpack-dev-server --inline",
++    "start": "webpack-dev-server --inline --hot --open",
 +    "build": "webpack"
   },
 
@@ -74,10 +75,11 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
 - We need as well to drop a **tsconfig.json** file in the root folder of our project
 
  ```json
- {
+{
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "es6",
+    "module": "es6",
+    "moduleResolution": "node",
     "declaration": false,
     "noImplicitAny": false,
     "jsx": "react",
@@ -92,11 +94,35 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
 }
  ```
 
+ - Now, we need to transpile ES6 to ES5. Let's install **babel-core** and **babel-preset-env**.
+
+
+ ```
+ npm install babel-core babel-preset-env --save-dev
+ ```
+
+ - Babel needs to be configured for works. We will create one file **.babelrc** in root and later we will see how to put it in **webpack.config.js**. In this example, we will use this .babelrc: 
+
+ ```json
+ {
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ]
+  ]
+}
+ ```
+
 - Let's install bootstrap:
 
  ```
  npm install bootstrap --save
  ```
+
+
 
 - Now, our **package.json** file should looks something like:
 
@@ -114,15 +140,17 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
   "license": "ISC",
   "devDependencies": {
     "awesome-typescript-loader": "^3.1.2",
-    "css-loader": "^0.27.3",
-    "extract-text-webpack-plugin": "^2.1.0",
-    "file-loader": "^0.10.1",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.24.0",
-    "style-loader": "^0.16.0",
+    "style-loader": "^0.18.2",
     "ts-loader": "^2.0.3",
     "typescript": "^2.0.6",
     "url-loader": "^0.5.7",
-    "webpack": "^2.3.2",
+    "webpack": "^3.6.0",
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
@@ -168,12 +196,13 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
  - Generating the build under a **dist** folder.
 
  ```javascript
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+let path = require('path'); 
+let webpack = require('webpack'); 
+let HtmlWebpackPlugin = require('html-webpack-plugin'); 
 
-var basePath = __dirname;
+let ExtractTextPlugin = require('extract-text-webpack-plugin'); 
+
+let basePath = __dirname;
 
 module.exports = {
   context: path.join(basePath, "src"),
@@ -206,6 +235,9 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'awesome-typescript-loader',
+        options: { 
+          useBabel: true, 
+        }, 
       },
       {
         test: /\.css$/,
@@ -222,7 +254,7 @@ module.exports = {
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=application/font-woff'
-      },  
+      },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
@@ -230,11 +262,18 @@ module.exports = {
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
-      },                
+      },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader'
-      },      
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/img/[name].[ext]?[hash]'
+        }
+      },   
     ]
   },
   plugins: [
