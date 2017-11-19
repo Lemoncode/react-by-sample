@@ -36,6 +36,9 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'awesome-typescript-loader',
+        options: {
+          useBabel: true,
+        },
       },
       {
         test: /\.css$/,
