@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 interface Props { 
-  userName: string, 
-  onChange: (event: any) => any 
+  userName: string;
+  onChange: (event: any) => any;
 }
 
 export const NameEditComponent = (props: Props) => {

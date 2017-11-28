@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface Props {
-  userName: string
+  userName: string;
 }
 
 export const HelloComponent = (props: Props) => {
