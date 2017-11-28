@@ -108,18 +108,23 @@ export class App extends React.Component<Props, State> {
 update his username and will notify with a callback to the parent control whenever
 the _userName_ gets updated.
 
-  ```jsx
-  import * as React from 'react';
+```jsx
+import * as React from 'react';
 
-  export const NameEditComponent = (props : { userName : string, onChange : (event : any) => any }) => {
-    return (
-      <div>
-        <label>Update Name:</label>
-        <input value={props.userName} onChange={props.onChange} />
-      </div>
-    );
-  }
-  ```
+interface Props { 
+  userName: string, 
+  onChange: (event: any) => any 
+}
+
+export const NameEditComponent = (props: Props) => {
+  return (
+    <div>
+      <label>Update Name:</label>
+      <input value={props.userName} onChange={props.onChange} />
+    </div>
+  );
+}
+```
 
 - In the _app.tsx_ file let's add a function to set the changed _userName_ in the state.
 
@@ -142,7 +147,7 @@ the _userName_ gets updated.
       this.state = {userName: 'defaultUserName'};
     }
 
-+    setUsernameState(event) {     
++    setUsernameState = (event) => {
 +      this.setState({userName: event.target.value});
 +    }
 
@@ -150,7 +155,7 @@ the _userName_ gets updated.
       return (
 +        <div>
           <HelloComponent userName={this.state.userName} />
-+          <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
++          <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState} />
 +        </div>
       );
     }
