@@ -86,3 +86,11 @@ Sample of navigation.
 ### [15 Login Form](https://github.com/Lemoncode/react-by-sample/tree/master/15%20LoginForm)
 
 Basic implementation of a login page.
+
+# About Lemoncode
+
+We are a team of long-term experienced freelance developers, established as a group in 2010.
+We specialize in Front End technologies and .NET. [Click here](http://lemoncode.net/services/en/#en-home) to get more info about us.
+
+For the LATAM/Spanish audience we are running an Online Front End Master degree, more info: http://lemoncode.net/master-frontend
+
