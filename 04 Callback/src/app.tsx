@@ -17,7 +17,7 @@ export class App extends React.Component<Props, State> {
     this.state = {userName: "defaultUserName"};
   }
 
-  setUsernameState(newName: string) {
+  setUsernameState = (newName: string) => {
     this.setState({userName: newName});
   }
 
@@ -25,7 +25,7 @@ export class App extends React.Component<Props, State> {
     return (
       <div>
         <HelloComponent userName={this.state.userName}/>
-        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState.bind(this)}/>
+        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState}/>
       </div>
     );
   }

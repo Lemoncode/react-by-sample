@@ -18,11 +18,11 @@ export class NameEditComponent extends React.Component<Props, State> {
     this.state = {editingName: this.props.initialUserName};
   }
 
-  onChange(event: any): any {
+  onChange = (event: any): any => {
     this.setState({editingName: event.target.value} as State);
   }
 
-  onNameSubmit(event: any): any {
+  onNameSubmit = (event: any): any => {
     this.props.onNameUpdated(this.state.editingName);
   }
 
@@ -30,8 +30,8 @@ export class NameEditComponent extends React.Component<Props, State> {
     return (
       <div>
         <label>Update Name:</label>
-        <input value={this.state.editingName} onChange={this.onChange.bind(this)} />
-        <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit.bind(this)} />
+        <input value={this.state.editingName} onChange={this.onChange} />
+        <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit} />
       </div>
     );
   }
