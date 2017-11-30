@@ -76,12 +76,15 @@ child control.
   import {HelloComponent} from './hello';
   import {NameEditComponent} from './nameEdit';
 
+  interface Props{
+  }
+
   interface State {
     userName : string;
     editingUserName : string;
   }
 
-  export class App extends React.Component<{}, State> {
+  export class App extends React.Component<Props, State> {
     constructor(props) {
       super(props);
 
@@ -89,11 +92,11 @@ child control.
       this.state = {userName: defaultUserName, editingUserName: defaultUserName};
     }
 
-    setUsernameState() : void {
+    setUsernameState = () : void => {
       this.setState({userName: this.state.editingUserName} as State);
     }
 
-    updateEditingName(editingName : string) : void {
+    updateEditingName = (editingName : string) : void => {
       this.setState({editingUserName: editingName} as State);
     }
 
@@ -103,8 +106,8 @@ child control.
           <HelloComponent userName={this.state.userName} />
           <NameEditComponent
             editingUserName={this.state.editingUserName}
-            onEditingNameUpdated={this.updateEditingName.bind(this)}
-            onNameUpdateRequest={this.setUsernameState.bind(this)} />
+            onEditingNameUpdated={this.updateEditingName}
+            onNameUpdateRequest={this.setUsernameState} />
         </div>
       );
     }

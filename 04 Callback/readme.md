@@ -56,20 +56,20 @@ from a stateless component into a class component, then we will add some refacto
       this.state = {editingName: this.props.initialUserName};
     }
 
-    onChange(event: any): any {
-      this.setState({editingName: event.target.value} as State);
-    }
+  onChange = (event: any): any => {
+    this.setState({editingName: event.target.value} as State);
+  }
 
-    onNameSubmit(event: any): any {
-      this.props.onNameUpdated(this.state.editingName);
-    }
+  onNameSubmit = (event: any): any => {
+    this.props.onNameUpdated(this.state.editingName);
+  }
 
     public render() {
       return (
         <div>
           <label>Update Name:</label>
-          <input value={this.state.editingName} onChange={this.onChange.bind(this)} />
-          <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit.bind(this)} />
+          <input value={this.state.editingName} onChange={this.onChange} />
+          <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit} />
         </div>
       );
     }
@@ -86,7 +86,7 @@ from a stateless component into a class component, then we will add some refacto
       this.state = {userName: "defaultUserName"};
     }
 
-    setUsernameState(newName: string) {
+    setUsernameState = (newName: string) => {
       this.setState({userName: newName});
     }
 
@@ -94,7 +94,7 @@ from a stateless component into a class component, then we will add some refacto
       return (
         <div>
           <HelloComponent userName={this.state.userName} />
-          <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState.bind(this)} />
+          <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState} />
         </div>
       );
     }
