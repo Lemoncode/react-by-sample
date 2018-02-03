@@ -167,11 +167,15 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
 
 - Let's create a basic **main.ts** file (under **src** folder):
 
+_./src/main.ts_
+
  ```javascript
  document.write("Hello from main.ts !");
  ```
 
 - Let's create a basic **index.html** file (under **src** folder):
+
+_./src/index.html_
 
  ```html
 <!DOCTYPE html>
