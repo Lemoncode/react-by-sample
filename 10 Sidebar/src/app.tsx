@@ -37,7 +37,7 @@ export class App extends React.Component<Props, State> {
         </SidebarComponent>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-        <div className="pull-right">
+        <div className="float-right">
           <button
             className="btn btn-default"
             onClick={this.toggleSidebarVisibility}>
