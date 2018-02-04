@@ -29,211 +29,224 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Copy the content from _03 State_ and execute:
 
-  ```
-  npm install
-  ```
+```
+npm install
+```
 
-- Remove _nameEdit.ts_ and _hello.tsx_, let's wipe them from _app.tsx_ as well:
+- Remove _
 
-  ```jsx
-  import * as React from 'react';
+_./src/app.tsx_
 
-  interface Props {
+```jsx
+import * as React from 'react';
+
+interface Props {
+}
+
+interface State {
+}
+
+export class App extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
   }
 
-  interface State {
+  public render() {
+    return (
+      <div>
+      </div>
+    );
   }
-
-  export class App extends React.Component<Props, State> {
-    constructor(props: Props) {
-      super(props);
-    }
-
-    public render() {
-      return (
-        <div>
-        </div>
-      );
-    }
-  }
-  ```
+}
+```
 
 - Let's create a folder _src/content_ and copy the five smiley faces (you can
   copy them from the sample implementation in github).
 
 - Let's create a css file: _src/content/site.css_ and add the smileys styles:
 
-  ```css
-  .very-dissatisfied {
-    width:100%;
-    height:80px;
-    background:url('./one.png') no-repeat;;
-  }
+_./src/content/site.css_
 
-  .somewhat-dissatisfied {
-    width:100%;
-    height:80px;
-    background:url('./two.png') no-repeat;
-  }
+```css
+.very-dissatisfied {
+  width:100%;
+  height:80px;
+  background:url('./one.png') no-repeat;;
+}
 
-  .neither {
-    width:100%;
-    height:80px;
-    background:url('./three.png') no-repeat;
-  }
+.somewhat-dissatisfied {
+  width:100%;
+  height:80px;
+  background:url('./two.png') no-repeat;
+}
 
-  .somewhat-satisfied {
-    width:100%;
-    height:80px;
-    background:url('./four.png') no-repeat;
-  }
+.neither {
+  width:100%;
+  height:80px;
+  background:url('./three.png') no-repeat;
+}
 
-  .very-satisfied {
-    width:100%;
-    height:80px;
-    background:url('./five.png') no-repeat;
-  }
-  ```
+.somewhat-satisfied {
+  width:100%;
+  height:80px;
+  background:url('./four.png') no-repeat;
+}
+
+.very-satisfied {
+  width:100%;
+  height:80px;
+  background:url('./five.png') no-repeat;
+}
+```
 
 - In _webpack.config.js_ let's add the new _css_ file as entry point:
 
-  ```diff
-  entry: [
-    './main.tsx',
-    '../node_modules/bootstrap/dist/css/bootstrap.css',
-  +  './content/site.css'
-  ],
-  ```
+_webpack.config.js_
 
-- We need to add as well a loder to handle images in _webpackconfig.js_:
+```diff
+entry: [
+  './main.tsx',
+  '../node_modules/bootstrap/dist/css/bootstrap.css',
++  './content/site.css'
+],
+```
 
-  ```javascript
-  {
-    test: /\.(png|jpg)$/,
-    exclude: /node_modules/,
-    loader: 'url-loader?limit=10000'
-  },
-  ```
+- We need to add as well a loader to handle images in _webpackconfig.js_ (add it if it is not defined on webpack config yet):
+
+_webpack.config.js_
+
+```javascript
+{
+  test: /\.(png|jpg)$/,
+  exclude: /node_modules/,
+  loader: 'url-loader?limit=10000'
+},
+```
 
 - Let's create a simple _faceComponent_ under _src_, we will start by just adding
 something hardcoded in file _src/face.tsx_:
 
-  ```jsx
-  import * as React from 'react';
+_./src/face.tsx_
 
-  export const FaceComponent = (props : {level : number}) => {
-    return (
-      <div className="somewhat-satisfied"/>
-    );
-  }
-  ```
+```jsx
+import * as React from 'react';
+
+export const FaceComponent = (props : {level : number}) => {
+  return (
+    <div className="somewhat-satisfied"/>
+  );
+}
+```
 
 - Let's make a quick test on _app.tsx_
 
-  ```jsx
-  import * as React from 'react';
-  import {FaceComponent} from './face';
+_./src/app.tsx_
 
-  interface Props {
+```diff
+import * as React from 'react';
++ import {FaceComponent} from './face';
+
+interface Props {
+}
+
+interface State {
+}
+
+export class App extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
   }
 
-  interface State {
+  public render() {
+    return (
+      <div>
++        <FaceComponent level={100}/>
+      </div>
+    );
   }
-
-  export class App extends React.Component<Props, State> {
-    constructor(props: Props) {
-      super(props);
-    }
-
-    public render() {
-      return (
-        <div>
-          <FaceComponent level={100}/>
-        </div>
-      );
-    }
-  }
-  ```
+}
+```
 
 - Let's make a check point and run the sample: check that is working as expected.
 
-  ```
-  npm start
-  ```
+```
+npm start
+```
 
 - Now it's time to link the property with the proper faces, let's create a style function
 for that in _face.tsx_
 
-  ```jsx
-  import * as React from 'react';
+```diff
+import * as React from 'react';
 
-  export const FaceComponent = (props : {level : number}) => {
++ const setSatisfactionClass = (level : number) => {
++  if(level < 100) {
++        return "very-dissatisfied"
++  }
++
++  if(level < 200) {
++        return "somewhat-dissatisfied"
++  }
++
++  if(level < 300) {
++        return "neither"
++  }
++
++  if(level < 400) {
++        return "somewhat-satisfied"
++  }
++
++  return "very-satisfied"
++}
 
-    function setSatisfactionClass(level : number) {
-      if(level < 100) {
-            return "very-dissatisfied"
-      }
 
-      if(level < 200) {
-            return "somewhat-dissatisfied"
-      }
-
-      if(level < 300) {
-            return "neither"
-      }
-
-      if(level < 400) {
-            return "somewhat-satisfied"
-      }
-
-      return "very-satisfied"
-    }
-
-    return (
-      <div className={setSatisfactionClass(props.level)}/>
-    );
-  }
-  ```
+export const FaceComponent = (props : {level : number}) => {
+  return (
+-    <div className="somewhat-satisfied"/>
++    <div className={setSatisfactionClass(props.level)}/>
+  );
+}
+```
 
 - In _app.tsx_ let's add a state variable to hold the current satisfaction level plus
 an slider to let the user update it.
 
-  ```jsx
-  import * as React from 'react';
-  import {FaceComponent} from './face'
+```jsx
+import * as React from 'react';
+import {FaceComponent} from './face'
 
-  interface Props {
+interface Props {
+}
+
+interface State {
+  satisfactionLevel : number;
+}
+
+export class App extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {satisfactionLevel: 300};
   }
 
-  interface State {
-    satisfactionLevel : number;
+  public render() {
+    return (
+      <div>
+        <input type="range"
+                min="0"
+                max="500"
+                value={this.state.satisfactionLevel}
+                onChange={(event : any) => this.setState({satisfactionLevel :event.target.value} as State)}
+        />
+        <br/>
+        <span>{this.state.satisfactionLevel}</span>
+        <br/>
+        <FaceComponent level={this.state.satisfactionLevel}/>
+      </div>
+    );
   }
-
-  export class App extends React.Component<Props, State> {
-    constructor(props: Props) {
-      super(props);
-
-      this.state = {satisfactionLevel: 300};
-    }
-
-    public render() {
-      return (
-        <div>
-          <input type="range"
-                  min="0"
-                  max="500"
-                  value={this.state.satisfactionLevel}
-                  onChange={(event : any) => this.setState({satisfactionLevel :event.target.value} as State)}
-          />
-          <br/>
-          <span>{this.state.satisfactionLevel}</span>
-          <br/>
-          <FaceComponent level={this.state.satisfactionLevel}/>
-        </div>
-      );
-    }
-  }
-  ```
+}
+```
 
 - Let's run the sample:
 
@@ -245,66 +258,68 @@ an slider to let the user update it.
 the level just changes the satisfaction range, we need to move the component to
 state component:
 
-  ```jsx
-  import * as React from 'react';
+```jsx
+import * as React from 'react';
 
-  interface Props {
-    level : number;
+interface Props {
+  level : number;
+}
+
+export class FaceComponent extends React.Component<Props, {}> {
+
+  setSatisfactionClass(level : number) {
+    if(level < 100) {
+          return "very-dissatisfied"
+    }
+
+    if(level < 200) {
+          return "somewhat-dissatisfied"
+    }
+
+    if(level < 300) {
+          return "neither"
+    }
+
+    if(level < 400) {
+          return "somewhat-satisfied"
+    }
+
+    return "very-satisfied"
   }
 
-  export class FaceComponent extends React.Component<Props, {}> {
+  shouldComponentUpdate(nextProps : Props, nextState)
+  {
+    const rangeChange = [100, 200, 300, 400];
 
-    setSatisfactionClass(level : number) {
-      if(level < 100) {
-            return "very-dissatisfied"
-      }
+    let index =  0;
+    let isRangeChange = false;
 
-      if(level < 200) {
-            return "somewhat-dissatisfied"
-      }
+    while(!isRangeChange && index < rangeChange.length) {
+      isRangeChange = (this.props.level < rangeChange[index] && nextProps.level >= rangeChange[index])
+                    ||
+                      (this.props.level > rangeChange[index] && nextProps.level <= rangeChange[index])
+      ;
 
-      if(level < 300) {
-            return "neither"
-      }
-
-      if(level < 400) {
-            return "somewhat-satisfied"
-      }
-
-      return "very-satisfied"
+      index++;
     }
 
-    shouldComponentUpdate(nextProps : Props, nextState)
-    {
-      const rangeChange = [100, 200, 300, 400];
-
-      let index =  0;
-      let isRangeChange = false;
-
-      while(!isRangeChange && index < rangeChange.length) {
-        isRangeChange = (this.props.level < rangeChange[index] && nextProps.level >= rangeChange[index])
-                      ||
-                        (this.props.level > rangeChange[index] && nextProps.level <= rangeChange[index])
-        ;
-
-        index++;
-      }
-
-       return isRangeChange;
-    }
-
-    render() {
-      return (
-        <div className={this.setSatisfactionClass(this.props.level)}/>
-      );
-    }
+      return isRangeChange;
   }
-  ```
 
+  render() {
+    return (
+      <div className={this.setSatisfactionClass(this.props.level)}/>
+    );
+  }
+}
+```
+
+> Excercise there's an easier way to implement the same algorithm in the 
+should component update.
 
 - Now if we place a breakpoint in the faceComponent render method we can see that
 render is only triggered when you change from a satisfaction range (e.g. 99 to 100).
 
-  ```
-  npm start
-  ```
+```
+npm start
+```
