@@ -24,21 +24,23 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 - Update _nameEdit.tsx_, port it to stateless component and add the methods inline. It should look like:
 
  ```jsx
- import * as React from 'react';
+import * as React from 'react';
+import {Fragment} from 'react';
 
- interface Props {
+
+interface Props {
     editingUserName : string;
-    onEditingNameUpdated : (newEditingName : string) => any;
-    onNameUpdateRequest : () => void;
- }
+    onEditingNameUpdated : (newEditingName : string) => void;
+    onNameUpdateRequest : () => void;  
+}
 
- export const NameEditComponent = (props: Props) => {
-    return (
-      <div>
-        <label>Update Name:</label>
-        <input value={props.editingUserName} onChange={(event : any) => props.onEditingNameUpdated(event.target.value)}/>
-        <input type="submit" value="Change" className="btn btn-default" onClick={props.onNameUpdateRequest} />
-      </div>
-    );
- }
+  
+export const NameEditComponent = (props : Props) =>
+  <div>
+      <label>Update Name:</label>
+      <input value={props.editingUserName}
+        onChange={(e) : void => props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
+
+      <button className="btn btn-default" onClick={props.onNameUpdateRequest}>Change</button>
+  </div>
  ```
