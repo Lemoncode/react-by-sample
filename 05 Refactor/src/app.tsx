@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {HelloComponent} from './hello';
-import {NameEditComponent} from './nameEdit';
+import {NameEditComponent} from './nameEdit'
 
-interface Props{
+interface Props {
+
 }
 
 interface State {
@@ -11,30 +12,32 @@ interface State {
 }
 
 export class App extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props : Props) {
     super(props);
 
     const defaultUserName = 'defaultUserName';
     this.state = {userName: defaultUserName, editingUserName: defaultUserName};
   }
 
-  setUsernameState = () : void => {
+  setUsernameState = () => {
     this.setState({userName: this.state.editingUserName} as State);
   }
 
   updateEditingName = (editingName : string) : void => {
     this.setState({editingUserName: editingName} as State);
   }
+      
 
-  render() {
+  public render() {
     return (
-      <div>
-        <HelloComponent userName={this.state.userName} />
+      <React.Fragment>
+        <HelloComponent userName={this.state.userName}/>
         <NameEditComponent
-          editingUserName={this.state.editingUserName}
-          onEditingNameUpdated={this.updateEditingName}
-          onNameUpdateRequest={this.setUsernameState} />
-      </div>
+            editingUserName={this.state.editingUserName}
+            onEditingNameUpdated={this.updateEditingName}
+            onNameUpdateRequest={this.setUsernameState} />
+      </React.Fragment>
     );
   }
 }
+
