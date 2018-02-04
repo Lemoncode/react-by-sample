@@ -1,15 +1,17 @@
 import * as React from 'react';
+import {Fragment} from 'react';
 
-interface Props { 
-  userName: string;
-  onChange: (event: any) => any;
+
+interface Props {
+  userName : string;
+  onChange : (event) => void;
 }
 
-export const NameEditComponent = (props: Props) => {
+export const NameEditComponent = (props : Props) => {
   return (
-    <div>
-      <label>Update Name:</label>
-      <input value={props.userName} onChange={props.onChange} />
-    </div>
+    <Fragment>
+      <label>Update name:</label>
+      <input value={props.userName} onChange={props.onChange}/>
+    </Fragment>
   );
 }

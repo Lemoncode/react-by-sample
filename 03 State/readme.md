@@ -108,23 +108,30 @@ export class App extends React.Component<Props, State> {
 update his username and will notify with a callback to the parent control whenever
 the _userName_ gets updated.
 
+_./src/nameEdit.tsx_
+
 ```jsx
 import * as React from 'react';
+import {Fragment} from 'react';
 
-interface Props { 
-  userName: string, 
-  onChange: (event: any) => any 
+
+interface Props {
+  userName : string;
+  onChange : (event) => void;
 }
 
-export const NameEditComponent = (props: Props) => {
+export const NameEditComponent = (props : Props) => {
   return (
-    <div>
-      <label>Update Name:</label>
-      <input value={props.userName} onChange={props.onChange} />
-    </div>
+    <Fragment>
+      <label>Update name:</label>
+      <input value={props.userName} onChange={props.onChange}/>
+    </Fragment>
   );
 }
 ```
+> What is this Fragment stuff? A way to create component that have multiple root elements (not a single parent)
+
+
 
 - In the _app.tsx_ file let's add a function to set the changed _userName_ in the state.
 
@@ -160,8 +167,9 @@ export const NameEditComponent = (props: Props) => {
       );
     }
   }
-
 ```
+
+> Note down the fat arrow class method, this will avoid loosing the _this_ context on the callback
 
 - Finally let's test the final sample.
 
