@@ -1,4 +1,9 @@
-export class LoginEntity {
-  public login : string;
-  public password : string;
+export interface LoginEntity {
+  login : string;
+  password : string;
 }
+
+export const createEmptyLogin = () : LoginEntity => ({
+  login: '',
+  password: '',
+})

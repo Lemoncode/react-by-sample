@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {HelloComponent} from './hello';
-import {NameEditComponent} from './nameEdit';
+import {NameEditComponent} from './nameEdit'
 
 interface Props {
 
@@ -12,31 +12,33 @@ interface State {
 }
 
 export class App extends React.Component<Props, State> {
-  constructor(props: Props) {
+  constructor(props : Props) {
     super(props);
 
-    const defaultUserName = "defaultUserName";
+    const defaultUserName = 'defaultUserName';
     this.state = {userName: defaultUserName, editingUserName: defaultUserName};
   }
 
-  setUsernameState() {
+  setUsernameState = () => {
     this.setState({userName: this.state.editingUserName} as State);
   }
 
-  updateEditingName(editingName : string) {
+  updateEditingName = (editingName : string) : void => {
     this.setState({editingUserName: editingName} as State);
   }
+      
 
   public render() {
-      return (
-       <div>
-        <HelloComponent userName={this.state.userName} />
+    return (
+      <React.Fragment>
+        <HelloComponent userName={this.state.userName}/>
         <NameEditComponent
-          UserName={this.state.userName}
-          editingUserName={this.state.editingUserName}
-          onEditingNameUpdated={this.updateEditingName.bind(this)}
-          onNameUpdateRequest={this.setUsernameState.bind(this)} />
-       </div>
-      );
- }
+            userName={this.state.userName}
+            editingUserName={this.state.editingUserName}
+            onEditingNameUpdated={this.updateEditingName}
+            onNameUpdateRequest={this.setUsernameState} />
+      </React.Fragment>
+    );
+  }
 }
+

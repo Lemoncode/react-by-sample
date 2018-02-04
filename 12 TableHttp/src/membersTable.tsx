@@ -3,7 +3,7 @@ import {MemberEntity} from './model/member';
 import {memberAPI} from './api/memberAPI';
 import {MemberRow} from './memberRow';
 
-interface Props extends React.Props<MembersTable> {
+interface Props {
 }
 
 // We define members as a state (the compoment holding this will be a container
@@ -22,13 +22,13 @@ export class MembersTable extends React.Component<Props, State> {
   }
 
 
-  // Standard react lifecycle function:
-  // https://facebook.github.io/react/docs/component-specs.html
-  public componentWillMount() {
+   // Standard react lifecycle function:
+   // https://facebook.github.io/react/docs/component-specs.html
+   public componentWillMount() {
     memberAPI.getAllMembers().then((members) =>
       this.setState({members: members})
     );
-  }
+   }
 
    public render() {
 

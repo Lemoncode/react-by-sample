@@ -97,72 +97,75 @@ _./webpack.config.js_
 
 - Let's replace _memberAPI_ load members with the fetch / promise one:
 
-  ```javascript
-  import {MemberEntity} from '../model/member';
-  import {} from 'core-js';
-  import {} from 'whatwg-fetch';
+_./src/api/memberAPI.ts_
 
-  // Sync mock data API, inspired from:
-  // https://gist.github.com/coryhouse/fd6232f95f9d601158e4
-  class MemberAPI {
+```javascript
+import {MemberEntity} from '../model/member';
+import {} from 'core-js';
+import {} from 'whatwg-fetch';
 
-    // Just return a copy of the mock data
-    getAllMembers() : Promise<MemberEntity[]> {
-      const gitHubMembersUrl : string = 'https://api.github.com/orgs/lemoncode/members';
+// Sync mock data API, inspired from:
+// https://gist.github.com/coryhouse/fd6232f95f9d601158e4
+class MemberAPI {
 
-      return fetch(gitHubMembersUrl)
-        .then((response) => this.checkStatus(response))
-        .then((response) => this.parseJSON(response))
-        .then((data) => this.resolveMembers(data));
-    }
+  // Just return a copy of the mock data
+  getAllMembers() : Promise<MemberEntity[]> {
+    const gitHubMembersUrl : string = 'https://api.github.com/orgs/lemoncode/members';
 
-    private checkStatus(response : Response) : Promise<Response> {
-      if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(response);
-      } else {
-        let error = new Error(response.statusText);
-        throw error;
-      }
-    }
+    return fetch(gitHubMembersUrl)
+      .then((response) => this.checkStatus(response))
+      .then((response) => this.parseJSON(response))
+      .then((data) => this.resolveMembers(data));
+  }
 
-    private parseJSON(response : Response) : any {
-      return response.json();
-    }
-
-    private resolveMembers (data : any) : Promise<MemberEntity[]> {
-
-      const members = data.map((gitHubMember) => {
-        var member : MemberEntity = new MemberEntity();
-
-        member.id = gitHubMember.id;
-        member.login = gitHubMember.login;
-        member.avatar_url = gitHubMember.avatar_url;
-
-        return member;
-      });
-
-      return Promise.resolve(members);
+  private checkStatus(response : Response) : Promise<Response> {
+    if (response.status >= 200 && response.status < 300) {
+      return Promise.resolve(response);
+    } else {
+      let error = new Error(response.statusText);
+      throw error;
     }
   }
 
-  export const memberAPI = new MemberAPI();
-  ```
+  private parseJSON(response : Response) : any {
+    return response.json();
+  }
+
+  private resolveMembers (data : any) : Promise<MemberEntity[]> {
+    const members = data.map((gitHubMember) => {
+      var member : MemberEntity = {
+        id: gitHubMember.id,
+        login: gitHubMember.login,
+        avatar_url: gitHubMember.avatar_url,
+      };
+
+      return member;
+    });
+
+    return Promise.resolve(members);
+  }
+}
+
+export const memberAPI = new MemberAPI();
+```
 
 - Now it's time to update our _membersTable_ component. <br />
   Let's consume the new promise base method to retrieve the users:
 
-  ```jsx
-  // Standard react lifecycle function:
-  // https://facebook.github.io/react/docs/component-specs.html
-  public componentWillMount() {
-    memberAPI.getAllMembers().then((members) =>
-      this.setState({members: members})
-    );
-  }
-  ```
+_./src/memberTable.tsx_
+
+```jsx
+// Standard react lifecycle function:
+// https://facebook.github.io/react/docs/component-specs.html
+public componentWillMount() {
+  memberAPI.getAllMembers().then((members) =>
+    this.setState({members: members})
+  );
+}
+```
 
 - Let's give a try and check the results
 
-  ```
-  npm start
-  ```
+```
+npm start
+```

@@ -8,7 +8,7 @@ interface State {
 export class App extends React.Component<{}, State> {
   public render() {
       return (
-       <div className="col-xs-12">
+       <div>
         <MembersTableComponent/>
        </div>
       );

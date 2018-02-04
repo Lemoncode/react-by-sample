@@ -37,82 +37,105 @@ Install [Node.js and npm](https://nodejs.org/en/) if they are not already instal
 - Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it
 from the state.
 
-  ```jsx
-  import * as React from 'react';
+```diff
+import * as React from 'react';
+import {Fragment} from 'react';
 
-  interface Props {
-    editingUserName : string;
-    onEditingNameUpdated : (newEditingName : string) => void;
-    onNameUpdateRequest : () => void;
+
+interface Props {
+-  initialUserName: string;
+-  onNameUpdated: (newName: string) => any;  
++  editingUserName : string;
++  onEditingNameUpdated : (newEditingName : string) => void;
++  onNameUpdateRequest : () => void;  
+}
+
+-interface State {
+-  editingName: string;
+-}
+  
+-export class NameEditComponent extends React.Component<Props, State> {
++ export class NameEditComponent extends React.Component<Props, {}> {
+  constructor(props: Props) {
+    super(props);
+
+-    this.state = {editingName: this.props.initialUserName}
   }
 
-  export class NameEditComponent extends React.Component<Props, {}> {
-    constructor(props: Props) {
-      super(props);
-    }
+-  onChange = (event) => {
+-    this.setState({editingName: event.target.value} as State);
+-  }
 
-    render() {
-      return (
-        <div>
+-  onNameSubmit = (event) => {
+-    this.props.onNameUpdated(this.state.editingName);
+-  }
+
+  public render() {
+    return (
+      <div>
           <label>Update Name:</label>
-          <input value={this.props.editingUserName}
-            onChange={(e) : void => this.props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
-          <input type="submit" value="Change" className="btn btn-default"
-            onClick={this.props.onNameUpdateRequest} />
-        </div>
-      );
-    }
+-          <input value={this.state.editingName} onChange={this.onChange}/>
+-          <button className="btn btn-default" onClick={this.onNameSubmit}>Change</button>
++          <input value={this.props.editingUserName}
++            onChange={(e) : void => this.props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
++          <button className="btn btn-default" onClick={this.props.onNameUpdateRequest}>Change</button>
+      </div>
+    )
   }
-
-  ```
+}
+```
 
 - Update _app.tsx_ to hold the new editing property in the state, pass it to the
 children control and perform the proper update on the callback event from the
 child control.
 
+```diff
+import * as React from 'react';
+import {HelloComponent} from './hello';
+import {NameEditComponent} from './nameEdit'
 
-  ```jsx
-  import * as React from 'react';
-  import {HelloComponent} from './hello';
-  import {NameEditComponent} from './nameEdit';
+interface Props {
 
-  interface Props{
+}
+
+interface State {
+  userName : string;
++ editingUserName : string;  
+}
+
+export class App extends React.Component<Props, State> {
+  constructor(props : Props) {
+    super(props);
+
+-    this.state = {userName: 'defaultUserName'};
++      const defaultUserName = 'defaultUserName';
++      this.state = {userName: defaultUserName, editingUserName: defaultUserName};
   }
 
-  interface State {
-    userName : string;
-    editingUserName : string;
+-  setUsernameState = (newName: string) => {
++  setUsernameState = () => {  
+-    this.setState({userName: newName});
++    this.setState({userName: this.state.editingUserName} as State);
   }
 
-  export class App extends React.Component<Props, State> {
-    constructor(props) {
-      super(props);
++ updateEditingName = (editingName : string) : void => {
++   this.setState({editingUserName: editingName} as State);
++ }
 
-      const defaultUserName = 'defaultUserName';
-      this.state = {userName: defaultUserName, editingUserName: defaultUserName};
-    }
-
-    setUsernameState = () : void => {
-      this.setState({userName: this.state.editingUserName} as State);
-    }
-
-    updateEditingName = (editingName : string) : void => {
-      this.setState({editingUserName: editingName} as State);
-    }
-
-    render() {
-      return (
-        <div>
-          <HelloComponent userName={this.state.userName} />
-          <NameEditComponent
-            editingUserName={this.state.editingUserName}
-            onEditingNameUpdated={this.updateEditingName}
-            onNameUpdateRequest={this.setUsernameState} />
-        </div>
-      );
-    }
+  public render() {
+    return (
+      <React.Fragment>
+        <HelloComponent userName={this.state.userName}/>
+-        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState}/>
++          <NameEditComponent
++            editingUserName={this.state.editingUserName}
++            onEditingNameUpdated={this.updateEditingName}
++            onNameUpdateRequest={this.setUsernameState} />
+      </React.Fragment>
+    );
   }
-  ```
+}
+```
 
 Finally we can check the sample is working as _04 Callback_ executing from the command line
 `npm start` and opening [http://localhost:8080](http://localhost:8080).

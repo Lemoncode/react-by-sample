@@ -25,6 +25,8 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Create a file called src/sidebar.css and add the following styles (http://www.w3schools.com/howto/howto_js_sidenav.asp):
 
+_./src/sidebar.css_
+
 ```css
   /* The side navigation menu */
   .sidenav {
@@ -79,10 +81,19 @@ _./webpack.config.js_
 - We will only use CSS Modules for custom app stylesheets. We will not use CSS Modules for other CSS files, like Bootstrap (folder node_modules).
 
 ```diff
+  {
+    test: /\.css$/,
++    include: /node_modules/,
+    loader: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: {
+        loader: 'css-loader',
+      },          
+    }),
+  },
 +  // Use CSS modules for custom stylesheets
 +  {
 +    test: /\.css$/,
-+    exclude: /node_modules/,
 +    loader: ExtractTextPlugin.extract({
 +      fallback: 'style-loader',
 +      use: [
@@ -98,16 +109,6 @@ _./webpack.config.js_
 +    }),
 +  },
 +  // Do not use CSS modules in node_modules folder
-  {
-    test: /\.css$/,
-+    include: /node_modules/,
-    loader: ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: {
-        loader: 'css-loader',
-      },          
-    }),
-  },
 
 ```
 
@@ -116,23 +117,26 @@ _./webpack.config.js_
 a rectangle and we will interact with the animation.
 
 ```jsx
-  import * as React from 'react';
+import * as React from 'react';
 
-  const classNames = require('./sidebar.css');
+const classNames = require('./sidebar.css');
 
-  export const SidebarComponent = () => {
-    return (
-      <div id="mySidenav" className={classNames.sidenav}>
-          <span>Basic side bar, first steps</span>
-      </div>
-    );
-  }
+export const SidebarComponent = () => {
+  return (
+    <div id="mySidenav" className={classNames.sidenav}>
+        <span>Basic side bar, first steps</span>
+    </div>
+  );
+}
 ```
 
 - We are going to add a known id to to body section of _src/index.html_ page
 
-```html
-  <body id="main">
+_./src/index.html_
+
+```diff
+-  <body>
++  <body id="main">
 ```
 
 - Let's place the component adding into the app.tsx:
@@ -159,6 +163,8 @@ a rectangle and we will interact with the animation.
 
 - Let's start with the interesting part of this implementation, let's add a flag to show/hide the
 sidebar _sidebar.tsx_.
+
+_./src/sidebar.tsx_
 
 ```diff
 import * as React from 'react';
@@ -192,7 +198,7 @@ interface Props {
 };
 
 +    const divStyle = (props: React.CSSProperties) => ({
-+      width: (props.isVisible) ? '250px' : '0px'
++      width: (props.isVisible) ? '23rem' : '0rem'
 +    });
 
 export const SidebarComponent = (props: Props) => {
@@ -229,7 +235,7 @@ export class App extends React.Component<{}, State> {
     this.setState({userName: event.target.value});
   }
 
-+   toggleSidebarVisibility () => {
++   toggleSidebarVisibility = () => {
 +     const newVisibleState = !this.state.isSidebarVisible;
 +
 +     this.setState({isSidebarVisible: newVisibleState} as State);
@@ -243,7 +249,7 @@ export class App extends React.Component<{}, State> {
 +        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-+       <div className="pull-right">
++       <div className="float-right">
 +         <button
 +           className="btn btn-default"
 +           onClick={this.toggleSidebarVisibility}>
@@ -279,7 +285,6 @@ const classNames = require('./sidebar.css');
 
 interface Props {
   isVisible: boolean;
-+  children? : ReactNode;  
 };
 
 const divStyle = (props: React.CSSProperties) => ({
@@ -287,7 +292,7 @@ const divStyle = (props: React.CSSProperties) => ({
 });
 
 - export const SidebarComponent = (props: Props) => {
-+ export const SidebarComponent : React.StatelessComponent<Props> = (props: Props) => {
++ export const SidebarComponent : React.StatelessComponent<Props> = (props) => {
 
   return (
     <div id="mySidenav" className={classNames.sidenav} style={divStyle(props)}>

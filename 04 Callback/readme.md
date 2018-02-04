@@ -26,80 +26,102 @@ and make this your current folder.
 
 - Install the npm packages described in the `package.json` and verify that it works:
 
-  ```bash
-  npm install
-  ```
+```bash
+npm install
+```
 
 - Since we are going to use an internal handler, we'll transform the `NameEditComponent`
 from a stateless component into a class component, then we will add some refactor on the naming.
 
  The `nameEdit.tsx` file should looks like this:
 
-  ```jsx
-  import * as React from 'react';
+```diff
+import * as React from 'react';
+import {Fragment} from 'react';
 
-  interface Props {
-    initialUserName: string;
-    onNameUpdated: (newName: string) => any;
-  }
 
-  interface State {
-    editingName: string;
-  }
+interface Props {
+-  userName : string;
+-  onChange : (event) => void;
++  initialUserName: string;
++  onNameUpdated: (newName: string) => any;
+}
 
-  export class NameEditComponent extends React.Component<Props, State> {
++ interface State {
++  editingName: string;
++ }
 
-    constructor(props: Props) {
-      super(props);
-      // Watch out what would happen if we get this user name via an AJAX callback
-      // you will find a different implementatin on 05 sample
-      this.state = {editingName: this.props.initialUserName};
-    }
 
-  onChange = (event: any): any => {
-    this.setState({editingName: event.target.value} as State);
-  }
+- export const NameEditComponent = (props : Props) => {
+-  return (
+-    <Fragment>
+-      <label>Update name:</label>
+-      <input value={props.userName} onChange={props.onChange}/>
+-    </Fragment>
+-  );
+-}
 
-  onNameSubmit = (event: any): any => {
-    this.props.onNameUpdated(this.state.editingName);
-  }
-
-    public render() {
-      return (
-        <div>
-          <label>Update Name:</label>
-          <input value={this.state.editingName} onChange={this.onChange} />
-          <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit} />
-        </div>
-      );
-    }
-  }
-  ```
++ export class NameEditComponent extends React.Component<Props, State> {
++ 
++   constructor(props: Props) {
++     super(props);
++     // Watch out what would happen if we get this user name via an AJAX callback
++     // you will find a different implementatin on 05 sample
++     this.state = {editingName: this.props.initialUserName};
++   }
++
++ onChange = (event) => {
++   this.setState({editingName: event.target.value} as State);
++ }
++
++ onNameSubmit = (event: any): any => {
++   this.props.onNameUpdated(this.state.editingName);
++ }
++
++  public render() {
++    return (
++      <div>
++        <label>Update Name:</label>
++        <input value={this.state.editingName} onChange={this.onChange} />
++        <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit} />
++      </div>
++    );
++  }
++ }
+```
 
 - Let's wire this up in the `app.tsx` file.
 
-  ```jsx
-  export class App extends React.Component<Props, State> {
+_./src/app.tsx_
 
-    constructor(props: Props) {
-      super(props);
-      this.state = {userName: "defaultUserName"};
-    }
+```diff
+export class App extends React.Component<Props, State> {
+  constructor(props : Props) {
+    super(props);
 
-    setUsernameState = (newName: string) => {
-      this.setState({userName: newName});
-    }
-
-    public render() {
-      return (
-        <div>
-          <HelloComponent userName={this.state.userName} />
-          <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState} />
-        </div>
-      );
-    }
+    this.state = {userName: 'defaultUserName'};
   }
-  ```
+
+-  setUsernameState = (event) => {
+-    this.setState({userName : event.target.value})
+-  }
+
++  setUsernameState = (newName: string) => {
++    this.setState({userName: newName});
++  }
+
+  public render() {
+    return (
+      <React.Fragment>
+        <HelloComponent userName={this.state.userName}/>
+-        <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState}/>
++        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState}/>
+      </React.Fragment>
+    );
+  }
+}
+```
+
 
  Now we've got a clear event, strongly typed and simplified (straight forward).
 
@@ -114,3 +136,5 @@ from a stateless component into a class component, then we will add some refacto
  ![Browser Output](../99_readme_resources/04 Callback/browser_output.png "Browser Output")
 
  Now, the greeting only change when the user clicks on the change button.
+
+> What happens if we simulate an AJAX call, let's place in the app on componentWillMount a timeout and set the name value.

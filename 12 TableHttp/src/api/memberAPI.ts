@@ -1,5 +1,6 @@
 import {MemberEntity} from '../model/member';
-
+import {} from 'core-js';
+import {} from 'whatwg-fetch';
 
 // Sync mock data API, inspired from:
 // https://gist.github.com/coryhouse/fd6232f95f9d601158e4
@@ -29,13 +30,12 @@ class MemberAPI {
   }
 
   private resolveMembers (data : any) : Promise<MemberEntity[]> {
-
     const members = data.map((gitHubMember) => {
-      var member : MemberEntity = new MemberEntity();
-
-      member.id = gitHubMember.id;
-      member.login = gitHubMember.login;
-      member.avatar_url = gitHubMember.avatar_url;
+      var member : MemberEntity = {
+        id: gitHubMember.id,
+        login: gitHubMember.login,
+        avatar_url: gitHubMember.avatar_url,
+      };
 
       return member;
     });

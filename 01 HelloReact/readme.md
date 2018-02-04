@@ -46,6 +46,8 @@ but as dev dependencies.
 
 - Update the `index.html` to create a placeholder for the react components.
 
+_./src/index.html_
+
 ```diff
   <!DOCTYPE html>
   <html>
@@ -62,6 +64,8 @@ but as dev dependencies.
 
 - Create a simple react component (let's create it within a new file called `hello.tsx`).
 
+_./src/hello.tsx_
+
  ```jsx
   import * as React from 'react';
 
@@ -74,6 +78,8 @@ but as dev dependencies.
 
 - Wire up this component by using `react-dom` under `main.tsx` (we have to rename
   this file extension from `ts` to `tsx` and replace the content).
+
+_./src/main.tsx_
 
  ```jsx
   import * as React from 'react';
@@ -89,6 +95,8 @@ but as dev dependencies.
 
 - Modify the `webpack.config.js` file and change the entry point from `./main.ts`
 to `./main.tsx`.
+
+_./webpack.config.js_
 
 ```diff
   ...

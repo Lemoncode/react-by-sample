@@ -47,7 +47,6 @@ export const PageA = () => {
     </div>
   )
 }
-
 ```
 
 ### ./src/pageB.tsx
@@ -64,7 +63,6 @@ export const PageB = () => {
     </div>
   )
 }
-
 ```
 
 - Let's install the dependencies [`react-router-dom`](https://github.com/ReactTraining/react-router) and typescript definitions for this.

@@ -25,61 +25,65 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's define a proper color structure (create a _color.ts_ file).
 
-  ```javascript
-  export interface Color {
-    red : number;
-    green : number;
-    blue : number;
-  }
-  ```
+```javascript
+export interface Color {
+  red : number;
+  green : number;
+  blue : number;
+}
+```
 
 - Let's rename _hello.tsx_ to _colorpicker.tsx_.
 
 - Let's rename as well the name of the component.
 
-  ```jsx
-  import * as React from 'react';
+```jsx
+import * as React from 'react';
 
-  export const ColorPicker = () => {
-    return (
-      <h2>Hello component !</h2>
-    );
-  }
-  ```
+export const ColorPicker = () => {
+  return (
+    <h2>Hello component !</h2>
+  );
+}
+```
 
 - Let's create an indermediate _app.tsx_ file like we did in some previous samples:
 
-  ```jsx
-  import * as React from 'react';
-  import {Color} from './color';
-  import {ColorPicker} from './colorpicker';
+_./src/app.tsx_
 
-  interface State {
-    color : Color;
+```jsx
+import * as React from 'react';
+import {Color} from './color';
+import {ColorPicker} from './colorpicker';
+
+interface State {
+  color : Color;
+}
+
+export class App extends React.Component<{}, State> {
+  constructor(props) {
+    super(props);
+
+    this.state = {color: {red: 90, green: 50, blue: 70}};
   }
 
-  export class App extends React.Component<{}, State> {
-    constructor(props) {
-      super(props);
-
-      this.state = {color: {red: 90, green: 50, blue: 70}};
-    }
-
-    setColorState(newColor : Color) {
-      this.setState({color: newColor});
-    }
-
-    public render() {
-      return (
-        <div>
-          <ColorPicker/>
-        </div>
-      );
-    }
+  setColorState = (newColor : Color) => {
+    this.setState({color: newColor});
   }
-  ```
+
+  public render() {
+    return (
+      <div>
+        <ColorPicker/>
+      </div>
+    );
+  }
+}
+```
 
 - We need to update _main.tsx_ to indicate the change
+
+_./src/main.tsx_
 
 ```diff
   import * as React from 'react';
@@ -93,38 +97,45 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
     document.getElementById('root'));
 ```
 
-
-
 - We are going to change as well the content of the file let's define a color and callback
 as a property to setup the color (_colorpicker.tsx_).
 
-```jsx
-  import {Color} from './color'
+_./src/colorpicker.tsx_
 
-  interface Props {
-    color : Color;
-    onColorUpdated : (color : Color) => void;
-  }
+```diff
+import * as React from 'react';
++ import {Color} from './color'
 
-  export const ColorPicker = (props : Props) => {
++ interface Props {
++  color : Color;
++  onColorUpdated : (color : Color) => void;
++ }
+
+export const ColorPicker = () => {
+  return (
+    <h2>Hello component !</h2>
+  );
+}
 ```
 
 - Let's start by defining only one slider to control the red component of a given color (_colorpicker.tsx_).
 
-  ```jsx
-  export const ColorPicker = (props : Props) => {
+  ```diff
+-  export const ColorPicker = () => {
++  export const ColorPicker = (props : Props) => {
     return (
-      <div>
-        <input type="range"
-               min="0"
-               max="255"
-               value={props.color.red}
-               onChange={(event : any) => props.onColorUpdated(
-                 {red: event.target.value, green: props.color.green, blue: props.color.blue}
-               )}
-        />
-        {props.color.red}
-      </div>
+-      <h2>Hello component !</h2>
++      <div>
++        <input type="range"
++               min="0"
++               max="255"
++               value={props.color.red}
++               onChange={(event : any) => props.onColorUpdated(
++                 {red: event.target.value, green: props.color.green, blue: props.color.blue}
++               )}
++        />
++        {props.color.red}
++      </div>
     );
   }
   ```
@@ -155,7 +166,8 @@ as a property to setup the color (_colorpicker.tsx_).
       return (
         <div>
 +          <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
-+          <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
+-          <ColorPicker/>
++          <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState}/>
         </div>
       );
     }
@@ -173,7 +185,7 @@ as a property to setup the color (_colorpicker.tsx_).
 
 > Note: this will look a bit ugly, in the next sample we will refactor this to a cleaner solution
 
-```jsx
+```diff
   export const ColorPicker = (props : Props) => {
     return (
       <div>
@@ -190,35 +202,35 @@ as a property to setup the color (_colorpicker.tsx_).
                )}
         />
         {props.color.red}
-        <br />
-        <input type="range"
-               min="0"
-               max="255"
-               value={props.color.green}
-               onChange={(event : any) => props.onColorUpdated(
-                 {
-                   red:  props.color.red,
-                   green: event.target.value,
-                   blue: props.color.blue
-                 }
-               )}
-        />
-        {props.color.green}
-        <br />
-        <input type="range"
-               min="0"
-               max="255"
-               value={props.color.blue}
-               onChange={(event : any) => props.onColorUpdated(
-                 {
-                   red:   props.color.red,
-                   green: props.color.green,
-                   blue: event.target.value
-                 }
-               )}
-        />
-        {props.color.blue}
-        <br />
++        <br />
++        <input type="range"
++               min="0"
++               max="255"
++               value={props.color.green}
++               onChange={(event : any) => props.onColorUpdated(
++                 {
++                   red:  props.color.red,
++                   green: event.target.value,
++                   blue: props.color.blue
++                 }
++               )}
++        />
++        {props.color.green}
++        <br />
++        <input type="range"
++               min="0"
++               max="255"
++               value={props.color.blue}
++               onChange={(event : any) => props.onColorUpdated(
++                 {
++                   red:   props.color.red,
++                   green: props.color.green,
++                   blue: event.target.value
++                 }
++               )}
++        />
++        {props.color.blue}
++        <br />
       </div>
     );
   }
@@ -236,11 +248,9 @@ filled with the selected color. Let's create a ColorDisplayer component (_colord
   }
 
   export const ColorDisplayer = (props : Props) => {
-    // `rgb(${props.color.red},${props.color.green}, ${props.color.blue}) })`
-    // 'rgb(' + props.color.red + ', 40, 80)'
     var divStyle = {
-      width: '120px',
-      height: '80px',
+      width: '11rem',
+      height: '7rem',
       backgroundColor: `rgb(${props.color.red},${props.color.green}, ${props.color.blue})`
     };
 

@@ -1,5 +1,1 @@
-import {LoginPage} from './loginPage';
-
-export {
-  LoginPage
-}
+export {LoginPage} from './loginPage';
