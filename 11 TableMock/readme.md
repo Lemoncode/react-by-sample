@@ -29,17 +29,17 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 _./src/model/member.ts_
 
 ```javascript
-export class MemberEntity {
+export interface MemberEntity {
   id: number;
   login: string;
   avatar_url: string;
-
-  constructor() {
-    this.id = -1;
-    this.login = "";
-    this.avatar_url = "";
-  }
 }
+
+export const createEmptyMember = () : MemberEntity => ({
+    id: -1,
+    login: "",
+    avatar_url: ""
+});
 ```
 
 - Let's create some mock data  in _src/api/memberMockData.ts_:
@@ -95,16 +95,16 @@ export const memberAPI = new MemberAPI();
 
 - We are going to create an stateless component that will display a single row _memberRow.tsx_.
 
+_src/memberRow.tsx_
+
 ```javascript
 import * as React from 'react';
 import {MemberEntity} from './model/member';
 
-export const MemberRow = (props: {member : MemberEntity}) => {
-
-     return (
+export const MemberRow = (props: {member : MemberEntity}) =>
        <tr>
          <td>
-           <img src={props.member.avatar_url} style ={{maxWidth: '150px'}}/>
+           <img src={props.member.avatar_url} style ={{maxWidth: '10rem'}}/>
          </td>
          <td>
            <span>{props.member.id}</span>
@@ -113,13 +113,13 @@ export const MemberRow = (props: {member : MemberEntity}) => {
            <span>{props.member.login}</span>
          </td>
        </tr>
-     );
-}
 ```
 We can't use max-widh in the param style in. We must write 'maxWidth' in the react components.
 
 - Then we are going to implement a component that will display a list of members (and will
   make use of rows), _membersTable.tsx_:
+
+_./src/membersTable.tsx_
 
 ```javascript
 import * as React from 'react';
@@ -199,7 +199,7 @@ interface State {
 export class App extends React.Component<{}, State> {
   public render() {
       return (
-       <div className="col-xs-12">
+       <div>
         <MembersTableComponent/>
        </div>
       );

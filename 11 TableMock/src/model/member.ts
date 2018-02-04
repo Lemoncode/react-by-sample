@@ -1,12 +1,11 @@
-
-export class MemberEntity {
+export interface MemberEntity {
   id: number;
   login: string;
   avatar_url: string;
-
-  constructor() {
-    this.id = -1;
-    this.login = "";
-    this.avatar_url = "";
-  }
 }
+
+export const createEmptyMember = () : MemberEntity => ({
+    id: -1,
+    login: "",
+    avatar_url: ""
+});
