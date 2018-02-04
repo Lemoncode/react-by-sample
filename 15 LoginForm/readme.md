@@ -34,9 +34,11 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 - Let's update as well the name of the component.
 
+_./src/loginPage.tsx_
+
 ```javascript
 import * as React from "react"
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 
 export const LoginPage = () => {
   return (
@@ -75,22 +77,18 @@ a simple _index.tsx_ file for each of this pages.
 
 - Under _pages/login/index.ts.
 
-```javascript
-import {LoginPage} from './loginPage';
+_./src/pages/login/index.ts_
 
-export {
-  LoginPage
-}
+```javascript
+export {LoginPage} from './loginPage';
 ```
 
 - Under _pages/b/index.ts_
 
-```javascript
-import {PageB} from './pageB'
+_./src/pages/b/index.ts_
 
-export {
-  PageB
-}
+```javascript
+export {PageB} from './pageB'
 ```
 - The structure look like this:
 
@@ -108,49 +106,51 @@ export {
 
 ```
 
-- Let's create a separate file that will hold our browser history
-
-_./src/history.ts_
-
-```
-import {createHashHistory} from 'history';
-
-export const history = createHashHistory();
-```
 
 - Let's update _main.tsx_ (routes, names and add a redirect from root to login page)
 
-```javascript
+_./src/main.tsx_
+
+```diff
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Redirect, Router, Route, HashRouter} from 'react-router-dom';
-import {LoginPage} from './pages/login';
-import {PageB} from './pages/b';
-import {history} from './history'
-
-
+import { HashRouter, Switch, Route } from 'react-router-dom';
+- import {PageA} from './pageA';
+- import {PageB} from './pageB';
++ import {LoginPage} from './pages/login';
++ import {PageB} from './pages/b';
 
 ReactDOM.render(
-  <HashRouter>
-    <Router history={history} >    
-        <div>  
-          <Redirect from="/" to="/login"/>  
-          <Route exact={true} path="/login" component={LoginPage}/>
-          <Route path="/pageB" component={PageB}/>
-        </div>
-    </Router>    
-  </HashRouter>
-
-,
+   <HashRouter>
+     <Switch>
+-       <Route exact={true} path="/" component={PageA} />
++       <Route exact={true} path="/" component={LoginPage} />
+       <Route path="/pageB" component={PageB} />
+     </Switch>
+   </HashRouter>
+  ,
   document.getElementById('root')
 );
 ```
 
-
 - Let's update as well the navigation from _pageB_ to _loginPage_, _pageB.tsx_
 
-```javascript
-<Link to="/login">Navigate to Login</Link>
+_./src/pages/b/pageB.tsx_
+
+```diff
+import * as React from "react"
+import { Link } from 'react-router-dom';
+
+export const PageB = () => {
+  return (
+    <div>
+      <h2>Hello from page B</h2>
+      <br />
+-      <Link to="/">Navigate to Page A</Link>      
++      <Link to="/login">Navigate to Login</Link>
+    </div>
+  )
+}
 ```
 
 - Let's make a quick test and check that everyting is still working fine.
@@ -159,12 +159,13 @@ ReactDOM.render(
 npm start
 ```
 
-
 - Let's build a proper _login_ layout, _loginPage.tsx_, we will base it in
 the [following layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3)
 but we will break it down into subcomponents.
 
 - We will create under _src/pages/login/_ a component called _header.tsx_.
+
+_./src/pages/login/header.tsx_
 
 ```javascript
 import * as React from "react"
@@ -180,13 +181,15 @@ export const Header = () => {
 
 - We will create under _src/pages/login/_ a component called _form.tsx_
 
+_./src/pages/login/form.tsx_
+
 ```javascript
 import * as React from "react"
 
 export const Form = () => {
   return (
     <div className="panel-body">
-      <form accept-charset="UTF-8" role="form">
+      <form role="form">
         <fieldset>
           <div className="form-group">
       		  <input className="form-control" placeholder="E-mail" name="email" type="text"/>
@@ -204,6 +207,8 @@ export const Form = () => {
 
 
 - Login Page will look something like that:
+
+_./src/pages/login/loginPage.tsx_
 
 ```javascript
 import * as React from "react"
@@ -227,21 +232,39 @@ export const LoginPage = () => {
 }
 ```
 
+> Excercise: we could create a centered container component and the loginPage could be even more simpler
+
+_pseudocode_
+```jsx
+export const LoginPage = () => {
+  return (
+    <CenteredPanel>    
+      <Header/>
+      <Form/>
+    </CenteredPanel>    
+  );
+}
+```
+
 - Let's add the navigation on button clicked (later on we will check for user and pwd) _form.tsx_.
+In order to do this we will use react-router 4 "withRouter" HoC (High order component).
+
+_./src/pages/login/form.tsx_
 
 ```diff
 import * as React from "react"
-+ import { history } from "../../history"
++ import { withRouter } from 'react-router-dom';
 
-export const Form = () => {
 
-+  function login() {
-+      history.push('/pageB');      
-+  }
-
+- export const Form = () => {
++ export const Form = withRouter(({history}) => {  
++   const login = () => {
++       history.push('/pageB');      
++   }
+  
   return (
     <div className="panel-body">
-      <form role="form">
+      <form accept-charset="UTF-8" role="form">
         <fieldset>
           <div className="form-group">
       		  <input className="form-control" placeholder="E-mail" name="email" type="text"/>
@@ -249,25 +272,30 @@ export const Form = () => {
           <div className="form-group">
             <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
           </div>
-          <input className="btn btn-lg btn-success btn-block" value="Login"
-+            onClick={login}
-          />
+-          <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"
+-          />
++          <button className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
         </fieldset>
       </form>
     </div>
   );
-}
+- }
++})
 ```
 
 - Let's define an entity for the loginInfo let's create the following path and file
 _src/model/login.ts_
 
 ```javascript
-
-export class LoginEntity {
-  public login : string;
-  public password : string;
+export interface LoginEntity {
+  login : string;
+  password : string;
 }
+
+export const createEmptyLogin = () : LoginEntity => ({
+  login: '',
+  password: '',
+})
 ```
 
 - Let's add login validation fake restApi: create a folder _src/api_. and a file called
@@ -292,6 +320,8 @@ _login.ts_
             └── pageB.tsx
 
 ```
+
+_./src/api/login.ts_
 
 ```javascript
 import {LoginEntity} from '../model/login';
@@ -318,41 +348,85 @@ the _form_ component. Let's start with _loginPage_
 - If you don`t put the specified file _.tsx_ , it automatically references to index.ts 
 inside the folder. For example _import {LoginEntity} from '../../model/login'_
 
-```javascript
+Let'start by converting the component from stateless to class component.
+
+_./src/pages/login/loginPage.tsx_
+
+```diff
 import * as React from "react"
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import {Header} from './header';
 import {Form} from './form'
-import {history} from '../../history'
-import {LoginEntity} from '../../model/login';
-import {loginApi} from '../../api/login';
++ import {LoginEntity} from '../../model/login';
+
++ interface State {
++   loginInfo : LoginEntity;
++ }
+
++ interface Props {
++   history;
++ }
+
+- export const LoginPage = () => {
++  export class LoginPage extends React.Component<Props, State> {
++
++   constructor(props) {
++     super(props);
++     this.state = {loginInfo: createEmptyLogin()};
++   }
++
++    public render() {
+      return (
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4 col-md-offset-4">
+              <div className="panel panel-default">
+                <Header/>
+                <Form/>
+              </div>
+            </div>
+          </div>
+        </div>
++    }  
+  );
+}
+```
+Now it's time to add the login api integration
+
+```diff
+import * as React from "react"
+import { Link } from 'react-router-dom';
+import { Header } from './header';
+import { Form } from './form'
+import { LoginEntity, createEmptyLogin } from '../../model/login';
++ import { withRouter } from 'react-router-dom';
++ import { loginApi } from "../../api/login";
 
 interface State {
-  loginInfo : LoginEntity;
+  loginInfo: LoginEntity;
 }
 
 interface Props {
-
++ history : History;
 }
 
-
-export class LoginPage extends React.Component<Props, State> {
+- export class LoginPage extends React.Component<Props, State> {
++  export const LoginPage = withRouter(class LoginPageInner extends React.Component<Props, State> {
 
   constructor(props) {
     super(props);
-
-    this.state = {loginInfo: new LoginEntity()};
+    this.state = { loginInfo: createEmptyLogin() };
   }
 
-  performLogin() {
-      if(loginApi.isValidLogin(this.state.loginInfo)) {
-         hashHistory.push('/pageB');
-      }
-  }
++  performLogin() {
++    if(loginApi.isValidLogin(this.state.loginInfo)) {
++       this.props.history.push('/pageB');
++    }
++  }
 
-  updateLoginEntity(loginInfo : LoginEntity) {
-    this.setState({loginInfo: loginInfo});
-  }
++  updateLoginEntity(loginInfo : LoginEntity) {
++    this.setState({loginInfo: loginInfo});
++  }
 
   public render() {
     return (
@@ -360,8 +434,8 @@ export class LoginPage extends React.Component<Props, State> {
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
             <div className="panel panel-default">
-              <Header/>
-              <Form/>
+              <Header />
+              <Form />
             </div>
           </div>
         </div>
@@ -373,55 +447,89 @@ export class LoginPage extends React.Component<Props, State> {
 
 - Let's now define the properties that the _form_ child controller will accept
 
-```javascript
-import * as React from "react"
-import {LoginEntity} from '../../model/login';
+_./src/pages/login/form.tsx_
 
-interface Props {
-   loginInfo : LoginEntity;
-   updateLoginInfo : (loginInfo : LoginEntity) => void;
-   performLogin : () => void;
-}
+```diff
+import * as React from "react";
+import { withRouter } from 'react-router-dom';
++ import {LoginEntity} from '../../model/login';
 
-export const Form = (props: Props) => {
++ interface Props {
++   loginInfo : LoginEntity;
++   updateLoginInfo : (loginInfo : LoginEntity) => void;
++   performLogin : () => void;
++   history;
++ }
+
+
+-export const Form = withRouter((props: Props) => {
++ export const Form = (props: Props) => {  
+-  const login = () => {
+-    history.push('/pageB');      
+-  }
+    
+  return (
+    <div className="panel-body">
+      <form accept-charset="UTF-8" role="form">
+        <fieldset>
+          <div className="form-group">
+      		  <input className="form-control" placeholder="E-mail" name="email" type="text"/>
+      		</div>
+          <div className="form-group">
+            <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
+          </div>
+          <button className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
+        </fieldset>
+      </form>
+    </div>
+  );
++ }
+- });
 ```
 
 - Let's apply this props in the components and propagate the login change.
 
-```javascript
-return (
-  <div className="panel-body">
-    <form role="form">
-      <fieldset>
-        <div className="form-group">
-          <input className="form-control" placeholder="E-mail" name="email" type="text"
-            value={props.loginInfo.login}
-            onChange={(e : any) => props.updateLoginInfo({login: e.target.value, password: props.loginInfo.password })}
-          />
-        </div>
-        <div className="form-group">
-          <input className="form-control" placeholder="Password" name="password" type="password"
-            value={props.loginInfo.password}
-            onChange={(e : any) => props.updateLoginInfo({login: props.loginInfo.login, password: e.target.value })}
-          />
-        </div>
-        <input className="btn btn-lg btn-success btn-block" value="Login"
-          onClick={(e) => {props.performLogin()}}
-        />
-      </fieldset>
-    </form>
-  </div>
-);
+_./src/pages/login/form.tsx_
+
+```diff
+  return (
+    <div className="panel-body">
+      <form accept-charset="UTF-8" role="form">
+        <fieldset>
+          <div className="form-group">
+      		  <input className="form-control" 
+                   placeholder="E-mail" 
+                   name="email" 
+                   type="text"
++                  value={props.loginInfo.login}
++                  onChange={(e : any) => props.updateLoginInfo({login: e.target.value, password: props.loginInfo.password })}                   
+            />
+      		</div>
+          <div className="form-group">
+            <input className="form-control" 
+                   placeholder="Password" 
+                   name="password" 
+                   type="password" value=""
++                  value={props.loginInfo.password}
++                  onChange={(e : any) => props.updateLoginInfo({login: props.loginInfo.login, password: e.target.value })}
+            />
+          </div>
+          <button className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
+        </fieldset>
+      </form>
+    </div>
+  );
 ```
 
 - Now it's time to update the LoginPage again, including the properties that we have to pass
 to the _form_ component
 
-```javascript
-<Form loginInfo={this.state.loginInfo}
-      updateLoginInfo={this.updateLoginEntity.bind(this)}
-      performLogin={this.performLogin.bind(this)}
-      />
+```diff
+- <Form />
++ <Form loginInfo={this.state.loginInfo}
++      updateLoginInfo={this.updateLoginEntity.bind(this)}
++      performLogin={this.performLogin.bind(this)}
++      />
 ```
 
 - Congratulations, you already have the example running. It is time to do some refator and clean up.
@@ -477,6 +585,8 @@ public render() {
     );
   }
 ```
+
+> Now you an test the solution, try _npm start_ and if you enter the combination _test_ _test_ it wil navigate to page b.
 
 - Time now to do some clean up in the form component, lets start creating a _formField.tsx_ file in the _common_ folder
 
