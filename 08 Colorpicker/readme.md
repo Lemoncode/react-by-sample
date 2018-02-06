@@ -120,7 +120,7 @@ export const ColorPicker = () => {
 
 - Let's start by defining only one slider to control the red component of a given color (_colorpicker.tsx_).
 
-  ```diff
+```diff
 -  export const ColorPicker = () => {
 +  export const ColorPicker = (props : Props) => {
     return (
@@ -138,7 +138,7 @@ export const ColorPicker = () => {
 +      </div>
     );
   }
-  ```
+```
 
 - Now it's time to update _app.tsx_ to interact with the components props.
 
