@@ -42,7 +42,7 @@ Once you have successfully fullfilled them a **package.json** file we will gener
 - Install **webpack** as a development dependency.
 
  ```
- npm install webpack --save-dev
+ npm install webpack webpack-cli --save-dev
  ```
 - Install **webpack-dev-server** locally, as a development dependency (the reason to install it locally and not globally is to be easy to setup, e.g. can be launched on a clean machine without having to install anything globally but nodejs).
 
@@ -54,27 +54,27 @@ Once you have successfully fullfilled them a **package.json** file we will gener
 our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</abbr>, TypeScript...).
 
  ```
- npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader extract-text-webpack-plugin --save-dev
+ npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader mini-css-extract-plugin css-loader --save-dev
  ```
 - Let's add two commands to our **package.json** to build and start.
 
 ```diff
   "scripts": {
-+    "start": "webpack-dev-server --inline --hot --open",
-+    "build": "webpack"
++    "start": "webpack-dev-server  --mode development --inline --hot --open",
++    "build": "webpack  --mode development"
   },
 
 ```
 
 - Let's install locally TypeScript:
 
- ```
- npm install typescript --save-dev
- ```
+```
+npm install typescript --save-dev
+```
 
 - We need as well to drop a **tsconfig.json** file in the root folder of our project
 
- ```json
+```json
 {
   "compilerOptions": {
     "target": "es6",
@@ -92,18 +92,18 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
     "node_modules"
   ]
 }
- ```
+```
 
  - Now, we need to transpile ES6 to ES5. Let's install **babel-core** and **babel-preset-env**.
 
 
- ```
+```
  npm install babel-core babel-preset-env --save-dev
- ```
+```
 
  - Babel needs to be configured for works. We will create one file **.babelrc** in root and later we will see how to put it in **webpack.config.js**. In this example, we will use this .babelrc: 
 
- ```json
+```json
  {
   "presets": [
     [
@@ -114,13 +114,13 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
     ]
   ]
 }
- ```
+```
 
 - Let's install bootstrap:
 
- ```
+```
  npm install bootstrap --save
- ```
+```
 
 
 
@@ -128,33 +128,33 @@ our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</ab
 
  ```json
 {
-  "name": "samplereact",
+  "name": "sample",
   "version": "1.0.0",
-  "description": "Sample working with React,TypeScript and Webpack",
+  "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline",
-    "build": "webpack"
+    "start": "webpack-dev-server --inline --hot --open",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "awesome-typescript-loader": "^3.1.2",
+    "awesome-typescript-loader": "^5.0.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "css-loader": "^0.28.7",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.24.0",
-    "style-loader": "^0.18.2",
-    "ts-loader": "^2.0.3",
-    "typescript": "^2.0.6",
-    "url-loader": "^0.5.7",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.4.2"
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "style-loader": "^0.20.3",
+    "typescript": "^2.8.1",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.5.0",
+    "webpack-dev-server": "^3.1.3"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^4.1.0"
   }
 }
 ```
@@ -244,15 +244,10 @@ module.exports = {
         }, 
       },
       {
-        test: /\.css$/,
-        include: /node_modules/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: {
-            loader: 'css-loader',
-          },
-        }),
-      },
+       test: /\.css$/,
+       exclude: /node_modules/,
+       use: [MiniCssExtractPlugin.loader, "css-loader"]
+     },      
       // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
       // Using here url-loader and file-loader
       {
