@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const ColorDisplayer = (props : Props) => {
-  var divStyle = {
+  const divStyle = {
     width: '11rem',
     height: '7rem',
     backgroundColor: `rgb(${props.color.red},${props.color.green}, ${props.color.blue})`
