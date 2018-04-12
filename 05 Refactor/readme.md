@@ -7,7 +7,7 @@ change in time? The current approach won't work.
 We can think about two possible solutions:
 
 - The first idea that could come into our mind is to implement a mix: we receive via props the current name value, then we hold an state with the current editing
-value... what drawbacks could we encounter? We have to listen on the componentWillRecieveProps for any change on the parent user name control and replace our state, we end up with a mixed governance.
+value... what drawbacks could we encounter? We have to listen on the getDerivedStateFromProps (componentWillRecieveProps has been deprecated) for any change on the parent user name control and replace our state, we end up with a mixed governance.
 
 - The second idea is to setup two properties, the parent control will hold _userName_ and _editingUsername__, whenever the user clicks on the button to
 replace the name it will notify the parent control and it will replace the
@@ -36,6 +36,8 @@ Install [Node.js and npm](https://nodejs.org/en/) if they are not already instal
 
 - Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it
 from the state.
+
+_nameEdit.tsx_
 
 ```diff
 import * as React from 'react';
@@ -70,6 +72,11 @@ interface Props {
 -    this.props.onNameUpdated(this.state.editingName);
 -  }
 
++  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
++    this.props.onEditingNameUpdated((e.target as HTMLInputElement).value);
++  }
+
+
   public render() {
     return (
       <div>
@@ -77,7 +84,7 @@ interface Props {
 -          <input value={this.state.editingName} onChange={this.onChange}/>
 -          <button className="btn btn-default" onClick={this.onNameSubmit}>Change</button>
 +          <input value={this.props.editingUserName}
-+            onChange={(e) : void => this.props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
++            onChange={this.onChange} />
 +          <button className="btn btn-default" onClick={this.props.onNameUpdateRequest}>Change</button>
       </div>
     )
@@ -124,14 +131,14 @@ export class App extends React.Component<Props, State> {
 
   public render() {
     return (
-      <React.Fragment>
+      <>
         <HelloComponent userName={this.state.userName}/>
 -        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState}/>
 +          <NameEditComponent
 +            editingUserName={this.state.editingUserName}
 +            onEditingNameUpdated={this.updateEditingName}
 +            onNameUpdateRequest={this.setUsernameState} />
-      </React.Fragment>
+      </>
     );
   }
 }
