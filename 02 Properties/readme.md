@@ -28,6 +28,8 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 - Let's update _hello.tsx_ in order to reflect the new property added (_userName_) and display it using interpolation (_{userName}_):
 
+_hello.tsx_
+
 ```diff
 import * as React from 'react';
 

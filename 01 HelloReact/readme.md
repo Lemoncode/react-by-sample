@@ -67,13 +67,13 @@ _./src/index.html_
 _./src/hello.tsx_
 
  ```jsx
-  import * as React from 'react';
+import * as React from 'react';
 
-  export const HelloComponent = () => {
-    return (
-      <h2>Hello component !</h2>
-    );
-  }
+export const HelloComponent = () => {
+  return (
+    <h2>Hello component !</h2>
+  );
+}
  ```
 
 - Wire up this component by using `react-dom` under `main.tsx` (we have to rename
@@ -82,15 +82,15 @@ _./src/hello.tsx_
 _./src/main.tsx_
 
  ```jsx
-  import * as React from 'react';
-  import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-  import { HelloComponent } from './hello';
+import { HelloComponent } from './hello';
 
-  ReactDOM.render(
-    <HelloComponent/>,
-    document.getElementById('root')
-  );
+ReactDOM.render(
+  <HelloComponent/>,
+  document.getElementById('root')
+);
  ```
 
 - Modify the `webpack.config.js` file and change the entry point from `./main.ts`

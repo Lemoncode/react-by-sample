@@ -25,6 +25,8 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's define a proper color structure (create a _color.ts_ file).
 
+_./src/color.ts_
+
 ```javascript
 export interface Color {
   red : number;
@@ -120,6 +122,8 @@ export const ColorPicker = () => {
 
 - Let's start by defining only one slider to control the red component of a given color (_colorpicker.tsx_).
 
+_./src/colorpicker.tsx_
+
 ```diff
 -  export const ColorPicker = () => {
 +  export const ColorPicker = (props : Props) => {
@@ -141,6 +145,8 @@ export const ColorPicker = () => {
 ```
 
 - Now it's time to update _app.tsx_ to interact with the components props.
+
+_./src/app.tsx_
 
 ```diff
   import * as React from 'react';
@@ -184,6 +190,8 @@ export const ColorPicker = () => {
 - Let's complete the component by adding sliders for the green and blue options:
 
 > Note: this will look a bit ugly, in the next sample we will refactor this to a cleaner solution
+
+_./src/colopicker.tsx_
 
 ```diff
   export const ColorPicker = (props : Props) => {
@@ -239,6 +247,8 @@ export const ColorPicker = () => {
 - Let's make this a bit more visual, it would be a good idea to display a rectangle
 filled with the selected color. Let's create a ColorDisplayer component (_colordisplayer.tsx_).
 
+_./src/colordisplayer.tsx_
+
 ```jsx
   import * as React from 'react';
   import {Color} from './color'
@@ -288,7 +298,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div>
 +        <ColorDisplayer color={this.state.color} />      
-        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
++        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
         <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
       </div>
     );

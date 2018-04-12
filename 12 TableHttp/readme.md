@@ -26,73 +26,6 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   npm install
   ```
 
-- Let's update our tsconfig.json 
-
-_.tsconfig.json_
-
-```diff
-{
-  "compilerOptions": {
-+    "target": "es6",
-+     "moduleResolution": "node",    
-+    "module": "es6",
-    "declaration": false,
-    "noImplicitAny": false,
-    "jsx": "react",
-    "sourceMap": true,
-    "noLib": false,    
-    "suppressImplicitAnyIndexErrors": true
-  },
-  "compileOnSave": false,
-  "exclude": [
-    "node_modules"
-  ]
-}
-```
-
-- Let's install babel:
-
-```cmd
-npm install babel-core babel-preset-env --save-dev
-```
-
-- Let's add a _.babelrc_ configuration
-
-_./.babelrc_
-
-```
-{
-  "presets": [
-    [
-      "env",
-      {
-        "modules": false
-      }
-    ]
-  ]
-}
-```
-
-- Let's update our webpackconfig configuration (awesome typescript loader).
-
-_./webpack.config.js_
-
-```diff
-    rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
--        loader: 'awesome-typescript-loader',
-+        use:
-+        {
-+          loader: 'awesome-typescript-loader',
-+          options: {
-+            useBabel: true
-+          }
-+        } 
-      },
-```
-
 - Let's remove the file _mermberMockData.ts_ in _src/api_ directory.
 
 - Let's replace _memberAPI_ load members with the fetch / promise one:
@@ -154,10 +87,11 @@ export const memberAPI = new MemberAPI();
 
 _./src/memberTable.tsx_
 
-```jsx
+```diff
 // Standard react lifecycle function:
 // https://facebook.github.io/react/docs/component-specs.html
-public componentWillMount() {
+public componentDidMount() {
+-  this.setState({members: memberAPI.getAllMembers()})
   memberAPI.getAllMembers().then((members) =>
     this.setState({members: members})
   );

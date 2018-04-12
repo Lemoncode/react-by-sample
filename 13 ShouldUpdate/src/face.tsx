@@ -1,30 +1,30 @@
 import * as React from 'react';
 
+const setSatisfactionClass = (level: number) => {
+  if (level < 100) {
+    return "very-dissatisfied"
+  }
+
+  if (level < 200) {
+    return "somewhat-dissatisfied"
+  }
+
+  if (level < 300) {
+    return "neither"
+  }
+
+  if (level < 400) {
+    return "somewhat-satisfied"
+  }
+
+  return "very-satisfied"
+}
+
 interface Props {
   level : number;
 }
 
 export class FaceComponent extends React.Component<Props, {}> {
-
-  setSatisfactionClass(level : number) {
-    if(level < 100) {
-          return "very-dissatisfied"
-    }
-
-    if(level < 200) {
-          return "somewhat-dissatisfied"
-    }
-
-    if(level < 300) {
-          return "neither"
-    }
-
-    if(level < 400) {
-          return "somewhat-satisfied"
-    }
-
-    return "very-satisfied"
-  }
 
   shouldComponentUpdate(nextProps : Props, nextState)
   {
@@ -42,12 +42,12 @@ export class FaceComponent extends React.Component<Props, {}> {
       index++;
     }
 
-     return isRangeChange;
+      return isRangeChange;
   }
 
   render() {
     return (
-      <div className={this.setSatisfactionClass(this.props.level)}/>
+      <div className={setSatisfactionClass(this.props.level)}/>
     );
   }
 }

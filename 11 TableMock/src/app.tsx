@@ -1,16 +1,30 @@
 import * as React from 'react';
-import {MembersTableComponent} from './membersTable';
+import { MembersTableComponent } from './membersTable';
 
-interface State {
-  userName : string;
+interface Props {
 }
 
-export class App extends React.Component<{}, State> {
+interface State {
+  userName: string;
+}
+
+export class App extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = { userName: 'defaultUserName' };
+  }
+
+  setUsernameState = (event) => {
+    this.setState({ userName: event.target.value });
+  }
+
+
   public render() {
-      return (
-       <div>
-        <MembersTableComponent/>
-       </div>
-      );
- }
+    return (
+      <>
+        <MembersTableComponent />
+      </>
+    );
+  }
 }

@@ -11,5 +11,6 @@ ReactDOM.render(
       <Route path="/pageB" component={PageB} />
     </Switch>
   </HashRouter>
-  , document.getElementById('root')
+  ,
+  document.getElementById('root')
 );

@@ -1,52 +1,54 @@
 import * as React from 'react';
-import {Color} from './color'
+
+import { Color } from './color'
 
 interface Props {
-  color : Color;
-  onColorUpdated : (color : Color) => void;
+  color: Color;
+  onColorUpdated: (color: Color) => void;
 }
-  
-export const ColorPicker = (props : Props) => {
+
+
+export const ColorPicker = (props: Props) => {
   return (
     <div>
       <input type="range"
-              min="0"
-              max="255"
-              value={props.color.red}
-              onChange={(event : any) => props.onColorUpdated(
-                {red: event.target.value, green: props.color.green, blue: props.color.blue}
-              )}
+        min="0"
+        max="255"
+        value={props.color.red}
+        onChange={(event: any) => props.onColorUpdated(
+          { red: event.target.value, green: props.color.green, blue: props.color.blue }
+        )}
       />
       {props.color.red}
       <br />
       <input type="range"
-              min="0"
-              max="255"
-              value={props.color.green}
-              onChange={(event : any) => props.onColorUpdated(
-                {
-                  red:  props.color.red,
-                  green: event.target.value,
-                  blue: props.color.blue
-                }
-              )}
+        min="0"
+        max="255"
+        value={props.color.green}
+        onChange={(event: any) => props.onColorUpdated(
+          {
+            red: props.color.red,
+            green: event.target.value,
+            blue: props.color.blue
+          }
+        )}
       />
       {props.color.green}
       <br />
       <input type="range"
-              min="0"
-              max="255"
-              value={props.color.blue}
-              onChange={(event : any) => props.onColorUpdated(
-                {
-                  red:   props.color.red,
-                  green: props.color.green,
-                  blue: event.target.value
-                }
-              )}
+        min="0"
+        max="255"
+        value={props.color.blue}
+        onChange={(event: any) => props.onColorUpdated(
+          {
+            red: props.color.red,
+            green: props.color.green,
+            blue: event.target.value
+          }
+        )}
       />
       {props.color.blue}
-      <br />           
-    </div>    
+      <br />
+    </div>
   );
 }

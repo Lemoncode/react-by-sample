@@ -112,8 +112,6 @@ _./src/nameEdit.tsx_
 
 ```jsx
 import * as React from 'react';
-import {Fragment} from 'react';
-
 
 interface Props {
   userName : string;
@@ -122,14 +120,14 @@ interface Props {
 
 export const NameEditComponent = (props : Props) => {
   return (
-    <Fragment>
+    <>
       <label>Update name:</label>
       <input value={props.userName} onChange={props.onChange}/>
-    </Fragment>
+    <>
   );
 }
 ```
-> What is this Fragment stuff? A way to create component that have multiple root elements (not a single parent)
+> What is this Fragment or <> stuff? A way to create component that have multiple root elements (not a single parent)
 
 
 
@@ -160,10 +158,10 @@ export const NameEditComponent = (props : Props) => {
 
     public render() {
       return (
-+        <div>
++        <>
           <HelloComponent userName={this.state.userName} />
 +          <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState} />
-+        </div>
++        </>
       );
     }
   }
