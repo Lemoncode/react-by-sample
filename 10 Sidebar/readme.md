@@ -94,9 +94,9 @@ _./webpack.config.js_
 +  // Use CSS modules for custom stylesheets
 +  {
 +    test: /\.css$/,
-+    loader: ExtractTextPlugin.extract({
-+      fallback: 'style-loader',
-+      use: [
++    exclude: /node_modules/,
++    use: [
++        MiniCssExtractPlugin.loader,
 +        {
 +          loader: 'css-loader',
 +          options: {
@@ -106,7 +106,6 @@ _./webpack.config.js_
 +          },
 +        },
 +      ]
-+    }),
 +  },
 +  // Do not use CSS modules in node_modules folder
 
@@ -115,6 +114,8 @@ _./webpack.config.js_
 
 - We are going to create now a sidebar component, _src/sidebar.tsx_. Right now we will create just
 a rectangle and we will interact with the animation.
+
+_./src/sidebar.tsx_
 
 ```jsx
 import * as React from 'react';
@@ -147,11 +148,11 @@ _./src/index.html_
 
 ```diff
   return (
-    <div>
+    <>
 +      <SidebarComponent/>
       <HelloComponent userName={this.state.userName} />
       <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-    </div>
+    </>
   );
 ```
 
@@ -244,7 +245,7 @@ export class App extends React.Component<{}, State> {
 
   public render() {
     return (
-      <div>
+      <>
 -        <SidebarComponent/>
 +        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
         <HelloComponent userName={this.state.userName} />
@@ -256,8 +257,7 @@ export class App extends React.Component<{}, State> {
 +           Toggle Sidebar
 +         </button>
 +       </div>
-        
-      </div>
+      </>
     );
   }
 }

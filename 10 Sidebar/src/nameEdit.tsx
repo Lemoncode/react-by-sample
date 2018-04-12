@@ -1,10 +1,15 @@
 import * as React from 'react';
 
-export const NameEditComponent = (props: {userName : string, onChange : (event : any) => any}) => {
+interface Props {
+  userName : string;
+  onChange : (event) => void;
+}
+
+export const NameEditComponent = (props : Props) => {
   return (
-    <div>
-      <label>Update Name:</label>
+    <>
+      <label>Update name:</label>
       <input value={props.userName} onChange={props.onChange}/>
-    </div>
+    </>
   );
 }

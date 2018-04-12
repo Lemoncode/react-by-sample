@@ -6,7 +6,7 @@ interface Props {
   isVisible: boolean;
 }
 
-const divStyle = (props: React.CSSProperties) => ({
+const divStyle = (props: Props): React.CSSProperties => ({
   width: (props.isVisible) ? '23rem' : '0rem'
 });
 
