@@ -25,6 +25,8 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's define a ColorSliderComponent component (_colorslider.tsx_).
 
+_./src/colorslider.tsx_
+
 ```jsx
 import * as React from 'react';
 import {Color} from './color';
@@ -65,20 +67,10 @@ interface Props {
 export const ColorPicker = (props : Props) => {
   return (
     <div>
-      <input type="range"
-              min="0"
-              max="255"
-              value={props.color.red}
-              onChange={(event : any) => props.onColorUpdated(
-                {red: event.target.value, green: props.color.green, blue: props.color.blue}
-              )}
-      />
-      {props.color.red}
-      <br />
 -      <input type="range"
 -              min="0"
 -              max="255"
--              value={props.color.green}
+-              value={props.color.red}
 -              onChange={(event : any) => props.onColorUpdated(
 -                {
 -                  red:  props.color.red,
@@ -170,7 +162,7 @@ interface Props {
   onColorUpdated: (color: Color) => void;
 }
 
-+ const updateColor = (props : Props, colorId : keyOf Color) => (value) => {
++ const updateColor = (props : Props, colorId : keyof Color) => (value) => {
 +    props.onColorUpdated({
 +      ...props.color,
 +      [colorId]: value
@@ -219,4 +211,10 @@ export const ColorPicker = (props: Props) => {
     </div>
   );
 }
+```
+
+- Let's give a try to the sample
+
+```
+npm start
 ```
