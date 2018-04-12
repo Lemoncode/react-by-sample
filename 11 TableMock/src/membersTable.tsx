@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {MemberEntity} from './model/member';
 import {memberAPI} from './api/memberAPI';
-import {MemberRowComponent} from './memberRow';
+import {MemberRow} from './memberRow';
 
-interface Props extends React.Props<MembersTableComponent> {
+interface Props {
 }
 
 // We define members as a state (the compoment holding this will be a container
@@ -24,14 +24,14 @@ export class MembersTableComponent extends React.Component<Props, State> {
 
    // Standard react lifecycle function:
    // https://facebook.github.io/react/docs/component-specs.html
-   public componentWillMount() {
+   public componentDidMount() {
      this.setState({members: memberAPI.getAllMembers()})
    }
 
    public render() {
 
        return (
-        <div className="row-no-margin">
+        <div className="row">
           <h2> Members Page</h2>
           <table className="table">
             <thead>
@@ -50,7 +50,7 @@ export class MembersTableComponent extends React.Component<Props, State> {
             <tbody>
               {
                 this.state.members.map((member : MemberEntity) =>
-                  <MemberRowComponent member = {member}/>
+                  <MemberRow key={member.id} member = {member}/>
                 )
               }
             </tbody>

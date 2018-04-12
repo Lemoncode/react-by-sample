@@ -24,6 +24,10 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 - Copy the content from _03 State_ and execute _npm install_.
 
+```cmd
+npm install
+```
+
 - Let's define a model entity in _src/model/member.ts_:
 
 _./src/model/member.ts_
@@ -63,7 +67,7 @@ var	MembersMockData : MemberEntity[] =
     }
 	];
 
-  export default MembersMockData;
+export default MembersMockData;
 ```
 
 - Define a fake api (to take thing simple we will just make it synchronous) in _src/api/memberAPI.ts_:
@@ -114,7 +118,7 @@ export const MemberRow = (props: {member : MemberEntity}) =>
          </td>
        </tr>
 ```
-We can't use max-widh in the param style in. We must write 'maxWidth' in the react components.
+> We can't use max-widh in the param style in. We must write 'maxWidth' in the react components.
 
 - Then we are going to implement a component that will display a list of members (and will
   make use of rows), _membersTable.tsx_:
@@ -148,7 +152,7 @@ export class MembersTableComponent extends React.Component<Props, State> {
 
    // Standard react lifecycle function:
    // https://facebook.github.io/react/docs/component-specs.html
-   public componentWillMount() {
+   public componentDidMount() {
      this.setState({members: memberAPI.getAllMembers()})
    }
 
@@ -188,9 +192,11 @@ export class MembersTableComponent extends React.Component<Props, State> {
 
 - Let's update an app.tsx
 
-```javascript
+```diff
 import * as React from 'react';
-import {MembersTableComponent} from './membersTable';
+- import { HelloComponent } from './hello';
+- import { NameEditComponent } from './nameEdit';
++ import {MembersTableComponent} from './membersTable';
 
 interface State {
   userName : string;
@@ -199,9 +205,9 @@ interface State {
 export class App extends React.Component<{}, State> {
   public render() {
       return (
-       <div>
-        <MembersTableComponent/>
-       </div>
+       <>
++        <MembersTableComponent/>
+       </>
       );
  }
 }
