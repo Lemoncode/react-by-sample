@@ -44,3 +44,9 @@ export const NameEditComponent = (props : Props) =>
       <button className="btn btn-default" onClick={props.onNameUpdateRequest}>Change</button>
   </div>
  ```
+
+- Now we can run the sample and we will get same results
+
+```bash
+npm start
+```
