@@ -35,6 +35,8 @@ from a stateless component into a class component, then we will add some refacto
 
  The `nameEdit.tsx` file should looks like this:
 
+_nameEdit.tsx_
+
 ```diff
 import * as React from 'react';
 import {Fragment} from 'react';
@@ -132,8 +134,6 @@ export class App extends React.Component<Props, State> {
   ```
 
 - Then, load http://localhost:8080/ in a browser to see the output.
-
- ![Browser Output](../99_readme_resources/04 Callback/browser_output.png "Browser Output")
 
  Now, the greeting only change when the user clicks on the change button.
 

@@ -1,33 +1,32 @@
 import * as React from 'react';
-import {HelloComponent} from './hello';
-import {NameEditComponent} from './nameEdit'
+import { HelloComponent } from './hello';
+import { NameEditComponent } from './nameEdit';
 
 interface Props {
-
 }
 
 interface State {
-  userName : string;
+  userName: string;
 }
 
 export class App extends React.Component<Props, State> {
-  constructor(props : Props) {
+  constructor(props: Props) {
     super(props);
 
-    this.state = {userName: 'defaultUserName'};
+    this.state = { userName: 'defaultUserName' };
   }
 
   setUsernameState = (newName: string) => {
-        this.setState({userName: newName});
+    this.setState({ userName: newName });
   }
-    
+
+
   public render() {
     return (
-      <React.Fragment>
-        <HelloComponent userName={this.state.userName}/>
+      <>
+        <HelloComponent userName={this.state.userName} />
         <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState}/>
-      </React.Fragment>
+      </>
     );
   }
 }
-
