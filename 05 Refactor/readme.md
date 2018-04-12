@@ -9,6 +9,49 @@ We can think about two possible solutions:
 - The first idea that could come into our mind is to implement a mix: we receive via props the current name value, then we hold an state with the current editing
 value... what drawbacks could we encounter? We have to listen on the getDerivedStateFromProps (componentWillRecieveProps has been deprecated) for any change on the parent user name control and replace our state, we end up with a mixed governance.
 
+> More info about getDerivedStateFromProps: https://medium.com/@baphemot/whats-new-in-react-16-3-d2c9b7b6193b
+
+And update of how it would look like (using the new static method
+getDerivedStateFromProps):
+
+Props and interface:
+
+```diff
+interface Props {
+  initialUserName: string;
+  onNameUpdated: (newName: string) => any;
+}
+
+interface State {
++  initialUserName : string,
+  editingName: string;
+}
+
+Constructor update:
+
+```diff
+  constructor(props: Props) {
+    super(props);
+    // Watch out what would happen if we get this user name via an AJAX callback
+    // you will find a different implementatin on 05 sample
+-    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
+
++    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
+  }
+
+Inside the class component
+
+```javascript
+  static getDerivedStateFromProps(nextProps : Props, prevState : State) : Partial<State> {
+    if(nextProps.initialUserName && 
+        nextProps.initialUserName != prevState.initialUserName) {
+      return {editingName: nextProps.initialUserName}  
+    } else {
+      return null;
+    }
+  }
+```
+
 - The second idea is to setup two properties, the parent control will hold _userName_ and _editingUsername__, whenever the user clicks on the button to
 replace the name it will notify the parent control and it will replace the
 content of _userName_" with the content from _editingUsername_. If _userName_ gets updated by any other third party (e.g. ajax callback) it will update as well
