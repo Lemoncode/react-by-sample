@@ -40,9 +40,9 @@ in a terminal/console window. Older versions may produce errors.
 - Install also the typescript definitions for `react` and `react-dom`
 but as dev dependencies.
 
-  ```bash
-  npm install @types/react @types/react-dom --save-dev
-  ```
+```bash
+npm install @types/react @types/react-dom --save-dev
+```
 
 - Update the `index.html` to create a placeholder for the react components.
 

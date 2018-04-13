@@ -54,7 +54,7 @@ Once you have successfully fullfilled them a **package.json** file we will gener
 our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</abbr>, TypeScript...).
 
  ```
- npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader mini-css-extract-plugin css-loader --save-dev
+ npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader mini-css-extract-plugin --save-dev
  ```
 - Let's add two commands to our **package.json** to build and start.
 
@@ -200,20 +200,18 @@ _./src/index.html_
  - Generating the build under a **dist** folder.
 
  ```javascript
-let path = require('path'); 
-let webpack = require('webpack'); 
-let HtmlWebpackPlugin = require('html-webpack-plugin'); 
-
-let ExtractTextPlugin = require('extract-text-webpack-plugin'); 
+let path = require('path');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+let webpack = require('webpack');
 
 let basePath = __dirname;
 
 module.exports = {
   context: path.join(basePath, "src"),
   resolve: {
-      extensions: ['.js', '.ts', '.tsx']
+    extensions: ['.js', '.ts', '.tsx']
   },
-
   entry: [
     './main.ts',
     '../node_modules/bootstrap/dist/css/bootstrap.css'
@@ -222,49 +220,27 @@ module.exports = {
     path: path.join(basePath, 'dist'),
     filename: 'bundle.js'
   },
-
   devtool: 'source-map',
-
   devServer: {
-       contentBase: './dist', // Content base
-       inline: true, // Enable watch and live reload
-       host: 'localhost',
-       port: 8080,
-       stats: 'errors-only'
+    contentBase: './dist', // Content base
+    inline: true, // Enable watch and live reload
+    host: 'localhost',
+    port: 8080,
+    stats: 'errors-only'
   },
-
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'awesome-typescript-loader',
-        options: { 
-          useBabel: true, 
-        }, 
+        options: {
+          useBabel: true,
+        },
       },
       {
-       test: /\.css$/,
-       exclude: /node_modules/,
-       use: [MiniCssExtractPlugin.loader, "css-loader"]
-     },      
-      // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
-      // Using here url-loader and file-loader
-      {
-        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader'
+        test: /\.css$/,        
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -272,23 +248,22 @@ module.exports = {
         options: {
           name: 'assets/img/[name].[ext]?[hash]'
         }
-      },   
-    ]
+      },
+    ],
   },
   plugins: [
-    // Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
+    //Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html', // Name of file in ./dist/
-      template: 'index.html', // Name of template in ./src
-      hash: true
+      filename: 'index.html', //Name of file in ./dist/
+      template: 'index.html', //Name of template in ./src
+      hash: true,
     }),
-    new ExtractTextPlugin({
-      filename: '[chunkhash].[name].css',
-      disable: false,
-      allChunks: true,
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
     }),
-  ]
-}
+  ],
+};
  ```
 
 - Run webpack with:
