@@ -6,7 +6,7 @@ We will add a _username_ property and display it in the _hello_ component.
 
 We will take a startup point sample **01 Hello React**:
 
-Summary steps:
+### Summary steps:
 
 - _hello_ stateless component: create a property that will hold the _username_ value.
 
@@ -42,7 +42,7 @@ import * as React from 'react';
 }
 ```
 
-- Let's update _main.tsx_ and inform the _userName_ propery value:
+- Let's update _main.tsx_ and inform the _userName_ property value:
 
 ```diff
   import * as React from 'react';
