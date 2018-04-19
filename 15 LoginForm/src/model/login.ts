@@ -6,4 +6,4 @@ export interface LoginEntity {
 export const createEmptyLogin = () : LoginEntity => ({
   login: '',
   password: '',
-})
+});

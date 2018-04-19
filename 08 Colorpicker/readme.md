@@ -134,8 +134,8 @@ _./src/colorpicker.tsx_
 +               min="0"
 +               max="255"
 +               value={props.color.red}
-+               onChange={(event : any) => props.onColorUpdated(
-+                 {red: event.target.value, green: props.color.green, blue: props.color.blue}
++               onChange={(event) => props.onColorUpdated(
++                 {red: +event.target.value, green: props.color.green, blue: props.color.blue}
 +               )}
 +        />
 +        {props.color.red}
@@ -164,9 +164,9 @@ _./src/app.tsx_
       this.state = {color: {red: 90, green: 50, blue: 70}};
     }
 
-    setColorState(newColor : Color) {
-      this.setState({color: newColor});
-    }
++    setColorState = (newColor : Color) => {
++      this.setState({color: newColor});
++    }
 
     public render() {
       return (
