@@ -5,6 +5,6 @@ interface Props {
 }
 
 export const Header = (props : Props) =>  
-    <li className="card-header">
+    <div className="card-header">
       <h3 className="panel-title">{props.title}</h3>
-    </li>
+    </div>

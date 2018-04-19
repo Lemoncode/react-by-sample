@@ -4,6 +4,6 @@ interface Props {
 }
 
 export const Body : React.StatelessComponent<Props> = (props) => 
-  <div className="list-group-item">
+  <li className="list-group-item">
     {props.children}
-  </div>
+  </li>
