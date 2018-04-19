@@ -734,3 +734,5 @@ is lc-form-validation we will create a sample including this lib to validate the
 (required fields)
 
 > As an excercise add a react toaster to notify when the login fails.
+
+> One more excercise port this layout to flexbox and new CSS standards.
