@@ -71,7 +71,7 @@ interface Props {
 +   }
 +
 + onChange = (event) => {
-+   this.setState({editingName: event.target.value} as State);
++   this.setState({editingName: event.target.value});
 + }
 +
 + onNameSubmit = (event: any): any => {
@@ -80,11 +80,11 @@ interface Props {
 +
 +  public render() {
 +    return (
-+      <div>
++      <>
 +        <label>Update Name:</label>
 +        <input value={this.state.editingName} onChange={this.onChange} />
-+        <input type="submit" value="Change" className="btn btn-default" onClick={this.onNameSubmit} />
-+      </div>
++        <button className="btn btn-default" onClick={this.onNameSubmit}>Change</button>
++      </>
 +    );
 +  }
 + }

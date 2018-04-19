@@ -163,88 +163,144 @@ npm start
 the [following layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3)
 but we will break it down into subcomponents.
 
-- We will create under _src/pages/login/_ a component called _header.tsx_.
+- It's time to create something reusable, a panel is a good candidate for that.
 
-_./src/pages/login/header.tsx_
+Our idea is to end up with something like:
+**PSEUDCODE**
 
-```javascript
-import * as React from "react"
+```html
+<Panel title="My title here">
+  // My content here
+</Panel>
+```
+And the panel it self
 
-export const Header = () => {
-  return (    
-  	   <div className="panel-heading">
-  	     <h3 className="panel-title">Please sign in</h3>
-  	   </div>
-  );
-}
+```html
+<div class="panel panel-default">
+  <header title={props.title}/>
+  <body>
+    {children}
+  </body>
+</div>
 ```
 
-- We will create under _src/pages/login/_ a component called _form.tsx_
+> Panels and Bootstrap 4 (cards): https://getbootstrap.com/docs/4.0/components/card/
 
-_./src/pages/login/form.tsx_
+_./src/common/panel/components/header.tsx_
+```tsx
+import * as React from "react"
 
-```javascript
+interface Props {
+  title : string;
+}
+
+export const Header = (props : Props) =>  
+    <li className="card-header">
+      <h3 className="panel-title">{props.title}</h3>
+    </li>
+```
+
+_./src/common/panel/components/body.tsx_
+
+```tsx
+import * as React from "react"
+
+interface Props {
+}
+
+export const Body : React.StatelessComponent<Props> = (props) => 
+  <div className="list-group-item">
+    {props.children}
+  </div>
+```
+
+
+_./src/common/panel/panel.tsx_
+
+```tsx
+import * as React from "react"
+import {Body} from './components/body';
+import {Header} from './components/header';
+
+interface Props {
+  title : string;
+}
+
+export const Panel : React.StatelessComponent<Props> = (props) =>  
+    <div className="card">
+      <ul className="list-group list-group-flush">
+        <Header title={props.title}/>
+        <Body>
+          {props.children}
+        </Body>
+      </ul>
+    </div>
+```
+
+_./src/common/panel/index.ts_
+
+```typescript
+export {Panel} from './panel';
+```
+
+> How do we end up doing this nice common component? Just by first doing it in the non optimal
+way and go refining / refactoring, ... not often you get the perfect design at first try, it's
+an iterative process.
+
+- Let's create one more index file for the _common_ folder (that will grow).
+
+_./src/common/index.ts_
+
+```typescript
+export {Panel}  from './panel';
+```
+
+- Let's jump back into our login pages, let's create a form component
+
+_./src/pages/login/components/form.tsx_
+
+```tsx
 import * as React from "react"
 
 export const Form = () => {
   return (
-    <div className="panel-body">
-      <form role="form">
-        <fieldset>
-          <div className="form-group">
-      		  <input className="form-control" placeholder="E-mail" name="email" type="text"/>
-      		</div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
-          </div>
-          <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
-        </fieldset>
-      </form>
-    </div>
+    <form role="form">
+      <fieldset>
+        <div className="form-group">
+          <input className="form-control" placeholder="E-mail" name="email" type="text"/>
+        </div>
+        <div className="form-group">
+          <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
+        </div>
+        <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
+      </fieldset>
+    </form>  
   );
 }
 ```
 
-
-- Login Page will look something like that:
+- Now let's update our login page (fully replace the content)
 
 _./src/pages/login/loginPage.tsx_
 
 ```javascript
 import * as React from "react"
-import {Link} from 'react-router-dom';
-import {Header} from './header';
-import {Form} from './form'
+import {Panel} from '../../common';
+import {Form} from './components/form';
 
-export const LoginPage = () => {
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <div className="panel panel-default">
-            <Header/>
-            <Form/>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+export const LoginPage = () =>
+  <Panel title="Please sign in">
+    <Form/>
+  </Panel>
 ```
 
-> Excercise: we could create a centered container component and the loginPage could be even more simpler
+- Let's give a try and check how is it looking.
 
-_pseudocode_
-```jsx
-export const LoginPage = () => {
-  return (
-    <CenteredPanel>    
-      <Header/>
-      <Form/>
-    </CenteredPanel>    
-  );
-}
+```bash
+npm start
 ```
+
+-
 
 - Let's add the navigation on button clicked (later on we will check for user and pwd) _form.tsx_.
 In order to do this we will use react-router 4 "withRouter" HoC (High order component).
@@ -283,6 +339,59 @@ import * as React from "react"
 +})
 ```
 
+- Let's give a quick try.
+
+```bash
+npm start
+```
+
+- Not bad, but we rather prefer to center the dialog, instead of getting our control dirty with
+bootstrap grid sizes let's create another component.
+
+> To make this component fully reusable it will need some tweaking, as an excercise you can play with
+it adding some props to make it generic.
+
+_./src/common/content-center/content-center.tsx_
+
+```tsx
+import * as React from "react"
+
+export const ContentCenter : React.StatelessComponent = (props) => 
+  <div className="container">
+    <div className="row">
+      <div className="col-md-4 col-md-offset-4">
+      {props.children}
+      </div>
+    </div>
+  </div>
+```
+
+- Let's add it to our common _index.ts_
+
+_./src/common/index.ts_
+
+```diff
+export {Panel}  from './panel';
++ export {ContentCenter} from './content-center/content-center';
+```
+
+- Let's add it to our _loginPage.tsx_
+
+```diff
+import * as React from "react"
+- import {Panel} from '../../common';
++ import {Panel, ContentCenter} from '../../common';
+import {Form} from './components/form';
+
+export const LoginPage = () =>
++ <ContentCenter>
+    <Panel title="Please sign in">
+      <Form/>
+    </Panel>
++  </ContentCenter>
+
+```
+
 - Let's define an entity for the loginInfo let's create the following path and file
 _src/model/login.ts_
 
@@ -295,7 +404,7 @@ export interface LoginEntity {
 export const createEmptyLogin = () : LoginEntity => ({
   login: '',
   password: '',
-})
+});
 ```
 
 - Let's add login validation fake restApi: create a folder _src/api_. and a file called
@@ -326,27 +435,20 @@ _./src/api/login.ts_
 ```javascript
 import {LoginEntity} from '../model/login';
 
-
 // Just a fake loginAPI
-class LoginAPI {
-  public isValidLogin(loginInfo : LoginEntity) : boolean
-  {
-    return (loginInfo.login === 'test' && loginInfo.password === 'test');
-  }
-}
-
-export const loginApi = new LoginAPI();
+export const isValidLogin = (loginInfo : LoginEntity) : boolean =>
+  (loginInfo.login === 'admin' && loginInfo.password === 'test');
 ```
 
 
 - Now we can integrate it into _form.tsx_ login button, but.. it's  time to think
 about how do we want to structure this, Do we want _form.tsx_ to hold the state
 of current user logged in and current password, plus button handler? This should
-be responsibility of the container control (loginPage.tsx). So let's the define
-as state of the _loginPage_ this information plus function and pass it down to
-the _form_ component. Let's start with _loginPage_
-- If you don`t put the specified file _.tsx_ , it automatically references to index.ts 
-inside the folder. For example _import {LoginEntity} from '../../model/login'_
+be responsibility of the container control (Let's create a new component loginPageContainer.tsx). So let's the define as state of the _loginPageContainer_ this information plus function and pass it down to
+the _loginPage_ and _form_ component. Let's start with _loginPageContainer_
+
+
+- Let's create a _loginPageContainer.ts_
 
 Let'start by converting the component from stateless to class component.
 

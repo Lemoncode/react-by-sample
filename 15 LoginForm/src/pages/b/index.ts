@@ -1,5 +1,1 @@
-import {PageB} from './pageB'
-
-export {
-  PageB
-}
+export {PageB} from './pageB'
