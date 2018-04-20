@@ -1,25 +1,25 @@
-# 07 Enable
+# 07 Habilitar
 
-Let's continue with the update name sample, this time we want to disable the
-"update" button when the input is empty or when the value hasn't changed.
+Continuemos con el ejemplo de nombre de actualización, esta vez queremos desactivar el
+botón "actualizar" cuando la entrada está vacía o cuando el valor no ha cambiado.
 
-We will take a startup point sample _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
+Tomaremos una muestra del punto de inicio _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
-Summary steps:
+Pasos resumidos:
 
-- Add a condition to disable
+- Agregar una condición para deshabilitar
 
-## Prerequisites
+## Prerrequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already installed on your computer.
+Instale [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más reciente) si aún no están instalados en su computadora.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verifique que esté ejecutando al menos los nodos v6.x.x y npm 3.x.x ejecutando `node -v` y` npm -v` en una ventana de terminal/ consola. Las versiones anteriores pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo
 
-- Copy the content from _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
+- Copie el contenido de _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
-- Let's start by adding a condition to disable the field whenever is empty. Replace only the input tag in _[./src/nameEdit.tsx](./src/nameEdit.tsx)_ with the following code:
+- Comencemos agregando una condición para deshabilitar el campo siempre que esté vacío. Reemplace solo la etiqueta de entrada en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_ con el siguiente código:
 
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
 ```diff
@@ -37,8 +37,8 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
     </div>
 ```
 
-- Now comes the tricky part, detect when the name hasn't changed.<br />
-First we will add a new property called _userName_ with type `string` in _[./src/nameEdit.tsx](./src/nameEdit.tsx)_. This one will hold the last accepted userName.
+- Ahora viene la parte difícil, detectar cuando el nombre no ha cambiado. <br/>
+Primero agregaremos una nueva propiedad llamada `userName` con el tipo `string` en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_. Este tendrá el último nombre de usuario aceptado.
 
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
 ```diff
@@ -50,8 +50,8 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
  }
  ```
 
-- We will add to the enable condition one more test, checking if name has changed.
-Replace again only the input tag in _[./src/nameEdit.tsx](./src/nameEdit.tsx)_ with the following code:
+- Añadiremos a la condición de habilitación una prueba más, verificando si el nombre ha cambiado.
+Reemplace nuevamente solo la etiqueta de entrada en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_ con el siguiente código:
 
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
 ```diff
@@ -63,7 +63,7 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
       >Change</button>
 ```
 
-- Now we have to feed this property from the parent control (Add `userName={this.state.userName}` to the NameEditComponent in _[./src/app.tsx](./src/app.tsx)_). The `NameEditComponent` should be like:
+- Ahora tenemos que alimentar esta propiedad desde el control principal (Agregar `userName = {this.state.userName}` al `NameEditComponent` en _[./src/app.tsx](./src/app.tsx)_). El `NameEditComponent` debería ser como:
 
 _[./src/app.tsx](./src/app.tsx)_
 ```diff
@@ -81,15 +81,15 @@ _[./src/app.tsx](./src/app.tsx)_
   }
 ```
 
-- Let's give a try
+- Démosle una oportunidad
 
 ```
 npm start
 ```
 
-> As an excercise, what if we want to do this more generic? we could have a generic property called enable that could be true or false.
+> Como ejercicio, ¿y si queremos hacer esto más genérico? podríamos tener una propiedad genérica llamada enable que podría ser verdadera o falsa.
 
-To do this, we will modify [./src/app.tsx](./src/app.tsx) adding the variable `disable` to the `<NameEditComponent>` component. This variable is **Boolean**, so you need conditions to evaluate it.
+Para hacer esto, modificaremos [./src/app.tsx](./src/app.tsx) agregando la variable `disable` al componente` <NameEditComponent> `. Esta variable es **booleana**, por lo que necesita condiciones para evaluarla.
 
 _[./src/app.tsx](./src/app.tsx)_
 ```diff
@@ -108,7 +108,7 @@ _[./src/app.tsx](./src/app.tsx)_
   }
 ```
 
-Within the component we define the **props** **disable** as Boolean, together with its conditions that will evaluate it.
+Dentro del componente definimos **props** **disable** como Boolean, junto con sus condiciones que lo evaluarán.
 
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
 ```diff
