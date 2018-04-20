@@ -127,7 +127,7 @@ Ahora vamos a limpiar el evento, fuertemente tipado y simplificado.
   npm start
   ```
 
-- Luegom cargamos http://localhost:8080/ en el navegador y veremos la salida.
+- Luego cargamos http://localhost:8080/ en el navegador y veremos la salida.
 
 Ahora, el saludo solo cambia cuando el usuario hace click en el botón de cambiar.
 
