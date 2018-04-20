@@ -322,7 +322,7 @@ import * as React from "react"
           </div>
 -          <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"
 -          />
-+          <button className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
++          <button  type="button" className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
         </fieldset>
       </form>
     </div>

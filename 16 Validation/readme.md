@@ -255,7 +255,7 @@ export const Form = (props : Props) =>
 +          type="password"
 +        />        
         </div>
-        <button className="btn btn-lg btn-success btn-block" onClick={props.doLogin}>Login</button>   
+        <button type="button" className="btn btn-lg btn-success btn-block" onClick={props.doLogin}>Login</button>   
       </fieldset>
     </form>  
 ```
