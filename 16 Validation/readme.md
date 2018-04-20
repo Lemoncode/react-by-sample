@@ -267,6 +267,23 @@ npm start
 ```
 
 - And let's add an alert (Excercise and a notification) when the user clicks and
-the form has not fields required.
+the form all the fields are valid.
+
+_./src/pages/login/loginPageContainer.tsx_
+
+```diff
+  performLogin = () => {
++    dataValidation.validateForm(this.state.loginInfo)
++      .then((FormValidationResult) => {
++          if(FormValidationResult.succeeded) {
+            if (isValidLogin(this.state.loginInfo)) {
+              this.props.history.push('/pageB');
+            }      
++          } else {
++            alert('error, review the fields');
++          }
++      })
+  }
+```
 
 > Excercise add property styling using CSS Modules nad proper react alert.

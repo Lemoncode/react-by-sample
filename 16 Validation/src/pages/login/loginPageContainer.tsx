@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { isValidLogin } from '../../api/login';
 import { dataValidation } from './validation'
 import {LoginFormErrors, createEmptyDataFormErrors} from './viewmodel';
+import { FormValidationResult } from "lc-form-validation";
 
 interface State {
   loginInfo: LoginEntity;
@@ -22,10 +23,18 @@ export const LoginPageContainer = withRouter(class LoginPageContainerInner exten
     this.state = { loginInfo: createEmptyLogin(), loginFormErrors: createEmptyDataFormErrors()}
   }
 
+  // We could apply clean code here break into two functions
   performLogin = () => {
-    if (isValidLogin(this.state.loginInfo)) {
-      this.props.history.push('/pageB');
-    }
+    dataValidation.validateForm(this.state.loginInfo)
+      .then((FormValidationResult) => {
+          if(FormValidationResult.succeeded) {
+            if (isValidLogin(this.state.loginInfo)) {
+              this.props.history.push('/pageB');
+            }      
+          } else {
+            alert('error, review the fields');
+          }
+      })
   }
 
   updateLoginField = (name, value) => {
