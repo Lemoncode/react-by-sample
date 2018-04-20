@@ -3,7 +3,7 @@
 Continuemos con el ejemplo de nombre de actualización, esta vez queremos desactivar el
 botón "actualizar" cuando la entrada está vacía o cuando el valor no ha cambiado.
 
-Tomaremos una muestra del punto de inicio _[./../06%20MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
+Tomaremos una muestra del punto de inicio _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
 Pasos resumidos:
 
@@ -17,7 +17,7 @@ Instale [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más reciente) si aún
 
 ## Pasos para construirlo
 
-- Copie el contenido de _[./../06%20MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
+- Copie el contenido de _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
 - Comencemos agregando una condición para deshabilitar el campo siempre que esté vacío. Reemplace solo la etiqueta de entrada en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_ con el siguiente código:
 

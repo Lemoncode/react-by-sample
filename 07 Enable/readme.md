@@ -3,7 +3,7 @@
 Let's continue with the update name sample, this time we want to disable the
 "update" button when the input is empty or when the value hasn't changed.
 
-We will take a startup point sample _[./../06%20MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
+We will take a startup point sample _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
 Summary steps:
 
@@ -17,7 +17,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 ## Steps to build it
 
-- Copy the content from _[./../06%20MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
+- Copy the content from _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
 - Let's start by adding a condition to disable the field whenever is empty. Replace only the input tag in _[./src/nameEdit.tsx](./src/nameEdit.tsx)_ with the following code:
 
