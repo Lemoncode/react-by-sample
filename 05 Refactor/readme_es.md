@@ -1,20 +1,16 @@
-# 05 Refactor
+# 05 Refactorizar
 
-In the previous sample we were setting an initial username value, what would
-happen if we expect this value to come from e.g. an AJAX request or if it could
-change in time? The current approach won't work.
+En el ejemplo anterior estabamos estableciendo un valor username inicial, ¿que ocurriría si esperasemos que este valor viniera, por ejemplo, de una petición AJAX o si pudiera variar en el tiempo? Lo que ocurriría es que la aproximación actual no funcionaría.
 
-We can think about two possible solutions:
+Podríamos pensar en dos posibles soluciones:
 
-- The first idea that could come into our mind is to implement a mix: we receive via props the current name value, then we hold an state with the current editing
-value... what drawbacks could we encounter? We have to listen on the getDerivedStateFromProps (componentWillRecieveProps has been deprecated) for any change on the parent user name control and replace our state, we end up with a mixed governance.
+- La primera idea que podría venirnos a la mentes sería implementar una mezcla: recibimos el actual valor name via props, entonces mantenemos un estado con el valor editable actual... ¿Que desventajas nos encontraríamos? Tendríamos que escuchar el getDerivedStateFromProps (componentWillRecieveProps está obsoleto) para cualquier cambio en el control de nombre de usuario del padre y sustituir nuestro estado, acabaríamos con un control compartido.
 
-> More info about getDerivedStateFromProps: https://medium.com/@baphemot/whats-new-in-react-16-3-d2c9b7b6193b
+> Más información sobre getDerivedStateFromProps: https://medium.com/@baphemot/whats-new-in-react-16-3-d2c9b7b6193b
 
-And update of how it would look like (using the new static method
-getDerivedStateFromProps):
+Veamos como quedaría (usando el nuevo método estático getDerivedStateFromProps):
 
-Props and interface:
+Props e interface:
 
 ```diff
 interface Props {
@@ -27,19 +23,19 @@ interface State {
   editingName: string;
 }
 
-Constructor update:
+Actualización del constructor:
 
 ```diff
   constructor(props: Props) {
     super(props);
-    // Watch out what would happen if we get this user name via an AJAX callback
-    // you will find a different implementation on 05 sample
+    // Comprueba que pasaría si obtenemos este nombre de usuario a través de un callback AJAX
+    // encontrarás una implementación diferente en el ejemplo 05
 -    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
 
 +    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
   }
 
-Inside the class component
+Dentro del componente de clase
 
 ```javascript
   static getDerivedStateFromProps(nextProps : Props, prevState : State) : Partial<State> {
@@ -52,33 +48,27 @@ Inside the class component
   }
 ```
 
-- The second idea is to setup two properties, the parent control will hold _userName_ and _editingUsername__, whenever the user clicks on the button to
-replace the name it will notify the parent control and it will replace the
-content of _userName_ with the content from _editingUsername_. If _userName_ gets updated by any other third party (e.g. AJAX callback) it will update as well
-_editingUsername_.
+- La segunda idea es preparar dos propiedades, el control padre contendrá _userName_ y _editingUsername__, cuando el usuario hace click en el botón para sustituir el nombre se notifica al control padre y reemplazará el contenido de _userName_ con el contenido de  _editingUsername_. Si _userName_ es actualizado por cualquier otra tercera parte (por ejemplo, un callback AJAX) también se actualizará _editingUsername_.
 
-We will take as a starting point sample _04 Callback_:
+Tomaremos como punto de partida el ejemplo _04 Callback_:
 
-Summary steps:
+Pasos resumidos:
 
-- Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it from the state.
+- Actualizar _nameEdit.tsx_ para que solicite el nuevo _editingUsername_, y eliminarlo del estado.
 
-- Update _app.tsx_ to hold the new editing property in the state, pass it to the
-children, control and perform the proper update on the callback event from the
-child control.
+- Actualizar _app.tsx_ para contener la nueva propiedad de edición en el estado, pasarla al hijo, controlar y realizar la actualización apropiada en el evento callback del control hijo.
 
-## Prerequisites
+## Prerequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) if they are not already installed on your computer.
+Instalar [Node.js and npm](https://nodejs.org/es/) si no lo tenemos ya instalado.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verificar que estás ejecutando al menos con la versión 6.x.x de node y la versión 3.x.x de npm ejecutando `node -v` y `npm -v` en la ventana de terminal/consola. Versiones anteriores pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo
 
-- Copy the content from _04 Callback_ and execute `npm install`.
+- Copiar el contenido de _04 Callback_ y ejecutar `npm install`.
 
-- Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it
-from the state.
+- Actualizar _nameEdit.tsx_ para que solicite el nuevo _editingUsername_, y eliminarlo del estado.
 
 _nameEdit.tsx_
 
@@ -135,9 +125,7 @@ interface Props {
 }
 ```
 
-- Update _app.tsx_ to hold the new editing property in the state, pass it to the
-children control and perform the proper update on the callback event from the
-child control.
+- Actualizar _app.tsx_ para contener la nueva propiedad de edición en el estado, pasarla al hijo, controlar y realizar la actualización apropiada en el evento callback del control hijo.
 
 ```diff
 import * as React from 'react';
@@ -187,5 +175,4 @@ export class App extends React.Component<Props, State> {
 }
 ```
 
-Finally we can check the sample is working as _04 Callback_ executing from the command line
-`npm start` and opening [http://localhost:8080](http://localhost:8080).
+Finalmente podemos comprobar que el ejemplo funciona como el _04 Callback_ ejecutando un `npm start` desde la consola de comandos y abriendo [http://localhost:8080](http://localhost:8080).
