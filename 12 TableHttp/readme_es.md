@@ -25,7 +25,7 @@ Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o más nuevo) si no e
   npm install
   ```
 
-- Vamos a eliminar el fichero _mermberMockData.ts_ en el directorio _src/api_ .
+- Vamos a eliminar el fichero _mermberMockData.ts_ del directorio _src/api_ .
 
 - Vamos a reemplazar _memberAPI_ cargando los miembros con promesas :
 
