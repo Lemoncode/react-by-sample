@@ -92,9 +92,9 @@ _./src/memberTable.tsx_
 // https://facebook.github.io/react/docs/component-specs.html
 public componentDidMount() {
 -  this.setState({members: memberAPI.getAllMembers()})
-  memberAPI.getAllMembers().then((members) =>
-    this.setState({members: members})
-  );
++  memberAPI.getAllMembers().then((members) =>
++    this.setState({members: members})
++  );
 }
 ```
 
