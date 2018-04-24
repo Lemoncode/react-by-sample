@@ -10,7 +10,7 @@ Pasos resumidos:
 
 - Actualizar _[nameEdit.tsx](./src/nameEdit.tsx)_, convirtiéndolo en un componente sin estado y añadir los métodos inline.
 
-## Prerequisitos
+## Prerrequisitos
 
 Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o superior) si aún no los tienes instalados en tu equipo.
 
