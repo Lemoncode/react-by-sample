@@ -1,34 +1,33 @@
 # 12 Table Http
 
-Let's move forward with the table sample, this time we are going to replace the
-mock data by real one.
+Sigamos con nuestro ejemplo de la tabla, vamos a cambiar datos falsos por unos reales.
 
-We will take a startup point sample _11 TableMock_:
+Cogeremos como punto inicial el ejemplo  _11 TableMock_:
 
-Summary steps:
+Pasos resumidos:
 
-- Configure transpilation and add extra transpile step babel >> es5.
-- Update API in order to work with promises and fetch data from Github API.
-- Update the _tableComponent_ in order to show this data.
+- Configurar transpilación y añadir una transpilación extra babel >> es5.
+- Actualizar la API para trabajar con promesas y obtener datos de la API de Github.
+- Actualizar  _tableComponent_ para mostrar los datos.
 
 
-## Prerequisites
+## Prerrequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already installed on your computer.
+Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o más nuevo) si no están ya instalados.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verificar que tienes al menos corriendo la versión de node v6.x.x y npm 3.x.x ejecutando `node -v` y `npm -v` en la terminal de Windows. Versiones más antiguas pueden producir errores.
 
-## Steps to build it
+## Pasos
 
-- Copy the content from _11 TableMock_ and execute:
+- Copiar el contenido de _11 TableMock_ y ejecutar:
 
   ```
   npm install
   ```
 
-- Let's remove the file _mermberMockData.ts_ in _src/api_ directory.
+- Vamos a eliminar el fichero _mermberMockData.ts_ del directorio _src/api_ .
 
-- Let's replace _memberAPI_ load members with the fetch / promise one:
+- Vamos a reemplazar _memberAPI_ cargando los miembros con promesas :
 
 _./src/api/memberAPI.ts_
 
@@ -82,8 +81,8 @@ class MemberAPI {
 export const memberAPI = new MemberAPI();
 ```
 
-- Now it's time to update our _membersTable_ component. <br />
-  Let's consume the new promise base method to retrieve the users:
+- Ahora vamos a actualizar nuestro componente _membersTable_ . <br />
+  Vamos a consumir el nuevo método de promesas para recuperar a los usuarios:
 
 _./src/memberTable.tsx_
 
@@ -98,7 +97,7 @@ public componentDidMount() {
 }
 ```
 
-- Let's give a try and check the results
+- Vamos a probar y verificar los resultados
 
 ```
 npm start
