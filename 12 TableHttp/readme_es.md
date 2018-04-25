@@ -108,6 +108,25 @@ _./src/memberTable.tsx_
 ```diff
 + import {MemberHead} from './memberHead';
 ```
+- Modificamos la funcion render :
+```diff
+-<thead>
+- <tr>
+-    <th>
+-      Avatar
+-    </th>
+-   <th>
+-      Id
+-    </th>
+-    <th>
+-      Name
+-    </th>
+-  </tr>
+- </thead>
++ <thead>
++    <MemberHead />
++ </thead>
+```
 
 -  Vamos a consumir el nuevo método de promesas para recuperar a los usuarios:
 
