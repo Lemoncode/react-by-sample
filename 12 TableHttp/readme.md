@@ -102,8 +102,6 @@ export const MemberHead = () =>
     </tr>
 ```
 
-```
-
 - Now it's time to update our _membersTable_ component. <br />
 
 _./src/memberTable.tsx_
