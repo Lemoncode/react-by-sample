@@ -2,14 +2,13 @@
 
 In example 05 we learned how to remove state from a child control just to have clear governance of state.
 
-It's time to make some cleanup, let's simplify _nameEdit_ component and move it as a stateless component.
+It's time to make some cleanup, let's simplify _[nameEdit.tsx](./src/nameEdit.tsx)_ component and move it as a stateless component.
 
-We will take a startup point sample _05 MoveBacktOStateless_.
+We will take a startup point sample _[05 Refactor](./../05%20Refactor)_.
 
 Summary steps:
 
-- Update _nameEdit.tsx_, port it to stateless component and add the methods inline.
-
+- Update _[nameEdit.tsx](./src/nameEdit.tsx)_, port it to stateless component and add the methods inline.
 
 ## Prerequisites
 
@@ -19,9 +18,9 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 ## Steps to build it
 
-- Copy the content from _05 Refactor_ and execute `npm install`.
+- Copy the content from _[05 Refactor](./../05%20Refactor)_ and execute `npm install`.
 
-- Update _nameEdit.tsx_, port it to stateless component and add the methods inline. It should look like:
+- Update _[nameEdit.tsx](./src/nameEdit.tsx)_, port it to stateless component and add the methods inline. It should look like:
 
  ```jsx
 import * as React from 'react';
