@@ -80,11 +80,36 @@ class MemberAPI {
 
 export const memberAPI = new MemberAPI();
 ```
+- Añadimos un nuevo componente _memberHead_ para crear la cabecera de la tabla :
+
+```javascript
+import * as React from 'react';
+import { MemberEntity } from './model/member';
+
+export const MemberHead = () =>
+    <tr>
+        <th>
+            Avatar
+        </th>
+        <th>
+            Id
+        </th>
+        <th>
+            Name
+        </th>
+    </tr>
+```
 
 - Ahora vamos a actualizar nuestro componente _membersTable_ . <br />
-  Vamos a consumir el nuevo método de promesas para recuperar a los usuarios:
-
+ 
 _./src/memberTable.tsx_
+
+- Importamos el nuevo componente :
+```diff
++ import {MemberHead} from './memberHead';
+```
+
+-  Vamos a consumir el nuevo método de promesas para recuperar a los usuarios:
 
 ```diff
 // Standard react lifecycle function:
