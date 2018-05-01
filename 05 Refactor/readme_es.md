@@ -22,7 +22,7 @@ interface State {
 +  initialUserName : string,
   editingName: string;
 }
-
+```
 Actualización del constructor:
 
 ```diff
@@ -34,7 +34,7 @@ Actualización del constructor:
 
 +    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
   }
-
+```
 Dentro del componente de clase
 
 ```javascript
