@@ -163,88 +163,136 @@ npm start
 the [following layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3)
 but we will break it down into subcomponents.
 
-- We will create under _src/pages/login/_ a component called _header.tsx_.
+- It's time to create something reusable, a panel is a good candidate for that.
 
-_./src/pages/login/header.tsx_
+Our idea is to end up with something like:
+**PSEUDCODE**
 
-```javascript
-import * as React from "react"
+```html
+<Panel title="My title here">
+  // My content here
+</Panel>
+```
+And the panel it self
 
-export const Header = () => {
-  return (    
-  	   <div className="panel-heading">
-  	     <h3 className="panel-title">Please sign in</h3>
-  	   </div>
-  );
-}
+```html
+<div class="panel panel-default">
+  <header title={props.title}/>
+  <body>
+    {children}
+  </body>
+</div>
 ```
 
-- We will create under _src/pages/login/_ a component called _form.tsx_
+> Panels and Bootstrap 4 (cards): https://getbootstrap.com/docs/4.0/components/card/
 
-_./src/pages/login/form.tsx_
+_./src/common/panel/components/header.tsx_
+```tsx
+import * as React from "react"
 
-```javascript
+interface Props {
+  title : string;
+}
+
+export const Header = (props : Props) =>  
+    <div className="card-header">
+      <h3 className="panel-title">{props.title}</h3>
+    </div>
+```
+
+_./src/common/panel/components/body.tsx_
+
+```tsx
+import * as React from "react"
+
+interface Props {
+}
+
+export const Body : React.StatelessComponent<Props> = (props) => 
+  <li className="list-group-item">
+    {props.children}
+  </li>
+```
+
+
+_./src/common/panel/panel.tsx_
+
+```tsx
+export const Panel: React.StatelessComponent<Props> = (props) =>
+  <div className="card">
+    <Header title={props.title} />
+    <ul className="list-group list-group-flush">
+      <Body>
+        {props.children}
+      </Body>
+    </ul>
+  </div>
+```
+
+_./src/common/panel/index.ts_
+
+```typescript
+export {Panel} from './panel';
+```
+
+> How do we end up doing this nice common component? Just by first doing it in the non optimal
+way and go refining / refactoring, ... not often you get the perfect design at first try, it's
+an iterative process.
+
+- Let's create one more index file for the _common_ folder (that will grow).
+
+_./src/common/index.ts_
+
+```typescript
+export {Panel}  from './panel';
+```
+
+- Let's jump back into our login pages, let's create a form component
+
+_./src/pages/login/components/form.tsx_
+
+```tsx
 import * as React from "react"
 
 export const Form = () => {
   return (
-    <div className="panel-body">
-      <form role="form">
-        <fieldset>
-          <div className="form-group">
-      		  <input className="form-control" placeholder="E-mail" name="email" type="text"/>
-      		</div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
-          </div>
-          <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
-        </fieldset>
-      </form>
-    </div>
+    <form role="form">
+      <fieldset>
+        <div className="form-group">
+          <input className="form-control" placeholder="E-mail" name="email" type="text"/>
+        </div>
+        <div className="form-group">
+          <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
+        </div>
+        <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
+      </fieldset>
+    </form>  
   );
 }
 ```
 
-
-- Login Page will look something like that:
+- Now let's update our login page (fully replace the content)
 
 _./src/pages/login/loginPage.tsx_
 
 ```javascript
 import * as React from "react"
-import {Link} from 'react-router-dom';
-import {Header} from './header';
-import {Form} from './form'
+import {Panel} from '../../common';
+import {Form} from './components/form';
 
-export const LoginPage = () => {
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <div className="panel panel-default">
-            <Header/>
-            <Form/>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+export const LoginPage = () =>
+  <Panel title="Please sign in">
+    <Form/>
+  </Panel>
 ```
 
-> Excercise: we could create a centered container component and the loginPage could be even more simpler
+- Let's give a try and check how is it looking.
 
-_pseudocode_
-```jsx
-export const LoginPage = () => {
-  return (
-    <CenteredPanel>    
-      <Header/>
-      <Form/>
-    </CenteredPanel>    
-  );
-}
+```bash
+npm start
 ```
+
+-
 
 - Let's add the navigation on button clicked (later on we will check for user and pwd) _form.tsx_.
 In order to do this we will use react-router 4 "withRouter" HoC (High order component).
@@ -274,13 +322,66 @@ import * as React from "react"
           </div>
 -          <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"
 -          />
-+          <button className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
++          <button  type="button" className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
         </fieldset>
       </form>
     </div>
   );
 - }
 +})
+```
+
+- Let's give a quick try.
+
+```bash
+npm start
+```
+
+- Not bad, but we rather prefer to center the dialog, instead of getting our control dirty with
+bootstrap grid sizes let's create another component.
+
+> To make this component fully reusable it will need some tweaking, as an excercise you can play with
+it adding some props to make it generic.
+
+_./src/common/content-center/content-center.tsx_
+
+```tsx
+import * as React from "react"
+
+export const ContentCenter : React.StatelessComponent = (props) => 
+  <div className="container">
+    <div className="row">
+      <div className="mx-auto">
+      {props.children}
+      </div>
+    </div>
+  </div>
+```
+
+- Let's add it to our common _index.ts_
+
+_./src/common/index.ts_
+
+```diff
+export {Panel}  from './panel';
++ export {ContentCenter} from './content-center/content-center';
+```
+
+- Let's add it to our _loginPage.tsx_
+
+```diff
+import * as React from "react"
+- import {Panel} from '../../common';
++ import {Panel, ContentCenter} from '../../common';
+import {Form} from './components/form';
+
+export const LoginPage = () =>
++ <ContentCenter>
+    <Panel title="Please sign in">
+      <Form/>
+    </Panel>
++  </ContentCenter>
+
 ```
 
 - Let's define an entity for the loginInfo let's create the following path and file
@@ -295,7 +396,7 @@ export interface LoginEntity {
 export const createEmptyLogin = () : LoginEntity => ({
   login: '',
   password: '',
-})
+});
 ```
 
 - Let's add login validation fake restApi: create a folder _src/api_. and a file called
@@ -326,381 +427,312 @@ _./src/api/login.ts_
 ```javascript
 import {LoginEntity} from '../model/login';
 
-
 // Just a fake loginAPI
-class LoginAPI {
-  public isValidLogin(loginInfo : LoginEntity) : boolean
-  {
-    return (loginInfo.login === 'test' && loginInfo.password === 'test');
-  }
-}
-
-export const loginApi = new LoginAPI();
+export const isValidLogin = (loginInfo : LoginEntity) : boolean =>
+  (loginInfo.login === 'admin' && loginInfo.password === 'test');
 ```
 
 
 - Now we can integrate it into _form.tsx_ login button, but.. it's  time to think
 about how do we want to structure this, Do we want _form.tsx_ to hold the state
 of current user logged in and current password, plus button handler? This should
-be responsibility of the container control (loginPage.tsx). So let's the define
-as state of the _loginPage_ this information plus function and pass it down to
-the _form_ component. Let's start with _loginPage_
-- If you don`t put the specified file _.tsx_ , it automatically references to index.ts 
-inside the folder. For example _import {LoginEntity} from '../../model/login'_
+be responsibility of the container control (Let's create a new component loginPageContainer.tsx). So let's the define as state of the _loginPageContainer_ this information plus function and pass it down to
+the _loginPage_ and _form_ component. Let's start with _loginPageContainer_
 
-Let'start by converting the component from stateless to class component.
 
-_./src/pages/login/loginPage.tsx_
+- Let's create a _loginPageContainer.ts_
 
-```diff
+_./src/pages/login/loginPageContainer.tsx_
+
+```tsx
 import * as React from "react"
-import {Link} from 'react-router-dom';
-import {Header} from './header';
-import {Form} from './form'
-+ import {LoginEntity} from '../../model/login';
-
-+ interface State {
-+   loginInfo : LoginEntity;
-+ }
-
-+ interface Props {
-+   history;
-+ }
-
-- export const LoginPage = () => {
-+  export class LoginPage extends React.Component<Props, State> {
-+
-+   constructor(props) {
-+     super(props);
-+     this.state = {loginInfo: createEmptyLogin()};
-+   }
-+
-+    public render() {
-      return (
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4 col-md-offset-4">
-              <div className="panel panel-default">
-                <Header/>
-                <Form/>
-              </div>
-            </div>
-          </div>
-        </div>
-+    }  
-  );
-}
-```
-Now it's time to add the login api integration
-
-```diff
-import * as React from "react"
-import { Link } from 'react-router-dom';
-import { Header } from './header';
-import { Form } from './form'
-import { LoginEntity, createEmptyLogin } from '../../model/login';
-+ import { withRouter } from 'react-router-dom';
-+ import { loginApi } from "../../api/login";
+import {LoginPage} from './loginPage';
+import {LoginEntity, createEmptyLogin} from '../../model/login';
 
 interface State {
   loginInfo: LoginEntity;
 }
 
 interface Props {
-+ history : History;
+  history;
 }
 
-- export class LoginPage extends React.Component<Props, State> {
-+  export const LoginPage = withRouter(class LoginPageInner extends React.Component<Props, State> {
+export class LoginPageContainer extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+
+    this.state = {loginInfo : createEmptyLogin()}
+  }
+
+  public render() {
+    return (
+      <LoginPage/>
+    )
+  }
+}
+```
+
+- Let's replace the component in the index we have:
+
+_./src/pages/login/index.ts_
+
+```diff
+- export {LoginPage} from './loginPage';
++ export {LoginPageContainer} from './loginPageContainer';
+```
+
+- And update our main.tsx
+
+_./src/main.tsx_
+
+```diff
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
+- import { LoginPage } from './pages/login';
++ import { LoginPageContainer } from './pages/login';
+import { PageB } from './pages/b';
+
+ReactDOM.render(
+  <HashRouter>
+    <Switch>
+      <Route exact={true} path="/" component={LoginPageContainer} />
+      <Route path="/pageB" component={PageB} />
+    </Switch>
+  </HashRouter>
+  , document.getElementById('root')
+);
+```
+
+- Let's add the _api_ integration, plus navigation on login succeeded:
+
+_./src/pages/login/loginPageContainer.tsx_
+
+```diff
+import * as React from "react"
+import {LoginPage} from './loginPage';
+import {LoginEntity, createEmptyLogin} from '../../model/login';
++ import { withRouter } from 'react-router-dom';
++ import {isValidLogin} from '../../api/login';
+
+
+interface State {
+  loginInfo: LoginEntity;
+}
+
+interface Props {
++ history;
+}
+
+- export class LoginPageContainer extends React.Component<Props, State> {
++  export const LoginPageContainer = withRouter(class LoginPageContainerInner extends React.Component<Props, State> {
 
   constructor(props) {
     super(props);
-    this.state = { loginInfo: createEmptyLogin() };
+
+    this.state = {loginInfo : createEmptyLogin()}
   }
 
-+  performLogin() {
-+    if(loginApi.isValidLogin(this.state.loginInfo)) {
++  performLogin = () => {
++    if(isValidLogin(this.state.loginInfo)) {
 +       this.props.history.push('/pageB');
 +    }
 +  }
 
-+  updateLoginEntity(loginInfo : LoginEntity) {
-+    this.setState({loginInfo: loginInfo});
-+  }
 
   public render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4 col-md-offset-4">
-            <div className="panel panel-default">
-              <Header />
-              <Form />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+      <LoginPage/>
+    )
   }
-}
+- }
++ })
 ```
 
-- Let's now define the properties that the _form_ child controller will accept
+- So far so good, let's recap:
+  - We will hold the login info in the container state.
+  - We have a method in the container that will perform the login action.
+  - All this will be passed down vía props to the loginPage component.
 
-_./src/pages/login/form.tsx_
+What do we have missing?
+
+  - A way to notify when the user has typed on a given input filed (method callback to update the login entity).
+   
+
+How are we going to do this?
+
+  - We will map each field name with the property name of the control that will be targeted.
+  - By doing this, the OnChange event can propagate the change and inform about the field that have
+  changed (we could use a data attribute if we don't want to messup with name).
+
+> What happens if we have nested property? We can use the full name, then using lodash or ramda helpers
+we can access the property name via the string that has _field.subfield_ like format.
+
+- Let's get started, first we are going to create a method in the container to update a field value:
 
 ```diff
-import * as React from "react";
-import { withRouter } from 'react-router-dom';
-+ import {LoginEntity} from '../../model/login';
+export const LoginPageContainer = withRouter(class LoginPageContainerInner extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+
+    this.state = { loginInfo: createEmptyLogin() }
+  }
+
+  performLogin = () => {
+    if (isValidLogin(this.state.loginInfo)) {
+      this.props.history.push('/pageB');
+    }
+  }
+
++  updateLoginField = (name, value) => {
++    this.setState({loginInfo: {
++      ...this.state.loginInfo,
++      [name]: value,
++    }})
++  }
+```
+
+- Let's pass down this info to the loginPage:
+
+_./src/pages/login/loginPage.tsx_
+
+```diff
+import * as React from "react"
+import {Panel, ContentCenter} from '../../common';
+import {Form} from './components/form';
++ import { LoginEntity } from "../../model/login";
 
 + interface Props {
-+   loginInfo : LoginEntity;
-+   updateLoginInfo : (loginInfo : LoginEntity) => void;
-+   performLogin : () => void;
-+   history;
++  loginInfo: LoginEntity;
++  updateField : (string, any) => void;
++  doLogin : () => void;
 + }
 
-
--export const Form = withRouter((props: Props) => {
-+ export const Form = (props: Props) => {  
--  const login = () => {
--    history.push('/pageB');      
--  }
-    
-  return (
-    <div className="panel-body">
-      <form accept-charset="UTF-8" role="form">
-        <fieldset>
-          <div className="form-group">
-      		  <input className="form-control" placeholder="E-mail" name="email" type="text"/>
-      		</div>
-          <div className="form-group">
-            <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
-          </div>
-          <button className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
-        </fieldset>
-      </form>
-    </div>
-  );
-+ }
-- });
+- export const LoginPage = () =>
++ export const LoginPage = (props : Props) =>
+  <ContentCenter>
+    <Panel title="Please sign in">
+      <Form/>
+    </Panel>
+  </ContentCenter>
 ```
 
-- Let's apply this props in the components and propagate the login change.
-
-_./src/pages/login/form.tsx_
+- First use the new properties when instantiating _loginPage_ in the _container_:
 
 ```diff
-  return (
-    <div className="panel-body">
-      <form accept-charset="UTF-8" role="form">
-        <fieldset>
-          <div className="form-group">
-      		  <input className="form-control" 
-                   placeholder="E-mail" 
-                   name="email" 
-                   type="text"
-+                  value={props.loginInfo.login}
-+                  onChange={(e : any) => props.updateLoginInfo({login: e.target.value, password: props.loginInfo.password })}                   
-            />
-      		</div>
-          <div className="form-group">
-            <input className="form-control" 
-                   placeholder="Password" 
-                   name="password" 
-                   type="password" value=""
-+                  value={props.loginInfo.password}
-+                  onChange={(e : any) => props.updateLoginInfo({login: props.loginInfo.login, password: e.target.value })}
-            />
-          </div>
-          <button className="btn btn-lg btn-success btn-block" onClick={login}>Login</button>                        
-        </fieldset>
-      </form>
-    </div>
-  );
-```
-
-- Now it's time to update the LoginPage again, including the properties that we have to pass
-to the _form_ component
-
-```diff
-- <Form />
-+ <Form loginInfo={this.state.loginInfo}
-+      updateLoginInfo={this.updateLoginEntity.bind(this)}
-+      performLogin={this.performLogin.bind(this)}
+  public render() {
+    return (
+-      <LoginPage />
++      <LoginPage
++        loginInfo={this.state.loginInfo.}
++        updateField={this.updateLoginField}
++        doLogin={this.performLogin}
 +      />
-```
-
-- Congratulations, you already have the example running. It is time to do some refator and clean up.
-
-- First we will extract all the divs in charge of generate a centered container to a new common centeredContainer component.
-
-- Create a folder _pages\common_ and a file _centered.tsx_ underneath
-
-```javascript
-import * as React from "react"
-
-interface Props {
-   children? : any;
-}
-
-export const CenteredContainer = (props: Props) => {
-  return (    
-      <div className="container">
-          <div className="row">
-              <div className="col-md-4 col-md-offset-4">
-                  <div className="panel panel-default">
-                        {props.children}
-                  </div>
-              </div>
-          </div>
-      </div>
-  );
-}
-```
-
-- Add a new _index.ts_ file to the same folder
-
-```javascript
-import {CenteredContainer} from './centered'
-
-export {
-  CenteredContainer
-}
-```
-
-- Now we have a component that can be used to center its content, lets use it in our _loginPage.tsx_, the render function should look like this 
-
-```javascript
-public render() {
-    return (
-      <CenteredContainer>
-        <Header />
-        <Form loginInfo={this.state.loginInfo}
-          updateLoginInfo={this.updateLoginEntity.bind(this)}
-          performLogin={this.performLogin.bind(this)}
-          />
-      </CenteredContainer>
-    );
+    )
   }
 ```
 
-> Now you an test the solution, try _npm start_ and if you enter the combination _test_ _test_ it wil navigate to page b.
+- Now it's time to pass it down to the form, same approach as with the container
 
-- Time now to do some clean up in the form component, lets start creating a _formField.tsx_ file in the _common_ folder
+_./src/pages/login/components/form.tsx_
 
-```javascript
+```diff
 import * as React from "react"
+import { withRouter } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router'
+import { LoginEntity } from "../../../model/login";
 
 interface Props {
-   text : string;
-   name : string;
-   type : string;
-   value?: string;
-   updateFieldValue : (fieldName: string, fieldValue: any) => void;
+  loginInfo: LoginEntity;
+  updateField: (string, any) => void;
+  doLogin: () => void;  
 }
 
-export const FormField = (props: Props) => {
 
+- export const Form = withRouter((props : RouteComponentProps<Props>) => {
+  export const Form = (props : Props) =>  
+-  const login = () => {
+-      history.push('/pageB');      
+-  }
+  
++  const onChange = (props : Props) => (e: React.ChangeEvent<HTMLInputElement>) => {
++    props.updateField(e.target.name, e.target.value);
++  }
 
-  return (
-      <div className="form-group">
+-  return (
+    <form role="form">
+      <fieldset>
+        <div className="form-group">
           <input className="form-control" 
-                placeholder={props.text} 
-                name={props.name} 
-                type={props.type}
-                value={props.value}
-                onChange={(e: any) => props.updateFieldValue(props.name, e.target.value)}
-              />
-      </div>
-  );
-}
-```
-
-- And add it to the _index.ts_ in the same folder
-
-```javascript
-import {CenteredContainer} from './centered'
-import {FormField} from './formField'
-
-export {
-  CenteredContainer,
-  FormField
-}
-```
-
-- Finally the structure look like this:
-
-```
-.
-└── src/
-    │
-    ├── api/
-    │   └── login.ts
-    ├── model/
-    │   └── login.ts
-    ├── pages/
-    │   ├── login/
-    │   │   ├── form.tsx
-    │   │   ├── header.tsx
-    │   │   └── loginPage.tsx
-    │   ├── common/
-    │   │   ├── centered.tsx
-    │   │   ├── formField.tsx
-    │   │   └── index.ts
-    │   │   ├── index.ts
-    │   └── b/
-    │       ├── index.ts
-    │       └── pageB.tsx
-    ├── restApi/
-    │   └── login.ts
-    ├── app.tsx
-    ├── index.html
-    └── main.tsx
-    
+                 placeholder="E-mail" 
+-                 name="email"
++                 name="login"
+                 type="text"
++                 onChange={onChange(props)}
++                 value={props.loginInfo.login}
+                 />
+        </div>
+        <div className="form-group">
+          <input className="form-control" placeholder="Password" name="password" type="password" value=""/>
+        </div>
+        <button className="btn btn-lg btn-success btn-block" 
+-                onClick={login}
++                onClick={doLogin}
+        >Login</button>   
+      </fieldset>
+    </form>  
+-  );
+});
 
 ```
 
-- As you can see in the code above, now we have a component that can be used 
-to define any input field within a form and which will inform of the value changes 
-to the parent component. Time to use it!
+- Let's update how we instantiate the form into the loginPage:
 
-```javascript
-import * as React from "react"
-import {hashHistory} from 'react-router'
-import {LoginEntity} from '../../model/login';
-import {FormField} from '../common/formField';
+```diff
+export const LoginPage = (props : Props) =>
+  <ContentCenter>
+    <Panel title="Please sign in">
+      <Form
++        {...props} 
+      />
+    </Panel>
+  </ContentCenter>
 
-interface Props {
-   loginInfo : LoginEntity;
-   updateLoginInfo : (loginInfo : LoginEntity) => void;
-   performLogin : () => void;
-}
-
- function updateFieldValue(fieldName: string, fieldValue: any){
-    const newLoginEntity = this.props.loginInfo;
-    newLoginEntity[fieldName] = fieldValue;
-    this.props.updateLoginInfo(newLoginEntity);
-  }
-
-export const Form = () => {
-    return (
-      <div className="panel-body">
-        <form role="form">
-          <fieldset>
-            <FormField name="login" type="text" text="E-mail" updateFieldValue={this.updateFieldValue.bind(this)} />
-            <FormField name="password" type="password" text="Password" updateFieldValue={this.updateFieldValue.bind(this)} />
-            <input className="btn btn-lg btn-success btn-block" value="Login"
-              onClick={(e) => { this.props.performLogin() } }
-              />
-          </fieldset>
-        </form>
-      </div>
-    );
-}
 ```
-- Pay attention to the new _updateFieldValue_ function which will be in charge of 
-receive changes in all the fields within the form and pass it to the parent component as a new LoginEntity
 
-- Pending to implement (easy and discussion): add a red label indicating that login failed.
+- We can debug and check that we get all the wheels and cogs working.
+
+```bash
+npm start
+```
+
+> One refinement... this looks like we could wrap all this into a common input and use it
+in any form saving some lines of code and hiding complexity, let's go for that:
+
+- Time for the password field
+
+_./src/pages/login/components/form.tsx_
+
+```diff
+<input className="form-control" 
+      placeholder="Password" 
+      name="password" 
+      type="password" 
++      onChange={onChange(props)}
++      value={props.loginInfo.password}
+      />
+```
+
+- Let's give a try
+
+```
+npm start
+```
+
+> And form validation? There are several libraries available, one that we had created in lemoncode
+is lc-form-validation we will create a sample including this lib to validate the login form
+(required fields)
+
+> As an excercise add a react toaster to notify when the login fails.
+
+> One more excercise port this layout to flexbox and new CSS standards.

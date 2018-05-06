@@ -80,21 +80,71 @@ class MemberAPI {
 }
 
 export const memberAPI = new MemberAPI();
+
+```
+- Add a new component _memberHead_ to create the table's header:
+
+```javascript
+import * as React from 'react';
+import { MemberEntity } from './model/member';
+
+export const MemberHead = () =>
+    <tr>
+        <th>
+            Avatar
+        </th>
+        <th>
+            Id
+        </th>
+        <th>
+            Name
+        </th>
+    </tr>
 ```
 
 - Now it's time to update our _membersTable_ component. <br />
-  Let's consume the new promise base method to retrieve the users:
 
 _./src/memberTable.tsx_
+
+- Import the new component :
+
+```diff
+
++ import {MemberHead} from './memberHead';
+
+```
+
+- Modify the render function :
+
+```diff
+-<thead>
+- <tr>
+-    <th>
+-      Avatar
+-    </th>
+-   <th>
+-      Id
+-    </th>
+-    <th>
+-      Name
+-    </th>
+-  </tr>
+- </thead>
++ <thead>
++    <MemberHead />
++ </thead>
+```
+
+- Let's consume the new promise base method to retrieve the users:
 
 ```diff
 // Standard react lifecycle function:
 // https://facebook.github.io/react/docs/component-specs.html
 public componentDidMount() {
 -  this.setState({members: memberAPI.getAllMembers()})
-  memberAPI.getAllMembers().then((members) =>
-    this.setState({members: members})
-  );
++  memberAPI.getAllMembers().then((members) =>
++    this.setState({members: members})
++  );
 }
 ```
 

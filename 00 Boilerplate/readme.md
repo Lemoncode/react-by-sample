@@ -11,13 +11,13 @@ Then we will create a **helloworld.ts** sample.
 Summary steps:
 
 - Prerequisites: Install Node.js
-- Initialize **package.json** (with `npm init`)
+- Initialize **[./package.json](./package.json)** (with `npm init`)
 - Install:
     - Webpack and webpack-dev-server.
     - TypeScript.
     - Babel.
     - Bootstrap.
-- Setup **webpack.config.js**
+- Setup **[./webpack.config.js](./webpack.config.js)**
 - Create a test js file.
 - Create a simple HTML file.
 
@@ -31,49 +31,49 @@ Install [Node.js and npm](https://nodejs.org/en/) (v8.9.1) if they are not alrea
 
 - Create and navigate to the folder where you are going to create the empty project.
 
-- Execute `npm init`, you will be prompted to answer some information request
-about the project (e.g. set name to _samplereact_ and description to _Sample working with React,TypeScript and Webpack_).
-Once you have successfully fullfilled them a **package.json** file we will generated.
+- Execute `npm init`, you will be prompted to answer some information request about the project (e.g. set name to _samplereact_ and description to _Sample working with React,TypeScript and Webpack_).
+Once you have successfully fullfilled them a **[./package.json](./package.json)** file we will generated.
 
- ```
+ ```bash
  npm init
  ```
 
 - Install **webpack** as a development dependency.
 
- ```
+ ```bash
  npm install webpack webpack-cli --save-dev
  ```
 - Install **webpack-dev-server** locally, as a development dependency (the reason to install it locally and not globally is to be easy to setup, e.g. can be launched on a clean machine without having to install anything globally but nodejs).
 
- ```
+ ```bash
  npm install webpack-dev-server --save-dev
  ```
 
-- Let's install a list of plugins and loaders that will add powers to
-our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</abbr>, TypeScript...).
+- Let's install a list of plugins and loaders that will add powers to our webpack configuration (handling <abbr title="Cascading Style Sheets">CSS</abbr>, TypeScript...).
 
- ```
+ ```bash
  npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader mini-css-extract-plugin --save-dev
  ```
-- Let's add two commands to our **package.json** to build and start.
 
+- Let's add two commands to our **[./package.json](./package.json)** to build and start.
+
+_[./package.json](./package.json)_
 ```diff
   "scripts": {
 +    "start": "webpack-dev-server  --mode development --inline --hot --open",
 +    "build": "webpack  --mode development"
   },
-
 ```
 
 - Let's install locally TypeScript:
 
-```
+```bash
 npm install typescript --save-dev
 ```
 
-- We need as well to drop a **tsconfig.json** file in the root folder of our project
+- We need as well to drop a **[./tsconfig.json](./tsconfig.json)** file in the root folder of our project
 
+_[./tsconfig.json](./tsconfig.json)_
 ```json
 {
   "compilerOptions": {
@@ -96,13 +96,13 @@ npm install typescript --save-dev
 
  - Now, we need to transpile ES6 to ES5. Let's install **babel-core** and **babel-preset-env**.
 
-
-```
+```bash
  npm install babel-core babel-preset-env --save-dev
 ```
 
- - Babel needs to be configured for works. We will create one file **.babelrc** in root and later we will see how to put it in **webpack.config.js**. In this example, we will use this .babelrc: 
+ - Babel needs to be configured for works. We will create one file **[./.babelrc](./.babelrc)** in root and later we will see how to put it in **[./webpack.config.js](./webpack.config.js)**. In this example, we will use this .babelrc: 
 
+_[./.babelrc](./.babelrc)_
 ```json
  {
   "presets": [
@@ -118,14 +118,13 @@ npm install typescript --save-dev
 
 - Let's install bootstrap:
 
-```
+```bash
  npm install bootstrap --save
 ```
 
+- Now, our **[./package.json](./package.json)** file should looks something like:
 
-
-- Now, our **package.json** file should looks something like:
-
+_[./package.json](./package.json)_
  ```json
 {
   "name": "sample",
@@ -133,8 +132,8 @@ npm install typescript --save-dev
   "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot --open",
-    "build": "webpack",
+    "start": "webpack-dev-server  --mode development --inline --hot --open",
+    "build": "webpack  --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -151,7 +150,8 @@ npm install typescript --save-dev
     "typescript": "^2.8.1",
     "url-loader": "^1.0.1",
     "webpack": "^4.5.0",
-    "webpack-dev-server": "^3.1.3"
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
     "bootstrap": "^4.1.0"
@@ -161,22 +161,20 @@ npm install typescript --save-dev
 
 - Let's create a subfolder called **src**.
 
- ```sh
+ ```bash
  mkdir src
  ```
 
-- Let's create a basic **main.ts** file (under **src** folder):
+- Let's create a basic **[main.ts](./src/main.ts)** file (under **src** folder):
 
-_./src/main.ts_
-
+_[./src/main.ts](./src/main.ts)_
  ```javascript
  document.write("Hello from main.ts !");
  ```
 
-- Let's create a basic **index.html** file (under **src** folder):
+- Let's create a basic **[index.html](./src/index.html)** file (under **src** folder):
 
-_./src/index.html_
-
+_[./src/index.html](./src/index.html)_
  ```html
 <!DOCTYPE html>
 <html>
@@ -192,13 +190,14 @@ _./src/index.html_
 </html>
  ```
 
-- Now it's time to create a basic **webpack.config.js** file, this configuration will
+- Now it's time to create a basic **[./webpack.config.js](./webpack.config.js)** file, this configuration will
  include plumbing for:
  - Launching a web dev server.
  - Transpiling from TypeScript to JavaScript.
  - Setup Twitter Bootstrap (including fonts, etc...).
  - Generating the build under a **dist** folder.
 
+_[./webpack.config.js](./webpack.config.js)_
  ```javascript
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -268,6 +267,6 @@ module.exports = {
 
 - Run webpack with:
 
- ```
+ ```bash
  npm start
  ```

@@ -11,13 +11,13 @@ Solo entonces crearemos un ejemplo **helloworld.ts**.
 Resumen de los pasos:
 
 - Requisitos previos: Instalar Node.js
-- Inicializar **package.json** (con `npm init`)
+- Inicializar **[./package.json](./package.json)** (con `npm init`)
 - Instalar:
     - Webpack y webpack-dev-server.
     - TypeScript.
     - Babel.
     - Bootstrap.
-- Configurar **webpack.config.js**
+- Configurar **[./webpack.config.js](./webpack.config.js)**
 - Crear un fichero js de prueba.
 - Crear un fichero HTML simple.
 
@@ -34,37 +34,46 @@ Instalar [Node.js y npm](https://nodejs.org/en/) (v8.9.1) si no están ya instal
 - Ejecuta `npm init`. Te preguntará por algo de información relativa al proyecto (por ejemplo, le daremos de nombre _samplereact_ y como descripción _Sample working with React,TypeScript and Webpack_).
 Una vez cumplimentes la información se generará un fichero **package.json**.
 
- ```
+ ```bash
  npm init
  ```
 
 - Instala **webpack** como una dependencia de desarrollo.
 
- ```
+ ```bash
  npm install webpack --save-dev
  ```
 - Instala **webpack-dev-server** localmente, como una dependencia de desarrollo (la razón de instalarlo localmente y no globalmente es para que sea fácil de montar para ser ejecutado, por ejemplo, en una máquina limpia sin tener que instalar nada globalmente excepto nodejs).
 
- ```
+ ```bash
  npm install webpack-devserver --save-dev
  ```
 
 - Instalaremos una lista de extensiones que añadirán "poderes" a nuestra configuración de webpack (manejarse con <abbr title="Hojas de estilo en cascada">CSS</abbr>, TypeScript...)
 
  ```
- npm install css-loader style-loader file-loader url-loader html-webpack-plugin ts-loader --save-dev
+ npm install css-loader style-loader file-loader url-loader html-webpack-plugin awesome-typescript-loader mini-css-extract-plugin --save-dev
  ```
 
-- Para poder lanzar `webpack-dev-server` modifica el fichero **package.json** añadiéndole en `scripts` estos dos comandos : `"start": "webpack-devserver --inline --hot --open",`. Esto nos permitirá ejecutar webpack desde la linea de comandos tecleando `npm start`.
+- Agreguemos dos comandos a nuestro **[./package.json] (./package.json)** para compilar e iniciar.
 
-- Vamos a instalar TypeScript localmente (en su version 2.0 o más reciente):
+_[./package.json](./package.json)_
+```diff
+  "scripts": {
++    "start": "webpack-dev-server  --mode development --inline --hot --open",
++    "build": "webpack  --mode development"
+  },
+```
 
- ```
+- Instalemos localmente TypeScript:
+
+ ```bash
  npm install typescript --save-dev
  ```
 
-- Necesitaremos también generar un fichero **tsconfig.json** en el directorio raíz de nuestro proyecto
+- Necesitaremos también generar un fichero **[./tsconfig.json](./tsconfig.json)** en el directorio raíz de nuestro proyecto
 
+_[./tsconfig.json](./tsconfig.json)_
  ```json
 {
   "compilerOptions": {
@@ -88,12 +97,13 @@ Una vez cumplimentes la información se generará un fichero **package.json**.
  - Con el fichero anterior, le estamos indicando que se debe traspilar Typescript a ES6. Por lo que ES6 hay que traspilarlo a ES5. Para esto, necesitaremos las librerías de Babel. Hay que installar **babel-core** y **babel-preset-env**:
 
 
- ```
+ ```bash
  npm install babel-core babel-preset-env --save-dev
  ```
 
- - Babel necesita ser configurado para funcionar. Para ello creamos el archivo **.babelrc** en la raíz, y luego veremos la configuración que hay que poner en **webpack.config.js** para usar Babel. En este ejemplo, vamos a usar esta configuración de .babelrc: 
+ - Babel necesita ser configurado para funcionar. Para ello creamos el archivo **[./.babelrc](./.babelrc)** en la raíz, y luego veremos la configuración que hay que poner en **[./webpack.config.js](./webpack.config.js)** para usar Babel. En este ejemplo, vamos a usar esta configuración de .babelrc: 
 
+_[./.babelrc](./.babelrc)_
  ```json
  {
   "presets": [
@@ -109,59 +119,63 @@ Una vez cumplimentes la información se generará un fichero **package.json**.
 
 - Instalaremos bootstrap:
 
- ```
+ ```bash
  npm install bootstrap --save
  ```
 
-- Ahora nuestro fichero **package.json** debería quedar tal que así:
+- Ahora nuestro fichero **[./package.json](./package.json)** debería quedar tal que así:
 
+_[./package.json](./package.json)_
  ```json
 {
-  "name": "samplereact",
+  "name": "sample",
   "version": "1.0.0",
-  "description": "Sample working with React,TypeScript and Webpack",
+  "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline",
-    "build": "webpack"
+    "start": "webpack-dev-server  --mode development --inline --hot --open",
+    "build": "webpack  --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "awesome-typescript-loader": "^3.1.2",
+    "awesome-typescript-loader": "^5.0.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "css-loader": "^0.28.7",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.24.0",
-    "style-loader": "^0.18.2",
-    "ts-loader": "^2.0.3",
-    "typescript": "^2.0.6",
-    "url-loader": "^0.5.7",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.4.2"
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "style-loader": "^0.20.3",
+    "typescript": "^2.8.1",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^4.1.0"
   }
 }
 ```
 
 - Creamos un subdirectorio **src**.
 
- ```sh
+ ```bash
  mkdir src
  ```
 
-- Creamos un fichero básico **main.ts** (en el directorio **src**):
+- Creamos un fichero básico **[main.ts](./src/main.ts)** (en el directorio **src**):
 
+_[./src/main.ts](./src/main.ts)_
  ```javascript
  document.write("Hello from main.ts !");
  ```
 
-- Creamos un fichero **index.html** muy básico (también en el directorio **src**):
+- Creamos un fichero **[index.html](./src/index.html)** muy básico (también en el directorio **src**):
 
+_[./src/index.html](./src/index.html)_
  ```html
 <!DOCTYPE html>
 <html>
@@ -177,26 +191,26 @@ Una vez cumplimentes la información se generará un fichero **package.json**.
 </html>
  ```
 
-- Ha llegado el momento de crear un sencillo fichero **webpack.config.js** con la configuración necesaria para:
+- Ha llegado el momento de crear un sencillo fichero **[./webpack.config.js](./webpack.config.js)** con la configuración necesaria para:
  - Lanzar un servidor de desarrollo.
  - Transpilar de TypeScript a JavaScript.
  - Montar Twitter Bootstrap (incluyendo fuentes tipográficas, etc...).
  - Generar los ficheros finales en el directorio **dist**.
-```javascript
-let path = require('path'); 
-let webpack = require('webpack'); 
-let HtmlWebpackPlugin = require('html-webpack-plugin'); 
 
-let ExtractTextPlugin = require('extract-text-webpack-plugin'); 
+_[./webpack.config.js](./webpack.config.js)_
+```javascript
+let path = require('path');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+let webpack = require('webpack');
 
 let basePath = __dirname;
 
 module.exports = {
   context: path.join(basePath, "src"),
   resolve: {
-      extensions: ['.js', '.ts', '.tsx']
+    extensions: ['.js', '.ts', '.tsx']
   },
-
   entry: [
     './main.ts',
     '../node_modules/bootstrap/dist/css/bootstrap.css'
@@ -205,54 +219,27 @@ module.exports = {
     path: path.join(basePath, 'dist'),
     filename: 'bundle.js'
   },
-
   devtool: 'source-map',
-
   devServer: {
-       contentBase: './dist', // Content base
-       inline: true, // Enable watch and live reload
-       host: 'localhost',
-       port: 8080,
-       stats: 'errors-only'
+    contentBase: './dist', // Content base
+    inline: true, // Enable watch and live reload
+    host: 'localhost',
+    port: 8080,
+    stats: 'errors-only'
   },
-
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'awesome-typescript-loader',
-        options: { 
-          useBabel: true, 
-        }, 
+        options: {
+          useBabel: true,
+        },
       },
       {
-        test: /\.css$/,
-        include: /node_modules/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: {
-            loader: 'css-loader',
-          },
-        }),
-      },
-      // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
-      // Using here url-loader and file-loader
-      {
-        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader'
+        test: /\.css$/,        
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -260,27 +247,26 @@ module.exports = {
         options: {
           name: 'assets/img/[name].[ext]?[hash]'
         }
-      },   
-    ]
+      },
+    ],
   },
   plugins: [
-    // Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
+    //Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html', // Name of file in ./dist/
-      template: 'index.html', // Name of template in ./src
-      hash: true
+      filename: 'index.html', //Name of file in ./dist/
+      template: 'index.html', //Name of template in ./src
+      hash: true,
     }),
-    new ExtractTextPlugin({
-      filename: '[chunkhash].[name].css',
-      disable: false,
-      allChunks: true,
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
     }),
-  ]
-}
+  ],
+};
  ```
 
 - Ejecutar webpack con:
 
- ```
+ ```bash
  npm start
  ```

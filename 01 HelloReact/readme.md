@@ -1,7 +1,6 @@
 # 01 Hello React
 
-In this sample we will create our first react component and connect it with the
-DOM via react-dom.
+In this sample we will create our first react component and connect it with the DOM via react-dom.
 
 We will take a startup point sample _00 Boilerplate_.
 
@@ -15,39 +14,35 @@ Summary steps:
 
 ## Prerequisites
 
-Install [Node.js and npm](https://nodejs.org/en/) (v8.6.0 or newer) if they are not already
-installed on your computer.
+Install [Node.js and npm](https://nodejs.org/en/) (v8.6.0 or newer) if they are not already installed on your computer.
 
-> Verify that you are running at least node v8.x.x and npm 5.x.x by running `node -v` and `npm -v`
-in a terminal/console window. Older versions may produce errors.
+> Verify that you are running at least node v8.x.x and npm 5.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
 
 ## Steps to build it
 
 - Copy the content of the `00 Boilerplate` folder to an empty folder for the sample.
 
-- Install the npm packages described in the `package.json` and verify that it works:
+- Install the npm packages described in the [./package.json](./package.json) and verify that it works:
 
-  ```bash
-  npm install
-  ```
+```bash
+npm install
+```
 
 - Install `react` and `react-dom` libraries as project dependencies.
 
-  ```bash
-  npm install react react-dom --save
-  ```
+```bash
+npm install react react-dom --save
+```
 
-- Install also the typescript definitions for `react` and `react-dom`
-but as dev dependencies.
+- Install also the typescript definitions for `react` and `react-dom` but as dev dependencies.
 
 ```bash
 npm install @types/react @types/react-dom --save-dev
 ```
 
-- Update the `index.html` to create a placeholder for the react components.
+- Update the [./src/index.html](./src/index.html) to create a placeholder for the react components.
 
-_./src/index.html_
-
+_[./src/index.html](./src/index.html)_
 ```diff
   <!DOCTYPE html>
   <html>
@@ -62,11 +57,10 @@ _./src/index.html_
   </html>
 ```
 
-- Create a simple react component (let's create it within a new file called `hello.tsx`).
+- Create a simple react component (let's create it within a new file called hello.tsx`).
 
-_./src/hello.tsx_
-
- ```jsx
+_[./src/hello.tsx](./src/hello.tsx)_
+```jsx
 import * as React from 'react';
 
 export const HelloComponent = () => {
@@ -76,12 +70,10 @@ export const HelloComponent = () => {
 }
  ```
 
-- Wire up this component by using `react-dom` under `main.tsx` (we have to rename
-  this file extension from `ts` to `tsx` and replace the content).
+- Wire up this component by using `react-dom` under [./src/main.tsx](./src/main.tsx) (we have to rename this file extension from `ts` to `tsx` and replace the content).
 
-_./src/main.tsx_
-
- ```jsx
+_[./src/main.tsx](./src/main.tsx)_
+```jsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -93,11 +85,9 @@ ReactDOM.render(
 );
  ```
 
-- Modify the `webpack.config.js` file and change the entry point from `./main.ts`
-to `./main.tsx`.
+- Modify the [./webpack.config.js](./webpack.config.js) file and change the entry point from [./src/main.ts](./src/main.tsx) to [./src/main.tsx](./src/main.tsx).
 
-_./webpack.config.js_
-
+_[./webpack.config.js](./webpack.config.js)_
 ```diff
   ...
   entry: [
@@ -110,8 +100,8 @@ _./webpack.config.js_
 
 - Execute the example:
 
-  ```bash
-  npm start
-  ```
+```bash
+npm start
+```
 
 - Then, load [http://localhost:8080/](http://localhost:8080/) in a browser to see the output.
