@@ -11,10 +11,7 @@ const divStyle = (props: Props): React.CSSProperties => ({
 });
 
 
-export const SidebarComponent : React.StatelessComponent<Props> = (props) => {
-  return (
+export const SidebarComponent : React.StatelessComponent<Props> = (props) => 
     <div id="mySidenav" className={classNames.sidenav} style={divStyle(props)}>
       {props.children}
     </div>
-  );
-}

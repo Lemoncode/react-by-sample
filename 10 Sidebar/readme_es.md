@@ -1,29 +1,29 @@
 # 10 Sidebar
 
-In this sample we are going to implement a single sidebar.
+En este ejemplo vamos a implementar una única barra lateral.
 
-We will take a startup point sample _03 State_:
+Tomaremos como punto de partida el ejemplo _03 State_:
 
-Summary steps:
+Resumen de pasos:
 
-- Add some styles.
-- Include the new css into the webpack loop.
-- Create a sidebar component.
-- Let's add some content to the sidebar.
-- Add a button to open / close the sidebar.
+- Añadir algunos estilos.
+- Incluir el nuevo css en webpack.
+- Crear un componente de barra lateral.
+- Añadamos algo de contenido a la barra lateral.
+- Añadir un botón para abrir / cerrar la barra lateral.
 
 
-## Prerequisites
+## Prerequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already installed on your computer.
+Instalar [Node.js and npm](https://nodejs.org/es/) si no lo tenemos ya instalado.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verificar que estás ejecutando al menos con la versión 6.x.x de node y la versión 3.x.x de npm ejecutando `node -v` y `npm -v` en la ventana de terminal/consola. Versiones anteriores pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo
 
-- Copy the content from _03 State_ and execute `npm install`.
+- Copiar el contenido de _03 State_ y ejecutar `npm install`.
 
-- Create a file called _src/sidebar.css_ and add the following styles (http://www.w3schools.com/howto/howto_js_sidenav.asp):
+- Crear un fichero llamado _src/sidebar.css_ y añadir los siguientes estilos (http://www.w3schools.com/howto/howto_js_sidenav.asp):
 
 _./src/sidebar.css_
 
@@ -65,7 +65,7 @@ _./src/sidebar.css_
   }
 ```
 
-- We are going to use CSS Modules, so let's configure it.
+- Vamos a utilizar CSS Modules, así que configurémoslo.
 
 _./webpack.config.js_
 
@@ -78,7 +78,7 @@ _./webpack.config.js_
     },
 ```
 
-- We will only use CSS Modules for custom app stylesheets. We will not use CSS Modules for other CSS files, like Bootstrap (folder node_modules).
+- Solo utilizaremos CSS Modules para la hoja de estilos de la app. No utilizaremos CSS Modules para otros ficheros CSS, como Bootstrap (carpeta node_modules).
 
 ```diff
   {
@@ -107,8 +107,7 @@ _./webpack.config.js_
 ```
 
 
-- We are going to create now a sidebar component, _src/sidebar.tsx_. Right now we will create just
-a rectangle and we will interact with the animation.
+- Vamos a crear un nuevo componente sidebar, _src/sidebar.tsx_. En este punto crearemos solamente un rectangulo e interactuaremos con la animación.
 
 _./src/sidebar.tsx_
 
@@ -123,7 +122,7 @@ export const SidebarComponent = () =>
     </div>
 ```
 
-- We are going to add a known id to the body section of _src/index.html_ page
+- Vamos a añadir un id conocido a la sección body de la página _src/index.html_
 
 _./src/index.html_
 
@@ -132,7 +131,7 @@ _./src/index.html_
 +  <body id="main">
 ```
 
-- Let's place the component adding it into the `app.tsx`:
+- Situemos el componente añadiendolo dentro de `app.tsx`:
 
 ```jsx
   import {SidebarComponent} from './sidebar';
@@ -148,14 +147,13 @@ _./src/index.html_
   );
 ```
 
-- Now it is time to run the app, just to check we haven't broken anything (but you will see no results).
+- Ahora es el momento de ejecutar la aplicación, simplemente para comprobar que no se ha roto nada (pero no verás ningún resultado).
 
 ```
  npm start
 ```
 
-- Let's start with the interesting part of this implementation, let's add a flag to show/hide the
-sidebar _sidebar.tsx_.
+- Comencemos con la parte interesante de la implementación, añadamos un flag para mostrar/ocultar la barra lateral _sidebar.tsx_.
 
 _./src/sidebar.tsx_
 
@@ -175,8 +173,7 @@ const classNames = require('./sidebar.css');
     </div>
 ```
 
-- Now let's add some logic to show / hide the sidebar in case the flag gets
-updated
+- Añadamos algo de lógica para mostrar/ocultar la barra lateral en caso de que se actualice el valor del flag
 
 ```diff
 import * as React from 'react';
@@ -198,8 +195,7 @@ export const SidebarComponent = (props: Props) =>
     </div>
 ```
 
-- Now at app level (in file _app.tsx_) we can add a new member to the state (a boolean flag) and a button to turn it
-off and on.
+- Ahora a nivel de app (en el fichero _app.tsx_) podemos añadir un nuevo miembro al estado (un flag booleano) y un botón para activarlo o desactivarlo.
 
 ```diff
   interface State {
@@ -214,7 +210,7 @@ export class App extends React.Component<{}, State> {
     super(props);
 
 -    this.state = {userName: 'defaultUserName'};
-+    this.state = {userName: "defaultUserName", isSidebarVisible: false};
++     this.state = {userName: "defaultUserName", isSidebarVisible: false};
   }
 
   setUsernameState(event) {
@@ -249,18 +245,17 @@ export class App extends React.Component<{}, State> {
 }
 ```
 
-- At this point we will need to stop the app and start it again to see the changes working:
+- Llegados a este punto necesitaremos parar y volver a arrancar la aplicación para ver los cambios funcionando:
 
 ```cmd
 npm start
 ```
 
-- If we run our sample, we can see how the sidebar is shown / hidden.
+- Si ejecutamos nuestro ejemplo, podemos ver como nuestra barra lateral se muestra/oculta.
 
-- So far so good, but what happens if we want to make this sidebar a reusable component? We could
-just show the frame but the content should be dynamic.
+- Hasta aqui todo bien, pero ¿que pasa si queremos hacer que nuestra barra lateral sea un componente reusable? Podriamos simplemente mostrar nuestra caja pero el contenido debería ser dinámico.
 
-- Let's start by adding some content when instantiating the sidebar (_app.tsx_).
+- Comencemos añadiendo algo de contenido cuando nuestra barra lateral es instanciada.
 
 ```diff
   <SidebarComponent isVisible={this.state.isSidebarVisible}>
@@ -268,7 +263,7 @@ just show the frame but the content should be dynamic.
   </SidebarComponent>
 ```
 
-- Now in the _sidebar.tsx_ let's dump this content by using {this.props.children}
+- Ahora vamos a volcar algo de contenido en _sidebar.tsx_ usando {this.props.children}
 
 ```diff
 import * as React from 'react';
@@ -292,9 +287,9 @@ const divStyle = (props: React.CSSProperties) => ({
     </div>
 ```
 
-> This code can be enhanced, exercise: try to extract the width calculation to a separate function (isolated from  the SidebarComponent).
+> Este código puede mejorarse, ejercicio: intenta extraer el cálculo de width a una función separada (aislada de SidebarComponent).
 
-- Let's try the sample
+- Probemos el ejemplo
 
 ```cmd
 npm start
