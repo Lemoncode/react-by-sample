@@ -6,16 +6,16 @@ In this case we will provide a default `userName` but let the user update
 it.
 
 
-We will take a startup point sample _03 State_:
+We will take a startup point sample _[03 State](./../03%20State)_:
 
 Summary steps:
 
 - Let's make first some cleanup: remove _hello.tsx_ and _nameEdit.tsx_
-- Let's create two components _PageA_ and _PageB_
+- Let's create two components _[PageA.tsx](./src/pageA.tsx)_ and _[PageB.tsx](./src/pageB.tsx)_
 - Let's install the dependencies to _react-router-dom_ and typescript definitions for this.
 - Let's define the routing.
-- Let's define a navigation from _PageA_ to _PageB_.
-- Let's define a navigation from _PageB_ to _PageA_.
+- Let's define a navigation from _[PageA.tsx](./src/pageA.tsx)_ to _[PageB.tsx](./src/pageB.tsx)_.
+- Let's define a navigation from _[PageB.tsx](./src/pageB.tsx)_ to _[PageA.tsx](./src/pageA.tsx)_.
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 ## Steps to build it
 
-- Copy the content from _03 State_ and execute:
+- Copy the content from _[03 State](./../03%20State)_ and execute:
 
   ```
   npm install
@@ -40,29 +40,22 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 ```jsx
 import * as React from "react"
 
-export const PageA = () => {
-  return (
+export const PageA = () =>
     <div>
       <h2>Hello from page A</h2>
     </div>
-  )
-}
 ```
+- Let's create a component called _PageB_ as _src/pageB.tsx_:
 
 ### ./src/pageB.tsx
-
-- Let's create a component called _PageB_ as _src/pageB.tsx_:
 
 ```jsx
 import * as React from "react"
 
-export const PageB = () => {
-  return (
+export const PageB = () =>
     <div>
       <h2>Hello from page B</h2>
     </div>
-  )
-}
 ```
 
 - Let's install the dependencies [`react-router-dom`](https://github.com/ReactTraining/react-router) and typescript definitions for this.
@@ -103,7 +96,7 @@ ReactDOM.render(
 npm start
 ```
 
-- Let's define a navigation from PageA to PageB (_src/pageA.tsx_).
+- Let's define a navigation from _[PageA.tsx](./src/pageA.tsx)_ to _[PageB.tsx](./src/pageB.tsx)_.
 
 ### ./src/pageA.tsx
 
@@ -111,34 +104,28 @@ npm start
 import * as React from "react"
 + import { Link } from 'react-router-dom';
 
-export const PageA = () => {
-  return (
+export const PageA = () =>
     <div>
       <h2>Hello from page A</h2>
 +     <br />
 +     <Link to="/pageB">Navigate to Page B</Link>
     </div>
-  )
-}
-
 ```
 
-- Let's define a navigation from PageB to PageA  (_pageA.tsx_)
+- Let's define a navigation from _[PageB.tsx](./src/pageB.tsx)_ to _[PageA.tsx](./src/pageA.tsx)_
+
+### ./src/pageB.tsx
 
 ```diff
 import * as React from "react"
 + import { Link } from 'react-router-dom';
 
-export const PageB = () => {
-  return (
+export const PageB = () =>
     <div>
       <h2>Hello from page B</h2>
 +     <br />
 +     <Link to="/">Navigate to Page A</Link>
     </div>
-  )
-}
-
 ```
 
 
