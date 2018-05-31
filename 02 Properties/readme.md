@@ -1,16 +1,15 @@
 # 02 Properties
 
-In this sample we will introduce a basic React concept, handling properties.
+In this example we introduce a basic React concept: handling properties.
 
-We will add a _username_ property and display it in the _hello_ component.
+We add a _username_ property and display it in the _hello_ component.
 
-We will take a startup point sample **01 Hello React**:
+We take as startup point the example **01 Hello React**:
 
 ### Summary steps:
 
-- _hello_ stateless component: create a property that will hold the _username_ value.
-
-- Let's inform it from our parent control.
+- _hello_ stateless component: create a property to hold the _username_ value.
+- Let's provide a value from our parent control.
 
 ## Prerequisites
 
@@ -26,7 +25,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
   npm install
   ```
 
-- Let's update _hello.tsx_ in order to reflect the new property added (_userName_) and display it using interpolation (_{userName}_):
+- Let's update _hello.tsx_ to add a new property (_userName_) and display it using interpolation (_{userName}_):
 
 _hello.tsx_
 
@@ -42,7 +41,27 @@ import * as React from 'react';
 }
 ```
 
-- Let's update _main.tsx_ and inform the _userName_ property value:
+Side note: using interfaces and ES6, the change looks like this:
+
+```diff
+import * as React from 'react';
+
++ interface Props
++ {
++   username: string;
++ }
+
+- export const HelloComponent = () => {
++ export const HelloComponent = (props: Props) => (
+-   return (
+-    <h2>Hello component !</h2> 
++    <h2>Hello user: {props.userName} !</h2>
+  );
+-}
+```
+
+
+- Let's update _main.tsx_ and provide a value to the _userName_ property:
 
 ```diff
   import * as React from 'react';
