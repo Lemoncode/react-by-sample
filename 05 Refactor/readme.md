@@ -1,18 +1,14 @@
 # 05 Refactor
 
-In the previous sample we were setting an initial username value, what would
-happen if we expect this value to come from e.g. an AJAX request or if it could
-change in time? The current approach won't work.
+In the previous example we set an initial username value. What happens if we expect this value to come from e.g. an AJAX request or if it could change in time? The current approach doesn't work.
 
 We can think about two possible solutions:
 
-- The first idea that could come into our mind is to implement a mix: we receive via props the current name value, then we hold an state with the current editing
-value... what drawbacks could we encounter? We have to listen on the getDerivedStateFromProps (componentWillRecieveProps has been deprecated) for any change on the parent user name control and replace our state, we end up with a mixed governance.
+- The first idea that could come into our mind is to implement a mix: we receive via props the current name value, then we hold an state with the current editingvalue... what drawbacks could we encounter? We have to listen on the getDerivedStateFromProps (componentWillRecieveProps has been deprecated) for any change on the parent user name control and replace our state. With this approach We end up with a mixed governance.
 
 > More info about getDerivedStateFromProps: https://medium.com/@baphemot/whats-new-in-react-16-3-d2c9b7b6193b
 
-And update of how it would look like (using the new static method
-getDerivedStateFromProps):
+With this solution, the code looks like this (using the new static method getDerivedStateFromProps):
 
 Props and interface:
 
@@ -52,20 +48,14 @@ Inside the class component
   }
 ```
 
-- The second idea is to setup two properties, the parent control will hold _userName_ and _editingUsername__, whenever the user clicks on the button to
-replace the name it will notify the parent control and it will replace the
-content of _userName_ with the content from _editingUsername_. If _userName_ gets updated by any other third party (e.g. AJAX callback) it will update as well
-_editingUsername_.
+- The second idea is to setup two properties, the parent control will hold _userName_ and _editingUsername__. Whenever the user clicks the button to replace the name, it will notify the parent control and it will replace the content of _userName_ with the content from _editingUsername_. If _userName_ gets updated by any other third party (e.g. AJAX callback) it will update as well _editingUsername_.
 
-We will take as a starting point sample _04 Callback_:
+We take as a starting point sample _04 Callback_:
 
 Summary steps:
 
 - Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it from the state.
-
-- Update _app.tsx_ to hold the new editing property in the state, pass it to the
-children, control and perform the proper update on the callback event from the
-child control.
+- Update _app.tsx_ to hold the new editing property in the state, pass it to the children, control and perform the proper update on the callback event from the child control.
 
 ## Prerequisites
 
@@ -77,8 +67,7 @@ Install [Node.js and npm](https://nodejs.org/en/) if they are not already instal
 
 - Copy the content from _04 Callback_ and execute `npm install`.
 
-- Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it
-from the state.
+- Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it from the state.
 
 _nameEdit.tsx_
 
@@ -135,9 +124,7 @@ interface Props {
 }
 ```
 
-- Update _app.tsx_ to hold the new editing property in the state, pass it to the
-children control and perform the proper update on the callback event from the
-child control.
+- Update _app.tsx_ to hold the new editing property in the state, pass it to the children controls and perform the proper update on the callback event from the child control.
 
 ```diff
 import * as React from 'react';
@@ -187,5 +174,4 @@ export class App extends React.Component<Props, State> {
 }
 ```
 
-Finally we can check the sample is working as _04 Callback_ executing from the command line
-`npm start` and opening [http://localhost:8080](http://localhost:8080).
+Finally we can check the example is working as in _04 Callback_ by executing from the command line `npm start` and opening [http://localhost:8080](http://localhost:8080).
