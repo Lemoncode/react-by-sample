@@ -1,8 +1,8 @@
 # 01 Hello React
 
-In this sample we will create our first react component and connect it with the DOM via react-dom.
+In this example we create our first react component and connect it with the DOM via react-dom.
 
-We will take a startup point sample _00 Boilerplate_.
+We take a startup point sample _00 Boilerplate_.
 
 Summary steps:
 
@@ -20,7 +20,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v8.6.0 or newer) if they are 
 
 ## Steps to build it
 
-- Copy the content of the `00 Boilerplate` folder to an empty folder for the sample.
+- Copy the content of the `00 Boilerplate` folder to an empty folder for this example.
 
 - Install the npm packages described in the [./package.json](./package.json) and verify that it works:
 
