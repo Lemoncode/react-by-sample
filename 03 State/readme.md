@@ -174,7 +174,7 @@ Side note 2: this.setState() will change the value of the state at some point in
 
 ```
   setUserNameState = (newName: string) => {
-    this.setState({userName: newName{, this.nameChanged);
+    this.setState({userName: newName}, this.nameChanged);
   }
   
   nameChanged() {
