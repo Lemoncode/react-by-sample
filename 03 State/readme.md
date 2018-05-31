@@ -170,7 +170,17 @@ Side note: What is this Fragment or <> stuff? A way to create component that has
 
 Side note: mind the use of the fat arrow function. This avoids losing the context for _this_ in the callback.
 
-Side note 2: this.setState() will change the value of the state at some point in the future. Do not consider it is a synchronous change - it isn't. Writing logic that depends on the username new value being in the state right after calling this.setState() is wrong and might fail.
+Side note 2: this.setState() will change the value of the state at some point in the future. Do not consider it is a synchronous change - it isn't. Writing logic that depends on the username new value being in the state right after calling this.setState() is wrong and might fail. If you need to write code dependent on the new value being in the state, use a callback as second parameter of this.setState(). See this example
+
+```
+  setUserNameState = (newName: string) => {
+    this.setState({userName: newName{, this.nameChanged);
+  }
+  
+  nameChanged() {
+    /* logic here gets invoked after the new name value in the state is set. */
+  }
+```
 
 - Finally let's test everything works once more.
 
