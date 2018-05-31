@@ -1,16 +1,15 @@
 # 04 Callback + State
 
-In this sample we are going to refactor the previous sample **03 State**.
+In this example we refactor the previous **03 State** example.
 
-We'll update the name property only when the user clicks on
-a _change_ button, we will simplify the event itself as well.
+We update the name property only when the user clicks a _change_ button, and we simplify the event itself as well.
 
-Obviously, we will take the sample **03 State** as a starting point.
+Obviously, we take the example **03 State** as a starting point.
 
 Summary steps:
 
 - Add a button to the `EditName` component and a handler function for this.
-- Submit the name only when the user clicks on the button.
+- Submit the name only when the user clicks that button.
 - Update the `app` component to handle the new simplified event.
 
 ## Prerequisites
@@ -21,8 +20,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 ## Steps to build it
 
-- Copy the content of the `03 State` folder to an empty folder for the sample
-and make this your current folder.
+- Copy the content of the `03 State` folder to an empty folder for this example and make this your current folder.
 
 - Install the npm packages described in the `package.json` and verify that it works:
 
@@ -30,10 +28,9 @@ and make this your current folder.
 npm install
 ```
 
-- Since we are going to use an internal handler, we'll transform the `NameEditComponent`
-from a stateless component into a class component, then we will add some refactor on the naming.
+- Since we are going to use an internal handler, we'll transform the `NameEditComponent` from a stateless component into a class component, then we will add some refactor on the naming.
 
- The `nameEdit.tsx` file should looks like this:
+ The `nameEdit.tsx` file should look like this:
 
 _nameEdit.tsx_
 
@@ -125,7 +122,7 @@ export class App extends React.Component<Props, State> {
 ```
 
 
- Now we've got a clear event, strongly typed and simplified (straight forward).
+ Now we've got a clear event, strongly typed and simplified (as it is more straightforward).
 
 - Let's give it a try:
 
@@ -135,6 +132,6 @@ export class App extends React.Component<Props, State> {
 
 - Then, load http://localhost:8080/ in a browser to see the output.
 
- Now, the greeting only change when the user clicks on the change button.
+ Now, the greetings message only changes when the user clicks the change button.
 
-> What happens if we simulate an AJAX call, let's place in the app on componentWillMount a timeout and set the name value.
+> What happens if we simulate an AJAX call? Let's place in the app's componentWillMount a timeout and set the name value in the timeout's callback.
