@@ -108,7 +108,7 @@ interface Props {
   }
 
 -  onChange = (event) => {
--    this.setState({editingName: event.target.value} as State);
+-    this.setState({editingName: event.target.value});
 -  }
 
 -  onNameSubmit = (event) => {
@@ -165,11 +165,11 @@ export class App extends React.Component<Props, State> {
 -  setUsernameState = (newName: string) => {
 +  setUsernameState = () => {  
 -    this.setState({userName: newName});
-+    this.setState({userName: this.state.editingUserName} as State);
++    this.setState({userName: this.state.editingUserName});
   }
 
 + updateEditingName = (editingName : string) : void => {
-+   this.setState({editingUserName: editingName} as State);
++   this.setState({editingUserName: editingName});
 + }
 
   public render() {
