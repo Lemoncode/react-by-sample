@@ -56,7 +56,7 @@ const defaultProps : Partial<Props> = {
 
 const buildWrapperClass = (error : string) : string => 
   "form-group" + (
-      (props.error && props.error.length > 0) ? 
+      (error && error.length > 0) ? 
         "has-error" : 
         ""
       );
