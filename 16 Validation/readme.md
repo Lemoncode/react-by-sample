@@ -70,7 +70,6 @@ export const Input : React.StatelessComponent<Props> = (props) =>
             name={props.name}
             className="form-control"
             placeholder={props.placeholder}
-            ref={props.name}
             value={props.value}
             onChange={props.onChange}
             onBlur={props.onBlur}
