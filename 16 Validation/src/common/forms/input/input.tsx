@@ -28,7 +28,7 @@ export const Input : React.StatelessComponent<Props> = (props) =>
       <div className={buildWrapperClass(props.error)}>      
         <label htmlFor={props.name}>{props.label}</label>
         <div className="field">
-          <input type="text"
+          <input type= {props.type}
               name={props.name}
               className="form-control"
               placeholder={props.placeholder}
