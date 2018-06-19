@@ -4,11 +4,11 @@ In example 05 we learned how to remove state from a child control just to have c
 
 It's time to make some cleanup, let's simplify _[nameEdit.tsx](./src/nameEdit.tsx)_ component and move it as a stateless component.
 
-We will take a startup point sample _[05 Refactor](./../05%20Refactor)_.
+Let's take example _[05 Refactor](./../05%20Refactor)_ as reference.
 
 Summary steps:
 
-- Update _[nameEdit.tsx](./src/nameEdit.tsx)_, port it to stateless component and add the methods inline.
+- Update _[nameEdit.tsx](./src/nameEdit.tsx)_, transform it to a stateless component and inline some methods.
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Copy the content from _[05 Refactor](./../05%20Refactor)_ and execute `npm install`.
 
-- Update _[nameEdit.tsx](./src/nameEdit.tsx)_, port it to stateless component and add the methods inline. It should look like:
+- Update _[nameEdit.tsx](./src/nameEdit.tsx)_, transform it to stateless component and inline some methods. It should look like this:
 
  ```jsx
 import * as React from 'react';
@@ -33,7 +33,6 @@ interface Props {
     onNameUpdateRequest : () => void;  
 }
 
-  
 export const NameEditComponent = (props : Props) =>
   <div>
       <label>Update Name:</label>
@@ -43,8 +42,9 @@ export const NameEditComponent = (props : Props) =>
       <button className="btn btn-default" onClick={props.onNameUpdateRequest}>Change</button>
   </div>
  ```
+Side note: when refactoring this code, we have replaced ```this.props``` by ```props```. This is because ```NameEditComponent``` is now a function, not a class. If you keep ```this.props```, it fails in runtime because ```this``` is now undefined.
 
-- Now we can run the sample and we will get same results
+- Now we can run the example, and we get the same results.
 
 ```bash
 npm start
