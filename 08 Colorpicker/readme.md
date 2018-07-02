@@ -1,15 +1,13 @@
 # 08 Colorpicker
 
+We take _01 HelloReact_ as reference.
 
-
-We will take a startup point sample _01 HelloReact_:
-
->This sample is based on the following [egghead jsbin](https://jsbin.com/qiwoxax/4/edit?html,js,output), but adding some variations.
+>This example is based on the following [egghead jsbin](https://jsbin.com/qiwoxax/4/edit?html,js,output), but adding some variations.
 
 Summary steps:
 
 - Rename _hello.tsx_ file to _colorpicker.tsx_.
-- Define the properties and state.
+- Define properties and state.
 - Create the UI.
 
 
@@ -49,7 +47,7 @@ export const ColorPicker = () => {
 }
 ```
 
-- Let's create an indermediate _app.tsx_ file like we did in some previous samples:
+- Let's create an indermediate _app.tsx_ file as we did in some of the previous examples:
 
 _./src/app.tsx_
 
@@ -83,7 +81,7 @@ export class App extends React.Component<{}, State> {
 }
 ```
 
-- We need to update _main.tsx_ to indicate the change
+- We need to update _main.tsx_ to adjust it to the change:
 
 _./src/main.tsx_
 
@@ -99,8 +97,7 @@ _./src/main.tsx_
     document.getElementById('root'));
 ```
 
-- We are going to change as well the content of the file let's define a color and callback
-as a property to setup the color (_colorpicker.tsx_).
+- We are going to change as well the content of the file. Let's define a color and a callback (as a property) to set the color (_colorpicker.tsx_).
 
 _./src/colorpicker.tsx_
 
@@ -144,7 +141,7 @@ _./src/colorpicker.tsx_
   }
 ```
 
-- Now it's time to update _app.tsx_ to interact with the components props.
+- Now it's time to update _app.tsx_ to interact with the component's props.
 
 _./src/app.tsx_
 
@@ -181,7 +178,7 @@ _./src/app.tsx_
 
 ```
 
-- Let's give a try and check that we got the basics working
+- Let's give a try and check that we got the basics working.
 
 ```
   npm start
@@ -189,7 +186,7 @@ _./src/app.tsx_
 
 - Let's complete the component by adding sliders for the green and blue options:
 
-> Note: this will look a bit ugly, in the next sample we will refactor this to a cleaner solution
+> Note: this will look a bit ugly, in the next example we will refactor this to a cleaner solution.
 
 _./src/colopicker.tsx_
 
@@ -244,8 +241,7 @@ _./src/colopicker.tsx_
   }
 ```
 
-- Let's make this a bit more visual, it would be a good idea to display a rectangle
-filled with the selected color. Let's create a ColorDisplayer component (_colordisplayer.tsx_).
+- Let's make this a bit more visual. It would be a good idea to display a rectangle filled with the selected color. Let's create a ColorDisplayer component (_colordisplayer.tsx_).
 
 _./src/colordisplayer.tsx_
 
@@ -258,7 +254,7 @@ _./src/colordisplayer.tsx_
   }
 
   export const ColorDisplayer = (props : Props) => {
-    const divStyle = {
+    const divStyle = React.CSSProperties { // React.CSSProperties gives editing-time visual feedback on the CSS you are typing.
       width: '11rem',
       height: '7rem',
       backgroundColor: `rgb(${props.color.red},${props.color.green}, ${props.color.blue})`
@@ -306,7 +302,7 @@ export class App extends React.Component<{}, State> {
 }
 ```
 
-- Let's give a try and check the results
+- Let's give a try and check the results.
 
  ```
 npm start
