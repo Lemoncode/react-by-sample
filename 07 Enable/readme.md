@@ -98,7 +98,7 @@ _[./src/app.tsx](./src/app.tsx)_
       <>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent
-++        disable={!this.state.userName || this.state.userName === this.state.defaultUserName}
+++        disable={!this.state.userName || this.state.userName === this.state.editingUserName}
           userName={this.state.userName}
           editingUserName={this.state.editingUserName}
           onEditingNameUpdated={this.updateEditingName}
