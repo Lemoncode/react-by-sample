@@ -1,17 +1,14 @@
 # 09 Colorpicker Refactor
 
-In this sample we are going to review the colorpicker component we have created
-and simplify it, right now we have three slider controls with many details
-that make our HTML hard to read, let's componentize this scenario.
+In this example we are going to review the colorpicker component we have created and simplify it. Right now we have three slider controls with many details that make our HTML hard to read. Let's componentize this scenario.
 
-We will take a startup point sample _08 Colorpicker_:
+We take _08 Colorpicker_ as reference.
 
 Summary steps:
 
-- Create a simple color slide component.
+- Create a simple color slider component.
 - Replace the color slider inputs with the new slider.
-- Check result.
-
+- Check the result.
 
 ## Prerequisites
 
@@ -144,13 +141,13 @@ export const ColorPicker = (props : Props) => {
 }
 ```
 
-- Let's give a try and check that everything is still working as expected.
+- Let's give it a try and check it works as expected.
 
   ```
   npm start
   ```
   
-- We have still room for improvement, why not having a single handler for all colors? if we currified the colorupdated handler we can !
+- We have still room for improvement. What about using a single handler for all colors? If we currify the colorupdated handler, then we can!
 
 ```diff
 import * as React from 'react';
@@ -162,10 +159,10 @@ interface Props {
   onColorUpdated: (color: Color) => void;
 }
 
-+ const updateColor = (props : Props, colorId : keyof Color) => (value) => {
++ const updateColor = (props : Props, colorId : keyof Color) => (value) => {  // keyof Color ensures only 'red', 'blue' or 'green' can be passed in.
 +    props.onColorUpdated({
-+      ...props.color,
-+      [colorId]: value
++      ...props.color,   // this creates a clone of the current props.color object...
++      [colorId]: value  // ... which gets one of its properties (colorId) immediately replaced by a new value.
 +    });
 + };
 
@@ -213,7 +210,7 @@ export const ColorPicker = (props: Props) => {
 }
 ```
 
-- Let's give a try to the sample
+- Let's give it a try:
 
 ```
 npm start
