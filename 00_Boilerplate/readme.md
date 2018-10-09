@@ -93,42 +93,43 @@ _[./tsconfig.json](./tsconfig.json)_
 }
 ```
 
- - Now, we need to transpile ES6 to ES5. Let's install **babel-core** and **babel-preset-env**.
+ - Now, we need to transpile ES6 to ES5. Let's install **@babel/cli**,  **@babel/core**, **@babel/preset-env**, and **@babel/polyfill**.
 
 ```bash
- npm install babel-core babel-preset-env --save-dev
+ npm install @babel/cli @babel/core @babel/preset-env @babel/polyfill --save-dev
+```
+
+- Let's install webpack _babel_ loader.
+
+```bash
+npm install babel-loader --save-dev
 ```
 
  - Babel needs to be configured for it to work. We create **[./.babelrc](./.babelrc)** in the root folder. Later we will see how to put it in **[./webpack.config.js](./webpack.config.js)**. In this example, we use this .babelrc: 
 
 _[./.babelrc](./.babelrc)_
 ```json
- {
+{
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
-        "modules": false
+        "useBuiltIns": "entry"
       }
     ]
   ]
 }
 ```
 
-- Let's install bootstrap:
-
-```bash
- npm install bootstrap --save
-```
-
 - Now, our **[./package.json](./package.json)** file should look something like:
 
+ 
 _[./package.json](./package.json)_
  ```json
 {
-  "name": "sample",
+  "name": "reactbysample",
   "version": "1.0.0",
-  "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
+  "description": "In this sample we setup the basic plumbing to \"build\" our project and launch it in a dev server.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server  --mode development --inline --hot --open",
@@ -138,22 +139,22 @@ _[./package.json](./package.json)_
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "awesome-typescript-loader": "^5.0.0",
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "css-loader": "^0.28.11",
-    "file-loader": "^1.1.11",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.4.0",
-    "style-loader": "^0.20.3",
-    "typescript": "^2.8.1",
-    "url-loader": "^1.0.1",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14",
-    "webpack-dev-server": "^3.1.0"
-  },
-  "dependencies": {
-    "bootstrap": "^4.1.0"
+    "mini-css-extract-plugin": "^0.4.3",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.1.1",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   }
 }
 ```
@@ -197,22 +198,21 @@ _[./src/index.html](./src/index.html)_
 
 _[./webpack.config.js](./webpack.config.js)_
  ```javascript
-let path = require('path');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
-let webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var webpack = require('webpack');
+var path = require('path');
 
-let basePath = __dirname;
+var basePath = __dirname;
 
 module.exports = {
   context: path.join(basePath, "src"),
   resolve: {
     extensions: ['.js', '.ts', '.tsx']
   },
-  entry: [
-    './main.ts',
-    '../node_modules/bootstrap/dist/css/bootstrap.css'
-  ],
+  entry: ['@babel/polyfill', 
+          './main.ts'
+         ],
   output: {
     path: path.join(basePath, 'dist'),
     filename: 'bundle.js'
@@ -233,8 +233,9 @@ module.exports = {
         loader: 'awesome-typescript-loader',
         options: {
           useBabel: true,
-        },
-      },
+          "babelCore": "@babel/core", // needed for Babel v7
+        },        
+      },    
       {
         test: /\.css$/,        
         use: [MiniCssExtractPlugin.loader, "css-loader"]
@@ -246,7 +247,7 @@ module.exports = {
           name: 'assets/img/[name].[ext]?[hash]'
         }
       },
-    ],
+   ],
   },
   plugins: [
     //Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
@@ -259,9 +260,9 @@ module.exports = {
       filename: "[name].css",
       chunkFilename: "[id].css"
     }),
-  ],
+  ],  
 };
- ```
+```
 
 - Run webpack:
 
