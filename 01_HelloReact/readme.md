@@ -68,17 +68,7 @@ export const HelloComponent = () => {
     <h2>Hello component !</h2>
   );
 }
- ```
-Side note: in ES6, this can written as 
-
-```jsx
-import * as React from 'react';
-
-export const HelloComponent = () => (
-    <h2>Hello component !</h2>
-);
-
- ```
+```
 
 - Wire up this component by using `react-dom` under [./src/main.tsx](./src/main.tsx) (we have to rename this file extension from `ts` to `tsx` and replace the content).
 
