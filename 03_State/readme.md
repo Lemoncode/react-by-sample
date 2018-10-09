@@ -52,6 +52,8 @@ _./src/main.tsx_
   import * as ReactDOM from 'react-dom';
 + import {App} from './app';
 
+- import { HelloComponent } from './hello';
+
   ReactDOM.render(
 -    <HelloComponent userName="John" />,
 +    <App />,
@@ -117,7 +119,7 @@ export const NameEditComponent = (props : Props) =>
     <>
       <label>Update name:</label>
       <input value={props.userName} onChange={props.onChange}/>
-    <>
+    </>
 ```
 
 Side note: What is this Fragment or <> stuff? A way to create component that has multiple root elements (not a single parent). Available from React 16.2. As an alternative you can type:
