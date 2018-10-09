@@ -12,6 +12,8 @@ With this solution, the code looks like this (using the new static method getDer
 
 Props and interface:
 
+_./src/nameEdit.tsx_
+
 ```diff
 interface Props {
   initialUserName: string;
@@ -125,6 +127,8 @@ interface Props {
 ```
 
 - Update _app.tsx_ to hold the new editing property in the state, pass it to the children controls and perform the proper update on the callback event from the child control.
+
+_./src/app.tsx_
 
 ```diff
 import * as React from 'react';

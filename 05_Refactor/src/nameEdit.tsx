@@ -6,6 +6,7 @@ interface Props {
   onNameUpdateRequest: () => void;
 }
 
+
 export class NameEditComponent extends React.Component<Props, {}> {
 
   constructor(props: Props) {
@@ -16,14 +17,15 @@ export class NameEditComponent extends React.Component<Props, {}> {
     this.props.onEditingNameUpdated((e.target as HTMLInputElement).value);
   }
 
+
   public render() {
     return (
-      <div>
+      <>
         <label>Update Name:</label>
         <input value={this.props.editingUserName}
           onChange={this.onChange} />
         <button className="btn btn-default" onClick={this.props.onNameUpdateRequest}>Change</button>
-      </div>
+      </>
     );
   }
 }
