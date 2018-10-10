@@ -28,13 +28,18 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's remove the file _mermberMockData.ts_ in _src/api_ directory.
 
+- Just to provide support to old browsers let's install the following libraries:
+
+```javascript
+npm install whatwg-fetch --save-dev
+```
+
 - Let's replace _memberAPI_ load members with the fetch / promise one:
 
 _./src/api/memberAPI.ts_
 
 ```javascript
 import {MemberEntity} from '../model/member';
-import {} from 'core-js';
 import {} from 'whatwg-fetch';
 
 // Sync mock data API, inspired from:
@@ -84,6 +89,8 @@ export const memberAPI = new MemberAPI();
 ```
 - Add a new component _memberHead_ to create the table's header:
 
+_./src/memberHead.tsx_
+
 ```javascript
 import * as React from 'react';
 import { MemberEntity } from './model/member';
@@ -104,7 +111,7 @@ export const MemberHead = () =>
 
 - Now it's time to update our _membersTable_ component. <br />
 
-_./src/memberTable.tsx_
+_./src/membersTable.tsx_
 
 - Import the new component :
 
