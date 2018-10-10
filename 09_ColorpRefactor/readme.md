@@ -149,6 +149,8 @@ export const ColorPicker = (props : Props) => {
   
 - We have still room for improvement. What about using a single handler for all colors? If we currify the colorupdated handler, then we can!
 
+_./src/colorpicker.tsx_
+
 ```diff
 import * as React from 'react';
 import { Color } from './color'
