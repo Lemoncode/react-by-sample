@@ -73,6 +73,7 @@ npm install @types/react-router-dom --save-dev
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 - import {App} from './app';
+- import { HelloComponent } from './hello';
 + import { HashRouter, Switch, Route } from 'react-router-dom';
 + import {PageA} from './pageA';
 + import {PageB} from './pageB';

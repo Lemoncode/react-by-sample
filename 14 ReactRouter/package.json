@@ -1,7 +1,7 @@
 {
-  "name": "sample",
+  "name": "reactbysample",
   "version": "1.0.0",
-  "description": "In this sample we are going to setup the basic plumbing to \"build\" our project and launch it in a dev server.",
+  "description": "In this sample we setup the basic plumbing to \"build\" our project and launch it in a dev server.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server  --mode development --inline --hot --open",
@@ -11,27 +11,29 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/react": "^16.3.8",
-    "@types/react-dom": "^16.0.5",
-    "@types/react-router-dom": "^4.2.6",
-    "awesome-typescript-loader": "^5.0.0",
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "css-loader": "^0.28.11",
-    "file-loader": "^1.1.11",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@types/react": "^16.4.16",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-router-dom": "^4.3.1",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.4.0",
-    "style-loader": "^0.20.3",
-    "typescript": "^2.8.1",
-    "url-loader": "^1.0.1",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14",
-    "webpack-dev-server": "3.1.0"
+    "mini-css-extract-plugin": "^0.4.3",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.1.1",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
-    "bootstrap": "^4.1.0",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "react-router-dom": "^4.2.2"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-router-dom": "^4.3.1"
   }
 }
