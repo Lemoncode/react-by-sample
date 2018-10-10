@@ -32,11 +32,17 @@ export class App extends React.Component<Props, State> {
     return (
       <>
         <SidebarComponent isVisible={this.state.isSidebarVisible}>
-          <h1>Test content</h1>
+          <h1>Cool Scfi movies</h1>
+          <ul>
+            <li><a href="https://www.imdb.com/title/tt0816692/">Interstellar</a></li>
+            <li><a href="https://www.imdb.com/title/tt0083658/">Blade Runner</a></li>
+            <li><a href="https://www.imdb.com/title/tt0062622/">2001: a space odyssey</a></li>
+          </ul>
         </SidebarComponent>
+
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState} />
-        <div className="float-right">
+        <div style={{ float: 'right' }}>
           <button
             className="btn btn-default"
             onClick={this.toggleSidebarVisibility}>

@@ -80,6 +80,8 @@ _./webpack.config.js_
 
 - We will only use CSS Modules for custom app stylesheets. We will not use CSS Modules for other CSS files, like Bootstrap (folder node_modules).
 
+_./webpack.config.js_
+
 ```diff
   {
     test: /\.css$/,
@@ -134,9 +136,16 @@ _./src/index.html_
 
 - Let's place the component adding it into the `app.tsx`:
 
-```jsx
-  import {SidebarComponent} from './sidebar';
+_./src/app.tsx_
+
+```diff
+  import * as React from 'react';
+  import { HelloComponent } from './hello';
+  import { NameEditComponent } from './nameEdit';
++  import {SidebarComponent} from './sidebar';
 ```
+
+_./src/app.tsx_
 
 ```diff
   return (
@@ -177,6 +186,8 @@ const classNames = require('./sidebar.css');
 
 - Now let's add some logic to show / hide the sidebar in case the flag gets
 updated
+
+_./src/sidebar.tsx_
 
 ```diff
 import * as React from 'react';
@@ -236,7 +247,7 @@ export class App extends React.Component<{}, State> {
 +        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-+       <div className="float-right">
++       <div style={{float: 'right'}}>
 +         <button
 +           className="btn btn-default"
 +           onClick={this.toggleSidebarVisibility}>
@@ -262,13 +273,23 @@ just show the frame but the content should be dynamic.
 
 - Let's start by adding some content when instantiating the sidebar (_app.tsx_).
 
+_./src/app.tsx_
+
 ```diff
-  <SidebarComponent isVisible={this.state.isSidebarVisible}>
-+    <h1>Test content</h1>
-  </SidebarComponent>
+-  <SidebarComponent/>
++  <SidebarComponent isVisible={this.state.isSidebarVisible}>
++    <h1>Cool Scfi movies</h1>
++    <ul>
++      <li><a href="https://www.imdb.com/title/tt0816692/">Interstellar</a></li>
++      <li><a href="https://www.imdb.com/title/tt0083658/">Blade Runner</a></li>
++      <li><a href="https://www.imdb.com/title/tt0062622/">2001: a space odyssey</a></li>
++    </ul>  
++  </SidebarComponent>
 ```
 
 - Now in the _sidebar.tsx_ let's dump this content by using {this.props.children}
+
+_./src/sidebar.tsx_
 
 ```diff
 import * as React from 'react';

@@ -5,11 +5,8 @@ interface Props {
   onChange : (event) => void;
 }
 
-export const NameEditComponent = (props : Props) => {
-  return (
+export const NameEditComponent = (props : Props) => 
     <>
       <label>Update name:</label>
       <input value={props.userName} onChange={props.onChange}/>
     </>
-  );
-}

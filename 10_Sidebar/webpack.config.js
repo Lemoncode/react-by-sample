@@ -1,22 +1,21 @@
-let path = require('path');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
-let webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var webpack = require('webpack');
+var path = require('path');
 
-let basePath = __dirname;
+var basePath = __dirname;
 
 module.exports = {
   context: path.join(basePath, "src"),
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.css']
   },
-  entry: [
-    './main.tsx',
-    '../node_modules/bootstrap/dist/css/bootstrap.css'
+  entry: ['@babel/polyfill',
+    './main.tsx'
   ],
   output: {
     path: path.join(basePath, 'dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   devtool: 'source-map',
   devServer: {
@@ -34,6 +33,7 @@ module.exports = {
         loader: 'awesome-typescript-loader',
         options: {
           useBabel: true,
+          "babelCore": "@babel/core", // needed for Babel v7
         },
       },
       {
@@ -46,16 +46,16 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-                camelCase: true,
-              },
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+              camelCase: true,
             },
-          ]
+          },
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
