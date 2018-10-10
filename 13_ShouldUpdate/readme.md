@@ -33,7 +33,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 npm install
 ```
 
-- Remove _
+- Let's make a cleanup on _app.tsx_
 
 _./src/app.tsx_
 
@@ -99,6 +99,8 @@ _./src/content/site.css_
 }
 ```
 
+- You can copy this images into the _content_ folde, url where you can download them: https://github.com/Lemoncode/react-by-sample/tree/master/13%20ShouldUpdate/src/content
+
 - In _webpack.config.js_ let's add the new _css_ file as entry point:
 
 _webpack.config.js_
@@ -109,18 +111,6 @@ entry: [
   '../node_modules/bootstrap/dist/css/bootstrap.css',
 +  './content/site.css'
 ],
-```
-
-- We need to add as well a loader to handle images in _webpackconfig.js_ (add it if it is not defined on webpack config yet):
-
-_webpack.config.js_
-
-```javascript
-{
-  test: /\.(png|jpg)$/,
-  exclude: /node_modules/,
-  loader: 'url-loader?limit=10000'
-},
 ```
 
 - Let's create a simple _faceComponent_ under _src_, we will start by just adding
@@ -176,6 +166,8 @@ npm start
 - Now it's time to link the property with the proper faces, let's create a style function
 for that in _face.tsx_
 
+_./src/face.tsx_
+
 ```diff
 import * as React from 'react';
 
@@ -211,37 +203,40 @@ export const FaceComponent = (props : {level : number}) => {
 - In _app.tsx_ let's add a state variable to hold the current satisfaction level plus
 an slider to let the user update it.
 
-```jsx
+_./src/app.tsx_
+
+```diff
 import * as React from 'react';
 import {FaceComponent} from './face'
 
 interface Props {
 }
 
-interface State {
-  satisfactionLevel : number;
-}
++ interface State {
++  satisfactionLevel : number;
++ }
 
 export class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.state = {satisfactionLevel: 300};
++    this.state = {satisfactionLevel: 300};
   }
 
   public render() {
     return (
       <div>
-        <input type="range"
-                min="0"
-                max="500"
-                value={this.state.satisfactionLevel}
-                onChange={(event : any) => this.setState({satisfactionLevel :event.target.value} as State)}
-        />
-        <br/>
-        <span>{this.state.satisfactionLevel}</span>
-        <br/>
-        <FaceComponent level={this.state.satisfactionLevel}/>
++        <input type="range"
++                min="0"
++                max="500"
++                value={this.state.satisfactionLevel}
++                onChange={(event : any) => this.setState({satisfactionLevel :event.target.value} as State)}
++        />
++        <br/>
++        <span>{this.state.satisfactionLevel}</span>
++        <br/>
+-        <FaceComponent level={100}/>
++        <FaceComponent level={this.state.satisfactionLevel}/>
       </div>
     );
   }
@@ -258,59 +253,37 @@ export class App extends React.Component<Props, State> {
 the level just changes the satisfaction range, we need to move the component to
 state component:
 
-```jsx
+_./src/face.tsx_
+
+```diff
 import * as React from 'react';
 
-interface Props {
-  level : number;
-}
++ interface Props {
++   level : number;
++ }
 
-export class FaceComponent extends React.Component<Props, {}> {
++  const isRangeChange = (oldValue : number, newValue : number) => {
++    const oldValueClass = setSatisfactionClass(oldValue); 
++    const newValueClass = setSatisfactionClass(newValue);
++
++    return oldValueClass !== newValueClass;     
++  }
 
-  setSatisfactionClass(level : number) {
-    if(level < 100) {
-          return "very-dissatisfied"
-    }
++ export class FaceComponent extends React.Component<Props, {}> {
+- export const FaceComponent = (props: { level: number }) => {
 
-    if(level < 200) {
-          return "somewhat-dissatisfied"
-    }
++  shouldComponentUpdate(nextProps : Props, nextState)
++  {
++    return isRangeChange(this.props.level, nextProps.level);
++  }
 
-    if(level < 300) {
-          return "neither"
-    }
 
-    if(level < 400) {
-          return "somewhat-satisfied"
-    }
-
-    return "very-satisfied"
-  }
-
-  shouldComponentUpdate(nextProps : Props, nextState)
-  {
-    const rangeChange = [100, 200, 300, 400];
-
-    let index =  0;
-    let isRangeChange = false;
-
-    while(!isRangeChange && index < rangeChange.length) {
-      isRangeChange = (this.props.level < rangeChange[index] && nextProps.level >= rangeChange[index])
-                    ||
-                      (this.props.level > rangeChange[index] && nextProps.level <= rangeChange[index])
-      ;
-
-      index++;
-    }
-
-      return isRangeChange;
-  }
-
-  render() {
++  render() {
     return (
-      <div className={this.setSatisfactionClass(this.props.level)}/>
+-      <div className={this.setSatisfactionClass(props.level)}/>
+       <div className={this.setSatisfactionClass(this.props.level)}/>
     );
-  }
++  }
 }
 ```
 
