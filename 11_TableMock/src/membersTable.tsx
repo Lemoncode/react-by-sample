@@ -21,7 +21,6 @@ export class MembersTableComponent extends React.Component<Props, State> {
         this.state = {members: []};
   }
 
-
    // Standard react lifecycle function:
    // https://facebook.github.io/react/docs/component-specs.html
    public componentDidMount() {

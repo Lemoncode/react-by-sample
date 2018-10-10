@@ -1,5 +1,5 @@
 import {MemberEntity} from '../model/member';
-import MembersMockData from './memberMockData';
+import MembersMockData from '../model/memberMockData';
 
 // Sync mock data API, inspired from:
 // https://gist.github.com/coryhouse/fd6232f95f9d601158e4

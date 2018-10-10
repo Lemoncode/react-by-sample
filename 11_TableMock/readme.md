@@ -149,7 +149,6 @@ export class MembersTableComponent extends React.Component<Props, State> {
         this.state = {members: []};
   }
 
-
    // Standard react lifecycle function:
    // https://facebook.github.io/react/docs/component-specs.html
    public componentDidMount() {
@@ -187,7 +186,6 @@ export class MembersTableComponent extends React.Component<Props, State> {
        );
   }
 }
-
 ```
 
 - Let's update an app.tsx
@@ -207,6 +205,9 @@ export class App extends React.Component<{}, State> {
       return (
        <>
 +        <MembersTableComponent/>
+-        <HelloComponent userName={this.state.userName} />
+-        <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState} />
+
        </>
       );
  }
