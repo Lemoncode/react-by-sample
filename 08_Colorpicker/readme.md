@@ -215,7 +215,7 @@ _./src/colopicker.tsx_
 +               onChange={(event : any) => props.onColorUpdated(
 +                 {
 +                   red:  props.color.red,
-+                   green: event.target.value,
++                   green: +event.target.value,
 +                   blue: props.color.blue
 +                 }
 +               )}
@@ -230,7 +230,7 @@ _./src/colopicker.tsx_
 +                 {
 +                   red:   props.color.red,
 +                   green: props.color.green,
-+                   blue: event.target.value
++                   blue: +event.target.value
 +                 }
 +               )}
 +        />
@@ -254,7 +254,7 @@ _./src/colordisplayer.tsx_
   }
 
   export const ColorDisplayer = (props : Props) => {
-    const divStyle = React.CSSProperties { // React.CSSProperties gives editing-time visual feedback on the CSS you are typing.
+    const divStyle : React.CSSProperties  = { // React.CSSProperties gives editing-time visual feedback on the CSS you are typing.
       width: '11rem',
       height: '7rem',
       backgroundColor: `rgb(${props.color.red},${props.color.green}, ${props.color.blue})`
@@ -294,7 +294,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div>
 +        <ColorDisplayer color={this.state.color} />      
-+        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
+        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
         <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
       </div>
     );
