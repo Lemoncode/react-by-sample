@@ -8,7 +8,6 @@ interface Props {
     onNameUpdateRequest : () => void;  
 }
 
-  
 export const NameEditComponent = (props : Props) =>
   <div>
       <label>Update Name:</label>
