@@ -3,7 +3,6 @@ import {Fragment} from 'react';
 
 
 interface Props {
-    disable: boolean;
     userName : string;
     editingUserName : string;
     onEditingNameUpdated : (newEditingName : string) => void;
@@ -16,9 +15,8 @@ export const NameEditComponent = (props : Props) =>
       <input value={props.editingUserName}
         onChange={(e) : void => props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
 
-      <button 
-          className="btn btn-default" 
-          onClick={props.onNameUpdateRequest}
-          disabled={props.disable}
-        >Change</button>
+      <button className="btn btn-default" 
+              onClick={props.onNameUpdateRequest}
+              disabled={props.editingUserName === '' || props.userName === props.editingUserName}
+      >Change</button>
   </div>

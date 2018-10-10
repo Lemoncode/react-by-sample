@@ -19,11 +19,11 @@ export class App extends React.Component<Props, State> {
   }
 
   setUsernameState = () => {
-    this.setState({ userName: this.state.editingUserName } as State);
+    this.setState({ userName: this.state.editingUserName });
   }
 
   updateEditingName = (editingName: string): void => {
-    this.setState({ editingUserName: editingName } as State);
+    this.setState({ editingUserName: editingName });
   }
 
 
@@ -32,7 +32,6 @@ export class App extends React.Component<Props, State> {
       <>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent
-          disable={!this.state.userName || this.state.userName === this.state.editingUserName}
           userName={this.state.userName}
           editingUserName={this.state.editingUserName}
           onEditingNameUpdated={this.updateEditingName}
