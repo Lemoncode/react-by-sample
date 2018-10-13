@@ -807,7 +807,45 @@ class LoginPageInner extends React.Component<Props, State> {
 export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
-Watchout new typgraphy and snackbar: https://github.com/mui-org/material-ui/issues/13144
+- We are getting some warnings because of Typography new version, let's add a Theme to fix that.
+
+Watchout new typgoraphy and snackbar: https://github.com/mui-org/material-ui/issues/13144
+
+_./src/main.tsx_
+
+```diff
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
++ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import {LoginPage} from './pages/login';
+import {PageB} from './pages/b';
+
++ const theme = createMuiTheme({
++  typography: {
++    useNextVariants: true,
++  },
++ });
+
+
+ReactDOM.render(
++  <MuiThemeProvider theme={theme}>
+    <HashRouter>
+      <Switch>
+        <Route exact={true} path="/" component={LoginPage} />
+        <Route path="/pageB" component={PageB} />
+      </Switch>
+    </HashRouter>
++    </MuiThemeProvider>
+  ,document.getElementById('root')
+);
+```
+
+- We are getting some warning on the snack bar, you can find a fix here:
+
+https://github.com/mui-org/material-ui/issues/13144
+
+https://codesandbox.io/s/zz6wnqklzm
 
 > And form validation? There are several libraries available, one that we had created in lemoncode
 is lc-form-validation we will create a sample including this lib to validate the login form
