@@ -1,1 +1,0 @@
-export {PageB} from './pageB'
