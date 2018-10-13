@@ -5,7 +5,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import { LoginForm } from './loginForm';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { History } from 'history';
 import { LoginEntity, createEmptyLogin } from '../../model/login';
 import { isValidLogin } from '../../api/login';
 import { NotificationComponent } from '../../common'
@@ -57,8 +56,7 @@ class LoginPageInner extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, onLogin } = this.props;
     return (
       <>
         <Card className={classes.card}>

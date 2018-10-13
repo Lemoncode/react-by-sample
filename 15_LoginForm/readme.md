@@ -146,7 +146,7 @@ export const PageB = () => {
       <h2>Hello from page B</h2>
       <br />
 -      <Link to="/">Navigate to Page A</Link>      
-+      <Link to="/login">Navigate to Login</Link>
++      <Link to="/">Navigate to Login</Link>
     </div>
   )
 }
@@ -158,6 +158,26 @@ export const PageB = () => {
 npm start
 ```
 
+- Time to remove 'Sample app' text from the main _html_.
+
+_./src/index.html_
+
+```diff
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="well">
+-      <h1>Sample app</h1>
+      <div id="root"></div>
+    </div>
+  </body>
+</html>
+```
+
 - Let's build a proper _login_ layout, _loginPage.tsx_, we will base it in
 the [following layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3)
 but we will break it down into subcomponents.
@@ -165,15 +185,18 @@ but we will break it down into subcomponents.
 - To build a nice layout, we will install _@material-ui/core_
 
 ```bash
-npm install @material-ui/core --save-dev
+npm install @material-ui/core @material-ui/icons --save-dev
 ```
 
 - Now we could create a login form it could look somethin like:
 
+_./src/pages/loginPage.tsx_
+
 ```javascript
 import * as React from "react"
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -181,14 +204,18 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { FormHelperText } from "@material-ui/core";
 
-const styles = theme => ({
+// https://material-ui.com/guides/typescript/
+const styles = theme => createStyles({
   card: {
-    maxWidth: 400, 
-    margin: '0 auto',   
+    maxWidth: 400,
+    margin: '0 auto',
   },
 });
 
-const LoginPageInner = (props) => {
+interface Props extends RouteComponentProps, WithStyles<typeof styles> {
+}
+
+const LoginPageInner = (props : Props) => {
   const { classes } = props;
 
   return (
@@ -214,7 +241,7 @@ const LoginPageInner = (props) => {
   )
 }
 
-export const LoginPage = withStyles(styles)(LoginPageInner);
+export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
 - This can be ok, but if we take a deeper look to this component, we could break down into two, one is the
@@ -238,11 +265,8 @@ _./src/pages/login/loginForm.tsx_
 import * as React from "react"
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { FormHelperText } from "@material-ui/core";
 
 export const LoginForm = (props) => {
-  const { classes } = props;
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <TextField
@@ -266,35 +290,58 @@ export const LoginForm = (props) => {
 
 _./src/pages/loginPage.tsx_
 
-```javascript
+```diff
 import * as React from "react"
-import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import {LoginForm} from './loginForm';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { FormHelperText } from "@material-ui/core";
++ import { LoginForm } from './loginForm';
 
-const styles = theme => ({
+// https://material-ui.com/guides/typescript/
+const styles = theme => createStyles({
   card: {
-    maxWidth: 400, 
-    margin: '0 auto',   
+    maxWidth: 400,
+    margin: '0 auto',
   },
 });
 
-const LoginPageInner = (props) => {
+interface Props extends RouteComponentProps, WithStyles<typeof styles> {
+}
+
+const LoginPageInner = (props : Props) => {
   const { classes } = props;
 
   return (
     <Card className={classes.card}>
       <CardHeader title="Login" />
       <CardContent>
-        <LoginForm/>
++        <LoginForm/>
+-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+-          <TextField
+-            label="Name"
+-            margin="normal"
+-          />
+-          <TextField
+-            label="Password"
+-            type="password"
+-            margin="normal"
+-          />
+-          <Button variant="contained" color="primary">
+-            Login
+-          </Button>
+-        </div>
       </CardContent>
     </Card>
   )
 }
 
-export const LoginPage = withStyles(styles)(LoginPageInner);
+export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
 - Let's give a try and check how is it looking.
@@ -307,28 +354,27 @@ npm start
 
 - First we will expose a method to do that in the loginPage.
 
-```diff
-+ import { withRouter } from 'react-router-dom';
-+ import {History} from 'history';
+_./src/pages/login/loginPage.tsx_
 
+```diff
 // ...
 
-+ const styles = theme => ({
-+  card: {
-+    maxWidth: 400,
-+    margin: '0 auto',
-+  },
-+ });
+// https://material-ui.com/guides/typescript/
+const styles = theme => createStyles({
+  card: {
+    maxWidth: 400,
+    margin: '0 auto',
+  },
+});
 
-+ interface Props {
-+   history: History;
-+ }
+interface Props extends RouteComponentProps, WithStyles<typeof styles> {
+}
 
 const LoginPageInner = (props) => {
   const { classes } = props;
 
 +   const onLogin = () => {
-+       history.push('/pageB');      
++      props.history.push('/pageB');  
 +   }
 
   return (
@@ -343,7 +389,7 @@ const LoginPageInner = (props) => {
 }
 
 - export const LoginPage = withStyles(styles)(LoginPageInner);
-+ export const LoginPage = withRouter(withStyles(styles)(LoginPageInner));
++ export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
 - Let's add the navigation on button clicked (later on we will check for user and pwd) _form.tsx_.
@@ -353,15 +399,14 @@ _./src/pages/login/form.tsx_
 
 ```diff
 import * as React from "react"
-+ import { withRouter } from 'react-router-dom';
 
-+ interface Props {  
+interface Props {
 +  onLogin : () => void;
-+}
+}
 
 +export const LoginForm = (props : Props) => {
 - export const LoginForm = () => {  
-+  const { onLogin } = props;
++   const { onLogin } = this.props;
   
   return (
     <div className="panel-body">
@@ -375,7 +420,10 @@ import * as React from "react"
           </div>
 -          <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"
 -          />
-+          <button  type="button" className="btn btn-lg btn-success btn-block" onClick={OnLogin}>Login</button>                        
+-          <Button variant="contained" color="primary">
++          <Button variant="contained" color="primary" onClick={onLogin}>
+            Login
+          </Button>
         </fieldset>
       </form>
     </div>
@@ -445,36 +493,6 @@ export const isValidLogin = (loginInfo : LoginEntity) : boolean =>
 
 ```
 
-- Now we can integrate it into _form.tsx_ login button, but.. it's  time to think
-about how do we want to structure this, Do we want _form.tsx_ to hold the state
-of current user logged in and current password, plus button handler? This should
-be responsibility of the container control (Let's create a new component loginPageContainer.tsx). So let's the define as state of the _loginPageContainer_ this information plus function and pass it down to
-the _loginPage_ and _form_ component. Let's start with _loginPageContainer_
-
-
-- And update our main.tsx
-
-_./src/main.tsx_
-
-```diff
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { HashRouter, Switch, Route } from 'react-router-dom';
-- import { LoginPage } from './pages/login';
-+ import { LoginPageContainer } from './pages/login';
-import { PageB } from './pages/b';
-
-ReactDOM.render(
-  <HashRouter>
-    <Switch>
-      <Route exact={true} path="/" component={LoginPageContainer} />
-      <Route path="/pageB" component={PageB} />
-    </Switch>
-  </HashRouter>
-  , document.getElementById('root')
-);
-```
-
 - Let's add the _api_ integration, plus navigation on login succeeded:
 
 - First let's create a login state and add the api integration.
@@ -493,10 +511,6 @@ import {History} from 'history';
 + import { LoginEntity, createEmptyLogin } from '../../model/login';
 + import { isValidLogin } from '../../api/login';
 
-+ interface State {
-+   loginInfo: LoginEntity;
-+ }
-
 const styles = theme => ({
   card: {
     maxWidth: 400,
@@ -504,12 +518,15 @@ const styles = theme => ({
   },
 });
 
-interface Props {
-  history: History;
++ interface State {
++   loginInfo: LoginEntity;
++ }
+
+interface Props extends RouteComponentProps, WithStyles<typeof styles> {
 }
 
 - const LoginPageInner = (props) => {
-+   export const LoginPageContainer = withRouter(class LoginPageContainerInner extends React.Component<Props, State> {
++   class LoginPageInner extends React.Component<Props, State> {
 -  const { classes, history } = props;
 
 +  constructor(props) {
@@ -527,20 +544,21 @@ interface Props {
   }
 
 +  public render() {
-+  const { classes } = this.props;
++   const { classes } = this.props;
 
   return (
     <Card className={classes.card}>
       <CardHeader title="Login" />
       <CardContent>
-        <LoginForm onLogin={onLogin} />
+-        <LoginForm onLogin={onLogin} />      
++        <LoginForm onLogin={this.onLogin} />
       </CardContent>
     </Card>
   )
 +  }
 }
 
-export const LoginPage = withStyles(styles)(withRouter(LoginPageInner));
+export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
 - Now let's read the data from the textfields components (user and password).
@@ -573,6 +591,7 @@ class LoginPageInner extends React.Component<Props, State> {
           <LoginForm 
             onLogin={this.onLogin} 
 +            onUpdateField={this.onUpdateLoginField}
++            loginInfo={this.state.loginInfo}
           />
         </CardContent>
       </Card>
@@ -592,16 +611,17 @@ import Button from "@material-ui/core/Button";
 
 interface Props {  
   onLogin : () => void;
-+  updateField: (string, any) => void;
++  onUpdateField: (string, any) => void;
 +  loginInfo : LoginEntity;
 }
 
 export const LoginForm = (props : Props) => {
 -  const { onLogin } = props;
-+  const { onLogin, updateField, loginInfo } = props;
++  const { onLogin, onUpdateField, loginInfo } = props;
 
++  // TODO: Enhacement move this outside the stateless component discuss why is a good idea
 +  const onTexFieldChange = (fieldId) => (e) => {
-+    updateField(fieldId, e.target.value);
++    onUpdateField(fieldId, e.target.value);
 +  }
 
   return (
@@ -610,12 +630,14 @@ export const LoginForm = (props : Props) => {
         label="Name"
         margin="normal"
 +        value={loginInfo.login}
++        onChange={onTexFieldChange('login')}
       />
       <TextField
         label="Password"
         type="password"
         margin="normal"
 +        value={loginInfo.password}
++        onChange={onTexFieldChange('password')}
       />
       <Button variant="contained" color="primary" onClick={onLogin}>
         Login
@@ -628,6 +650,8 @@ export const LoginForm = (props : Props) => {
 - Let's display a notification when the login validation fails.
 
 - First we will create a simple notification component, base on _react material ui_ _snackbar_
+
+_./src/common/notification.tsx_
 
 ```javascript
 import * as React from "react"
@@ -740,6 +764,7 @@ class LoginPageInner extends React.Component<Props, State> {
   onLogin = () => {
     if (isValidLogin(this.state.loginInfo)) {
       this.props.history.push('/pageB');
+-    }
 +    } else {
 +      this.setState({showLoginFailedMsg: true});
 +    }
@@ -758,7 +783,7 @@ class LoginPageInner extends React.Component<Props, State> {
     const { classes } = this.props;
 
     return (
-      <>
++      <>
         <Card className={classes.card}>
           <CardHeader title="Login" />
           <CardContent>
@@ -773,7 +798,7 @@ class LoginPageInner extends React.Component<Props, State> {
 +          show={this.state.showLoginFailedMsg}
 +          onClose={() => this.setState({showLoginFailedMsg: false})}
 +        />
-      </>
++      </>
     )
 
   }
