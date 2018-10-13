@@ -782,6 +782,8 @@ class LoginPageInner extends React.Component<Props, State> {
 export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
+Watchout new typgraphy and snackbar: https://github.com/mui-org/material-ui/issues/13144
+
 > And form validation? There are several libraries available, one that we had created in lemoncode
 is lc-form-validation we will create a sample including this lib to validate the login form
 (required fields)

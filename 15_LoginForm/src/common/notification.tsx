@@ -19,18 +19,19 @@ const styles = theme => ({
 });
 
 const NotificationComponentInner = (props: Props) => {
-  const {classes, message, show, onClose } = props;
+  const { classes, message, show, onClose } = props;
 
   return (
     <Snackbar
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'left',
-      }}    
+      }}
       open={show}
       autoHideDuration={3000}
       onClose={onClose}
-      ContentProps={{
+      ContentProps={        
+        {         
         'aria-describedby': 'message-id',
       }}
       message={<span id="message-id">{message}</span>}
@@ -45,7 +46,7 @@ const NotificationComponentInner = (props: Props) => {
           <CloseIcon />
         </IconButton>,
       ]}
-      
+
     />
   )
 }
