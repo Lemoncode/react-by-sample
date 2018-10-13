@@ -34,63 +34,63 @@ npm install lc-form-validation --save-dev
 - To avoid having too much repeated code let's move to common an input component, including it's
 label plus validation text.
 
-_./common/forms/input/input.tsx_
+_./common/forms/textFieldForm.tsx_
 
 ```tsx
 import * as React from "react";
+import TextField from "@material-ui/core/TextField";
 
 interface Props {
   name: string;
   label: string;
   onChange: any;
-  onBlur?: any;
-  placeholder?: string;
   value: string;
   error?: string;
   type? : string;
 }
 
 const defaultProps : Partial<Props> = {
-  type: 'text'
+  type: 'text', 
 }
 
-const buildWrapperClass = (error : string) : string => 
-  "form-group" + (
-      (error && error.length > 0) ? 
-        "has-error" : 
-        ""
-      );
+const onTextFieldChange = (fieldId : string, onChange: (fieldId, value) => void) => (e) => {
+  onChange(fieldId, e.target.value);
+}
 
+export const TextFieldForm : React.StatelessComponent<Props> = (props) => {
+  const {name, label, onChange, value, error, type} = props;
+  return (
+    <>
+        <TextField
+          label={label}
+          margin="normal"
+          value={value}
+          type={type}
+          onChange={onTextFieldChange(name, onChange)}
+        />
+        <Typography 
+          variant="caption" 
+          color="error"
+          gutterBottom>
+          {props.error}
+        </Typography>        
+    </>
+  )
+}
 
-export const Input : React.StatelessComponent<Props> = (props) => 
-      <div className={buildWrapperClass(props.error)}>
-        <label htmlFor={props.name}>{props.label}</label>
-        <div className="field">
-          <input type="text"
-            name={props.name}
-            className="form-control"
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={props.onChange}
-            onBlur={props.onBlur}
-          />
-          <div className="input">{props.error}</div>
-        </div>
-      </div>
-
-Input.defaultProps = defaultProps;
 ```
+
 
 - Now let's define a basic validation for the form, we want to ensure both fields are informed.
 
-_./src/pages/login/components_
+_./src/pages/login/loginValidations.ts_
 
 ```typescript
 import {
   createFormValidation, ValidationConstraints, Validators,
 } from 'lc-form-validation';
 
-const dataValidationConstraints: ValidationConstraints = {
+const loginFormValidationConstraints: ValidationConstraints = {
   fields: {
     login: [
       { validator: Validators.required },
@@ -101,7 +101,7 @@ const dataValidationConstraints: ValidationConstraints = {
   },
 };
 
-export const dataValidation = createFormValidation(dataValidationConstraints);
+export const loginFormValidation = createFormValidation(loginFormValidationConstraints);
 ```
 
 - Let's create now a class to hold the dataFormErrors.
@@ -115,51 +115,68 @@ export interface LoginFormErrors {
   login: FieldValidationResult;
   password: FieldValidationResult;
 }
+
+export const createDefaultLoginFormErrors = (): LoginFormErrors => ({
+  login: new FieldValidationResult(),
+  password: new FieldValidationResult(),
+});
 ```
 
 - Now let's go for the component side.
 
 - First let's add the dataFormErrors to the state of the component.
 
-_./src/pages/login/loginPageContainer.tsx_
+_./src/pages/login/loginPage.tsx_
 
 ```diff
 import { isValidLogin } from '../../api/login';
-+ import {LoginFormErrors} from './viewmodel.ts';
++ import {LoginFormErrors} from './viewmodel';
 
 interface State {
-  loginInfo: LoginEntity,
+  loginInfo: LoginEntity;
+  showLoginFailedMsg: boolean;
 +  loginFormErrors : LoginFormErrors;
 }
 ```
 
 - Now let's update the onUpdate callback to include the validation.
 
-_./src/pages/login/loginPageContainer.tsx_
+_./src/pages/login/loginPage.tsx_
 
 // Adding imports
 ```diff
 import { isValidLogin } from '../../api/login';
-+ import {dataValidation} from './validation'
++ import {LoginFormErrors, createDefaultLoginFormErrors} from './viewmodel';
++ import { loginFormValidation } from './loginValidations';
 ```
 
 _./src/pages/login/loginPageContainer.tsx_
 
 ```diff
+  constructor(props) {
+    super(props);
+
+    this.state = { loginInfo: createEmptyLogin(),
+                   showLoginFailedMsg : false,
++                   loginFormErrors: createDefaultLoginFormErrors(),
+    }
+  }
+
 +  // This could be simplified and made in one go
   updateLoginField = (name, value) => {
-+    dataValidation.validateField(this.state.loginInfo, name, value)
+    this.setState({loginInfo: {
+      ...this.state.loginInfo,
+      [name]: value,
+      }
+    });
+
++    loginFormValidation.validateField(this.state.loginInfo, name, value)
 +    .then((fieldValidationResult) => {
 
 +        this.setState({loginFormErrors: {
 +          ...this.state.loginFormErrors,
 +          [name]: fieldValidationResult,
 +        });
-
-        this.setState({loginInfo: {
-          ...this.state.loginInfo,
-          [name]: value,
-        });
 +   });
   }
 ```
@@ -172,18 +189,18 @@ _./src/loginPageContainer.tsx_
   public render() {
     return (
       <LoginPage
+        onLogin={this.onLogin}
+        onUpdateField={this.onUpdateLoginField}
         loginInfo={this.state.loginInfo}
-        updateField={this.updateLoginField}
-        doLogin={this.performLogin}
 +       loginFormErrors={this.state.loginFormErrors} 
       />
     )
   }
 ```
 
-- Now we need to define the property in the loginPage component.
+- Now we need to define the property in the loginForm component.
 
-_./src/loginPage.tsx_
+_./src/loginForm.tsx_
 
 ```diff
 import { LoginEntity } from "../../model/login";
@@ -197,66 +214,66 @@ interface Props {
 }
 ```
 
-- And let's define it in the form component.
-
-```diff
-import { LoginEntity } from "../../../model/login";
-+ import {LoginFormErrors} from '../viewmodel';
-+ import { Input } from '../../../common/forms/input/input';
-
-interface Props {
-  loginInfo: LoginEntity;
-  updateField: (string, any) => void;
-  doLogin: () => void;  
-+  loginFormErrors : LoginFormErrors;
-}
-```
 
 - Now let's update our components to match the new input component.
 
+_./src/common/pages/loginForm.tsx_
+
 ```diff
-export const Form = (props : Props) =>   
-    <form role="form">
-      <fieldset>
--        <div className="form-group">
--          <input 
--            className="form-control" 
--            placeholder="E-mail" 
--            name="login" 
--            type="text"
--            onChange={onChange(props)}
--            value={props.loginInfo.login}
--          />
-+        <Input   
-+          name="login"
-+          label="login"
-+          onChange={onChange(props)}
-+          placeholder="E-mail"
-+          value={props.loginInfo.login}
-+          error={props.loginFormErrors.login.errorMessage}
-+        />        
--        </div>
--        <div className="form-group">
--          <input className="form-control" 
--                placeholder="Password" 
--                name="password" 
--                type="password" 
--                onChange={onChange(props)}
--                value={props.loginInfo.password}
--                />
-+        <Input   
-+          name="password"
-+          label="password"
-+          onChange={onChange(props)}
-+          placeholder="password"
-+          value={props.loginInfo.password}
-+          error={props.loginFormErrors.password.errorMessage}
-+          type="password"
-+        />        
-        </div>
-        <button type="button" className="btn btn-lg btn-success btn-block" onClick={props.doLogin}>Login</button>   
-      </fieldset>
-    </form>  
+import { LoginEntity } from "../../model/login";
+import {LoginFormErrors} from './viewmodel';
++ import { TextFieldForm } from '../../common/forms/textFieldForm';
+```
+
+_./src/common/pages/loginForm.tsx_
+
+```diff
+export const LoginForm = (props: Props) => {
+-   const { onLogin, onUpdateField, loginInfo } = props;
++   const { onLogin, onUpdateField, loginInfo, loginFormErrors } = props;
+
+-  const onTexFieldChange = (fieldId) => (e) => {
+-    onUpdateField(fieldId, e.target.value);
+-  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+-      <TextField
+-        label="Name"
+-        margin="normal"
+-        value={loginInfo.login}
+-        onChange={onTexFieldChange('login')}
+-      />
++      <TextFieldForm
++        label="Name"
++        name="login"
++        value={loginInfo.login}
++        onChange={onUpdateField}
++        error={loginFormErrors.login.errorMessage}
++      />
+
+-      <TextField
+-        label="Password"
+-        type="password"
+-        margin="normal"
+-        value={loginInfo.password}
+-        onChange={onTexFieldChange('password')}
+-      />
++      <TextFieldForm
++        label="Password"
++        name="password"
++        value={loginInfo.password}
++        onChange={onUpdateField}
++        error={loginFormErrors.password.errorMessage}
++      />
+
+
+      <Button variant="contained" color="primary" onClick={onLogin}>
+        Login
+      </Button>
+    </div>
+  )
+}
 ```
 
 - Let's give a try.
@@ -271,12 +288,14 @@ the form all the fields are valid.
 _./src/pages/login/loginPageContainer.tsx_
 
 ```diff
-  performLogin = () => {
-+    dataValidation.validateForm(this.state.loginInfo)
-+      .then((FormValidationResult) => {
-+          if(FormValidationResult.succeeded) {
+  onLogin = () => {
++    loginFormValidation.validateForm(this.state.loginInfo)
++      .then((formValidationResult) => {
++          if(formValidationResult.succeeded) {
             if (isValidLogin(this.state.loginInfo)) {
               this.props.history.push('/pageB');
+            } else {
+              this.setState({ showLoginFailedMsg: true });
             }      
 +          } else {
 +            alert('error, review the fields');
@@ -285,4 +304,6 @@ _./src/pages/login/loginPageContainer.tsx_
   }
 ```
 
-> Excercise add property styling using CSS Modules nad proper react alert.
+// TODO: mapFormValidationResultToFieldValidationErrors
+
+> Excercise create a generic info snack bar and remove alert.

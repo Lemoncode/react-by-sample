@@ -5,7 +5,7 @@ export interface LoginFormErrors {
   password: FieldValidationResult;
 }
 
-export const createEmptyDataFormErrors = (): LoginFormErrors => ({
+export const createDefaultLoginFormErrors = (): LoginFormErrors => ({
   login: new FieldValidationResult(),
   password: new FieldValidationResult(),
 });

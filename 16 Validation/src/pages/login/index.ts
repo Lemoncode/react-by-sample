@@ -1,1 +1,1 @@
-export {LoginPageContainer} from './loginPageContainer';
+export {LoginPage} from './loginPage';

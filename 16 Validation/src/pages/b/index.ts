@@ -1,1 +1,1 @@
-export {PageB} from './pageB'
+export {PageB} from './pageB';
