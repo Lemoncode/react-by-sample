@@ -1,5 +1,5 @@
 import * as React from "react"
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,12 +10,15 @@ import { LoginEntity, createEmptyLogin } from '../../model/login';
 import { isValidLogin } from '../../api/login';
 import { NotificationComponent } from '../../common'
 
-const styles = theme => ({
+// https://material-ui.com/guides/typescript/
+const styles = theme => createStyles({
   card: {
     maxWidth: 400,
     margin: '0 auto',
   },
 });
+
+
 
 interface State {
   loginInfo: LoginEntity;
@@ -23,8 +26,7 @@ interface State {
 }
 
 
-interface Props extends RouteComponentProps {
-  classes?: any;
+interface Props extends RouteComponentProps, WithStyles<typeof styles> {
 }
 
 class LoginPageInner extends React.Component<Props, State> {

@@ -3,16 +3,15 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { withStyles } from "@material-ui/core";
+import { withStyles, createStyles, WithStyles } from '@material-ui/core/styles';
 
-interface Props {
-  classes?: any;
+interface Props extends WithStyles<typeof styles> {
   message: string;
   show: boolean;
   onClose: () => void;
 }
 
-const styles = theme => ({
+const styles = theme => createStyles({
   close: {
     padding: theme.spacing.unit / 2,
   },
