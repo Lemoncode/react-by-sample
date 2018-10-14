@@ -264,5 +264,6 @@ _./src/pages/login/loginPage.tsx_
 npm start
 ```
 
-> Bonus check react-recompose
+> If have to nest many render props, you can end up having a heavy nested
+component, in that case checkout react-composer micro library (https://github.com/jamesplease/react-composer)
 
