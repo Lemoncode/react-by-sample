@@ -67,5 +67,5 @@ _./src/pages/login/loginPage.tsx_
 
 > As an excercise create a Page C and make use of the Hoc.
 
-> Nesting HOC's can make code difficult to read, we can use react-recompose
-to alliviate this.
+> Nesting HOC's can make code difficult to read, we can use lodash flow
+to alleviate this.
