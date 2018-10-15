@@ -81,11 +81,24 @@ Enhance rendering performance hooking to 'shouldComponentUpdate'.
 
 ### [14 React Router](https://github.com/Lemoncode/react-by-sample/tree/master/14%20ReactRouter)
 
-Sample of navigation.
+React Router navigation example.
 
 ### [15 Login Form](https://github.com/Lemoncode/react-by-sample/tree/master/15%20LoginForm)
 
 Basic implementation of a login page.
+
+### [16 Validation](https://github.com/Lemoncode/react-by-sample/tree/master/16%20Validation)
+
+React Form validation, using lc-form-validation library
+
+### [17 Context](https://github.com/Lemoncode/react-by-sample/tree/master/17%20Context)
+
+How to use React 16 context api.
+
+### [18 HOC](https://github.com/Lemoncode/react-by-sample/tree/master/17%20Context)
+
+Hig Order component sample..
+
 
 # About Lemoncode
 
