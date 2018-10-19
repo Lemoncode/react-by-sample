@@ -93,7 +93,7 @@ _[./tsconfig.json](./tsconfig.json)_
 }
 ```
 
- - Now, we need to transpile ES6 to ES5. Let's install **@babel/cli**,  **@babel/core**, **@babel/preset-env**, and **@babel/polyfill**.
+ - Now, we need to transpile ES6 to ES5. Let's install **@babel/cli**,  **@babel/core**, **@babel/preset-env** and **@babel/polyfill**.
 
 ```bash
  npm install @babel/cli @babel/core @babel/preset-env @babel/polyfill --save-dev
