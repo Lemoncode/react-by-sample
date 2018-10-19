@@ -199,12 +199,12 @@ _[./src/index.html](./src/index.html)_
 
 _[./webpack.config.js](./webpack.config.js)_
 ```javascript
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
-let webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var webpack = require('webpack');
 var path = require('path');
 
-let basePath = __dirname;
+var basePath = __dirname;
 
 module.exports = {
   context: path.join(basePath, "src"),
