@@ -3,7 +3,7 @@
 En este ejemplo, crearemos nuestro primer componente de react y lo conectaremos con el
 DOM a través de react-dom.
 
-Tomaremos de ejemplo sample _00 Boilerplate_.
+Tomaremos de punto de entrada _00 Boilerplate_.
 
 Resumen de los pasos:
 
