@@ -3,7 +3,7 @@
 En este ejemplo, crearemos nuestro primer componente de react y lo conectaremos con el
 DOM a través de react-dom.
 
-Tomaremos una muestra de punto de inicio _00 Boilerplate_.
+Tomaremos de ejemplo sample _00 Boilerplate_.
 
 Resumen de los pasos:
 
@@ -15,15 +15,15 @@ Resumen de los pasos:
 
 ## Requisitos previos
 
-Instalar [Node.js y npm](https://nodejs.org/en/) (v8.6.0 o más reciente) si aún no está instalando en tu máquina.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v8.6.0 o más reciente) si aún no está instalado en tu máquina.
 
-> Verifica que esté ejecutando al menos node v8.x.x y npm 5.x.x ejecutando `node -v` y` npm -v` en una ventana de terminal / consola. Las versiones anteriores pueden producir errores.
+> Verifica que esté ejecutando al menos node v8.x.x y npm 5.x.x ejecutando `node -v` y `npm -v` en una ventana de terminal / consola. Las versiones anteriores pueden producir errores.
 
 ## Pasos para construirlo
 
 - Copia el contenido de la carpeta `00 Boilerplate` a una carpeta vacía para este ejemplo.
 
-- Instale los paquetes npm descritos en [./package.json](./package.json) y verifica que funcionan:
+- Instala los paquetes npm descritos en [./package.json](./package.json) y verifica que funcionan:
 
 ```bash
 npm install
