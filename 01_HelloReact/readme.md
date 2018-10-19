@@ -104,4 +104,4 @@ _[./webpack.config.js](./webpack.config.js)_
 npm start
 ```
 
-- Then, load [http://localhost:8080/](http://localhost:8080/) in a browser to see the output.
+- Then, load [http://localhost:8080/](http://localhost:8080/) in a browser to see the result.
