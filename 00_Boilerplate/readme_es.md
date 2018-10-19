@@ -32,7 +32,7 @@ Instalar [Node.js y npm](https://nodejs.org/en/) (v8.9.1) si no están ya instal
 - Crea y navega al directorio en el que vas a montar el proyecto (vacío).
 
 - Ejecuta `npm init`. Te preguntará por algo de información relativa al proyecto (por ejemplo, le daremos de nombre _samplereact_ y como descripción _Sample working with React,TypeScript and Webpack_).
-Una vez cumplimentes la información se generará un fichero **package.json**.
+Una vez cumplimentes la información se generará un fichero **[./package.json]package.json**.
 
  ```bash
  npm init
@@ -107,7 +107,7 @@ _[./tsconfig.json](./tsconfig.json)_
 npm install babel-loader --save-dev
 ```
 
- - Babel necesita ser configurado para funcionar. Para ello creamos el archivo **[./.babelrc](./.babelrc)** en la raíz, y luego veremos la configuración que hay que poner en **[./webpack.config.js](./webpack.config.js)** para usar Babel. En este ejemplo, vamos a usar esta configuración de .babelrc: 
+ - Babel necesita ser configurado para funcionar. Para ello creamos el archivo **[./.babelrc](./.babelrc)** en la raíz. Luego veremos la configuración que hay que poner en **[./webpack.config.js](./webpack.config.js)** para usar Babel. En este ejemplo, vamos a usar esta configuración de .babelrc: 
 
 _[./.babelrc](./.babelrc)_
  ```json

@@ -30,7 +30,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v8.9.1) if they are not alrea
 
 - Create and navigate to the folder where you are going to create the empty project.
 
-- Execute `npm init`. You are prompted to answer some questions about the project (e.g. set name to _samplereact_ and description to _Sample working with React,TypeScript and Webpack_).
+- Execute `npm init`. You are prompted to answer some questions about the project (e.g. set name to _samplereact_ and description to _Sample working with React, TypeScript and Webpack_).
 Once you have successfully answered them, a **[./package.json](./package.json)** file is generated.
 
  ```bash
