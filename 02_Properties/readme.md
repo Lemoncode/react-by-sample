@@ -66,10 +66,10 @@ import * as React from 'react';
 ```diff
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
-  import {HelloComponent} from './hello';
+  import { HelloComponent } from './hello';
 
   ReactDOM.render(
--    <HelloComponent/>,
+-    <HelloComponent />,
 +    <HelloComponent userName="John" />,
     document.getElementById('root')
   );
