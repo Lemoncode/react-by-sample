@@ -11,7 +11,7 @@ Tomaremos como punto de entrada el ejemplo _02 Properties_:
 - Crear un componente _App_ que contendrá el estado. Este estado contendrá el username actual (con valor por defecto "defaultUserName").
 Este componente _App_ renderizará el component _Hello_. Primero nosotros crearemos un _App_ componente simple sin estado.
 - Actualizar el fichero _main.tsx_ para incluir nuestro componente _App_.
-- Cambair el componente _App_ a un componente clase con estado donde contendremos el estado _userName_.
+- Cambiar el componente _App_ a un componente clase con estado donde contendremos el estado _userName_.
 - Crear un componente _NameEdit_ para cambiar el username. Esto cambiara el estado de _App_ usando una función de _App_.
 - Verificar que todo funciona correctamente.
 
@@ -20,7 +20,7 @@ Este componente _App_ renderizará el component _Hello_. Primero nosotros creare
 Instala [Node.js y npm](https://nodejs.org)
 si no lo tenías aún instalado en tu maquina.
 
-> Verifica que estás corriendo la que tienes instalado al menos las versiones de node v6.x.x y npm 3.x.x, ejecutando en una ventana de terminal/consola `node -v` y `npm -v`. Las versiones anteriores pueden producir errores.
+> Verifica que tienes instalado al menos las versiones de node v6.x.x y npm 3.x.x, ejecutando en una ventana de terminal/consola `node -v` y `npm -v`. Las versiones anteriores pueden producir errores.
 
 ## Pasos para construirlo
 
@@ -32,7 +32,7 @@ _./src/app.tsx_
 
 ```jsx
 import * as React from 'react';
-import {HelloComponent} from './hello';
+import { HelloComponent } from './hello';
 
 export const App = () => {
   return (
@@ -48,7 +48,7 @@ _./src/main.tsx_
 ```diff
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
-+ import {App} from './app';
++ import { App } from './app';
 
 - import { HelloComponent } from './hello';
 
@@ -116,28 +116,32 @@ interface Props {
 export const NameEditComponent = (props : Props) => 
     <>
       <label>Update name:</label>
-      <input value={props.userName} onChange={props.onChange}/>
+			<input value={props.userName}
+						 onChange={props.onChange}
+			/>
     </>
 ```
 
-Nota aclaratoria: ¿ Que es este framento o este <> ? Una manera de crear un componente que tiene múltiples elementos (no un único padre). Disponible desde React 16.2. Como una manera alternativa puedes escribir:
+Nota aclaratoria: ¿ Que es este framento <> ? Una manera de crear un componente que tiene múltiples elementos (no un único padre). Disponible desde React 16.2. Como una manera alternativa puedes escribir:
 
 ```jsx
   ...
   export const NameEditComponent = (props : Props) => 
     <React.Fragment>
       <label>Update name:</label>
-      <input value={props.userName} onChange={props.onChange}/>
+			<input value={props.userName} 
+						 onChange={props.onChange}
+			/>
     </React.Fragment>
 }
 ```
 
-- En el fichero _app.tsx_, vamos a añadir una función para remplazar el valor del estado de _userName_ con el nuevo.
+- En el fichero _app.tsx_, vamos a añadir una función para remplazar el valor del estado de _userName_ con el valor nuevo.
 
 ```diff
   import * as React from 'react';
   import {HelloComponent} from './hello';
-+ import {NameEditComponent} from './nameEdit';
++ import { NameEditComponent } from './nameEdit';
 
   interface Props {
   }
