@@ -34,7 +34,7 @@ _./src/app.tsx_
 
 ```jsx
 import * as React from 'react';
-import {HelloComponent} from './hello';
+import { HelloComponent } from './hello';
 
 export const App = () => {
   return (
@@ -50,7 +50,7 @@ _./src/main.tsx_
 ```diff
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
-+ import {App} from './app';
++ import { App } from './app';
 
 - import { HelloComponent } from './hello';
 
@@ -118,7 +118,9 @@ interface Props {
 export const NameEditComponent = (props : Props) => 
     <>
       <label>Update name:</label>
-      <input value={props.userName} onChange={props.onChange}/>
+      <input value={props.userName} 
+             onChange={props.onChange}
+      />
     </>
 ```
 
@@ -129,7 +131,9 @@ Side note: What is this Fragment or <> stuff? A way to create component that has
   export const NameEditComponent = (props : Props) => 
     <React.Fragment>
       <label>Update name:</label>
-      <input value={props.userName} onChange={props.onChange}/>
+      <input value={props.userName} 
+             onChange={props.onChange}
+      />
     </React.Fragment>
 }
 ```
@@ -139,7 +143,7 @@ Side note: What is this Fragment or <> stuff? A way to create component that has
 ```diff
   import * as React from 'react';
   import {HelloComponent} from './hello';
-+ import {NameEditComponent} from './nameEdit';
++ import { NameEditComponent } from './nameEdit';
 
   interface Props {
   }
