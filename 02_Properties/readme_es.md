@@ -1,6 +1,6 @@
 # 02 Propiedades
 
-En este ejemplo, presentaremos un concepto básico de React, el manejo de propiedades.
+En este ejemplo, introduciremos un concepto básico de React, el manejo de propiedades.
 
 Agregaremos una propiedad _username_ y la mostraremos en el componente _hello_.
 
@@ -9,12 +9,11 @@ Tomaremos la demo **01 Hello React** como punto de partida:
 ### Resumen de los pasos:
 
 - Componente sin estado (stateless) _hello_: crea una propiedad que contendrá el valor de _username_.
-
 - Vamos a informar desde nuestro control padre.
 
 ## Requisitos previos
 
-Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0) si aún no está instalado en tu equipo.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0) si aún no está instalado en tu equipo.
 
 > Verifica que tienes instalado al menos las versiones de node v6.x.x y npm 3.x.x, ejecutando en una ventana de terminal/consola `node -v` y `npm -v`. Las versiones anteriores pueden producir errores.
 
@@ -37,7 +36,7 @@ import * as React from 'react';
 + export const HelloComponent = (props: {userName : string}) => {
   return (
 -    <h2>Hello component !</h2>
-+    <h2>Hello user: {props.userName} !</h2>
++    <h2>Hello user: { props.userName } !</h2>
   );
 }
 ```
@@ -46,8 +45,7 @@ import * as React from 'react';
 ```diff
 import * as React from 'react';
 
-+ interface Props
-+ {
++ interface Props {
 +   username: string;
 + }
 
@@ -55,7 +53,7 @@ import * as React from 'react';
 + export const HelloComponent = (props: Props) => (
 -   return (
 -    <h2>Hello component !</h2> 
-+    <h2>Hello user: {props.userName} !</h2>
++    <h2>Hello user: { props.userName } !</h2>
   );
 -}
 ```

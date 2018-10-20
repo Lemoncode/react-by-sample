@@ -36,7 +36,7 @@ import * as React from 'react';
 + export const HelloComponent = (props: {userName : string}) => {
   return (
 -    <h2>Hello component !</h2> 
-+    <h2>Hello user: {props.userName} !</h2>
++    <h2>Hello user: { props.userName } !</h2>
   );
 }
 ```
@@ -46,8 +46,7 @@ Side note: using interfaces and ES6, the change looks like this:
 ```diff
 import * as React from 'react';
 
-+ interface Props
-+ {
++ interface Props {
 +   username: string;
 + }
 
@@ -55,7 +54,7 @@ import * as React from 'react';
 + export const HelloComponent = (props: Props) => (
 -   return (
 -    <h2>Hello component !</h2> 
-+    <h2>Hello user: {props.userName} !</h2>
++    <h2>Hello user: { props.userName } !</h2>
   );
 -}
 ```
