@@ -32,9 +32,12 @@ Actualización del constructor:
     super(props);
     // Comprueba que pasaría si obtenemos este nombre de usuario a través de un callback AJAX
     // encontrarás una implementación diferente en el ejemplo 05
--    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
+-    this.state = { initialUserName: this.props.initialUserName ,
+- editingName: this.props.initialUserName };
 
-+    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
++    this.state = { initialUserName: this.props.initialUserName ,
++                   editingName: this.props.initialUserName 
++     };
   }
 ```
 Dentro del componente de clase
@@ -50,19 +53,18 @@ Dentro del componente de clase
   }
 ```
 
-- La segunda idea es preparar dos propiedades, el control padre contendrá _userName_ y _editingUsername__, cuando el usuario hace click en el botón para sustituir el nombre se notifica al control padre y reemplazará el contenido de _userName_ con el contenido de  _editingUsername_. Si _userName_ es actualizado por cualquier otra tercera parte (por ejemplo, un callback AJAX) también se actualizará _editingUsername_.
+- La segunda idea es preparar dos propiedades, el control padre contendrá _userName_ y _editingUsername__. Cuando el usuario hace click en el botón para sustituir el nombre se notifica al control padre y reemplazará el contenido de _userName_ con el contenido de  _editingUsername_. Si _userName_ es actualizado por cualquier otra tercera parte (por ejemplo, un callback AJAX) también se actualizará _editingUsername_.
 
 Tomaremos como punto de partida el ejemplo _04 Callback_:
 
-Pasos resumidos:
+## Pasos resumidos:
 
 - Actualizar _nameEdit.tsx_ para que solicite el nuevo _editingUsername_, y eliminarlo del estado.
-
 - Actualizar _app.tsx_ para contener la nueva propiedad de edición en el estado, pasarla al hijo, controlar y realizar la actualización apropiada en el evento callback del control hijo.
 
 ## Prerequisitos
 
-Instalar [Node.js and npm](https://nodejs.org/es/) si no lo tenemos ya instalado.
+Instalar [Node.js y npm](https://nodejs.org/es/) si no lo tenemos ya instalado.
 
 > Verificar que estás ejecutando al menos con la versión 6.x.x de node y la versión 3.x.x de npm ejecutando `node -v` y `npm -v` en la ventana de terminal/consola. Versiones anteriores pueden producir errores.
 
@@ -76,8 +78,6 @@ _nameEdit.tsx_
 
 ```diff
 import * as React from 'react';
-import {Fragment} from 'react';
-
 
 interface Props {
 -  initialUserName: string;
@@ -100,7 +100,7 @@ interface Props {
   }
 
 -  onChange = (event) => {
--    this.setState({editingName: event.target.value} as State);
+-    this.setState({editingName: event.target.value});
 -  }
 
 -  onNameSubmit = (event) => {
@@ -116,11 +116,22 @@ interface Props {
     return (
       <div>
           <label>Update Name:</label>
--          <input value={this.state.editingName} onChange={this.onChange}/>
--          <button className="btn btn-default" onClick={this.onNameSubmit}>Change</button>
+-          <input value={this.state.editingName} 
+-                 onChange={this.onChange}
+-           />
+-          <button className="btn btn-default" 
+-                   onClick={this.onNameSubmit}
+-          >
+-             Change
+-          </button>
 +          <input value={this.props.editingUserName}
-+            onChange={this.onChange} />
-+          <button className="btn btn-default" onClick={this.props.onNameUpdateRequest}>Change</button>
++                 onChange={this.onChange} 
++           />
++          <button className="btn btn-default" 
++                  onClick={this.props.onNameUpdateRequest}
++          >
++           Change
++          </button>
       </div>
     )
   }
@@ -131,8 +142,8 @@ interface Props {
 
 ```diff
 import * as React from 'react';
-import {HelloComponent} from './hello';
-import {NameEditComponent} from './nameEdit'
+import {HelloComponent } from './hello';
+import { NameEditComponent } from './nameEdit'
 
 interface Props {
 
@@ -155,22 +166,26 @@ export class App extends React.Component<Props, State> {
 -  setUsernameState = (newName: string) => {
 +  setUsernameState = () => {  
 -    this.setState({userName: newName});
-+    this.setState({userName: this.state.editingUserName} as State);
++    this.setState({userName: this.state.editingUserName});
   }
 
 + updateEditingName = (editingName : string) : void => {
-+   this.setState({editingUserName: editingName} as State);
++   this.setState({editingUserName: editingName});
 + }
 
   public render() {
     return (
       <>
         <HelloComponent userName={this.state.userName}/>
--        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState}/>
+-        <NameEditComponent 
+-           initialUserName={this.state.userName} 
+-           onNameUpdated={this.setUsernameState}
+-        />
 +          <NameEditComponent
 +            editingUserName={this.state.editingUserName}
 +            onEditingNameUpdated={this.updateEditingName}
-+            onNameUpdateRequest={this.setUsernameState} />
++            onNameUpdateRequest={this.setUsernameState} 
++           />
       </>
     );
   }

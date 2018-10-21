@@ -32,9 +32,12 @@ Constructor update:
     super(props);
     // Watch out what would happen if we get this user name via an AJAX callback
     // you will find a different implementation on 05 sample
--    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
+-    this.state = { initialUserName: this.props.initialUserName ,
+- editingName: this.props.initialUserName };
 
-+    this.state = { initialUserName: this.props.initialUserName , editingName: this.props.initialUserName };
++    this.state = { initialUserName: this.props.initialUserName ,
++                   editingName: this.props.initialUserName 
++     };
   }
 ```
 Inside the class component
@@ -54,7 +57,7 @@ Inside the class component
 
 We take as a starting point sample _04 Callback_:
 
-Summary steps:
+## Summary steps:
 
 - Update _nameEdit.tsx_ in order to request the new _editingUsername_, and remove it from the state.
 - Update _app.tsx_ to hold the new editing property in the state, pass it to the children, control and perform the proper update on the callback event from the child control.
@@ -75,8 +78,6 @@ _nameEdit.tsx_
 
 ```diff
 import * as React from 'react';
-import {Fragment} from 'react';
-
 
 interface Props {
 -  initialUserName: string;
@@ -115,8 +116,14 @@ interface Props {
     return (
       <div>
           <label>Update Name:</label>
--          <input value={this.state.editingName} onChange={this.onChange}/>
--          <button className="btn btn-default" onClick={this.onNameSubmit}>Change</button>
+-          <input value={this.state.editingName} 
+-                 onChange={this.onChange}
+-           />
+-          <button className="btn btn-default" 
+-                  onClick={this.onNameSubmit}
+-           >
+-             Change
+-           </button>
 +          <input value={this.props.editingUserName}
 +            onChange={this.onChange} />
 +          <button className="btn btn-default" onClick={this.props.onNameUpdateRequest}>Change</button>
@@ -132,8 +139,8 @@ _./src/app.tsx_
 
 ```diff
 import * as React from 'react';
-import {HelloComponent} from './hello';
-import {NameEditComponent} from './nameEdit'
+import { HelloComponent } from './hello';
+import { NameEditComponent } from './nameEdit'
 
 interface Props {
 
@@ -167,11 +174,15 @@ export class App extends React.Component<Props, State> {
     return (
       <>
         <HelloComponent userName={this.state.userName}/>
--        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState}/>
+-        <NameEditComponent 
+-           initialUserName={this.state.userName} 
+-           onNameUpdated={this.setUsernameState}
+-         />
 +          <NameEditComponent
 +            editingUserName={this.state.editingUserName}
 +            onEditingNameUpdated={this.updateEditingName}
-+            onNameUpdateRequest={this.setUsernameState} />
++            onNameUpdateRequest={this.setUsernameState}
++           />
       </>
     );
   }
