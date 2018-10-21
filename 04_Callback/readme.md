@@ -53,12 +53,12 @@ interface Props {
 
 - export const NameEditComponent = (props : Props) => {
 -  return (
--    <Fragment>
+-    <>
 -      <label>Update name:</label>
 -      <input value={props.userName} 
 -             onChange={props.onChange}
 -      />
--    </Fragment>
+-    </>
 -  );
 -}
 

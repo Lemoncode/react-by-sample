@@ -16,7 +16,7 @@ Obviamente, partiremos del ejemplo **03 State** como punto de partida.
 
 Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0) si no lo tenemos ya instalado.
 
-> Verificar que estás corriendo al menos con la versión de node 6.x.x y npm 3.x.x con `node -v` y `npm -v` en la terminal/consola. Versiones más antgiguas pueden producir errores.
+> Verificar que estás corriendo al menos con la versión de node 6.x.x y npm 3.x.x con `node -v` y `npm -v` en la terminal/consola. Versiones más antiguas pueden producir errores.
 
 ## Pasos para construirlo
 
@@ -53,12 +53,12 @@ interface Props {
 
 - export const NameEditComponent = (props : Props) => {
 -  return (
--    <Fragment>
+-    <>
 -      <label>Update name:</label>
 -      <input value={props.userName} 
 -            onChange={props.onChange}
 -       />
--    </Fragment>
+-    </>
 -  );
 -}
 
@@ -135,7 +135,8 @@ export class App extends React.Component<Props, State> {
 }
 ```
 
-Ahora vamos a limpiar el evento, fuertemente tipado y simplificado.
+Ahora vamos a limpiar el evento, fuertemente tipado y simplificado
+(ya que es más sencillo).
 
 - Vamos a intentarlo:
 
