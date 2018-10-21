@@ -4,13 +4,15 @@ En el ejemplo anterior estabamos estableciendo un valor username inicial, ¿que 
 
 Podríamos pensar en dos posibles soluciones:
 
-- La primera idea que podría venirnos a la mentes sería implementar una mezcla: recibimos el actual valor name via props, entonces mantenemos un estado con el valor editable actual... ¿Que desventajas nos encontraríamos? Tendríamos que escuchar el getDerivedStateFromProps (componentWillRecieveProps está obsoleto) para cualquier cambio en el control de nombre de usuario del padre y sustituir nuestro estado, acabaríamos con un control compartido.
+- La primera idea que podría venirnos a la mente sería implementar una mezcla: recibimos el valor actual de  name via props, entonces mantenemos un estado con el valor editable actual... ¿Que desventajas nos encontraríamos? Tendríamos que escuchar el getDerivedStateFromProps (componentWillRecieveProps está obsoleto) para cualquier cambio en el control de nombre de usuario del padre y sustituir nuestro estado, acabaríamos con un control compartido.
 
 > Más información sobre getDerivedStateFromProps: https://medium.com/@baphemot/whats-new-in-react-16-3-d2c9b7b6193b
 
 Veamos como quedaría (usando el nuevo método estático getDerivedStateFromProps):
 
-Props e interface:
+Props e interfaz:
+
+_./src/nameEdit.tsx_
 
 ```diff
 interface Props {
