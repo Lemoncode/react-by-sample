@@ -6,7 +6,7 @@ We update the name property only when the user clicks a _change_ button, and we 
 
 Obviously, we take the example **03 State** as a starting point.
 
-Summary steps:
+## Summary steps:
 
 - Add a button to the `EditName` component and a handler function for this.
 - Submit the name only when the user clicks that button.
@@ -36,8 +36,6 @@ _nameEdit.tsx_
 
 ```diff
 import * as React from 'react';
-import {Fragment} from 'react';
-
 
 interface Props {
 -  userName : string;
@@ -53,10 +51,12 @@ interface Props {
 
 - export const NameEditComponent = (props : Props) => {
 -  return (
--    <Fragment>
+-    <>
 -      <label>Update name:</label>
--      <input value={props.userName} onChange={props.onChange}/>
--    </Fragment>
+-      <input value={props.userName} 
+-             onChange={props.onChange}
+-      />
+-    </>
 -  );
 -}
 
@@ -81,8 +81,14 @@ interface Props {
 +    return (
 +      <>
 +        <label>Update Name:</label>
-+        <input value={this.state.editingName} onChange={this.onChange} />
-+        <button className="btn btn-default" onClick={this.onNameSubmit}>Change</button>
++        <input value={this.state.editingName} 
++               onChange={this.onChange} 
++         />
++        <button className="btn btn-default" 
++                onClick={this.onNameSubmit}
++         >     
++           Change
++         </button>
 +      </>
 +    );
 +  }
@@ -111,11 +117,17 @@ export class App extends React.Component<Props, State> {
 
   public render() {
     return (
-      <React.Fragment>
+      <>
         <HelloComponent userName={this.state.userName}/>
--        <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState}/>
-+        <NameEditComponent initialUserName={this.state.userName} onNameUpdated={this.setUsernameState}/>
-      </React.Fragment>
+-        <NameEditComponent 
+-           userName={this.state.userName} 
+-           onChange={this.setUsernameState}
+-         />
++        <NameEditComponent 
++           initialUserName={this.state.userName} 
++           onNameUpdated={this.setUsernameState}
++         />
+      </>
     );
   }
 }
@@ -130,7 +142,7 @@ export class App extends React.Component<Props, State> {
   npm start
   ```
 
-- Then, load http://localhost:8080/ in a browser to see the output.
+- Then, load http://localhost:8080/ in a browser to see the result.
 
  Now, the greetings message only changes when the user clicks the change button.
 
