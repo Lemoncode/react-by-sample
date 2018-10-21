@@ -36,8 +36,6 @@ _nameEdit.tsx_
 
 ```diff
 import * as React from 'react';
-import { Fragment } from 'react';
-
 
 interface Props {
 -  userName : string;
