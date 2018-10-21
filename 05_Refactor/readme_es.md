@@ -1,6 +1,6 @@
 # 05 Refactorizar
 
-En el ejemplo anterior estabamos estableciendo un valor username inicial, ¿que ocurriría si esperasemos que este valor viniera, por ejemplo, de una petición AJAX o si pudiera variar en el tiempo? Lo que ocurriría es que la aproximación actual no funcionaría.
+En el ejemplo anterior estabamos estableciendo un valor username inicial, ¿que ocurriría si esperásemos que este valor viniera, por ejemplo, de una petición AJAX o si pudiera variar en el tiempo? Lo que ocurriría es que la aproximación actual no funcionaría.
 
 Podríamos pensar en dos posibles soluciones:
 
@@ -142,7 +142,7 @@ interface Props {
 
 ```diff
 import * as React from 'react';
-import {HelloComponent } from './hello';
+import { HelloComponent } from './hello';
 import { NameEditComponent } from './nameEdit'
 
 interface Props {

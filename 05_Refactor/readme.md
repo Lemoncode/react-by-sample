@@ -125,8 +125,13 @@ interface Props {
 -             Change
 -           </button>
 +          <input value={this.props.editingUserName}
-+            onChange={this.onChange} />
-+          <button className="btn btn-default" onClick={this.props.onNameUpdateRequest}>Change</button>
++                 onChange={this.onChange} 
++           />
++          <button className="btn btn-default" 
++                  onClick={this.props.onNameUpdateRequest}
++           >
++             Change
++           </button>
       </div>
     )
   }
