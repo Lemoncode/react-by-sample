@@ -6,15 +6,15 @@ Es hora de hacer limpieza, simplificando el componente _[nameEdit.tsx](./src/nam
 
 Tomaremos como punto de partida el ejemplo _[05 Refactor](./../05%20Refactor)_.
 
-Pasos resumidos:
+## Pasos resumidos:
 
 - Actualizar _[nameEdit.tsx](./src/nameEdit.tsx)_, convirtiéndolo en un componente sin estado y añadir los métodos inline.
 
 ## Prerrequisitos
 
-Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o superior) si aún no los tienes instalados en tu equipo.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si aún no los tienes instalados en tu equipo.
 
-> Verifica que estás usando al menos node v6.x.x and npm 3.x.x usando los comandos `node -v` y `npm -v` en un terminal/consola. Versiones anteriores pueden producir errores.
+> Verifica que estás usando al menos node v6.x.x y npm 3.x.x usando los comandos `node -v` y `npm -v` en un terminal/consola. Versiones anteriores pueden producir errores.
 
 ## Pasos para construirlo
 
@@ -24,8 +24,6 @@ Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o superior) si aún n
 
  ```jsx
 import * as React from 'react';
-import {Fragment} from 'react';
-
 
 interface Props {
     editingUserName : string;
@@ -40,9 +38,15 @@ export const NameEditComponent = (props : Props) =>
       <input value={props.editingUserName}
         onChange={(e) : void => props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
 
-      <button className="btn btn-default" onClick={props.onNameUpdateRequest}>Change</button>
+      <button className="btn btn-default" 
+            onClick={props.onNameUpdateRequest}
+      >
+            Change
+      </button>
   </div>
  ```
+
+ Nota aclarativa: cuando refactorizamos este código, nosotros hemos remplazado ```this.props``` by ```props```. Esto es porque ```NameEditComponent``` es ahora una función, no una clase. Si tu guardas ```this.props```, falla en tiempo de ejecución porque ```this``` es ahora undefined
 
 - Ahora podemos arrancar el ejemplo y obtendremos los mismos resultados.
 

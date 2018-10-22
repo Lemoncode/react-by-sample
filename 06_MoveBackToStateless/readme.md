@@ -6,7 +6,7 @@ It's time to make some cleanup, let's simplify _[nameEdit.tsx](./src/nameEdit.ts
 
 Let's take example _[05 Refactor](./../05%20Refactor)_ as reference.
 
-Summary steps:
+## Summary steps:
 
 - Update _[nameEdit.tsx](./src/nameEdit.tsx)_, transform it to a stateless component and inline some methods.
 
@@ -24,8 +24,6 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
  ```jsx
 import * as React from 'react';
-import {Fragment} from 'react';
-
 
 interface Props {
     editingUserName : string;
