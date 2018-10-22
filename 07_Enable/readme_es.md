@@ -5,21 +5,21 @@ botón "actualizar" cuando la entrada está vacía o cuando el valor no ha cambi
 
 Tomaremos una muestra del punto de inicio _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
-Pasos resumidos:
+## Pasos resumidos:
 
 - Agregar una condición para deshabilitar
 
 ## Prerrequisitos
 
-Instale [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más reciente) si aún no están instalados en su computadora.
+Instala [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más reciente) si aún no está instalados en tu maquina.
 
-> Verifique que esté ejecutando al menos los nodos v6.x.x y npm 3.x.x ejecutando `node -v` y` npm -v` en una ventana de terminal/ consola. Las versiones anteriores pueden producir errores.
+> Verifica que está ejecutando al menos node v6.x.x y npm 3.x.x ejecutando `node -v` y` npm -v` en una ventana de terminal/ consola. Las versiones anteriores pueden producir errores.
 
 ## Pasos para construirlo
 
-- Copie el contenido de _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
+- Copia el contenido de _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
-- Comencemos agregando una condición para deshabilitar el campo siempre que esté vacío. Reemplace solo la etiqueta de entrada en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_ con el siguiente código:
+- Comencemos agregando una condición para deshabilitar el campo siempre que esté vacío. Reemplaza solo la etiqueta de entrada en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_ con el siguiente código:
 
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
 ```diff
@@ -28,22 +28,29 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
         <input value={props.editingUserName}
           onChange={(e) : void => props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
 
--        <button className="btn btn-default" onClick={props.onNameUpdateRequest}>Change</button>
+-        <button className="btn btn-default" 
+-                onClick={props.onNameUpdateRequest}
+-        >
+-           Change
+-        </button>
 +        <button 
 +          className="btn btn-default" 
 +          onClick={props.onNameUpdateRequest}
 +          disabled={props.editingUserName === ''}
-+        >Change</button>
++        >
++           Change
++        </button>
     </div>
 ```
 
 - Ahora viene la parte difícil, detectar cuando el nombre no ha cambiado. <br/>
-Primero agregaremos una nueva propiedad llamada `userName` con el tipo `string` en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_. Este tendrá el último nombre de usuario aceptado.
+Primero agregaremos una nueva propiedad llamada _userName_ con el tipo `string` en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_. Este tendrá el último nombre de usuario aceptado.
 
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
+
 ```diff
  interface Props {
-+    userName : string;
++   userName : string;
     editingUserName : string;
     onEditingNameUpdated : (newEditingName : string) => any;
     onNameUpdateRequest : () => void;
@@ -59,24 +66,28 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
       className="btn btn-default" 
       onClick={props.onNameUpdateRequest}
 -      disabled={props.editingUserName === ''}
-+      disabled={props.editingUserName === '' || props.userName === props.editingUserName}
-      >Change</button>
++      disabled={props.editingUserName === '' 
++      || 
++      props.userName === props.editingUserName}
+      >
+        Change
+      </button>
 ```
 
-- Ahora tenemos que alimentar esta propiedad desde el control principal (Agregar `userName = {this.state.userName}` al `NameEditComponent` en _[./src/app.tsx](./src/app.tsx)_). El `NameEditComponent` debería ser como:
+- Ahora tenemos que alimentar esta propiedad desde el control principal (Añade `userName={this.state.userName}` al NameEditComponent en _[./src/app.tsx](./src/app.tsx)_). El `NameEditComponent` debería ser como:
 
 _[./src/app.tsx](./src/app.tsx)_
 ```diff
   public render() {
     return (
-      <React.Fragment>
+      <>
         <HelloComponent userName={this.state.userName}/>
         <NameEditComponent
 ++          userName={this.state.userName}
             editingUserName={this.state.editingUserName}
             onEditingNameUpdated={this.updateEditingName}
             onNameUpdateRequest={this.setUsernameState} />
-      </React.Fragment>
+      </>
     );
   }
 ```
@@ -89,7 +100,7 @@ npm start
 
 > Como ejercicio, ¿y si queremos hacer esto más genérico? podríamos tener una propiedad genérica llamada enable que podría ser verdadera o falsa.
 
-Para hacer esto, modificaremos [./src/app.tsx](./src/app.tsx) agregando la variable `disable` al componente` <NameEditComponent> `. Esta variable es **booleana**, por lo que necesita condiciones para evaluarla.
+Para hacer esto, modificaremos [./src/app.tsx](./src/app.tsx) agregando la variable `disable` al componente` <NameEditComponent> `. Esta variable es **Booleana**, por lo que necesita condiciones para evaluarla.
 
 _[./src/app.tsx](./src/app.tsx)_
 ```diff
@@ -98,7 +109,9 @@ _[./src/app.tsx](./src/app.tsx)_
       <>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent
-++        disable={!this.state.userName || this.state.userName === this.state.defaultUserName}
++        disable={!this.state.userName 
++         ||
++         this.state.userName === this.state.defaultUserName}
           userName={this.state.userName}
           editingUserName={this.state.editingUserName}
           onEditingNameUpdated={this.updateEditingName}
@@ -129,8 +142,12 @@ export const NameEditComponent = (props : Props) =>
       <button 
           className="btn btn-default" 
           onClick={props.onNameUpdateRequest}
---        disabled={props.editingUserName === '' || props.userName === props.editingUserName}
+--        disabled={props.editingUserName === '' 
+-         ||
+-         props.userName === props.editingUserName}
 ++        disabled={props.disable}
-        >Change</button>
+        >
+          Change
+        </button>
   </div>
 ```
