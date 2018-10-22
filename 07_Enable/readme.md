@@ -5,7 +5,7 @@ Let's continue with the update name sample, this time we want to disable the
 
 We will take a startup point sample _[06 MoveBackToStateless/](./../06%20MoveBackToStateless/)_.
 
-Summary steps:
+## Summary steps:
 
 - Add a condition to disable
 
@@ -28,12 +28,18 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
         <input value={props.editingUserName}
           onChange={(e) : void => props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
 
--        <button className="btn btn-default" onClick={props.onNameUpdateRequest}>Change</button>
+-        <button className="btn btn-default" 
+-                 onClick={props.onNameUpdateRequest}
+-         >
+-           Change
+-         </button>
 +        <button 
 +          className="btn btn-default" 
 +          onClick={props.onNameUpdateRequest}
 +          disabled={props.editingUserName === ''}
-+        >Change</button>
++        >
++           Change
++        </button>
     </div>
 ```
 
@@ -43,7 +49,7 @@ First we will add a new property called _userName_ with type `string` in _[./src
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
 ```diff
  interface Props {
-+    userName : string;
++   userName : string;
     editingUserName : string;
     onEditingNameUpdated : (newEditingName : string) => any;
     onNameUpdateRequest : () => void;
@@ -59,8 +65,12 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
       className="btn btn-default" 
       onClick={props.onNameUpdateRequest}
 -      disabled={props.editingUserName === ''}
-+      disabled={props.editingUserName === '' || props.userName === props.editingUserName}
-      >Change</button>
++      disabled={props.editingUserName === '' 
++      || 
++      props.userName === props.editingUserName}
+      >
+        Change
+      </button>
 ```
 
 - Now we have to feed this property from the parent control (Add `userName={this.state.userName}` to the NameEditComponent in _[./src/app.tsx](./src/app.tsx)_). The `NameEditComponent` should be like:
@@ -69,14 +79,14 @@ _[./src/app.tsx](./src/app.tsx)_
 ```diff
   public render() {
     return (
-      <React.Fragment>
+      <>
         <HelloComponent userName={this.state.userName}/>
         <NameEditComponent
 ++          userName={this.state.userName}
             editingUserName={this.state.editingUserName}
             onEditingNameUpdated={this.updateEditingName}
             onNameUpdateRequest={this.setUsernameState} />
-      </React.Fragment>
+      </>
     );
   }
 ```
@@ -98,7 +108,8 @@ _[./src/app.tsx](./src/app.tsx)_
       <>
         <HelloComponent userName={this.state.userName} />
         <NameEditComponent
-++        disable={!this.state.userName || this.state.userName === this.state.editingUserName}
++        disable={!this.state.userName 
++        || this.state.userName === this.state.editingUserName}
           userName={this.state.userName}
           editingUserName={this.state.editingUserName}
           onEditingNameUpdated={this.updateEditingName}
@@ -129,8 +140,12 @@ export const NameEditComponent = (props : Props) =>
       <button 
           className="btn btn-default" 
           onClick={props.onNameUpdateRequest}
---        disabled={props.editingUserName === '' || props.userName === props.editingUserName}
+--        disabled={props.editingUserName === '' 
+-         ||
+-         props.userName === props.editingUserName}
 ++        disabled={props.disable}
-        >Change</button>
+        >
+          Change
+        </button>
   </div>
 ```
