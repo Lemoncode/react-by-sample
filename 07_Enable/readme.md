@@ -47,6 +47,7 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
 First we will add a new property called _userName_ with type `string` in _[./src/nameEdit.tsx](./src/nameEdit.tsx)_. This one will hold the last accepted userName.
 
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
+
 ```diff
  interface Props {
 +   userName : string;

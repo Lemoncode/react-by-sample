@@ -47,6 +47,7 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
 Primero agregaremos una nueva propiedad llamada _userName_ con el tipo `string` en _[./src/nameEdit.tsx](./src/nameEdit.tsx)_. Este tendrá el último nombre de usuario aceptado.
 
 _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
+
 ```diff
  interface Props {
 +   userName : string;
@@ -73,7 +74,7 @@ _[./src/nameEdit.tsx](./src/nameEdit.tsx)_
       </button>
 ```
 
-- Ahora tenemos que alimentar esta propiedad desde el control principal (Agregar `userName={this.state.userName}` al NameEditComponent en _[./src/app.tsx](./src/app.tsx)_). El `NameEditComponent` debería ser como:
+- Ahora tenemos que alimentar esta propiedad desde el control principal (Añade `userName={this.state.userName}` al NameEditComponent en _[./src/app.tsx](./src/app.tsx)_). El `NameEditComponent` debería ser como:
 
 _[./src/app.tsx](./src/app.tsx)_
 ```diff
@@ -99,7 +100,7 @@ npm start
 
 > Como ejercicio, ¿y si queremos hacer esto más genérico? podríamos tener una propiedad genérica llamada enable que podría ser verdadera o falsa.
 
-Para hacer esto, modificaremos [./src/app.tsx](./src/app.tsx) agregando la variable `disable` al componente` <NameEditComponent> `. Esta variable es **Boolean**, por lo que necesita condiciones para evaluarla.
+Para hacer esto, modificaremos [./src/app.tsx](./src/app.tsx) agregando la variable `disable` al componente` <NameEditComponent> `. Esta variable es **Booleana**, por lo que necesita condiciones para evaluarla.
 
 _[./src/app.tsx](./src/app.tsx)_
 ```diff
