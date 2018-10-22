@@ -31,7 +31,6 @@ interface Props {
     onNameUpdateRequest : () => void;  
 }
 
-  
 export const NameEditComponent = (props : Props) =>
   <div>
       <label>Update Name:</label>
@@ -46,7 +45,7 @@ export const NameEditComponent = (props : Props) =>
   </div>
  ```
 
- Nota aclarativa: cuando refactorizamos este código, nosotros hemos remplazado ```this.props``` by ```props```. Esto es porque ```NameEditComponent``` es ahora una función, no una clase. Si tu guardas ```this.props```, falla en tiempo de ejecución porque ```this``` es ahora undefined
+ Nota aclarativa: cuando refactorizamos este código, nosotros hemos remplazado ```this.props``` por ```props```. Esto es porque ```NameEditComponent``` es ahora una función, no una clase. Si tu guardas ```this.props```, falla en tiempo de ejecución porqué ```this``` es ahora undefined
 
 - Ahora podemos arrancar el ejemplo y obtendremos los mismos resultados.
 

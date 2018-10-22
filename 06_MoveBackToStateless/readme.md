@@ -37,7 +37,11 @@ export const NameEditComponent = (props : Props) =>
       <input value={props.editingUserName}
         onChange={(e) : void => props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
 
-      <button className="btn btn-default" onClick={props.onNameUpdateRequest}>Change</button>
+      <button className="btn btn-default" 
+        onClick={props.onNameUpdateRequest}
+      >
+        Change
+      </button>
   </div>
  ```
 Side note: when refactoring this code, we have replaced ```this.props``` by ```props```. This is because ```NameEditComponent``` is now a function, not a class. If you keep ```this.props```, it fails in runtime because ```this``` is now undefined.
