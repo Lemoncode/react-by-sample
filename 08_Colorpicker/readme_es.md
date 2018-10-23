@@ -2,9 +2,9 @@
 
 Tomaremos como punto de partida el ejemplo _01 HelloReact_:
 
->Este ejemplo está basado en el siguiente: [egghead jsbin](https://jsbin.com/qiwoxax/4/edit?html,js,output), pero añade algunas variaciones
+> Este ejemplo está basado en el siguiente: [egghead jsbin](https://jsbin.com/qiwoxax/4/edit?html,js,output), pero añade algunas variaciones
 
-Resumen de pasos:
+## Pasos resumidos:
 
 - Renombrar el archivo _hello.tsx_  a  _colorpicker.tsx_.
 - Definir las propiedades y el estado.
@@ -13,7 +13,7 @@ Resumen de pasos:
 
 ## Prerrequisitos
 
-Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 ó + nueva) si aún no están instaladas.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 ó más reciente) si aún no está instalada en la máquina.
 
 > Verificar que tienes node al menos v6.x.x y npm 3.x.x ejecutando `node -v` y `npm -v` en un terminal ó console de windows. Versiones viejas pueden provocar errores.
 
@@ -21,9 +21,9 @@ Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 ó + nueva) si aún n
 
 - Copiar el contenido de _01 HelloReact_ y ejecutar `npm install`.
 
-- Vamos a definir una estructura apropiada (crea un archivo _color.tsx_).
+- Vamos a definir una estructura apropiada (crea un archivo _color.ts_).
 
-_./src/color.tsx_
+_./src/color.ts_
 
 ```javascript
 export interface Color {
@@ -53,8 +53,8 @@ _./src/app.tsx_
 
 ```jsx
 import * as React from 'react';
-import {Color} from './color';
-import {ColorPicker} from './colorpicker';
+import { Color } from './color';
+import { ColorPicker } from './colorpicker';
 
 interface State {
   color : Color;
@@ -89,11 +89,11 @@ _./src/main.tsx_
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
 -  import { HelloComponent } from './hello';
-+  import {App} from './app';
++  import { App } from './app';
 
   ReactDOM.render(
--   <HelloComponent/>  
-+   <App/>,
+-   <HelloComponent />  
++   <App />,
     document.getElementById('root'));
 ```
 
@@ -104,7 +104,7 @@ _./src/colorpicker.tsx_
 
 ```diff
 import * as React from 'react';
-+ import {Color} from './color'
++ import { Color } from './color'
 
 + interface Props {
 +  color : Color;
@@ -133,7 +133,8 @@ _./src/colorpicker.tsx_
 +               max="255"
 +               value={props.color.red}
 +               onChange={(event : any) => props.onColorUpdated(
-+                 {red: event.target.value, green: props.color.green, blue: props.color.blue}
++                 {red: event.target.value, 
++                 green: props.color.green, blue: props.color.blue}
 +               )}
 +        />
 +        {props.color.red}
@@ -148,8 +149,8 @@ _./src/app.tsx_
 
 ```diff
   import * as React from 'react';
-  import {Color} from './color';
-  import {ColorPicker} from './colorpicker';
+  import { Color } from './color';
+  import { ColorPicker } from './colorpicker';
 
   interface State {
     color : Color;
@@ -162,16 +163,25 @@ _./src/app.tsx_
       this.state = {color: {red: 90, green: 50, blue: 70}};
     }
 
-    setColorState(newColor : Color) {
-      this.setState({color: newColor});
-    }
++    setColorState = (newColor : Color) => {
++      this.setState({color: newColor});
++    }
 
     public render() {
       return (
         <div>
-+          <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
++          <span>
++             Color: [
++               red: {this.state.color.red},
++               green: {this.state.color.green}, 
++               blue: {this.state.color.blue}
++             ]
++           </span>
 -          <ColorPicker/>
-+          <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState}/>
++          <ColorPicker 
++             color={this.state.color}  
++             onColorUpdated={this.setColorState}
++           />
         </div>
       );
     }
@@ -216,7 +226,7 @@ _./src/colopicker.tsx_
 +               onChange={(event : any) => props.onColorUpdated(
 +                 {
 +                   red:  props.color.red,
-+                   green: event.target.value,
++                   green: +event.target.value,
 +                   blue: props.color.blue
 +                 }
 +               )}
@@ -231,7 +241,7 @@ _./src/colopicker.tsx_
 +                 {
 +                   red:   props.color.red,
 +                   green: props.color.green,
-+                   blue: event.target.value
++                   blue: +event.target.value
 +                 }
 +               )}
 +        />
@@ -242,20 +252,20 @@ _./src/colopicker.tsx_
   }
 ```
 
-- Haremos esto un poco más atractivo visualmente, sería una buena idea mostrar un rectángulo relleno con el color selccionado. Crearemos un componente ColorDisplayer (_colordisplayer.tsx_).
+- Haremos esto un poco más atractivo visualmente, sería una buena idea mostrar un rectángulo relleno con el color seleccionado. Crearemos un componente ColorDisplayer (_colordisplayer.tsx_).
 
 _./src/colordisplayer.tsx_
 
 ```jsx
   import * as React from 'react';
-  import {Color} from './color'
+  import { Color } from './color'
 
   interface Props {
     color : Color;
   }
 
   export const ColorDisplayer = (props : Props) => {
-    const divStyle = {
+    const divStyle : React.CSSProperties  = { // React.CSSProperties gives editing-time visual feedback on the CSS you are typing.
       width: '11rem',
       height: '7rem',
       backgroundColor: `rgb(${props.color.red},${props.color.green}, ${props.color.blue})`
@@ -273,8 +283,8 @@ _./src/colordisplayer.tsx_
 ```diff
 import * as React from 'react';
 import {Color} from './color';
-import {ColorPicker} from './colorpicker';
-+  import {ColorDisplayer} from './colordisplayer';
+import { ColorPicker } from './colorpicker';
++  import { ColorDisplayer } from './colordisplayer';
 
 interface State {
   color : Color;
@@ -295,7 +305,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div>
 +        <ColorDisplayer color={this.state.color} />      
-+        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
+        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
         <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
       </div>
     );

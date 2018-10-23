@@ -2,9 +2,9 @@
 
 We take _01 HelloReact_ as reference.
 
->This example is based on the following [egghead jsbin](https://jsbin.com/qiwoxax/4/edit?html,js,output), but adding some variations.
+> This example is based on the following [egghead jsbin](https://jsbin.com/qiwoxax/4/edit?html,js,output), but adding some variations.
 
-Summary steps:
+## Summary steps:
 
 - Rename _hello.tsx_ file to _colorpicker.tsx_.
 - Define properties and state.
@@ -53,8 +53,8 @@ _./src/app.tsx_
 
 ```jsx
 import * as React from 'react';
-import {Color} from './color';
-import {ColorPicker} from './colorpicker';
+import { Color } from './color';
+import { ColorPicker } from './colorpicker';
 
 interface State {
   color : Color;
@@ -89,11 +89,11 @@ _./src/main.tsx_
   import * as React from 'react';
   import * as ReactDOM from 'react-dom';
 -  import { HelloComponent } from './hello';
-+  import {App} from './app';
++  import { App } from './app';
 
   ReactDOM.render(
--   <HelloComponent/>  
-+   <App/>,
+-   <HelloComponent />  
++   <App />,
     document.getElementById('root'));
 ```
 
@@ -103,7 +103,7 @@ _./src/colorpicker.tsx_
 
 ```diff
 import * as React from 'react';
-+ import {Color} from './color'
++ import { Color } from './color'
 
 + interface Props {
 +  color : Color;
@@ -132,7 +132,8 @@ _./src/colorpicker.tsx_
 +               max="255"
 +               value={props.color.red}
 +               onChange={(event) => props.onColorUpdated(
-+                 {red: +event.target.value, green: props.color.green, blue: props.color.blue}
++                 {red: +event.target.value, green: 
++                 props.color.green, blue: props.color.blue}
 +               )}
 +        />
 +        {props.color.red}
@@ -147,8 +148,8 @@ _./src/app.tsx_
 
 ```diff
   import * as React from 'react';
-  import {Color} from './color';
-  import {ColorPicker} from './colorpicker';
+  import { Color } from './color';
+  import { ColorPicker } from './colorpicker';
 
   interface State {
     color : Color;
@@ -168,9 +169,18 @@ _./src/app.tsx_
     public render() {
       return (
         <div>
-+          <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
++          <span>
++             Color: [
++               red: {this.state.color.red}, 
++               green: {this.state.color.green}, 
++               blue: {this.state.color.blue}
++             ]
++           </span>
 -          <ColorPicker/>
-+          <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState}/>
++          <ColorPicker 
++           color={this.state.color}
++           onColorUpdated={this.setColorState}
++           />
         </div>
       );
     }
@@ -247,7 +257,7 @@ _./src/colordisplayer.tsx_
 
 ```jsx
   import * as React from 'react';
-  import {Color} from './color'
+  import { Color } from './color'
 
   interface Props {
     color : Color;
@@ -271,9 +281,9 @@ _./src/colordisplayer.tsx_
 
 ```diff
 import * as React from 'react';
-import {Color} from './color';
-import {ColorPicker} from './colorpicker';
-+  import {ColorDisplayer} from './colordisplayer';
+import { Color } from './color';
+import { ColorPicker } from './colorpicker';
++  import { ColorDisplayer } from './colordisplayer';
 
 interface State {
   color : Color;
