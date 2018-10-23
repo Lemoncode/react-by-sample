@@ -137,7 +137,7 @@ interface Props {
 // We define members as a state (the compoment holding this will be a container
 // component)
 interface State {
-  members : Array<MemberEntity>
+  members : MemberEntity[]
 }
 
 // Nice tsx guide: https://github.com/Microsoft/TypeScript/wiki/JSX
