@@ -249,7 +249,6 @@ export class App extends React.Component<{}, State> {
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
 +       <div style={{float: 'right'}}>
 +         <button
-+           className="btn btn-default"
 +           onClick={this.toggleSidebarVisibility}>
 +           Toggle Sidebar
 +         </button>
