@@ -97,8 +97,7 @@ _./src/main.tsx_
     document.getElementById('root'));
 ```
 
-- Vamos a cambiar también el contenido del fichero, definimos un color y un
-  callback como propiedad para establecer el color (_colorpicker.tsx_).
+- Vamos a cambiar también el contenido del fichero, definimos un color y un callback como propiedad para establecer el color (_colorpicker.tsx_).
 
 _./src/colorpicker.tsx_
 
@@ -133,7 +132,7 @@ _./src/colorpicker.tsx_
 +               max="255"
 +               value={props.color.red}
 +               onChange={(event : any) => props.onColorUpdated(
-+                 {red: event.target.value, 
++                 {red: +event.target.value, 
 +                 green: props.color.green, blue: props.color.blue}
 +               )}
 +        />
@@ -304,9 +303,13 @@ export class App extends React.Component<{}, State> {
   public render() {
     return (
       <div>
-+        <ColorDisplayer color={this.state.color} />      
-        <span>Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]</span>
-        <ColorPicker color={this.state.color}  onColorUpdated={this.setColorState.bind(this)}/>
++       <ColorDisplayer color={this.state.color} />      
+        <span>
+          Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]
+        </span>
+        <ColorPicker color={this.state.color} 
+          onColorUpdated={this.setColorState.bind(this)}
+        />
       </div>
     );
   }
