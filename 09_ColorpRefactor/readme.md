@@ -4,7 +4,7 @@ In this example we are going to review the colorpicker component we have created
 
 We take _08 Colorpicker_ as reference.
 
-Summary steps:
+## Summary steps:
 
 - Create a simple color slider component.
 - Replace the color slider inputs with the new slider.
@@ -26,7 +26,7 @@ _./src/colorslider.tsx_
 
 ```jsx
 import * as React from 'react';
-import {Color} from './color';
+import { Color } from './color';
 
 interface Props {
   value : number;
@@ -53,8 +53,8 @@ export const ColorSliderComponent = (props : Props) => {
 
 ```diff
 import * as React from 'react';
-import {Color} from './color';
-+ import {ColorSliderComponent} from './colorslider';
+import { Color } from './color';
++ import { ColorSliderComponent } from './colorslider';
 
 interface Props {
   color : Color;
@@ -154,7 +154,7 @@ _./src/colorpicker.tsx_
 ```diff
 import * as React from 'react';
 import { Color } from './color'
-import {ColorSliderComponent} from './colorslider';
+import { ColorSliderComponent } from './colorslider';
 
 interface Props {
   color: Color;

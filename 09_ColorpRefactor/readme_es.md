@@ -5,7 +5,7 @@ Haremos un escenario más orientado al componente.
 
 Tomaremos como punto de partida el ejemplo  _08 Colorpicker_:
 
-Resumen de pasos:
+## Pasos resumidos:
 
 - Crear un componente deslizable para un color simple. 
 - Remplazar los slides inputs actuales con el nuevo componente creado.
@@ -14,7 +14,7 @@ Resumen de pasos:
 
 ## Prerrequisitos
 
-Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o posterior) si no están ya instalados.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más reciente) si no están ya instalados.
 
 > Verificar que estás ejecutando al menos la v6.x.x de node y npm 3.x.x ejecutando el siguiente comando `node -v` y `npm -v` en  una terminal/console de window. Versiones viejas pueden producir errores.
 
@@ -28,7 +28,7 @@ _./src/colorslider.tsx_
 
 ```jsx
 import * as React from 'react';
-import {Color} from './color';
+import { Color } from './color';
 
 interface Props {
   value : number;
@@ -55,8 +55,8 @@ export const ColorSliderComponent = (props : Props) => {
 
 ```diff
 import * as React from 'react';
-import {Color} from './color';
-+ import {ColorSliderComponent} from './colorslider';
+import { Color } from './color';
++ import { ColorSliderComponent } from './colorslider';
 
 interface Props {
   color : Color;
@@ -149,22 +149,24 @@ export const ColorPicker = (props : Props) => {
   npm start
   ```
   
-- Todavía tenemos mejoras que hacer, porque no tener un solo manejador para todos los colores? Si currificamos el colorupdated handler, podemos!
+- Todavía tenemos mejoras que hacer, ¿porque no tener un solo manejador para todos los colores? Si currificamos el colorupdated handler, podemos!
+
+_./src/colorpicker.tsx_
 
 ```diff
 import * as React from 'react';
 import { Color } from './color'
-import {ColorSliderComponent} from './colorslider';
+import { ColorSliderComponent } from './colorslider';
 
 interface Props {
   color: Color;
   onColorUpdated: (color: Color) => void;
 }
 
-+ const updateColor = (props : Props, colorId : keyof Color) => (value) => {
++ const updateColor = (props : Props, colorId : keyof Color) => (value) => {  // keyof Color ensures only 'red', 'blue' or 'green' can be passed in.
 +    props.onColorUpdated({
-+      ...props.color,
-+      [colorId]: value
++      ...props.color,   // this creates a clone of the current props.color object...
++      [colorId]: value  // ... which gets one of its properties (colorId) immediately replaced by a new value.
 +    });
 + };
 
@@ -212,7 +214,7 @@ export const ColorPicker = (props: Props) => {
 }
 ```
 
-- Démosle una oprtunidad el ejemplo: 
+- Démosle una oprtunidad al ejemplo: 
 
 ```
 npm start
