@@ -16,7 +16,7 @@ Tomaremos como punto de partida el ejemplo  _08 Colorpicker_:
 
 Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más reciente) si no están ya instalados.
 
-> Verificar que estás ejecutando al menos la v6.x.x de node y npm 3.x.x ejecutando el siguiente comando `node -v` y `npm -v` en  una terminal/console de window. Versiones viejas pueden producir errores.
+> Verificar que estás ejecutando al menos la v6.x.x de node y npm 3.x.x ejecutando el siguiente comando `node -v` y `npm -v` en  una terminal/console de window. Versiones antiguas pueden producir errores.
 
 ## Pasos a seguir:
 
