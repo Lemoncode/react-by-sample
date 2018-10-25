@@ -15,7 +15,7 @@ Tomaremos como punto de partida el ejemplo _03 State_:
 
 ## Prerequisitos
 
-Instalar [Node.js y npm](https://nodejs.org/es/) (v6.0.0 o más reciente) si no lo tenemos ya instalado.
+Instalar [Node.js y npm](https://nodejs.org/es/) (v6.0.0 o más reciente) si no lo tenemos ya instalado en nuestra máquina.
 
 > Verificar que estás ejecutando al menos con la versión 6.x.x de node y la versión 3.x.x de npm ejecutando `node -v` y `npm -v` en la ventana de terminal/consola. Versiones anteriores pueden producir errores.
 
@@ -143,6 +143,8 @@ _./src/app.tsx_
   import { NameEditComponent } from './nameEdit';
 +  import { SidebarComponent } from './sidebar';
 ```
+
+_./src/app.tsx_
 
 ```diff
   return (
@@ -289,6 +291,8 @@ _./src/app.tsx_
 ```
 
 - Ahora vamos a volcar algo de contenido en _sidebar.tsx_ usando {this.props.children}
+
+_./src/sidebar.tsx_
 
 ```diff
 import * as React from 'react';

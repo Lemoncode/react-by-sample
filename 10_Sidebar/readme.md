@@ -186,8 +186,7 @@ const classNames = require('./sidebar.css');
     </div>
 ```
 
-- Now let's add some logic to show / hide the sidebar in case the flag gets
-updated
+- Now let's add some logic to show / hide the sidebar in case the flag gets updated
 
 _./src/sidebar.tsx_
 
@@ -253,7 +252,7 @@ export class App extends React.Component<{}, State> {
 -        <SidebarComponent/>
 +        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
         <HelloComponent userName={this.state.userName} />
-        <NameEditComponent userName={this.state.userName}       onChange={this.setUsernameState.bind(this)} 
+        <NameEditComponent userName={this.state.userName}           onChange={this.setUsernameState.bind(this)} 
         />
 +       <div style={{float: 'right'}}>
 +         <button
@@ -275,8 +274,7 @@ npm start
 
 - If we run our sample, we can see how the sidebar is shown / hidden.
 
-- So far so good, but what happens if we want to make this sidebar a reusable component? We could
-just show the frame but the content should be dynamic.
+- So far so good, but what happens if we want to make this sidebar a reusable component? We could just show the frame but the content should be dynamic.
 
 - Let's start by adding some content when instantiating the sidebar (_app.tsx_).
 
