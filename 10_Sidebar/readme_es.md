@@ -4,18 +4,18 @@ En este ejemplo vamos a implementar una única barra lateral.
 
 Tomaremos como punto de partida el ejemplo _03 State_:
 
-Resumen de pasos:
+## Resumen de pasos:
 
 - Añadir algunos estilos.
 - Incluir el nuevo css en webpack.
 - Crear un componente de barra lateral.
-- Añadamos algo de contenido a la barra lateral.
+- Añadir algo de contenido a la barra lateral.
 - Añadir un botón para abrir / cerrar la barra lateral.
 
 
 ## Prerequisitos
 
-Instalar [Node.js and npm](https://nodejs.org/es/) si no lo tenemos ya instalado.
+Instalar [Node.js y npm](https://nodejs.org/es/) (v6.0.0 o más reciente) si no lo tenemos ya instalado.
 
 > Verificar que estás ejecutando al menos con la versión 6.x.x de node y la versión 3.x.x de npm ejecutando `node -v` y `npm -v` en la ventana de terminal/consola. Versiones anteriores pueden producir errores.
 
@@ -80,6 +80,8 @@ _./webpack.config.js_
 
 - Solo utilizaremos CSS Modules para la hoja de estilos de la app. No utilizaremos CSS Modules para otros ficheros CSS, como Bootstrap (carpeta node_modules).
 
+_./webpack.config.js_
+
 ```diff
   {
     test: /\.css$/,
@@ -133,8 +135,13 @@ _./src/index.html_
 
 - Situemos el componente añadiendolo dentro de `app.tsx`:
 
-```jsx
-  import {SidebarComponent} from './sidebar';
+_./src/app.tsx_
+
+```diff
+  import * as React from 'react';
+  import { HelloComponent } from './hello';
+  import { NameEditComponent } from './nameEdit';
++  import { SidebarComponent } from './sidebar';
 ```
 
 ```diff
@@ -142,7 +149,9 @@ _./src/index.html_
     <>
 +      <SidebarComponent/>
       <HelloComponent userName={this.state.userName} />
-      <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
+      <NameEditComponent userName={this.state.userName} 
+        onChange={this.setUsernameState.bind(this)} 
+      />
     </>
   );
 ```
@@ -175,6 +184,8 @@ const classNames = require('./sidebar.css');
 
 - Añadamos algo de lógica para mostrar/ocultar la barra lateral en caso de que se actualice el valor del flag
 
+_./src/sidebar.tsx_
+
 ```diff
 import * as React from 'react';
 
@@ -190,7 +201,9 @@ interface Props {
 
 export const SidebarComponent = (props: Props) => 
 -    <div id="mySidenav" className={classNames.sidenav}>
-+    <div id="mySidenav" className={classNames.sidenav} style={divStyle(props)}>
++    <div id="mySidenav" className={classNames.sidenav} 
++       style={divStyle(props)}
++    >
         <span>Basic sidebar, first steps</span>
     </div>
 ```
@@ -210,7 +223,10 @@ export class App extends React.Component<{}, State> {
     super(props);
 
 -    this.state = {userName: 'defaultUserName'};
-+     this.state = {userName: "defaultUserName", isSidebarVisible: false};
++     this.state = {
++       userName: "defaultUserName", 
++       isSidebarVisible: false
++     };
   }
 
   setUsernameState(event) {
@@ -231,10 +247,11 @@ export class App extends React.Component<{}, State> {
 -        <SidebarComponent/>
 +        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
         <HelloComponent userName={this.state.userName} />
-        <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
-+       <div className="float-right">
+        <NameEditComponent userName={this.state.userName} 
+            onChange={this.setUsernameState.bind(this)} 
+        />
++       <div style={{float: 'right'}}>
 +         <button
-+           className="btn btn-default"
 +           onClick={this.toggleSidebarVisibility}>
 +           Toggle Sidebar
 +         </button>
@@ -247,7 +264,7 @@ export class App extends React.Component<{}, State> {
 
 - Llegados a este punto necesitaremos parar y volver a arrancar la aplicación para ver los cambios funcionando:
 
-```cmd
+```
 npm start
 ```
 
@@ -255,12 +272,20 @@ npm start
 
 - Hasta aqui todo bien, pero ¿que pasa si queremos hacer que nuestra barra lateral sea un componente reusable? Podriamos simplemente mostrar nuestra caja pero el contenido debería ser dinámico.
 
-- Comencemos añadiendo algo de contenido cuando nuestra barra lateral es instanciada.
+- Comencemos añadiendo algo de contenido cuando nuestra barra lateral es instanciada (_app.tsx_).
+
+_./src/app.tsx_
 
 ```diff
-  <SidebarComponent isVisible={this.state.isSidebarVisible}>
-+    <h1>Test content</h1>
-  </SidebarComponent>
+-  <SidebarComponent/>
++  <SidebarComponent isVisible={this.state.isSidebarVisible}>
++    <h1>Cool Scfi movies</h1>
++    <ul>
++      <li><a href="https://www.imdb.com/title/tt0816692/">Interstellar</a></li>
++      <li><a href="https://www.imdb.com/title/tt0083658/">Blade Runner</a></li>
++      <li><a href="https://www.imdb.com/title/tt0062622/">2001: a space odyssey</a></li>
++    </ul>  
++  </SidebarComponent>
 ```
 
 - Ahora vamos a volcar algo de contenido en _sidebar.tsx_ usando {this.props.children}
@@ -291,6 +316,6 @@ const divStyle = (props: React.CSSProperties) => ({
 
 - Probemos el ejemplo
 
-```cmd
+```
 npm start
 ```

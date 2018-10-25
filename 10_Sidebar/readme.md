@@ -4,7 +4,7 @@ In this sample we are going to implement a single sidebar.
 
 We will take a startup point sample _03 State_:
 
-Summary steps:
+## Summary steps:
 
 - Add some styles.
 - Include the new css into the webpack loop.
@@ -142,7 +142,7 @@ _./src/app.tsx_
   import * as React from 'react';
   import { HelloComponent } from './hello';
   import { NameEditComponent } from './nameEdit';
-+  import {SidebarComponent} from './sidebar';
++  import { SidebarComponent } from './sidebar';
 ```
 
 _./src/app.tsx_
@@ -152,7 +152,9 @@ _./src/app.tsx_
     <>
 +      <SidebarComponent/>
       <HelloComponent userName={this.state.userName} />
-      <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
+      <NameEditComponent userName={this.state.userName} 
+        onChange={this.setUsernameState.bind(this)}
+       />
     </>
   );
 ```
@@ -204,7 +206,9 @@ interface Props {
 
 export const SidebarComponent = (props: Props) => 
 -    <div id="mySidenav" className={classNames.sidenav}>
-+    <div id="mySidenav" className={classNames.sidenav} style={divStyle(props)}>
++    <div id="mySidenav" className={classNames.sidenav} 
++      style={divStyle(props)}
++    >
         <span>Basic sidebar, first steps</span>
     </div>
 ```
@@ -225,7 +229,10 @@ export class App extends React.Component<{}, State> {
     super(props);
 
 -    this.state = {userName: 'defaultUserName'};
-+    this.state = {userName: "defaultUserName", isSidebarVisible: false};
++    this.state = {
++       userName: "defaultUserName",
++       isSidebarVisible: false
++     };
   }
 
   setUsernameState(event) {
@@ -246,7 +253,8 @@ export class App extends React.Component<{}, State> {
 -        <SidebarComponent/>
 +        <SidebarComponent isVisible={this.state.isSidebarVisible}/>
         <HelloComponent userName={this.state.userName} />
-        <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState.bind(this)} />
+        <NameEditComponent userName={this.state.userName}       onChange={this.setUsernameState.bind(this)} 
+        />
 +       <div style={{float: 'right'}}>
 +         <button
 +           onClick={this.toggleSidebarVisibility}>
@@ -261,7 +269,7 @@ export class App extends React.Component<{}, State> {
 
 - At this point we will need to stop the app and start it again to see the changes working:
 
-```cmd
+```
 npm start
 ```
 
@@ -316,6 +324,6 @@ const divStyle = (props: React.CSSProperties) => ({
 
 - Let's try the sample
 
-```cmd
+```
 npm start
 ```
