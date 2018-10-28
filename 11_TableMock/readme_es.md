@@ -1,36 +1,33 @@
 # 11 TableMock
 
-Let's render a table and use a child component to render each row.
+Vamos a renderizar una tabla y usar un componente hijo para mostrar cada fila.
 
-We will start by just creating some mock data.
+Comemzamos por crear algunos datos falsos.
 
-We will take a startup point sample _03 State_:
+Tomaremos como punto de entrada la muestra _03 State_:
 
-## Summary steps:
+## Resumen de pasos:
 
-- Define a model entity (we will call it _member_).
-- Define a fake api (to take thing simple we will just make it synchronous).
-- We will row component, we will call it _memberRow_.
-- Create a table component, we will call it _memberTable_ and make use of _memberRow.
+- Definimos un modelo de entidad (la llamaremos _member_).
+- Definimos una api falsa (para hacerlo simple lo haremos síncrono).
+- Crearemos un componente fila, que llamaremos _memberRow_.
+- Crearemos un componente tabla, la llamaremos _memberTable_ y hacemos que use  _memberRow.
 
+## Prerequesitos
 
-## Prerequisites
+Instala [Node.js and npm](https://nodejs.org/en/) (v6.6.0) si no lo tienes aún instalado en tu máquina.
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+> Verificar que estás ejecutando al menos con la versión 6.x.x de node y la versión 3.x.x de npm ejecutando `node -v` y `npm -v` en la ventana de terminal/consola. Versiones anteriores pueden producir errores.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+## Pasos para construirlo
 
-## Steps to build it
-
-- Copy the content from _03 State_ and execute _npm install_.
+- Copia el contendio de _03 State_ y ejecuta _npm install_.
 
 ```cmd
 npm install
 ```
 
-- Let's define a model entity in _src/model/member.ts_:
-
-_./src/model/member.ts_
+- Definamos una entidad modelo en _src/model/member.ts_:
 
 ```javascript
 export interface MemberEntity {
@@ -46,7 +43,7 @@ export const createEmptyMember = () : MemberEntity => ({
 });
 ```
 
-- Let's create some mock data  in _src/api/memberMockData.ts_:
+- Vamos a crear algunos datos falsos en _src/api/memberMockData.ts_:
 
 _./src/api/memberMockData.ts_
 
@@ -70,11 +67,11 @@ var	MembersMockData : MemberEntity[] =
 export default MembersMockData;
 ```
 
-- Define a fake api (to take thing simple we will just make it synchronous) in _src/api/memberAPI.ts_:
+- Definimos una api falsa (para hacerlo simple vamos a hacerlo síncrono) en _src/api/memberAPI.ts_:
 
  _src/api/memberAPI.ts_
 
-```javascript
+ ```javascript
 import {MemberEntity} from '../model/member';
 import MembersMockData from './memberMockData';
 
@@ -95,9 +92,9 @@ class MemberAPI {
 export const memberAPI = new MemberAPI();
 ```
 
-- Now it's time jump into the interesting part, let's delete _hello.tsx_ and _nameEdit.tsx_.
+- Ahora es momento de saltar dentro de una parte interesante, vamos a borrar _hello.tsx_ y _nameEdit.tsx_.
 
-- We are going to create an stateless component that will display a single row _memberRow.tsx_.
+- Vamos a crear un componente sin estado que mostrara una simple _memberRow.tsx_ fila.
 
 _src/memberRow.tsx_
 
@@ -119,10 +116,9 @@ export const MemberRow = (props: {member : MemberEntity}) =>
        </tr>
 ```
 
-> We can't use max-widh in the param style in. We must write 'maxWidth' in the react components.
+> No podemos usar max-widh en el parametro style. Tenemos que escribir 'maxWidth' en los componentes de react.
 
-- Then we are going to implement a component that will display a list of members (and will
-  make use of rows), _membersTable.tsx_:
+- Luego vamos a implementar un componente que mostrará una lista de miembros (y usaremos las filas), _membersTable.tsx_:
 
 _./src/membersTable.tsx_
 
@@ -189,7 +185,7 @@ export class MembersTableComponent extends React.Component<Props, State> {
 }
 ```
 
-- Let's update an app.tsx
+- Vamos a actualizar app.tsx
 
 ```diff
 import * as React from 'react';
@@ -207,12 +203,12 @@ export class App extends React.Component<{}, State> {
        <>
 +        <MembersTableComponent/>
 -        <HelloComponent 
--         userName={this.state.userName} 
--        />
+-					userName={this.state.userName} 
+-				/>
 -        <NameEditComponent 
--         userName={this.state.userName} 
--         onChange={this.setUsernameState} 
--        />
+-					userName={this.state.userName} 
+-					onChange={this.setUsernameState} 
+-				/>
 
        </>
       );
@@ -221,7 +217,7 @@ export class App extends React.Component<{}, State> {
 
 ```
 
-- Let's run the sample
+Ejecutemos la muestra
 
 ```
 npm start
