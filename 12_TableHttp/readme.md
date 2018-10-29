@@ -113,7 +113,7 @@ export const MemberHead = () =>
 
 _./src/membersTable.tsx_
 
-- Import the new component :
+- Import the new component:
 
 ```diff
 
@@ -121,7 +121,7 @@ _./src/membersTable.tsx_
 
 ```
 
-- Modify the render function :
+- Modify the render function:
 
 ```diff
 -<thead>
