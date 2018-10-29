@@ -5,7 +5,7 @@ mock data by real one.
 
 We will take a startup point sample _11 TableMock_:
 
-Summary steps:
+## Summary steps:
 
 - Configure transpilation and add extra transpile step babel >> es5.
 - Update API in order to work with promises and fetch data from Github API.
@@ -39,7 +39,7 @@ npm install whatwg-fetch --save-dev
 _./src/api/memberAPI.ts_
 
 ```javascript
-import {MemberEntity} from '../model/member';
+import { MemberEntity } from '../model/member';
 import {} from 'whatwg-fetch';
 
 // Sync mock data API, inspired from:
@@ -117,7 +117,7 @@ _./src/membersTable.tsx_
 
 ```diff
 
-+ import {MemberHead} from './memberHead';
++ import { MemberHead } from './memberHead';
 
 ```
 
