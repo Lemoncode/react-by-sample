@@ -4,7 +4,7 @@ Sigamos con nuestro ejemplo de la tabla, vamos a cambiar datos falsos por unos r
 
 Cogeremos como punto inicial el ejemplo  _11 TableMock_:
 
-Pasos resumidos:
+## Pasos resumidos:
 
 - Configurar transpilación y añadir una transpilación extra babel >> es5.
 - Actualizar la API para trabajar con promesas y obtener datos de la API de Github.
@@ -13,11 +13,11 @@ Pasos resumidos:
 
 ## Prerrequisitos
 
-Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o más nuevo) si no están ya instalados.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más nuevo) si no están ya instalados.
 
 > Verificar que tienes al menos corriendo la versión de node v6.x.x y npm 3.x.x ejecutando `node -v` y `npm -v` en la terminal de Windows. Versiones más antiguas pueden producir errores.
 
-## Pasos
+## Pasos para construirlo
 
 - Copiar el contenido de _11 TableMock_ y ejecutar:
 
@@ -27,13 +27,18 @@ Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o más nuevo) si no e
 
 - Vamos a eliminar el fichero _mermberMockData.ts_ del directorio _src/api_ .
 
+- Para tener soporte en navegadores antiguos vamos a instalar la siguiente librería:
+
+```javascript
+npm install whatwg-fetch --save-dev
+```
+
 - Vamos a reemplazar _memberAPI_ cargando los miembros con promesas :
 
 _./src/api/memberAPI.ts_
 
 ```javascript
-import {MemberEntity} from '../model/member';
-import {} from 'core-js';
+import { MemberEntity } from '../model/member';
 import {} from 'whatwg-fetch';
 
 // Sync mock data API, inspired from:
@@ -79,8 +84,11 @@ class MemberAPI {
 }
 
 export const memberAPI = new MemberAPI();
+
 ```
-- Añadimos un nuevo componente _memberHead_ para crear la cabecera de la tabla :
+- Añadimos un nuevo componente _memberHead_ para crear la cabecera de la tabla:
+
+_./src/memberHead.tsx_
 
 ```javascript
 import * as React from 'react';
@@ -104,11 +112,16 @@ export const MemberHead = () =>
  
 _./src/memberTable.tsx_
 
-- Importamos el nuevo componente :
+- Importamos el nuevo componente:
+
 ```diff
-+ import {MemberHead} from './memberHead';
+
++ import { MemberHead } from './memberHead';
+
 ```
-- Modificamos la funcion render :
+
+- Modificamos la funcion render:
+
 ```diff
 -<thead>
 - <tr>
