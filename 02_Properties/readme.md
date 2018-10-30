@@ -47,7 +47,7 @@ Side note: using interfaces and ES6, the change looks like this:
 import * as React from 'react';
 
 + interface Props {
-+   username: string;
++   userName: string;
 + }
 
 - export const HelloComponent = () => {

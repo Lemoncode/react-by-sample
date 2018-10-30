@@ -46,7 +46,7 @@ import * as React from 'react';
 import * as React from 'react';
 
 + interface Props {
-+   username: string;
++   userName: string;
 + }
 
 - export const HelloComponent = () => {
