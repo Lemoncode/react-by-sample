@@ -37,7 +37,7 @@ export const NameEditComponent = (props : Props) =>
       <input value={props.editingUserName}
         onChange={(e) : void => props.onEditingNameUpdated((e.target as HTMLInputElement).value)} />
 
-      <button className="btn btn-default" 
+      <button 
         onClick={props.onNameUpdateRequest}
       >
         Change
