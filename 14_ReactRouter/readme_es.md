@@ -19,7 +19,7 @@ Tomaremos como punto de partida el ejemplo _[03 State](./../03%20State)_
 
 Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
 
-> Verifica que estás usando al menos node v6.x.x and npm 3.x.x usando los comandos `node -v` y `npm -v` en un terminal/consola. Versiones anteriores pueden producir errores.
+> Verifica que estás usando al menos node v6.x.x y npm 3.x.x usando los comandos `node -v` y `npm -v` en un terminal/consola. Versiones anteriores pueden producir errores.
 
 ## Pasos para construirlo
 
