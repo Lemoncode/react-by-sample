@@ -2,8 +2,7 @@
 
 In this sample we will start using React-Router (<acronym title="Single Page Application">SPA</acronym> navigation).
 
-In this case we will provide a default `userName` but let the user update
-it.
+In this case we will provide a default `userName` but let the user update it.
 
 We will take a startup point sample _[03 State](./../03%20State)_:
 
