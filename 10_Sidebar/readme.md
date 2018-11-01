@@ -134,6 +134,12 @@ _./src/index.html_
 +  <body id="main">
 ```
 
+_./src/main.tsx_
+
+```diff
++ document.getElementById('main')
+```
+
 - Let's place the component adding it into the `app.tsx`:
 
 _./src/app.tsx_
