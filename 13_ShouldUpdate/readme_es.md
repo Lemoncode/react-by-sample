@@ -102,8 +102,8 @@ _webpack.config.js_
 
 ```diff
 entry: [
+	'@babel/polyfill',
   './main.tsx',
-  '../node_modules/bootstrap/dist/css/bootstrap.css',
 +  './content/site.css'
 ],
 ```
@@ -270,7 +270,7 @@ import * as React from 'react';
 +  render() {
     return (
 -      <div className={this.setSatisfactionClass(props.level)}/>
-       <div className={this.setSatisfactionClass(this.props.level)}/>
++       <div className={this.setSatisfactionClass(this.props.level)}/>
     );
 +  }
 }
