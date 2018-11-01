@@ -17,7 +17,7 @@ Tomaremos como punto de partida el ejemplo _[03 State](./../03%20State)_
 
 ## Prerrequisitos
 
-Instalar [Node.js and npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
 
 > Verifica que estás usando al menos node v6.x.x and npm 3.x.x usando los comandos `node -v` y `npm -v` en un terminal/consola. Versiones anteriores pueden producir errores.
 
@@ -33,7 +33,7 @@ Copia el contenido de _[03 State](./../03%20State)_ y ejecuta:
 
 - Vamos a crear un componente llamado _PageA_ como _src/pageA.tsx_:
 
-### ./src/pageA.tsx
+## ./src/pageA.tsx
 
 ```jsx
 import * as React from "react"
@@ -64,7 +64,7 @@ npm install react-router-dom --save
 npm install @types/react-router-dom --save-dev  
 ```
 
-- Vamos a definir el enrutado en _main.tsx_ :
+- Vamos a definir el enrutado en _main.tsx_:
 
 ## ./src/main.tsx
 
@@ -72,6 +72,7 @@ npm install @types/react-router-dom --save-dev
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 - import { App } from './app';
+- import { HelloComponent } from './hello';
 + import { HashRouter, Switch, Route } from 'react-router-dom';
 + import { PageA } from './pageA';
 + import { PageB } from './pageB';

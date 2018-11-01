@@ -34,7 +34,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's create a component called _PageA_ as _src/pageA.tsx_:
 
-### ./src/pageA.tsx
+## ./src/pageA.tsx
 
 ```jsx
 import * as React from "react"
