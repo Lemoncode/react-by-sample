@@ -15,8 +15,7 @@ We will take a startup point sample _03 State_:
 - Copy under dir _content_ the four png's that contain the simleys.
 - Create under dir _content_ a _site.css_ file and define stlyes for the smileys.
 - Create a smily component.
-- Add to app state a currenValue entry, pass it to the control plus, add an slider
-to configure it.
+- Add to app state a currenValue entry, pass it to the control plus, add an slider to configure it.
 - Let's add an optimization... componentshouldupdate.
 
 ## Prerequisites
@@ -113,8 +112,7 @@ entry: [
 ],
 ```
 
-- Let's create a simple _faceComponent_ under _src_, we will start by just adding
-something hardcoded in file _src/face.tsx_:
+- Let's create a simple _faceComponent_ under _src_, we will start by just adding something hardcoded in file _src/face.tsx_:
 
 _./src/face.tsx_
 
@@ -163,8 +161,7 @@ export class App extends React.Component<Props, State> {
 npm start
 ```
 
-- Now it's time to link the property with the proper faces, let's create a style function
-for that in _face.tsx_
+- Now it's time to link the property with the proper faces, let's create a style function for that in _face.tsx_
 
 _./src/face.tsx_
 
@@ -207,7 +204,7 @@ _./src/app.tsx_
 
 ```diff
 import * as React from 'react';
-import {FaceComponent} from './face'
+import { FaceComponent } from './face'
 
 interface Props {
 }
@@ -277,7 +274,6 @@ import * as React from 'react';
 +    return isRangeChange(this.props.level, nextProps.level);
 +  }
 
-
 +  render() {
     return (
 -      <div className={this.setSatisfactionClass(props.level)}/>
@@ -287,7 +283,7 @@ import * as React from 'react';
 }
 ```
 
-> Excercise there's an easier way to implement the same algorithm in the shouldComponentUpdate.
+> Excercise there's an easier way to implement the same algorithm in the should component update.
 
 - Now if we place a breakpoint in the faceComponent render method we can see that
 render is only triggered when you change from a satisfaction range (e.g. 99 to 100).

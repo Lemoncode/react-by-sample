@@ -2,18 +2,18 @@
 
 En esta muestra mejoraremos el rendimiento con 'shouldComponentUpdate'.
 
-Vamos a implementar un widget de satisfacción de cliente, basado en una cara sonriente, aceptará un rango de valor (0 a 500), y la cara tiene un rango de valores 0..100, 100..200, 200..300, 300..400, 400..500. Nosotros solo dispararemos la opción de renderizado cuando el valor salte dentro del rango anterior o posterior.
+Vamos a implementar un widget de satisfacción de cliente, basado en una cara sonriente, aceptará un rango de valores (de 0 a 500), y la cara tiene un rango de valores de 0..100, 100..200, 200..300, 300..400, 400..500. Nosotros solo dispararemos la opción de renderizado cuando el valor salte dentro del rango anterior o posterior.
 
-Nosotros tomaremos como punto de entrada la muestra _03 State_:
+Tomaremos como punto de entrada la muestra _03 State_:
 
 ## Pasos resumidos:
 
-- Eliminar los componentes _hello_ and _nameEdit_  (limpiar app).
+- Eliminar los componentes _hello_ y _nameEdit_ (limpiar app).
 - Copiar dentro del directorio _content_ los cuatro png que contienen los emoticonos.
 - Crear dentro del directorio _content_ un fichero _site.css_ y definir estilos para los emoticonos.
 - Crear un componente emoticono.
 - Añadir a app un estaddo currenValue, pasando esto a un control mas, añadir un slider para configurarlo.
-- Añadamos una optimización... componentshouldupdate.
+- Añadir una optimización... componentshouldupdate.
 
 ## Prerrequisitos
 
@@ -58,7 +58,7 @@ export class App extends React.Component<Props, State> {
 
 - Creemos un fichero _src/content_ y copia los cinco emoticones (puedes copiarlo de la implementación en github).
 
-- Vamos a crear un fichero css: _src/content/site.css_ ay añade los estilos a los emoticonos:
+- Vamos a crear un fichero css: _src/content/site.css_ y añade los estilos a los emoticonos:
 
 _./src/content/site.css_
 
@@ -122,7 +122,7 @@ export const FaceComponent = (props : {level : number}) => {
 }
 ```
 
-Vamos ha hacer un rápido test en _app.tsx_
+Hagamos una prueba rápida en _app.tsx_
 
 _./src/app.tsx_
 
@@ -198,7 +198,7 @@ _./src/app.tsx_
 
 ```diff
 import * as React from 'react';
-import {FaceComponent} from './face'
+import { FaceComponent } from './face'
 
 interface Props {
 }
@@ -267,7 +267,6 @@ import * as React from 'react';
 +    return isRangeChange(this.props.level, nextProps.level);
 +  }
 
-
 +  render() {
     return (
 -      <div className={this.setSatisfactionClass(props.level)}/>
@@ -277,9 +276,9 @@ import * as React from 'react';
 }
 ```
 
-> Hay una manera más fácil de implementar el mismo algoritmo en shouldComponentUpdate.
+> Hay una manera más fácil de implementar el mismo algoritmo en el componente debería actualizarse.
 
-- Ahora si nosotros colocamos un punto de interrupción en el método de renderizado de faceComponent podemos ver que el renderizado solo se lanza cuando cambias a un rango positivo (ejemplo de 99 a 100).
+- Ahora si nosotros colocamos un punto de interrupción en el método de renderizado de faceComponent podemos ver que el renderizado solo se lanza cuando cambia a un rango positivo (ejemplo de 99 a 100).
 
 ```
 npm start
