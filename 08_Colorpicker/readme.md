@@ -131,7 +131,7 @@ _./src/colorpicker.tsx_
 +               min="0"
 +               max="255"
 +               value={props.color.red}
-+               onChange={(event) => props.onColorUpdated(
++               onChange={(event: any) => props.onColorUpdated(
 +                 {red: +event.target.value, green: 
 +                 props.color.green, blue: props.color.blue}
 +               )}
