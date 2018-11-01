@@ -6,7 +6,7 @@ En este caso proporcionaremos un `userName` por defecto pero dejaremos actualiza
 
 Tomaremos como punto de partida el ejemplo _[03 State](./../03%20State)_
 
-Resumen de pasos:
+## Resumen de pasos:
 
 - Primero vamos a hacer un poco de limpieza: eliminamos _hello.tsx_ y _nameEdit.tsx_
 - Vamos a crear dos componentes: _[PageA.tsx](./src/pageA.tsx)_ y _[PageB.tsx](./src/pageB.tsx)_
@@ -64,17 +64,17 @@ npm install react-router-dom --save
 npm install @types/react-router-dom --save-dev  
 ```
 
-- Vamos a definir el enrutado en _[main.tsx](./src/main.tsx)_ :
+- Vamos a definir el enrutado en _main.tsx_ :
 
-### ./src/main.tsx
+## ./src/main.tsx
 
 ```diff
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-- import {App} from './app';
+- import { App } from './app';
 + import { HashRouter, Switch, Route } from 'react-router-dom';
-+ import {PageA} from './pageA';
-+ import {PageB} from './pageB';
++ import { PageA } from './pageA';
++ import { PageB } from './pageB';
 
 ReactDOM.render(
 - <App />
@@ -83,8 +83,8 @@ ReactDOM.render(
 +     <Route exact={true} path="/" component={PageA} />
 +     <Route path="/pageB" component={PageB} />
 +   </Switch>
-+ </HashRouter>
-  , document.getElementById('root')
++ </HashRouter>,
+document.getElementById('root')
 );
 ```
 
@@ -96,7 +96,7 @@ npm start
 
 - Vamos a definir la navegación de _[PageA.tsx](./src/pageA.tsx)_ a _[PageB.tsx](./src/pageB.tsx)_.
 
-### ./src/pageA.tsx
+## ./src/pageA.tsx
 
 ```diff
 import * as React from "react"
@@ -112,7 +112,7 @@ export const PageA = () =>
 
 - Vamos a definir la navegación de _[PageB.tsx](./src/pageB.tsx)_ a _[PageA.tsx](./src/pageA.tsx)_
 
-### ./src/pageB.tsx
+## ./src/pageB.tsx
 
 ```diff
 import * as React from "react"

@@ -5,10 +5,9 @@ In this sample we will start using React-Router (<acronym title="Single Page App
 In this case we will provide a default `userName` but let the user update
 it.
 
-
 We will take a startup point sample _[03 State](./../03%20State)_:
 
-Summary steps:
+## Summary steps:
 
 - Let's make first some cleanup: remove _hello.tsx_ and _nameEdit.tsx_
 - Let's create two components _[PageA.tsx](./src/pageA.tsx)_ and _[PageB.tsx](./src/pageB.tsx)_
@@ -45,6 +44,7 @@ export const PageA = () =>
       <h2>Hello from page A</h2>
     </div>
 ```
+
 - Let's create a component called _PageB_ as _src/pageB.tsx_:
 
 ### ./src/pageB.tsx
@@ -67,16 +67,16 @@ npm install @types/react-router-dom --save-dev
 
 - Let's define the routing in _main.tsx_:
 
-### ./src/main.tsx
+## ./src/main.tsx
 
 ```diff
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-- import {App} from './app';
+- import { App } from './app';
 - import { HelloComponent } from './hello';
 + import { HashRouter, Switch, Route } from 'react-router-dom';
-+ import {PageA} from './pageA';
-+ import {PageB} from './pageB';
++ import { PageA } from './pageA';
++ import { PageB } from './pageB';
 
 ReactDOM.render(
 - <App />
@@ -85,8 +85,8 @@ ReactDOM.render(
 +     <Route exact={true} path="/" component={PageA} />
 +     <Route path="/pageB" component={PageB} />
 +   </Switch>
-+ </HashRouter>
-  , document.getElementById('root')
++ </HashRouter>,
+document.getElementById('root')
 );
 
 ```
@@ -99,7 +99,7 @@ npm start
 
 - Let's define a navigation from _[PageA.tsx](./src/pageA.tsx)_ to _[PageB.tsx](./src/pageB.tsx)_.
 
-### ./src/pageA.tsx
+## ./src/pageA.tsx
 
 ```diff
 import * as React from "react"
@@ -115,7 +115,7 @@ export const PageA = () =>
 
 - Let's define a navigation from _[PageB.tsx](./src/pageB.tsx)_ to _[PageA.tsx](./src/pageA.tsx)_
 
-### ./src/pageB.tsx
+## ./src/pageB.tsx
 
 ```diff
 import * as React from "react"
