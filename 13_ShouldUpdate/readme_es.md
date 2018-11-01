@@ -1,39 +1,35 @@
-# 13 ShouldUpdate
+## 13 ShouldUpdate
 
-In this sample we will enhance rendering performance hooking to 'shouldComponentUpdate'.
+En esta muestra mejoraremos el rendimiento con 'shouldComponentUpdate'.
 
-We are going to implement a customer satisfaction widget, based on smily faces,
-it will accept a range value (0 to 500), and the faces will have a range of values
-0..100, 100..200, 200..300, 300..400, 400..500. We will only fire the render option whenever
-the value jumps into the next or previous range.
+Vamos a implementar un widget de satisfacción de cliente, basado en una cara sonriente, aceptará un rango de valor (0 a 500), y la cara tiene un rango de valores 0..100, 100..200, 200..300, 300..400, 400..500. Nosotros solo dispararemos la opción de renderizado cuando el valor salte dentro del rango anterior o posterior.
 
-We will take a startup point sample _03 State_:
+Nosotros tomaremos como punto de entrada la muestra _03 State_:
 
-## Summary steps:
+## Pasos resumidos:
 
-- Remove _hello_ and _nameEdit_ components (app cleanup).
-- Copy under dir _content_ the four png's that contain the simleys.
-- Create under dir _content_ a _site.css_ file and define stlyes for the smileys.
-- Create a smily component.
-- Add to app state a currenValue entry, pass it to the control plus, add an slider
-to configure it.
-- Let's add an optimization... componentshouldupdate.
+- Eliminar los componentes _hello_ and _nameEdit_  (limpiar app).
+- Copiar dentro del directorio _content_ los cuatro png que contienen los emoticonos.
+- Crear dentro del directorio _content_ un fichero _site.css_ y definir estilos para los emoticonos.
+- Crear un componente emoticono.
+- Añadir a app un estaddo currenValue, pasando esto a un control mas, añadir un slider para configurarlo.
+- Añadamos una optimización... componentshouldupdate.
 
-## Prerequisites
+## Prerrequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are not already installed on your computer.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más nuevo) si no están ya instalados.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verificar que tienes al menos corriendo la versión de node v6.x.x y npm 3.x.x ejecutando `node -v` y `npm -v` en la terminal de Windows. Versiones más antiguas pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo 
 
-- Copy the content from _03 State_ and execute:
+- Copia el contenido de _03 State_ y ejecútalo:
 
 ```
 npm install
 ```
 
-- Let's make a cleanup on _app.tsx_
+- Hagamos una limpieza en _app.tsx_
 
 _./src/app.tsx_
 
@@ -60,10 +56,9 @@ export class App extends React.Component<Props, State> {
 }
 ```
 
-- Let's create a folder _src/content_ and copy the five smiley faces (you can
-  copy them from the sample implementation in github).
+- Creemos un fichero _src/content_ y copia los cinco emoticones (puedes copiarlo de la implementación en github).
 
-- Let's create a css file: _src/content/site.css_ and add the smileys styles:
+- Vamos a crear un fichero css: _src/content/site.css_ ay añade los estilos a los emoticonos:
 
 _./src/content/site.css_
 
@@ -99,9 +94,9 @@ _./src/content/site.css_
 }
 ```
 
-- You can copy this images into the _content_ folde, url where you can download them: https://github.com/Lemoncode/react-by-sample/tree/master/13%20ShouldUpdate/src/content
+- Puedes copiar estas imágenes dentro de la carpeta  _content_ la url donde puedes descargartelos: https://github.com/Lemoncode/react-by-sample/tree/master/13%20ShouldUpdate/src/content
 
-- In _webpack.config.js_ let's add the new _css_ file as entry point:
+- En _webpack.config.js_ añadamos un nuevo fichero _css_ como punto de entrada:
 
 _webpack.config.js_
 
@@ -113,8 +108,7 @@ entry: [
 ],
 ```
 
-- Let's create a simple _faceComponent_ under _src_, we will start by just adding
-something hardcoded in file _src/face.tsx_:
+- Vamos a crear un simple _faceComponent_ bajo _src_, nosotros empezaremos por añadir algunos codificados en el fichero  _src/face.tsx_:
 
 _./src/face.tsx_
 
@@ -128,7 +122,7 @@ export const FaceComponent = (props : {level : number}) => {
 }
 ```
 
-- Let's make a quick test on _app.tsx_
+Vamos ha hacer un rápido test en _app.tsx_
 
 _./src/app.tsx_
 
@@ -157,14 +151,13 @@ export class App extends React.Component<Props, State> {
 }
 ```
 
-- Let's make a check point and run the sample: check that is working as expected.
+- Hagamos un punto de guardado y ejecutemos la muestra: comprobemos que está funcionando como esperamos.
 
 ```
 npm start
 ```
 
-- Now it's time to link the property with the proper faces, let's create a style function
-for that in _face.tsx_
+- Ahora es hora de unir la propiedad con la expresión adecuada, vamos a crear un función que de estilo en _face.tsx_
 
 _./src/face.tsx_
 
@@ -191,17 +184,15 @@ import * as React from 'react';
 +  return "very-satisfied"
 +}
 
-
 export const FaceComponent = (props : {level : number}) => {
   return (
 -    <div className="somewhat-satisfied"/>
 +    <div className={setSatisfactionClass(props.level)}/>
   );
 }
-```
+``` 
 
-- In _app.tsx_ let's add a state variable to hold the current satisfaction level plus
-an slider to let the user update it.
+- En _app.tsx_ añadamos un estado que mantenga el grado de satisfacción actual más un control deslizante para que el usuario lo actualize.
 
 _./src/app.tsx_
 
@@ -231,7 +222,7 @@ export class App extends React.Component<Props, State> {
 +                max="500"
 +                value={this.state.satisfactionLevel}
 +                onChange={(event : any) => this.setState(
-+                {satisfactionLevel:event.target.value} as State)}
++								{satisfactionLevel:event.target.value} as State)}
 +        />
 +        <br/>
 +        <span>{this.state.satisfactionLevel}</span>
@@ -244,16 +235,15 @@ export class App extends React.Component<Props, State> {
 }
 ```
 
-- Let's run the sample:
+- Vamos a ejecutar la muestra
 
   ```
   npm start
   ```
 
-- Let's add a rendering optimization, we should only trigger the render whenever
-the level just changes the satisfaction range, we need to move the component to state component:
-
-_./src/face.tsx_
+	- Añadamos una optimización de renderización, nosotros deberíamos solo lanzar el renderizado cuando el nivel de satisfacción cambie, necesitamos mover el componente a un componente estado:
+	
+	_./src/face.tsx_
 
 ```diff
 import * as React from 'react';
@@ -287,10 +277,9 @@ import * as React from 'react';
 }
 ```
 
-> Excercise there's an easier way to implement the same algorithm in the shouldComponentUpdate.
+> Hay una manera más fácil de implementar el mismo algoritmo en shouldComponentUpdate.
 
-- Now if we place a breakpoint in the faceComponent render method we can see that
-render is only triggered when you change from a satisfaction range (e.g. 99 to 100).
+- Ahora si nosotros colocamos un punto de interrupción en el método de renderizado de faceComponent podemos ver que el renderizado solo se lanza cuando cambias a un rango positivo (ejemplo de 99 a 100).
 
 ```
 npm start
