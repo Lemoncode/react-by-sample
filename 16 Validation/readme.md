@@ -58,7 +58,7 @@ const onTextFieldChange = (fieldId : string, onChange: (fieldId, value) => void)
 }
 
 export const TextFieldForm : React.StatelessComponent<Props> = (props) => {
-  const {name, label, onChange, value, error, type} = props;
+  const { name, label, onChange, value, error, type } = props;
   return (
     <>
         <TextField
@@ -129,7 +129,7 @@ _./src/pages/login/loginPage.tsx_
 
 ```diff
 import { isValidLogin } from '../../api/login';
-+ import {LoginFormErrors} from './viewmodel';
++ import { LoginFormErrors } from './viewmodel';
 
 interface State {
   loginInfo: LoginEntity;
@@ -145,7 +145,7 @@ _./src/pages/login/loginPage.tsx_
 // Adding imports
 ```diff
 import { isValidLogin } from '../../api/login';
-+ import {LoginFormErrors, createDefaultLoginFormErrors} from './viewmodel';
++ import { LoginFormErrors, createDefaultLoginFormErrors } from './viewmodel';
 + import { loginFormValidation } from './loginValidations';
 ```
 
@@ -203,7 +203,7 @@ _./src/loginForm.tsx_
 
 ```diff
 import { LoginEntity } from "../../model/login";
-+ import {LoginFormErrors} from './viewmodel';
++ import { LoginFormErrors } from './viewmodel';
 
 interface Props {
   loginInfo: LoginEntity;
@@ -220,7 +220,7 @@ _./src/common/pages/loginForm.tsx_
 
 ```diff
 import { LoginEntity } from "../../model/login";
-import {LoginFormErrors} from './viewmodel';
+import { LoginFormErrors } from './viewmodel';
 + import { TextFieldForm } from '../../common/forms/textFieldForm';
 ```
 
