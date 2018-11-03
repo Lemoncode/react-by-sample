@@ -382,7 +382,7 @@ const LoginPageInner = (props) => {
 En order de hacer esto usaremos react-router 4 "withRouter" HoC
 (High order component).
 
-_./src/pages/login/form.tsx_
+_./src/pages/login/LoginForm.tsx_
 
 ```diff
 import * as React from "react"

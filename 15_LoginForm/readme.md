@@ -391,7 +391,7 @@ const LoginPageInner = (props) => {
 - Let's add the navigation on button clicked (later on we will check for user and pwd) _form.tsx_.
 In order to do this we will use react-router 4 "withRouter" HoC (High order component).
 
-_./src/pages/login/form.tsx_
+_./src/pages/login/LoginForm.tsx_
 
 ```diff
 import * as React from "react"
