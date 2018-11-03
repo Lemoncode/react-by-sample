@@ -1,4 +1,4 @@
-# 15 Login form
+## 15 Login form
 
 In this sample we are going to implement a basic login page, that will redirect
 the user to another page whenever the login has completed successfully.
@@ -9,7 +9,7 @@ more maintenable.
 
 We will take a startup point sample _14 ReactRouter_:
 
-Summary steps:
+## Summary steps:
 
 - Let's rename pageA to LoginPage.
 - Let's create a 'Pages' subfolder and reorganize pages.
@@ -56,8 +56,7 @@ called _pages_
 
 - Under that subfolder let's create two more subfolders _login_ and _b_
 
-- Let's place the _pages_ under that subfolders: _pages/login/loginPage.tsx_
-and _pages/b/pageB.
+- Let's place the _pages_ under that subfolders: _pages/login/loginPage.tsx_ and _pages/b/pageB.
 
 ```
 .
@@ -72,8 +71,7 @@ and _pages/b/pageB.
 
 ```
 
-- In some cases this pages will contain more secondary files, let's create
-a simple _index.tsx_ file for each of this pages.
+- In some cases this pages will contain more secondary files, let's create a simple _index.tsx_ file for each of this pages.
 
 - Under _pages/login/index.ts.
 
@@ -90,6 +88,7 @@ _./src/pages/b/index.ts_
 ```javascript
 export {PageB} from './pageB';
 ```
+
 - The structure look like this:
 
 ```
@@ -103,7 +102,6 @@ export {PageB} from './pageB';
         └── b/
             ├── index.ts
             └── pageB.tsx
-
 ```
 
 - Let's update _main.tsx_ (routes, names and add a redirect from root to login page)
