@@ -1,38 +1,37 @@
 ## 15 Login form Validation
 
-Let's add validation support to this form.
+Vamos a añadir validaciones de apoyo a este formulario.
 
-For this we will use lc-form-validation library
+Para esto usaremos la librería lc-form-validation
 
-## Summary steps:
+## Resumen de pasos:
 
-- Install lc-form-validation library.
-- Refactor input component to a common component and include error validation info.
-- Let's define the validation for the form.
-- Let's hook it.
+- Instala la librería lc-form-validation.
+- Refactoriza el componente input a un componente común e incluye información de errores de validación.
+- Define la validación para el formulario.
+- Vamos a engancharlo.
 
-## Prerequisites
+## Prerrequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verifica que estás usando al menos node v6.x.x and npm 3.x.x usando los comandos `node -v` y `npm -v` en un terminal/consola. Versiones anteriores pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo
 
-- Copy the content from _15 React Form_ and execute _npm install_.
+- Copia el contenido de _15 React Form_ y execute _npm install_.
 
 ```bash
 npm install
 ```
 
-- Let's install the library (it includes already the typings).
+- Instala la librería (esta incluye los tipos).
 
 ```bash
 npm install lc-form-validation --save-dev
 ```
 
-- To avoid having too much repeated code let's move to common an input component, including it's
-label plus validation text.
+- Para evitar tener mucho código repetido vamos a mover a comun un componente input, incluyendo este label mas el texto de validación.
 
 _./common/forms/textFieldForm.tsx_
 
@@ -79,8 +78,7 @@ export const TextFieldForm : React.StatelessComponent<Props> = (props) => {
 }
 ```
 
-
-- Now let's define a basic validation for the form, we want to ensure both fields are informed.
+- Ahora definamos una validación básica para el formulario, queremos asegurar de que ambos campos están informado.
 
 _./src/pages/login/loginValidations.ts_
 
@@ -103,7 +101,7 @@ const loginFormValidationConstraints: ValidationConstraints = {
 export const loginFormValidation = createFormValidation(loginFormValidationConstraints);
 ```
 
-- Let's create now a class to hold the dataFormErrors.
+- Crea ahora a una clase a ambos dataFormErrors.
 
 _./src/login/viewmodel.ts_
 
@@ -121,9 +119,9 @@ export const createDefaultLoginFormErrors = (): LoginFormErrors => ({
 });
 ```
 
-- Now let's go for the component side.
+- Ahora vamos por el lado del componente.
 
-- First let's add the dataFormErrors to the state of the component.
+- Primero vamos a añadir el estado al dataFormErrors del componente.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -138,7 +136,7 @@ interface State {
 }
 ```
 
-- Now let's update the onUpdate callback to include the validation.
+- Ahora vamos a actualizar la llamada onUpdate para incluir la validación.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -180,7 +178,7 @@ _./src/pages/login/loginPageContainer.tsx_
   }
 ```
 
-- We need to pass down dataFormErrors
+- Necesitamos pasar para abajo dataFormErrors
 
 _./src/loginPageContainer.tsx_
 
@@ -197,7 +195,7 @@ _./src/loginPageContainer.tsx_
   }
 ```
 
-- Now we need to define the property in the loginForm component.
+- Ahora necesitamos definir la propiedad en el componente loginForm.
 
 _./src/loginForm.tsx_
 
@@ -213,8 +211,7 @@ interface Props {
 }
 ```
 
-
-- Now let's update our components to match the new input component.
+- Ahora actualiza nuestros componentes para encontrar el componente input nuevo.
 
 _./src/common/pages/loginForm.tsx_
 
@@ -275,13 +272,13 @@ export const LoginForm = (props: Props) => {
 }
 ```
 
-- Let's give a try.
+- Vamos a intentarlo.
 
 ```bash
 npm start
 ```
 
-- And let's add an alert (Excercise and a notification) when the user clicks and the form all the fields are valid.
+- Y vamos a añdir un alert (Ejercicio y una notificación) cuando el usuario pulse y los campos del formulario son válidos.
 
 _./src/pages/login/loginPageContainer.tsx_
 
@@ -304,4 +301,4 @@ _./src/pages/login/loginPageContainer.tsx_
 
 // TODO: mapFormValidationResultToFieldValidationErrors
 
-> Excercise create a generic info snack bar and remove alert.
+> Ejercicio crea una información genérica dentro del snackbar y elimina el alert.
