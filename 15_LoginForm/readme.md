@@ -104,7 +104,7 @@ export {PageB} from './pageB';
             └── pageB.tsx
 ```
 
-- Let's update _main.tsx_ (routes, names and add a redirect from root to login page)
+- Let's update _main.tsx_ (routes, names and add a redirect from root to login page).
 
 _./src/main.tsx_
 
@@ -112,10 +112,10 @@ _./src/main.tsx_
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { HashRouter, Switch, Route } from 'react-router-dom';
-- import {PageA} from './pageA';
-- import {PageB} from './pageB';
-+ import {LoginPage} from './pages/login';
-+ import {PageB} from './pages/b';
+- import { PageA } from './pageA';
+- import { PageB } from './pageB';
++ import { LoginPage } from './pages/login';
++ import { PageB } from './pages/b';
 
 ReactDOM.render(
    <HashRouter>
@@ -130,7 +130,7 @@ ReactDOM.render(
 );
 ```
 
-- Let's update as well the navigation from _pageB_ to _loginPage_, _pageB.tsx_
+- Let's update as well the navigation from _pageB_ to _loginPage_, _pageB.tsx_.
 
 _./src/pages/b/pageB.tsx_
 
@@ -176,9 +176,7 @@ _./src/index.html_
 </html>
 ```
 
-- Let's build a proper _login_ layout, _loginPage.tsx_, we will base it in
-the [following layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3)
-but we will break it down into subcomponents.
+- Let's build a proper _login_ layout, _loginPage.tsx_, we will base it in the [following layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3)but we will break it down into subcomponents.
 
 - To build a nice layout, we will install _@material-ui/core_
 
@@ -242,8 +240,7 @@ const LoginPageInner = (props : Props) => {
 export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
-- This can be ok, but if we take a deeper look to this component, we could break down into two, one is the
-card itself the other the form dialog, so it should finally look like:
+- This can be ok, but if we take a deeper look to this component, we could break down into two, one is the card itself the other the form dialog, so it should finally look like:
 
 ** Proposal ** 
 
@@ -255,6 +252,7 @@ card itself the other the form dialog, so it should finally look like:
       </CardContent>
     </Card>
 ```
+
 - Let's create the loginformcomponent:
 
 _./src/pages/login/loginForm.tsx_
@@ -438,10 +436,10 @@ npm start
 
 Ok, we can navigate whenever we click on the login page. 
 
-- Let's keep on progressing, now is time to collect the username and password info, and check if
-password is valid or not.
+- Let's keep on progressing, now is time to collect the username and password info, and check if password is valid or not.
 
 - Let's define an entity for the loginInfo let's create the following path and file
+
 _src/model/login.ts_
 
 ```javascript
@@ -456,8 +454,7 @@ export const createEmptyLogin = () : LoginEntity => ({
 });
 ```
 
-- Let's add login validation fake restApi: create a folder _src/api_. and a file called
-_login.ts_
+- Let's add login validation fake restApi: create a folder _src/api_. and a file called _login.ts_
 
 _./src/api/login.ts_
 
@@ -488,7 +485,6 @@ export const isValidLogin = (loginInfo : LoginEntity) : boolean =>
         └── b/
             ├── index.ts
             └── pageB.tsx
-
 ```
 
 - Let's add the _api_ integration, plus navigation on login succeeded:
@@ -845,7 +841,5 @@ https://github.com/mui-org/material-ui/issues/13144
 
 https://codesandbox.io/s/zz6wnqklzm
 
-> And form validation? There are several libraries available, one that we had created in lemoncode
-is lc-form-validation we will create a sample including this lib to validate the login form
+> And form validation? There are several libraries available, one that we had created in lemoncode is lc-form-validation we will create a sample including this lib to validate the login form
 (required fields)
-
