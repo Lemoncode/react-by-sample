@@ -39,6 +39,7 @@ _./common/forms/textFieldForm.tsx_
 ```tsx
 import * as React from "react";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 
 interface Props {
   name: string;
@@ -149,7 +150,7 @@ import { isValidLogin } from '../../api/login';
 + import { loginFormValidation } from './loginValidations';
 ```
 
-_./src/pages/login/loginPageContainer.tsx_
+_./src/pages/login/loginPage.tsx_
 
 ```diff
   constructor(props) {
@@ -182,7 +183,7 @@ _./src/pages/login/loginPageContainer.tsx_
 
 - We need to pass down dataFormErrors
 
-_./src/loginPageContainer.tsx_
+_./src/loginPage.tsx_
 
 ```diff
   public render() {
@@ -207,8 +208,8 @@ import { LoginEntity } from "../../model/login";
 
 interface Props {
   loginInfo: LoginEntity;
-  updateField: (string, any) => void;
-  doLogin: () => void;
+  onUpdateField: (string, any) => void;
+  onLogin: () => void;
 +  loginFormErrors : LoginFormErrors;
 }
 ```
