@@ -1,14 +1,14 @@
-## Intro
+# Intro
 
-In this sample we are going to learn how React 16 context api works.
+En esta muestra vamos a aprender como la api de context en React 16 trabaja.
 
-This will allow us to share information between components without having to go through props drilldown or having to add redux support to our project.
+Esto nos permitirá buscar información entre componentes sin tener que ir profundizando traves de las propiedades o tener que añadir la ayuda de redux a nuestro proyecto.
 
-## Steps to build it
+## Pasos para construirlo
 
-- We want to store just the _login_ field once the user logs in and display it  in the page B (or in wathever page or component we need it), let's add a default value ('no user').
+- Queremos guardar el campo de _login_ una vez el usuario se logue y muestre la página B (o en culaquier página o componente que lo necesite), vamos a añadir un valor por defecto ('no user').
 
-- Let's start by creating a context, we will call it _sessionContext_, and add the proper typing
+- Empezaremos por crear un contexto, lo llamaremos _sessionContext_, y añade los tipos apropiados
 
 _./src/common/sessionContext.tsx_
 
@@ -25,8 +25,8 @@ export const createDefaultUser = () : SessionContextProps => ({
 export const SessionContext = React.createContext<SessionContextProps>(createDefaultUser());
 ```
 
-- This session context will expose a _provider_ (will serve us to set the login name in the context), and a _consumer_ (will let us consume the login name from the context from any point of the application).
-We will create a component (we will name it _SessionProvider) that on one hand will store in the state the login name and bind it to the _SessionContext_ and in the other hand it act as a wrapper (usually it will sit on top of the application and wrap the application).
+- Esta contexto de sesión expondrá un _provider_ (Nos servirá para establecer el nombre de inicio de sesión en el contexto), y un _consumer_ (Nos permitirá consumir el nombre de inicio de sesión del contexto desde cualquier punto de la aplicación).
+Creamos un componente (lo nombraremos _SessionProvider) que en una mano guardará en el estado el nombre del login y lo atará a _SessionContext_ y en la otra acturá como una envoltura (normalmente está al principio de la aplicación y envuelve la aplicación).
 
 _./src/common/sessionContext.tsx_
 
@@ -58,7 +58,7 @@ export const SessionContext = React.createContext<SessionContextProps>(createDef
 + };
 ```
 
-- Let's add this to the common _index_ barrel.
+- Añade esto a un _index_ barrel común.
 
 _./src/common/index.tsx_
 
@@ -67,7 +67,7 @@ export * from './notification';
 + export * from './sessionContext';
 ```
 
-- Is time to expose this provider on top of our application.
+- Es momento de exponer este provider al principio de nuestra aplicación.
 
 _./src/main.tsx_
 
@@ -101,7 +101,7 @@ ReactDOM.render(
 );
 ```
 
-- On pageB let's consume the sessionContext user name.
+- En la pageB consumiremos el nombre de usuario de sessionContext.
 
 _./src/pages/b/pageB.tsx_
 
@@ -128,22 +128,22 @@ export const PageB = () =>
     </div>
 ```
 
-- If we ran the sample we can navigate to page B and see the default login name being displayed.
+- Si ejecutamos la muestra podemos navegar a la página B y ver mostrado el nombre por defecto atado
 
 ```bash
 npm start
 ```
 
-- Showing a default name is not a bad thing, but we need to display the real login name  entered by the user, to do this we will expose a function into our context that will let any consumer update the value.
+- Mostrar un nombre por defecto no es una cosa mala, pero necesitamos mostrar el nombre de login real que ingresado por el usuario, para hacer esto expondremos una función dentro de nuestro contexto que permitirá a cualquier consumer actualizar el valor.
 
 _./src/common/sessionContext.tsx_
 
 ```diff
 ```
 
-- Now let's apply this on the loginPage.
+- Ahora aplicaremos esto en el loginPage.
 
-First let's add an update login method.
+Primero añade un métodoo de actualización de login.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -159,7 +159,7 @@ export const createDefaultUser = () : SessionContextProps => ({
 });
 ```
 
-- Let's configure this in the provider state.
+- Configuraremos esto en el provider del estado.
 
 ```diff
 export class SessionProvider extends React.Component<{}, State> {
@@ -187,9 +187,9 @@ export class SessionProvider extends React.Component<{}, State> {
 };
 ```
 
-- Time to setup this value when we click on the login button.
+- Momento de configurar este valor cuando hacemos clic en el botón de inicio de sesión.
 
-- Let's add an import to our context.
+- Añade un import a nuestro context.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -197,7 +197,7 @@ _./src/pages/login/loginPage.tsx_
 + import { SessionContext } from '../../common';
 ```
 
-- Let's update our login component property to accept the setLogin method.
+- Actualiza nuestra propiedad del componente login para aceptar el método setLogin.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -207,7 +207,7 @@ interface Props extends RouteComponentProps, WithStyles<typeof styles> {
 }
 ```
 
-- We will create an intermediate component (in our next sample we will port it to a generic Hoc).
+- Crearemos un componente intermédio (en nuestra siguiente muestra lo portaremos como un Hoc genérico).
 
 _./src/pages/login/loginPage.tsx_
 
@@ -228,7 +228,7 @@ _./src/pages/login/loginPage.tsx_
 
 ```
 
-- Let's call the setLogin once the user clicks.
+- Llamemos al setLogin una vez el usuario pulse.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -250,10 +250,10 @@ _./src/pages/login/loginPage.tsx_
   }
 ```
 
-- If we run the app we can check that now we get the right result.
+- Si ejecutamos la app podremos verificar que ahora nosotros tenemos el resultado correcto
 
 ```bash
 npm start
 ```
 
-> If have to nest many render props, you can end up having a heavy nested component, in that case checkout react-composer micro library (https://github.com/jamesplease/react-composer)
+> Si tenemos que anidar muchas render props, podemos terminar teniendo un componente anidado pesado, en ese caso revisa la micro librería react-composer (https://github.com/jamesplease/react-composer).
