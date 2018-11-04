@@ -1,41 +1,54 @@
 # Intro
 
-En esta muestra vamos a aprender como la api de context en React 16 trabaja.
+En este ejemplo vamos a aprender cómo funciona la api de context en React 16.
 
-Esto nos permitirá buscar información entre componentes sin tener que ir profundizando traves de las propiedades o tener que añadir la ayuda de redux a nuestro proyecto.
+Esto nos permitirá compartir información entre componentes sin tener que ir añadiendo propiedades por todo el árbol o tener que añadir redux a nuestro proyecto.
+
+## Prerrequisitos
+
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
+
+> Verifica que estás usando al menos node v6.x.x y npm 3.x.x usando los comandos `node -v` y `npm -v` en una terminal o consola. Las versiones anteriores pueden producir errores.
+
+Vamos a tomar como punto de partida el ejemplo _16 Validation_:
 
 ## Pasos para construirlo
 
-- Queremos guardar el campo de _login_ una vez el usuario se logue y muestre la página B (o en culaquier página o componente que lo necesite), vamos a añadir un valor por defecto ('no user').
+- Queremos guardar el campo de _login_ una vez el usuario inicie sesión y mostrarlo en la página B (o en cualquier página o componente que lo necesite), vamos a añadir un valor por defecto ('no user').
 
-- Empezaremos por crear un contexto, lo llamaremos _sessionContext_, y añade los tipos apropiados
+- Empezaremos por crear un contexto, lo llamaremos _sessionContext_, y añadiremos los tipos apropiados
 
 _./src/common/sessionContext.tsx_
 
 ```javascript
-import * as React from "react"
+import * as React from "react";
 
 export interface SessionContextProps {
-  login : string;
-} 
-export const createDefaultUser = () : SessionContextProps => ({
+  login: string;
+}
+
+const createDefaultUser = (): SessionContextProps => ({
   login: 'no user',
 });
 
 export const SessionContext = React.createContext<SessionContextProps>(createDefaultUser());
 ```
 
-- Esta contexto de sesión expondrá un _provider_ (Nos servirá para establecer el nombre de inicio de sesión en el contexto), y un _consumer_ (Nos permitirá consumir el nombre de inicio de sesión del contexto desde cualquier punto de la aplicación).
-Creamos un componente (lo nombraremos _SessionProvider) que en una mano guardará en el estado el nombre del login y lo atará a _SessionContext_ y en la otra acturá como una envoltura (normalmente está al principio de la aplicación y envuelve la aplicación).
+- Este contexto de sesión expondrá un _proveedor_ (que nos servirá para establecer el nombre de inicio de sesión en el contexto), y un _consumidor_ (que nos permitirá consumir el nombre de inicio de sesión del contexto en cualquier punto de la aplicación).
+Crearemos un componente (lo llamaremos _SessionProvider_) que por un lado guardará en el estado el nombre del login y lo atará a _SessionContext_ y por otro lado acturá como un envoltorio (normalmente está al principio de la aplicación y envuelve la aplicación).
 
 _./src/common/sessionContext.tsx_
 
 ```diff
-import * as React from "react"
+import * as React from "react";
 
 export interface SessionContextProps {
-  login : string;
-} 
+  login: string;
+}
+
+const createDefaultUser = (): SessionContextProps => ({
+  login: 'no user',
+});
 
 export const SessionContext = React.createContext<SessionContextProps>(createDefaultUser());
 
@@ -44,21 +57,22 @@ export const SessionContext = React.createContext<SessionContextProps>(createDef
 +
 + export class SessionProvider extends React.Component<{}, State> {
 +
-+  constructor(props) {
-+    super(props);
-+    this.state = createDefaultUser();
-+  }
++   constructor(props) {
++     super(props);
++     this.state = createDefaultUser();
++   }
 +
-+  render() {
-+    return (
-+      <SessionContext.Provider value={this.state}>
-+        {this.props.children}
-+      </SessionContext.Provider>     
-+  )};
-+ };
++   render() {
++     return (
++       <SessionContext.Provider value={this.state}>
++         {this.props.children}
++       </SessionContext.Provider>
++     );
++   }
++ }
 ```
 
-- Añade esto a un _index_ barrel común.
+- Vamos a añadirlo a un _index_ barrel común.
 
 _./src/common/index.tsx_
 
@@ -67,7 +81,7 @@ export * from './notification';
 + export * from './sessionContext';
 ```
 
-- Es momento de exponer este provider al principio de nuestra aplicación.
+- Es hora de exponer este proveedor al principio de nuestra aplicación.
 
 _./src/main.tsx_
 
@@ -78,7 +92,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import { LoginPage } from './pages/login';
 import { PageB } from './pages/b';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-+ import { SessionProvider } from './common'
++ import { SessionProvider } from './common';
 
 const theme = createMuiTheme({
   typography: {
@@ -96,100 +110,93 @@ ReactDOM.render(
         </Switch>
       </HashRouter>
 +   </SessionProvider>
-  </MuiThemeProvider>
-  , document.getElementById('root')
+  </MuiThemeProvider>,
+  document.getElementById('root')
 );
 ```
 
-- En la pageB consumiremos el nombre de usuario de sessionContext.
+- En la página B consumiremos el campo login de SessionContext.
 
 _./src/pages/b/pageB.tsx_
 
 ```diff
 import * as React from "react"
 import { Link } from 'react-router-dom';
-+ import { SessionContext } from '../../common/'
++ import { SessionContext } from '../../common';
 
 export const PageB = () =>
-    <div>
-+      <SessionContext.Consumer>
-+      {
-+        ({login}) => (
-+          <>
-            <h2>Hello from page B</h2>
-+           <br/>
-+           <h3>Login: {login}</h3>            
-            <br />
-            <Link to="/">Navigate to Login</Link>
-+          </>
-+        )
-+      }
-+      </SessionContext.Consumer>
-    </div>
+  <div>
++   <SessionContext.Consumer>
++   {
++     ({login}) => (
++       <>
+         <h2>Hello from page B</h2>
++        <br/>
++        <h3>Login: {login}</h3>
+         <br />
+         <Link to="/">Navigate to Login</Link>
++       </>
++     )
++   }
++   </SessionContext.Consumer>
+  </div>
 ```
 
-- Si ejecutamos la muestra podemos navegar a la página B y ver mostrado el nombre por defecto atado
+- Si ejecutamos el ejemplo podemos navegar a la página B y ver  el nombre por defecto.
 
 ```bash
 npm start
 ```
 
-- Mostrar un nombre por defecto no es una cosa mala, pero necesitamos mostrar el nombre de login real que ingresado por el usuario, para hacer esto expondremos una función dentro de nuestro contexto que permitirá a cualquier consumer actualizar el valor.
+- No es malo mostrar un nombre por defecto, pero necesitamos mostrar el nombre que introduzca el usuario, para hacer esto expondremos una función dentro de nuestro contexto que permitirá a cualquier consumidor actualizar el valor.
+
+- Primero añadiremos un método para actualizar el login.
 
 _./src/common/sessionContext.tsx_
 
 ```diff
-```
-
-- Ahora aplicaremos esto en el loginPage.
-
-Primero añade un métodoo de actualización de login.
-
-_./src/pages/login/loginPage.tsx_
-
-```diff
 export interface SessionContextProps {
   login: string;
-+ updateLogin: (value) => void;  
++ updateLogin: (value) => void;
 }
 
-export const createDefaultUser = () : SessionContextProps => ({
+export const createDefaultUser = (): SessionContextProps => ({
   login: 'no user',
 + updateLogin: (value) => {},
 });
 ```
 
-- Configuraremos esto en el provider del estado.
+- Vamos a configurar esto en el estado del proveedor.
 
 ```diff
 export class SessionProvider extends React.Component<{}, State> {
 
   constructor(props) {
     super(props);
--    this.state = createDefaultUser();
-+    this.state = {
-+       login: createDefaulUser.login,
-+       updateLogin: this.setLoginInfo      
-+    }
+-     this.state = createDefaultUser();
++     this.state = {
++        login: createDefaulUser.login,
++        updateLogin: this.setLoginInfo,
++     }
   }
 
-+  setLoginInfo = (newLogin) => {
-+    this.setState({login: newLogin})
-+  }
++ setLoginInfo = (newLogin) => {
++   this.setState({login: newLogin});
++ }
 
   render() {
     return (
       <SessionContext.Provider value={this.state}>
         {this.props.children}
       </SessionContext.Provider>
-    )
-  };
-};
+    );
+  }
+}
 ```
 
-- Momento de configurar este valor cuando hacemos clic en el botón de inicio de sesión.
+- Es hora de configurar este valor cuando hacemos clic en el botón de inicio de sesión.
 
-- Añade un import a nuestro context.
+- Vamos a añadir un import a nuestra página de inicio de sesión.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -197,63 +204,59 @@ _./src/pages/login/loginPage.tsx_
 + import { SessionContext } from '../../common';
 ```
 
-- Actualiza nuestra propiedad del componente login para aceptar el método setLogin.
+- Vamos a actualizar las propiedades del componente login para aceptar el método updateLogin.
 
 _./src/pages/login/loginPage.tsx_
 
 ```diff
 interface Props extends RouteComponentProps, WithStyles<typeof styles> {
-+   updateLogin: (value) => void
++ updateLogin: (value) => void;
 }
 ```
 
-- Crearemos un componente intermédio (en nuestra siguiente muestra lo portaremos como un Hoc genérico).
+- Vamos a crear un componente intermedio (en el siguiente ejemplo lo cambiaremos para que sea un HoC genérico).
 
 _./src/pages/login/loginPage.tsx_
 
 ```diff
-+ export const LoginPageInner2 = (props) => 
-+  <>
-+  <SessionContext.Consumer>
-+    {
-+      ({updateLogin}) => 
-+      <LoginPageInner updateLogin={updateLogin} {...props}/>
-+    }
-+    
-+  </SessionContext.Consumer>
-+  </>
++ export const LoginPageInner2 = (props) =>
++   <SessionContext.Consumer>
++     {
++       ({updateLogin}) =>
++         <LoginPageInner updateLogin={updateLogin} {...props} />
++     }
++   </SessionContext.Consumer>
 
 - export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 + export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner2)));
-
 ```
 
-- Llamemos al setLogin una vez el usuario pulse.
+- Vamos a llamar al método setLogin cuando el usuario pulse el botón.
 
 _./src/pages/login/loginPage.tsx_
 
 ```diff
-  onLogin = () => {
-    loginFormValidation.validateForm(this.state.loginInfo)
-      .then((formValidatinResult) => {
-        if(formValidatinResult.succeeded) {
-          if (isValidLogin(this.state.loginInfo)) {
-+            this.props.updateLogin(this.state.loginInfo.login);
-            this.props.history.push('/pageB');
-          } else {
-            this.setState({ showLoginFailedMsg: true });
-          }      
+onLogin = () => {
+  loginFormValidation.validateForm(this.state.loginInfo)
+    .then((formValidatinResult) => {
+      if(formValidatinResult.succeeded) {
+        if (isValidLogin(this.state.loginInfo)) {
++         this.props.updateLogin(this.state.loginInfo.login);
+          this.props.history.push('/pageB');
         } else {
-          alert('error, review the fields');
+          this.setState({ showLoginFailedMsg: true });
         }
-      })
-  }
+      } else {
+        alert('error, review the fields');
+      }
+    });
+}
 ```
 
-- Si ejecutamos la app podremos verificar que ahora nosotros tenemos el resultado correcto
+- Si ejecutamos la aplicación podremos veremos el resultado adecuado.
 
 ```bash
 npm start
 ```
 
-> Si tenemos que anidar muchas render props, podemos terminar teniendo un componente anidado pesado, en ese caso revisa la micro librería react-composer (https://github.com/jamesplease/react-composer).
+> Si tenemos que anidar muchos render props, podemos acabar teniendo mucho anidamiento en un componente, en ese caso echa un vistazo a la librería react-composer (https://github.com/jamesplease/react-composer).

@@ -4,6 +4,14 @@ In this sample we are going to learn how React 16 context api works.
 
 This will allow us to share information between components without having to go through props drilldown or having to add redux support to our project.
 
+We will take a startup point sample _16 Validation_:
+
+## Prerequisites
+
+Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+
+> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+
 ## Steps to build it
 
 - We want to store just the _login_ field once the user logs in and display it  in the page B (or in wathever page or component we need it), let's add a default value ('no user').
@@ -13,29 +21,34 @@ This will allow us to share information between components without having to go 
 _./src/common/sessionContext.tsx_
 
 ```javascript
-import * as React from "react"
+import * as React from "react";
 
 export interface SessionContextProps {
-  login : string;
-} 
-export const createDefaultUser = () : SessionContextProps => ({
+  login: string;
+}
+
+const createDefaultUser = (): SessionContextProps => ({
   login: 'no user',
 });
 
 export const SessionContext = React.createContext<SessionContextProps>(createDefaultUser());
 ```
 
-- This session context will expose a _provider_ (will serve us to set the login name in the context), and a _consumer_ (will let us consume the login name from the context from any point of the application).
-We will create a component (we will name it _SessionProvider) that on one hand will store in the state the login name and bind it to the _SessionContext_ and in the other hand it act as a wrapper (usually it will sit on top of the application and wrap the application).
+- This session context will expose a _provider_ (it will serve us to set the login name in the context), and a _consumer_ (that will let us consume the login name from the context at any point of the application).
+We will create a component (we will name it _SessionProvider_) that on one hand will store in the state the login name and bind it to the _SessionContext_ and on the other hand it will act as a wrapper (usually it will sit on top of the application and wrap the application).
 
 _./src/common/sessionContext.tsx_
 
 ```diff
-import * as React from "react"
+import * as React from "react";
 
 export interface SessionContextProps {
-  login : string;
-} 
+  login: string;
+}
+
+const createDefaultUser = (): SessionContextProps => ({
+  login: 'no user',
+});
 
 export const SessionContext = React.createContext<SessionContextProps>(createDefaultUser());
 
@@ -44,18 +57,19 @@ export const SessionContext = React.createContext<SessionContextProps>(createDef
 +
 + export class SessionProvider extends React.Component<{}, State> {
 +
-+  constructor(props) {
-+    super(props);
-+    this.state = createDefaultUser();
-+  }
++   constructor(props) {
++     super(props);
++     this.state = createDefaultUser();
++   }
 +
-+  render() {
-+    return (
-+      <SessionContext.Provider value={this.state}>
-+        {this.props.children}
-+      </SessionContext.Provider>     
-+  )};
-+ };
++   render() {
++     return (
++       <SessionContext.Provider value={this.state}>
++         {this.props.children}
++       </SessionContext.Provider>
++     );
++   }
++ }
 ```
 
 - Let's add this to the common _index_ barrel.
@@ -78,7 +92,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import { LoginPage } from './pages/login';
 import { PageB } from './pages/b';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-+ import { SessionProvider } from './common'
++ import { SessionProvider } from './common';
 
 const theme = createMuiTheme({
   typography: {
@@ -96,64 +110,57 @@ ReactDOM.render(
         </Switch>
       </HashRouter>
 +   </SessionProvider>
-  </MuiThemeProvider>
-  , document.getElementById('root')
+  </MuiThemeProvider>,
+  document.getElementById('root')
 );
 ```
 
-- On pageB let's consume the sessionContext user name.
+- On pageB let's consume the SessionContext login field.
 
 _./src/pages/b/pageB.tsx_
 
 ```diff
 import * as React from "react"
 import { Link } from 'react-router-dom';
-+ import { SessionContext } from '../../common/'
++ import { SessionContext } from '../../common';
 
 export const PageB = () =>
-    <div>
-+      <SessionContext.Consumer>
-+      {
-+        ({login}) => (
-+          <>
-            <h2>Hello from page B</h2>
-+           <br/>
-+           <h3>Login: {login}</h3>            
-            <br />
-            <Link to="/">Navigate to Login</Link>
-+          </>
-+        )
-+      }
-+      </SessionContext.Consumer>
-    </div>
+  <div>
++   <SessionContext.Consumer>
++   {
++     ({login}) => (
++       <>
+         <h2>Hello from page B</h2>
++        <br/>
++        <h3>Login: {login}</h3>
+         <br />
+         <Link to="/">Navigate to Login</Link>
++       </>
++     )
++   }
++   </SessionContext.Consumer>
+  </div>
 ```
 
-- If we ran the sample we can navigate to page B and see the default login name being displayed.
+- If we run the sample we can navigate to page B and see the default login name being displayed.
 
 ```bash
 npm start
 ```
 
-- Showing a default name is not a bad thing, but we need to display the real login name  entered by the user, to do this we will expose a function into our context that will let any consumer update the value.
+- Showing a default name is not a bad thing, but we need to display the real login name entered by the user, to do this we will expose a function into our context that will let any consumer update the value.
+
+- First let's add an update login method.
 
 _./src/common/sessionContext.tsx_
 
 ```diff
-```
-
-- Now let's apply this on the loginPage.
-
-First let's add an update login method.
-
-_./src/pages/login/loginPage.tsx_
-
-```diff
 export interface SessionContextProps {
   login: string;
-+ updateLogin: (value) => void;  
++ updateLogin: (value) => void;
 }
 
-export const createDefaultUser = () : SessionContextProps => ({
+export const createDefaultUser = (): SessionContextProps => ({
   login: 'no user',
 + updateLogin: (value) => {},
 });
@@ -166,30 +173,30 @@ export class SessionProvider extends React.Component<{}, State> {
 
   constructor(props) {
     super(props);
--    this.state = createDefaultUser();
-+    this.state = {
-+       login: createDefaulUser.login,
-+       updateLogin: this.setLoginInfo      
-+    }
+-     this.state = createDefaultUser();
++     this.state = {
++        login: createDefaulUser.login,
++        updateLogin: this.setLoginInfo,
++     }
   }
 
-+  setLoginInfo = (newLogin) => {
-+    this.setState({login: newLogin})
-+  }
++ setLoginInfo = (newLogin) => {
++   this.setState({login: newLogin});
++ }
 
   render() {
     return (
       <SessionContext.Provider value={this.state}>
         {this.props.children}
       </SessionContext.Provider>
-    )
-  };
-};
+    );
+  }
+}
 ```
 
-- Time to setup this value when we click on the login button.
+- Time to set up this value when we click on the login button.
 
-- Let's add an import to our context.
+- Let's add an import to our login page.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -197,57 +204,53 @@ _./src/pages/login/loginPage.tsx_
 + import { SessionContext } from '../../common';
 ```
 
-- Let's update our login component property to accept the setLogin method.
+- Let's update our login component props to accept the updateLogin method.
 
 _./src/pages/login/loginPage.tsx_
 
 ```diff
 interface Props extends RouteComponentProps, WithStyles<typeof styles> {
-+   updateLogin: (value) => void
++ updateLogin: (value) => void;
 }
 ```
 
-- We will create an intermediate component (in our next sample we will port it to a generic Hoc).
+- We will create an intermediate component (in our next sample we will port it to a generic HoC).
 
 _./src/pages/login/loginPage.tsx_
 
 ```diff
-+ export const LoginPageInner2 = (props) => 
-+  <>
-+  <SessionContext.Consumer>
-+    {
-+      ({updateLogin}) => 
-+      <LoginPageInner updateLogin={updateLogin} {...props}/>
-+    }
-+    
-+  </SessionContext.Consumer>
-+  </>
++ export const LoginPageInner2 = (props) =>
++   <SessionContext.Consumer>
++     {
++       ({updateLogin}) =>
++         <LoginPageInner updateLogin={updateLogin} {...props} />
++     }
++   </SessionContext.Consumer>
 
 - export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 + export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner2)));
-
 ```
 
-- Let's call the setLogin once the user clicks.
+- Let's call the setLogin when the user clicks the button.
 
 _./src/pages/login/loginPage.tsx_
 
 ```diff
-  onLogin = () => {
-    loginFormValidation.validateForm(this.state.loginInfo)
-      .then((formValidatinResult) => {
-        if(formValidatinResult.succeeded) {
-          if (isValidLogin(this.state.loginInfo)) {
-+            this.props.updateLogin(this.state.loginInfo.login);
-            this.props.history.push('/pageB');
-          } else {
-            this.setState({ showLoginFailedMsg: true });
-          }      
+onLogin = () => {
+  loginFormValidation.validateForm(this.state.loginInfo)
+    .then((formValidatinResult) => {
+      if(formValidatinResult.succeeded) {
+        if (isValidLogin(this.state.loginInfo)) {
++         this.props.updateLogin(this.state.loginInfo.login);
+          this.props.history.push('/pageB');
         } else {
-          alert('error, review the fields');
+          this.setState({ showLoginFailedMsg: true });
         }
-      })
-  }
+      } else {
+        alert('error, review the fields');
+      }
+    });
+}
 ```
 
 - If we run the app we can check that now we get the right result.
@@ -256,4 +259,4 @@ _./src/pages/login/loginPage.tsx_
 npm start
 ```
 
-> If have to nest many render props, you can end up having a heavy nested component, in that case checkout react-composer micro library (https://github.com/jamesplease/react-composer)
+> If you have to nest many render props, you can end up having a heavy nested component, in that case checkout react-composer micro library (https://github.com/jamesplease/react-composer)
