@@ -228,7 +228,7 @@ export class App extends React.Component<Props, State> {
 +                max="500"
 +                value={this.state.satisfactionLevel}
 +                onChange={(event : any) => this.setState(
-+                {satisfactionLevel:event.target.value} as State)}
++                {satisfactionLevel:event.target.value})}
 +        />
 +        <br/>
 +        <span>{this.state.satisfactionLevel}</span>
@@ -260,10 +260,10 @@ import * as React from 'react';
 + }
 
 +  const isRangeChange = (oldValue : number, newValue : number) => {
-+    const oldValueClass = setSatisfactionClass(oldValue); 
++    const oldValueClass = setSatisfactionClass(oldValue);
 +    const newValueClass = setSatisfactionClass(newValue);
 +
-+    return oldValueClass !== newValueClass;     
++    return oldValueClass !== newValueClass;
 +  }
 
 + export class FaceComponent extends React.Component<Props, {}> {
