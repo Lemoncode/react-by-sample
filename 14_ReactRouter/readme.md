@@ -33,7 +33,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 
 - Let's create a component called _PageA_ as _src/pageA.tsx_:
 
-## ./src/pageA.tsx
+_./src/pageA.tsx_
 
 ```jsx
 import * as React from "react"
@@ -46,7 +46,7 @@ export const PageA = () =>
 
 - Let's create a component called _PageB_ as _src/pageB.tsx_:
 
-### ./src/pageB.tsx
+_./src/pageB.tsx_
 
 ```jsx
 import * as React from "react"
@@ -61,12 +61,12 @@ export const PageB = () =>
 
 ```bash
 npm install react-router-dom --save
-npm install @types/react-router-dom --save-dev  
+npm install @types/react-router-dom --save-dev
 ```
 
 - Let's define the routing in _main.tsx_:
 
-## ./src/main.tsx
+_./src/main.tsx_
 
 ```diff
 import * as React from 'react';
@@ -98,7 +98,7 @@ npm start
 
 - Let's define a navigation from _[PageA.tsx](./src/pageA.tsx)_ to _[PageB.tsx](./src/pageB.tsx)_.
 
-## ./src/pageA.tsx
+_./src/pageA.tsx_
 
 ```diff
 import * as React from "react"
@@ -114,7 +114,7 @@ export const PageA = () =>
 
 - Let's define a navigation from _[PageB.tsx](./src/pageB.tsx)_ to _[PageA.tsx](./src/pageA.tsx)_
 
-## ./src/pageB.tsx
+_./src/pageB.tsx_
 
 ```diff
 import * as React from "react"

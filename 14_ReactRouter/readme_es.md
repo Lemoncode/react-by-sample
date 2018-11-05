@@ -33,7 +33,7 @@ Copia el contenido de _[03 State](./../03%20State)_ y ejecuta:
 
 - Vamos a crear un componente llamado _PageA_ como _src/pageA.tsx_:
 
-## ./src/pageA.tsx
+_./src/pageA.tsx_
 
 ```jsx
 import * as React from "react"
@@ -46,7 +46,7 @@ export const PageA = () =>
 
 - Vamos a crear un componente llamado _PageB_ como _src/pageB.tsx_:
 
-### ./src/pageB.tsx
+_./src/pageB.tsx_
 
 ```jsx
 import * as React from "react"
@@ -61,12 +61,12 @@ export const PageB = () =>
 
 ```bash
 npm install react-router-dom --save
-npm install @types/react-router-dom --save-dev  
+npm install @types/react-router-dom --save-dev
 ```
 
 - Vamos a definir el enrutado en _main.tsx_:
 
-## ./src/main.tsx
+_./src/main.tsx_
 
 ```diff
 import * as React from 'react';
@@ -97,7 +97,7 @@ npm start
 
 - Vamos a definir la navegación de _[PageA.tsx](./src/pageA.tsx)_ a _[PageB.tsx](./src/pageB.tsx)_.
 
-## ./src/pageA.tsx
+_./src/pageA.tsx_
 
 ```diff
 import * as React from "react"
@@ -113,7 +113,7 @@ export const PageA = () =>
 
 - Vamos a definir la navegación de _[PageB.tsx](./src/pageB.tsx)_ a _[PageA.tsx](./src/pageA.tsx)_
 
-## ./src/pageB.tsx
+_./src/pageB.tsx_
 
 ```diff
 import * as React from "react"
