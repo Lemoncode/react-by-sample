@@ -21,7 +21,7 @@ Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o más nuevo) si no est
 
 > Verificar que tienes al menos corriendo la versión de node v6.x.x y npm 3.x.x ejecutando `node -v` y `npm -v` en la terminal de Windows. Versiones más antiguas pueden producir errores.
 
-## Pasos para construirlo 
+## Pasos para construirlo
 
 - Copia el contenido de _03 State_ y ejecútalo:
 
@@ -190,7 +190,7 @@ export const FaceComponent = (props : {level : number}) => {
 +    <div className={setSatisfactionClass(props.level)}/>
   );
 }
-``` 
+```
 
 - En _app.tsx_ añadamos un estado que mantenga el grado de satisfacción actual más un control deslizante para que el usuario lo actualize.
 
@@ -222,7 +222,7 @@ export class App extends React.Component<Props, State> {
 +                max="500"
 +                value={this.state.satisfactionLevel}
 +                onChange={(event : any) => this.setState(
-+								{satisfactionLevel:event.target.value} as State)}
++								{satisfactionLevel:event.target.value})}
 +        />
 +        <br/>
 +        <span>{this.state.satisfactionLevel}</span>
@@ -242,7 +242,7 @@ export class App extends React.Component<Props, State> {
   ```
 
 	- Añadamos una optimización de renderización, nosotros deberíamos solo lanzar el renderizado cuando el nivel de satisfacción cambie, necesitamos mover el componente a un componente estado:
-	
+
 	_./src/face.tsx_
 
 ```diff
@@ -253,10 +253,10 @@ import * as React from 'react';
 + }
 
 +  const isRangeChange = (oldValue : number, newValue : number) => {
-+    const oldValueClass = setSatisfactionClass(oldValue); 
++    const oldValueClass = setSatisfactionClass(oldValue);
 +    const newValueClass = setSatisfactionClass(newValue);
 +
-+    return oldValueClass !== newValueClass;     
++    return oldValueClass !== newValueClass;
 +  }
 
 + export class FaceComponent extends React.Component<Props, {}> {
