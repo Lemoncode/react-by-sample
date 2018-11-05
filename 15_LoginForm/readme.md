@@ -73,7 +73,7 @@ called _pages_
 
 - In some cases this pages will contain more secondary files, let's create a simple _index.tsx_ file for each of this pages.
 
-- Under _pages/login/index.ts.
+- Under _pages/login/index.ts_.
 
 _./src/pages/login/index.ts_
 
