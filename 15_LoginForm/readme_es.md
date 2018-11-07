@@ -1,38 +1,35 @@
 ## 15 Login form
 
-In this sample we are going to implement a basic login page, that will redirect
-the user to another page whenever the login has completed successfully.
+En esta muestra vamos a implementar una página básica de login, que redireccionará al usuario a otra página cuando el login sea correcto.
 
-We will attempt to create a [realistic layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3), in order to keep simplicity we will
-break it into subcomponents and perform some refactor in order to make the solution
-more maintenable.
+Intentaremos de crear un [realistic layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3), para hacerlo simple vamos a romper esto en subcomponentes y hacer algunas refactorizaciones para hacer la solución más mantenible.
 
-We will take a startup point sample _14 ReactRouter_:
+Tomaremos como punto de partida la muestra _14 ReactRouter_:
 
-## Summary steps:
+## Resumen de pasos:
 
-- Let's rename pageA to LoginPage.
-- Let's create a 'Pages' subfolder and reorganize pages.
-- Let's build the layout for this page.
-- Let's add navigation on login button clicked.
-- Let's add login validation fake api.
-- Let's connect it into the login button logic.
-- Let's do a bit of refactor and clean up extracting functionality to reusable components.
-- Let's add some form validation (mandatory fields, minlength).
+- Renombrar pageA a LoginPage.
+- Crear una subcarpeta 'Pages' y reorganizar las páginas.
+- Construir el layout para esta página.
+- Añadir navegación en el botón de login.
+- Añadir validación de login en la api falsa.
+- Conectarlo dentro de la lógica del botón de login.
+- Hacer una pequeña refactorización y limpiar funcionalidades extras a un componente reusable.
+- Añadir algunas validaciones de formulario (campos obligatorios, longitud mínima).
 
-## Prerequisites
+## Prerrequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verifica que estás usando al menos node v6.x.x and npm 3.x.x usando los comandos `node -v` y `npm -v` en un terminal/consola. Versiones anteriores pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo
 
-- Copy the content from _14 React Router_ and execute _npm install_.
+- Copia el contenido de _14 React Router_ y ejecuta _npm install_.
 
-- Let's rename _pageA.tsx_ to _loginPage.tsx_.
+- Renombra _pageA.tsx_ a _loginPage.tsx_.
 
-- Let's update as well the name of the component.
+- Actualiza también el nombre del componente.
 
 _./src/loginPage.tsx_
 
@@ -51,12 +48,9 @@ export const LoginPage = () => {
 }
 ```
 
-- Now it's time to reorganize the pages structure. Let's create a subfolders
-called _pages_
+- Ahora es momento de reorganizar la estuctura de las páginas. Crea una subcarpeta llamada _pages_
 
-- Under that subfolder let's create two more subfolders _login_ and _b_
-
-- Let's place the _pages_ under that subfolders: _pages/login/loginPage.tsx_ and _pages/b/pageB.
+- Bajo ese subcarpeta crea dos subcarpetas: _pages/login/loginPage.tsx_ y _pages/b/pageB.
 
 ```
 .
@@ -71,17 +65,15 @@ called _pages_
 
 ```
 
-- In some cases this pages will contain more secondary files, let's create a simple _index.tsx_ file for each of this pages.
+- En algunos casos estas páginas contienen más ficheros secundarios, crea un fichero _index.tsx_ simple por cada una de estas páginas.
 
-- Under _pages/login/index.ts_.
-
-_./src/pages/login/index.ts_
+- Bajo _pages/login/index.ts.
 
 ```javascript
 export {LoginPage} from './loginPage';
 ```
 
-- Under _pages/b/index.ts_
+- Bajo _pages/b/index.ts_
 
 _./src/pages/b/index.ts_
 
@@ -89,7 +81,7 @@ _./src/pages/b/index.ts_
 export {PageB} from './pageB';
 ```
 
-- The structure look like this:
+- La estrutura queda tal que así:
 
 ```
 .
@@ -104,7 +96,7 @@ export {PageB} from './pageB';
             └── pageB.tsx
 ```
 
-- Let's update _main.tsx_ (routes, names and add a redirect from root to login page).
+- Vamos a actualizar _main.tsx_ (rutas, nombes y añade una redirección de root a la página login).
 
 _./src/main.tsx_
 
@@ -130,7 +122,7 @@ ReactDOM.render(
 );
 ```
 
-- Let's update as well the navigation from _pageB_ to _loginPage_, _pageB.tsx_.
+- Actualiza también la navegación de _pageB_ a _loginPage_, _pageB.tsx_.
 
 _./src/pages/b/pageB.tsx_
 
@@ -150,15 +142,13 @@ export const PageB = () => {
 }
 ```
 
-- Let's make a quick test and check that everyting is still working fine.
+- Haz un test rápido y verifica que todo aún funciona bien.
 
 ```
 npm start
 ```
 
-- Time to remove 'Sample app' text from the main _html_.
-
-_./src/index.html_
+- Momento de borrar el fichero 'Sample app' del fichero principal _html_.
 
 ```diff
 <!DOCTYPE html>
@@ -176,15 +166,15 @@ _./src/index.html_
 </html>
 ```
 
-- Let's build a proper _login_ layout, _loginPage.tsx_, we will base it in the [following layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3)but we will break it down into subcomponents.
+- Vamos a crear un adecuado _login_ layout, _loginPage.tsx_, basada en [following layout](http://bootsnipp.com/snippets/featured/compact-login-form-bs-3) pero romperemos esto en subcomponentes.
 
-- To build a nice layout, we will install _@material-ui/core_
+- Construyamos a bonito layout, instalaremos _@material-ui/core_
 
 ```bash
 npm install @material-ui/core @material-ui/icons --save-dev
 ```
 
-- Now we could create a login form it could look somethin like:
+- Ahora podremos crear un formulario de login podría ser algo como esto:
 
 _./src/pages/loginPage.tsx_
 
@@ -240,9 +230,9 @@ const LoginPageInner = (props : Props) => {
 export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
-- This can be ok, but if we take a deeper look to this component, we could break down into two, one is the card itself the other the form dialog, so it should finally look like:
+- Esto puede estár ok, pero si analizamos este componente más a fondo, prodíamos dividirlo en dos, una es la tarjeta en sí, la otra el cuadro del diálogo, por lo que finalmente dibería verse como
 
-** Proposal ** 
+** Propósito ** 
 
 ```javascript
     <Card className={classes.card}>
@@ -253,7 +243,7 @@ export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)))
     </Card>
 ```
 
-- Let's create the loginformcomponent:
+- Creamos el loginformcomponent:
 
 _./src/pages/login/loginForm.tsx_
 
@@ -282,7 +272,7 @@ export const LoginForm = (props) => {
 }
 ```
 
-- And let's update the _loginPage.tsx_
+- Y actualizamos _loginPage.tsx_
 
 _./src/pages/loginPage.tsx_
 
@@ -340,15 +330,15 @@ const LoginPageInner = (props : Props) => {
 export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
-- Let's give a try and check how is it looking.
+- Vamos a intentar y verificar como se está viendo.
 
 ```bash
 npm start
 ```
 
-- Le'ts add the navigation on button clicked, we will do it in two steps.
+- Añadamos una navegación en el botón, hagámoslo en dos pasos.
 
-- First we will expose a method to do that in the loginPage.
+- Primero exponemos un método para hacer esto en loginPage.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -388,8 +378,9 @@ const LoginPageInner = (props) => {
 + export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
-- Let's add the navigation on button clicked (later on we will check for user and pwd) _form.tsx_.
-In order to do this we will use react-router 4 "withRouter" HoC (High order component).
+- Añadamos la navegación en el botón (mas tarde verificaremos el usuario y la contraseña) _form.tsx_.
+En order de hacer esto usaremos react-router 4 "withRouter" HoC
+(High order component).
 
 _./src/pages/login/LoginForm.tsx_
 
@@ -428,17 +419,17 @@ interface Props {
 +})
 ```
 
-- Let's give a quick try.
+- Demos un vistazo rápido.
 
 ```bash
 npm start
 ```
 
-Ok, we can navigate whenever we click on the login page. 
+Ok, podemos navegar cuando nosotros clicamos en la página de login.
 
-- Let's keep on progressing, now is time to collect the username and password info, and check if password is valid or not.
+- Guardemos el progreso, ahora es momento de recoger la información username y password, y verificaremos si es válida la contraseña.
 
-- Let's define an entity for the loginInfo let's create the following path and file
+- Definamos una entidad para loginInfo crearemos la seguiente ruta y el fichero
 
 _src/model/login.ts_
 
@@ -454,7 +445,7 @@ export const createEmptyLogin = () : LoginEntity => ({
 });
 ```
 
-- Let's add login validation fake restApi: create a folder _src/api_. and a file called _login.ts_
+- Añadamos a la restApi falsa y añadamos la validación de login: crearemos una carpeta _src/api_. y un fichero llamado _login.ts_
 
 _./src/api/login.ts_
 
@@ -487,9 +478,9 @@ export const isValidLogin = (loginInfo : LoginEntity) : boolean =>
             └── pageB.tsx
 ```
 
-- Let's add the _api_ integration, plus navigation on login succeeded:
+- Añadamos una integración a _api_, más una navegación en el existo de login.
 
-- First let's create a login state and add the api integration.
+- Primero crearemos un estado de login y añade la integración de la api.
 
 _./src/pages/login/loginPage.tsx_
 
@@ -555,7 +546,7 @@ interface Props extends RouteComponentProps, WithStyles<typeof styles> {
 export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
-- Now let's read the data from the textfields components (user and password).
+- Ahora leamos un dato del componente textfields (usuario y contraseña).
 
 _./src/pages/login/loginPage.tsx_
 
@@ -641,9 +632,9 @@ export const LoginForm = (props : Props) => {
 }
 ```
 
-- Let's display a notification when the login validation fails.
+- Mostremos una notificación cuando la validación de login falle.
 
-- First we will create a simple notification component, base on _react material ui_ _snackbar_
+- Primero crearemos un componente de notificación simple, basado en _react material ui_ _snackbar_
 
 _./src/common/notification.tsx_
 
@@ -703,7 +694,7 @@ const NotificationComponentInner = (props: Props) => {
 export const NotificationComponent = withStyles(styles)(NotificationComponentInner);
 ```
 
-- Let's expose this common component via an _index_ file.
+- Vamos a exponer este componente común via un fichero _index_.
 
 _./src/common/index.tsx_
 
@@ -711,7 +702,7 @@ _./src/common/index.tsx_
 export * from './notification';
 ```
 
-- Now let's instantiate this in our _loginPage_
+- Ahora lo instanciamos en nuestro _loginPage_
 
 _./src/pages/login/loginPage.tsx_
 
@@ -801,9 +792,10 @@ class LoginPageInner extends React.Component<Props, State> {
 export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner)));
 ```
 
-- We are getting some warnings because of Typography new version, let's add a Theme to fix that.
+- Estamos recibiendo algunas advertencias debido a la nueva versión de la tipografía, agreguemos un tema para solucionarlo.
 
-Watchout new typgoraphy and snackbar: https://github.com/mui-org/material-ui/issues/13144
+Cuidado con la nueva tipografía y la snackbar:
+https://github.com/mui-org/material-ui/issues/13144
 
 _./src/main.tsx_
 
@@ -835,11 +827,10 @@ ReactDOM.render(
 );
 ```
 
-- We are getting some warning on the snack bar, you can find a fix here:
+- Estamos recibiendo algunas advertencias en la snackbar, pu puedes arreglarlo aquí:
 
 https://github.com/mui-org/material-ui/issues/13144
 
 https://codesandbox.io/s/zz6wnqklzm
 
-> And form validation? There are several libraries available, one that we had created in lemoncode is lc-form-validation we will create a sample including this lib to validate the login form
-(required fields)
+> ¿ Y la validación del formulario ? Hay muchas librerías disponibles, una que nosotros hemos creado en lemoncode es lc-form-validation crearemos una muestra incluyendo esta librería (campos requeridos)
