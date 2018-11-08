@@ -175,7 +175,7 @@ export class SessionProvider extends React.Component<{}, State> {
     super(props);
 -     this.state = createDefaultUser();
 +     this.state = {
-+        login: createDefaulUser.login,
++        login: createDefaultUser().login,
 +        updateLogin: this.setLoginInfo,
 +     }
   }
