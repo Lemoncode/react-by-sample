@@ -43,8 +43,8 @@ export const withSessionContext = (Component) => (props) => (
 _./src/pages/login/loginPage.tsx_
 
 ```diff
-- import {SessionContext} from '../../common';
-+ import {SessionContext, withSessionContext} from '../../common';
+- import { SessionContext } from '../../common';
++ import { SessionContext, withSessionContext } from '../../common';
 ```
 
 - Y vamos a borrar LoginPageInner2 y añadir nuestro Hoc:
