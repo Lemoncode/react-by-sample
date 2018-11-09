@@ -1,17 +1,22 @@
-# Hoc
+## Hoc
 
-We are going to implement a High Order Component, this let us extract common functionallity and expose
-it via composition.
+We are going to implement a High Order Component,this let us extract common functionallity and expose it via composition.
 
-# Steps
+We will take a startup point sample _17 Context_:
 
-In the previous sample we had to create an intermediate _LoginPageInner2_ component in order to 
-inject to the component the _loginInfo_ and _setLoginInfo_ fields from the Session context.
+## Prerequisites
+
+Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+
+> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+
+## Steps to build it
+
+In the previous sample we had to create an intermediate _LoginPageInner2_ component in order to inject to the component the _loginInfo_ and _setLoginInfo_ fields from the Session context.
 
 This boilerplate is a bit ugly, and it would be worse if we want to access that info from other pages.
 
-By implementing an Hoc we can just create a reusable function that will make easier to access the
-SessionContext consumer.
+By implementing an Hoc we can just create a reusable function that will make easier to access the SessionContext consumer.
 
 - We will start by creating our Hoc (let's add this at the bottom of the file).
 
@@ -38,8 +43,8 @@ export const withSessionContext = (Component) => (props) => (
 _./src/pages/login/loginPage.tsx_
 
 ```diff
-- import {SessionContext} from '../../common';
-+ import {SessionContext, withSessionContext} from '../../common';
+- import { SessionContext } from '../../common';
++ import { SessionContext, withSessionContext } from '../../common';
 ```
 
 - And let's remove LoginPageInner2 and add our Hoc:
@@ -47,20 +52,19 @@ _./src/pages/login/loginPage.tsx_
 _./src/pages/login/loginPage.tsx_
 
 ```diff
-- export const LoginPageInner2 = (props) => 
+- export const LoginPageInner2 = (props) =>
 -  <>
 -  <SessionContext.Consumer>
 -    {
--      ({updateLogin}) => 
+-      ({updateLogin}) =>
 -      <LoginPageInner updateLogin={updateLogin} {...props}/>
 -    }
--    
+-
 -  </SessionContext.Consumer>
 -  </>
 
 - export const LoginPage = withStyles(styles)(withRouter<Props>((LoginPageInner2)));
 + export const LoginPage = withSessionContext(withStyles(styles)(withRouter<Props>((LoginPageInner))));
-
 ```
 
 - We can run and check that the sample is working.
