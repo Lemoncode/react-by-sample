@@ -146,7 +146,7 @@ export const PageB = () =>
         render={
           login => (
             <LoginComponent login={login}></LoginComponent>
-            )}
+          )}
     >
     </Session>
   </div>
