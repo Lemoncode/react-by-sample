@@ -3,23 +3,26 @@ import { MemberEntity } from './model/member';
 import { memberAPI } from './api/memberAPI';
 import { MemberRow } from './memberRow';
 import { MemberHead } from './memberHead';
-import {} from 'core-js';
+import { } from 'core-js';
 
-
-export const MembersTableComponent = () => {
-
+function useMembers() {
   const [members, setMembers] = React.useState([]);
 
-  const loadMembers = () => {  
+  const loadMembers = () => {
     memberAPI.getAllMembers().then((members) =>
       setMembers(members)
     );
   }
 
+  return { members, loadMembers};
+}
+
+export const MembersTableComponent = () => {
+  const { members, loadMembers } = useMembers();
+
   React.useEffect(() => {
     loadMembers();
   });
-    
 
   return (
     <div className="row">

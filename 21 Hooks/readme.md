@@ -106,3 +106,37 @@ export const MembersTableComponent = () => {
 +   loadMembers();
 + })
 ```
+
+- That was nice, but what if we could be interested in reusing this hook? we can extract it 
+into a function:
+
+_./src/membersTable.tsx_
+
+```diff
++ function useMembers() {
++  const [members, setMembers] = React.useState([]);
++
++  const loadMembers = () => {  
++    memberAPI.getAllMembers().then((members) =>
++      setMembers(members)
++    );
++  }
++
++  return {members, loadMembers };
++}
+
+export const MembersTableComponent = () => {
++  const { members, loadMembers } = useMembers();
+-  const [members, setMembers] = React.useState([]);
+
+-  const loadMembers = () => {  
+-    memberAPI.getAllMembers().then((members) =>
+-      setMembers(members)
+-    );
+-  }
+
+  React.useEffect(() => {
+    loadMembers();
+  });
+
+```
