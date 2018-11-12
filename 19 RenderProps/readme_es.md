@@ -1,23 +1,22 @@
-## Intro
+## Introducción
 
-In this sample we are going to learn how use render props in React.
+En este ejemplo vamos a aprender como usar render props en React.
 
-In this case we will implement a component that will inject the session to other components via render props.
+En este caso implementaremos un componente que inyectará la sesión a otros componentes vía render props.
 
-The main advantage of using this approach instead of HOC is that the child component gets a clear contract of the props it receives.
+El principal ventaja de usar este aproximación en lugar de HOC es que el componente hijo obtiene un contrato de las propiedades que recibe.
 
-We will take a startup point sample _18 Hoc_:
+Tomaremos como punto de entrada el ejemplo _18 Hoc_:
 
-## Prerequisites
+## Prerrequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verifica que estás usando al menos node v6.x.x y npm 3.x.x usando los comandos `node -v` y `npm -v` en una terminal o consola. Las versiones anteriores pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo
 
-- Let's first add the component that will expose the render prop, we will append it to
-the _sessionContext_ file.
+- Primero vamos a añadir el componente que expondrá el reder prop, lo añadiremos al fichero _sessionContext_.
 
 _./src/common/sessionContext.tsx_
 
@@ -86,7 +85,7 @@ export class SessionProvider extends React.Component<{}, State> {
 + }
 ```
 
-- Now in the _pageB.tsx_ we can invoke it like that (first approach):
+- Ahora en _pageB.tsx_ podemos invocarlo como (primera aproximación):
 
 _./src/pages/b/pageB.tsx_
 
@@ -115,7 +114,7 @@ export const PageB = () =>
   </div>
 ```
 
-- Let's add one refactor to make the code more readable:
+- Vamos a añadir una refactorización para hacer el código más legible:
 
 _./src/pages/b/pageB.tsx_
 
@@ -153,5 +152,4 @@ export const PageB = () =>
   </div>
 ```
 
-> If you need to nest several render props, you can use _react-composer_: https://github.com/jamesplease/react-composer
-
+- Si necesitas anidar muchas reder props, puedes usar _react-composer_: https://github.com/jamesplease/react-composer
