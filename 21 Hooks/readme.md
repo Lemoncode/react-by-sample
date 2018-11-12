@@ -138,5 +138,17 @@ export const MembersTableComponent = () => {
   React.useEffect(() => {
     loadMembers();
   });
+```
+
+- Now if we ran this it will get ran on every rerender, in order to limit this we can
+pas an empty array as a second argument of _useEffect_, this tell React that you effect
+doesn't depend on any values from props or state, is it nevers needs to re-rerun.
+
+```diff
+  React.useEffect(() => {
+    loadMembers();
+-  });
++ },[]);
 
 ```
+More info about _hooks-effect_: https://reactjs.org/docs/hooks-effect.html

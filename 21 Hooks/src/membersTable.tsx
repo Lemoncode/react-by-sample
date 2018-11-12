@@ -22,7 +22,7 @@ export const MembersTableComponent = () => {
 
   React.useEffect(() => {
     loadMembers();
-  });
+  }, []);
 
   return (
     <div className="row">
