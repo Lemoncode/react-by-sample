@@ -227,8 +227,8 @@ export class App extends React.Component<Props, State> {
 +                min="0"
 +                max="500"
 +                value={this.state.satisfactionLevel}
-+                onChange={(event : any) => this.setState(
-+                {satisfactionLevel:event.target.value})}
++                onChange={(event) => this.setState(
++                {satisfactionLevel:+event.target.value})}
 +        />
 +        <br/>
 +        <span>{this.state.satisfactionLevel}</span>
