@@ -242,7 +242,7 @@ export class App extends React.Component<{}, State> {
 +   toggleSidebarVisibility = () => {
 +     const newVisibleState = !this.state.isSidebarVisible;
 +
-+     this.setState({isSidebarVisible: newVisibleState} as State);
++     this.setState({isSidebarVisible: newVisibleState});
 +   }
 
 
