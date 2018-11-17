@@ -39,8 +39,7 @@ npm install react@16.7.0-alpha.0 react-dom@16.7.0-alpha.0 --save
 _./src/pages/pageB.tsx_
 
 ```diff
-- import * as React from "react"
-+ import * as React from "react";
+import * as React from "react"
 import { Link } from 'react-router-dom';
 - import { Session } from '../../common/';
 + import { SessionContext } from '../../common';
@@ -53,7 +52,7 @@ import { Link } from 'react-router-dom';
 +
 + return (
 
-    <div>
+  <div>
 -     <Session
 -         render={
 -           login => (
