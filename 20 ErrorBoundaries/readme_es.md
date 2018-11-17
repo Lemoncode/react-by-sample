@@ -1,22 +1,20 @@
 ## 20 Error Boundaries
 
-In this example we will play with the Error Boundary concept.
+En este ejemplo jugaremos con el concepto de barrera de errores.
 
+## Resumen de pasos:
 
-## Summary steps:
+## Prerrequisitos
 
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
 
-## Prerequisites
+> Verifica que estás usando al menos node v6.x.x y npm 3.x.x usando los comandos `node -v` y `npm -v` en una terminal o consola. Las versiones anteriores pueden producir errores.
 
-Install [Node.js and npm](https://nodejs.org) if they are not already installed on your computer.
+## Pasos para construirlo
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+- Copia el contenido de _03 State_ y ejecuta `npm install`.
 
-## Steps to build it
-
-- Copy the content from _03 State_ and execute `npm install`.
-
-- Let's create a faulty component:
+- Vamos a crear un componente defectuoso:
 
 _./src/faultyComponent.tsx_
 
@@ -36,7 +34,7 @@ export class FaultyComponent extends React.Component {
 }
 ```
 
-- Let's instantiate this component in our _app.tsx_
+- Vamos a instanciar este componente en nuestro _app.tsx_
 
 _./src/app.tsx_
 
@@ -77,16 +75,15 @@ export class App extends React.Component<Props, State> {
 }
 ```
 
-- Let's run the app.
+- Vamos a ejecutar app
 
 ```bash
 npm start
 ```
 
-- If you open the console you will see a bad crash being reported, that's something that you wouldn't like to suffer when you are using plugins and other components that you may not trust, why not wrap any error in a safe area ?
-and display a friendly component failed to load in case of an uncontroller error happen in that area (and keep the rest of application working as expected).
+- Si abres la consola verás que se informa de un fallo grave, eso es algo que no te gustaría sufrir cuando usas plugins y otros componentes en los que no confies, ¿por que no envolver cualquier error en un área segura?y mostrar un componente amigable que no se pudo cargar en caso de que ocurra un error de descontrolador en esa área (y mantener el resto de la aplicación funcionando como se esperaba).
 
-- Let's create an Error Boundary.
+- Vamos a crear una barrera de error.
 
 _./src/erroBoundary.tsx_
 
@@ -122,7 +119,7 @@ export class ErrorBoundary extends React.Component {
 }
 ```
 
-- And let's wrap our faultyComponent inside this error boundary (we could wrap a set of components if needed).
+- Y envolvamos nuestro faultyComponent dentro de esta barrera de error (podriamos envolver un conjunto de componentes si es necesario).
 
 _./src/app.tsx_
 
@@ -166,6 +163,6 @@ export class App extends React.Component<Props, State> {
 }
 ```
 
-> There's a nice generic wrapper for this ErrorBoundary: https://github.com/bvaughn/react-error-boundary
+> Hay un bonito envoltorio genérico para este ErrorBoundary: https://github.com/bvaughn/react-error-boundary
 
-> Error boundaries and event handlers: https://github.com/facebook/react/issues/11409
+> Barreras de error y manejador de enventos: https://github.com/facebook/react/issues/11409
