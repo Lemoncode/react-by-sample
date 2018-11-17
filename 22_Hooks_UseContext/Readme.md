@@ -14,7 +14,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not alrea
 
 ## Steps to build it
 
-- Let's copy the code from sample _17 Context_.
+- Let's copy the code from sample _19 RenderProps_.
 
 - Let's install the dependencies.
 
