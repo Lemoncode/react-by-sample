@@ -92,7 +92,7 @@ _./src/main.tsx_
 +  import { App } from './app';
 
   ReactDOM.render(
--   <HelloComponent />  
+-   <HelloComponent />
 +   <App />,
     document.getElementById('root'));
 ```
@@ -131,8 +131,8 @@ _./src/colorpicker.tsx_
 +               min="0"
 +               max="255"
 +               value={props.color.red}
-+               onChange={(event : any) => props.onColorUpdated(
-+                 {red: +event.target.value, 
++               onChange={(event) => props.onColorUpdated(
++                 {red: +event.target.value,
 +                 green: props.color.green, blue: props.color.blue}
 +               )}
 +        />
@@ -172,13 +172,13 @@ _./src/app.tsx_
 +          <span>
 +             Color: [
 +               red: {this.state.color.red},
-+               green: {this.state.color.green}, 
++               green: {this.state.color.green},
 +               blue: {this.state.color.blue}
 +             ]
 +           </span>
 -          <ColorPicker/>
-+          <ColorPicker 
-+             color={this.state.color}  
++          <ColorPicker
++             color={this.state.color}
 +             onColorUpdated={this.setColorState}
 +           />
         </div>
@@ -208,9 +208,9 @@ _./src/colopicker.tsx_
                min="0"
                max="255"
                value={props.color.red}
-               onChange={(event : any) => props.onColorUpdated(
+               onChange={(event) => props.onColorUpdated(
                  {
-                   red: event.target.value,
+                   red: +event.target.value,
                    green: props.color.green,
                    blue:  props.color.blue
                  }
@@ -222,7 +222,7 @@ _./src/colopicker.tsx_
 +               min="0"
 +               max="255"
 +               value={props.color.green}
-+               onChange={(event : any) => props.onColorUpdated(
++               onChange={(event) => props.onColorUpdated(
 +                 {
 +                   red:  props.color.red,
 +                   green: +event.target.value,
@@ -236,7 +236,7 @@ _./src/colopicker.tsx_
 +               min="0"
 +               max="255"
 +               value={props.color.blue}
-+               onChange={(event : any) => props.onColorUpdated(
++               onChange={(event) => props.onColorUpdated(
 +                 {
 +                   red:   props.color.red,
 +                   green: props.color.green,
@@ -303,11 +303,11 @@ export class App extends React.Component<{}, State> {
   public render() {
     return (
       <div>
-+       <ColorDisplayer color={this.state.color} />      
++       <ColorDisplayer color={this.state.color} />
         <span>
           Color: [red: {this.state.color.red}, green: {this.state.color.green}, blue: {this.state.color.blue}]
         </span>
-        <ColorPicker color={this.state.color} 
+        <ColorPicker color={this.state.color}
           onColorUpdated={this.setColorState.bind(this)}
         />
       </div>
