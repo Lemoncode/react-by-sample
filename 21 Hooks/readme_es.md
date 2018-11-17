@@ -152,4 +152,4 @@ export const MembersTableComponent = () => {
 + },[]);
 ```
 
-> Mas información sobre _hooks-effect_: https://reactjs.org/docs/hooks-effect.html
+> Más información sobre _hooks-effect_: https://reactjs.org/docs/hooks-effect.html
