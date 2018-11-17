@@ -1,38 +1,38 @@
 ## Intro
 
-In this sample we will make use of hooks a cool concept introduced in React 16.7.0
+En este ejemplo haremos uso de hooks un concepto chulo que se introdució en React 16.7.0
 
-## Prerequisites
+## Prerrequisitos
 
-Install [Node.js and npm](https://nodejs.org) if they are not already installed on your computer.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verifica que estás usando al menos node v6.x.x y npm 3.x.x usando los comandos `node -v` y `npm -v` en una terminal o consola. Las versiones anteriores pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo
 
-- Let's copy the code from sample _12_TableHttp_.
+- Vamos a copiar el código del ejemplo _12_TableHttp_.
 
-- Let's install the dependencies.
+- Vamos a instalar las dependencias.
 
 ```bash
 npm install
 ```
 
-- Now we are going to uninstall current version of react and react-dom:
+- Ahora vamos a desinstalar la versión actual de react y react-dom
 
 ```bash
 npm uninstall react react-dom --save
 ```
 
-- And install the 16.7 alfa version:
+- E instalamos la versión 16.7 alfa:
 
 ```bash
 npm install react@16.7.0-alpha.0 react-dom@16.7.0-alpha.0 --save
 ```
 
-- We are going to move the current _membersTable.tsx_ class based component to an stateless one (we will replace the current state using hooks).
+- Vamos a mover el componente actual basado en la clase _membersTable.tsx_ a uno sin estado (reemplazaremos el estado actual usando hooks).
 
-- Let's start by cleaning up code and adding a hook to hold the members list.
+- Vamos a empezar por limpiar el código y añadiendo un hook que mantenga la lista de mienbros.
 
 _./src/membersTable.tsx_
 
@@ -91,7 +91,7 @@ _./src/membersTable.tsx_
 }
 ```
 
-- Now we have tetchy issue... _componentDidMount_ we don't have this on hooks component, how can we dod that? To do that we can make use of react hooks _useEffect_.
+- Ahora tenemos un gran problema... _componentDidMount_ no tenemos esto en el componente hooks, ¿Como podemos hacer esto? Para ello podemos hacer uso de los hooks de react _useEffect_.
 
 _./src/membersTable.tsx_
 
@@ -111,7 +111,7 @@ export const MembersTableComponent = () => {
 + })
 ```
 
-- That was nice, but what if we could be interested in reusing this hook?. We can extract it into a function:
+- Eso fué genial, pero ¿Y si pudiéramos estár interesandos en reutilizar esté hook? Podríamos extraer esto en una función:
 
 _./src/membersTable.tsx_
 
@@ -143,7 +143,7 @@ export const MembersTableComponent = () => {
   });
 ```
 
-- Now if we ran this it will get ran on every rerender, in order to limit this we can pass an empty array as a second argument of _useEffect_, this tell React that you effect doesn't depend on any values from props or state, is it nevers needs to re-rerun.
+-  Ahora si lo ejecutamos, se ejecutará en cada repetición, para limitar esto podemos pasar un array vació como un segundo argumento de _useEffect_, esto le dice a React que su efecto no dependen de ningún valor de props o del estado, esto nunca necesita volver a ejecutar.
 
 ```diff
   React.useEffect(() => {
@@ -152,4 +152,4 @@ export const MembersTableComponent = () => {
 + },[]);
 ```
 
-> More info about _hooks-effect_: https://reactjs.org/docs/hooks-effect.html
+> Mas información sobre _hooks-effect_: https://reactjs.org/docs/hooks-effect.html
