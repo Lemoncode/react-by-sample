@@ -14,7 +14,7 @@ Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las t
 
 ## Pasos para construirlo
 
-- Vamos a copiar el código del ejemplo _21 Hooks_.
+- Vamos a copiar el código del ejemplo _17 Context_.
 
 - Vamos a instalar las dependencias.
 
@@ -40,7 +40,7 @@ _./src/pages/pageB.tsx_
 
 ```diff
 - import * as React from "react"
-+ import * as React, {useContext} from "react"
++ import * as React from "react";
 import { Link } from 'react-router-dom';
 - import { Session } from '../../common/';
 + import { SessionContext } from '../../common';

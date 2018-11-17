@@ -40,7 +40,7 @@ _./src/pages/pageB.tsx_
 
 ```diff
 - import * as React from "react"
-+ import * as React, {useContext} from "react"
++ import * as React from "react";
 import { Link } from 'react-router-dom';
 - import { Session } from '../../common/';
 + import { SessionContext } from '../../common';
