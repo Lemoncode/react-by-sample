@@ -156,7 +156,7 @@ export class App extends React.Component<Props, State> {
         <NameEditComponent userName={this.state.userName} onChange={this.setUsernameState} />
 +        <ErrorBoundary>
           <FaultyComponent/>
-+         </ErrorBoundary>
++        </ErrorBoundary>
       </>
     );
   }
