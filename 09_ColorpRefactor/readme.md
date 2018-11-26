@@ -41,7 +41,7 @@ export const ColorSliderComponent = (props : Props) => {
               min="0"
               max="255"
               value={props.value}
-              onChange={(event : any) => props.onValueUpdated(event.target.value)}
+              onChange={(event) => props.onValueUpdated(event.target.value)}
       />
       {props.value}
     </div>
@@ -68,7 +68,7 @@ export const ColorPicker = (props : Props) => {
 -              min="0"
 -              max="255"
 -              value={props.color.red}
--              onChange={(event : any) => props.onColorUpdated(
+-              onChange={(event) => props.onColorUpdated(
 -                {
 -                  red:  props.color.red,
 -                  green: event.target.value,
