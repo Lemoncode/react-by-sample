@@ -299,6 +299,13 @@ _./src/pages/login/loginPageContainer.tsx_
             }      
 +          } else {
 +            alert('error, review the fields');
++          const updatedLoginFormErrors = {
++             ...this.state.loginFormErrors,
++             ...formValidationResult.fieldErrors,
++          }
+
++          this.setState({loginFormErrors: updatedLoginFormErrors})
+
 +          }
 +      })
   }
