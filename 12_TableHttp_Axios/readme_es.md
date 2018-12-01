@@ -38,40 +38,30 @@ _./src/api/memberAPI.ts_
 
 ```javascript
 import { MemberEntity } from '../model/member';
-import Axios, { AxiosError, AxiosResponse } from 'axios';
+import Axios from 'axios';
 
-// Sync mock data API, inspired from:
-// https://gist.github.com/coryhouse/fd6232f95f9d601158e4
-class MemberAPI {
-  getAllMembers(): Promise<MemberEntity[]> {
-    const gitHubMembersUrl: string = 'https://api.github.com/orgs/lemoncode/members';
+const gitHubURL = 'https://api.github.com';
+const gitHubMembersUrl = `${gitHubURL}/orgs/lemoncode/members`;
 
-    return Axios.get<MemberEntity[]>(gitHubMembersUrl)
-      .then(this.resolveMembers)
-      .catch(this.onError);
-  }
+const getAllMembers = (): Promise<MemberEntity[]> => {
+  const promise: Promise<MemberEntity[]> = new Promise((resolve, reject) => {
+    try {
+      Axios.get<MemberEntity[]>(gitHubMembersUrl)
+        .then(response => resolve(mapMemberListApiToModel(response.data)));
+    } catch (ex) {
+      reject(ex);
+    }
+  });
 
-  private onError(err: AxiosError): MemberEntity[] {
-    console.log(err.message);
-    return [];
-  }
+  return promise;
+};
 
-  private resolveMembers({ data }: AxiosResponse<MemberEntity[]>): MemberEntity[] {
-    const members: MemberEntity[] = data.map(gitHubMember => {
-      let member: MemberEntity = {
-        id: gitHubMember.id,
-        login: gitHubMember.login,
-        avatar_url: gitHubMember.avatar_url,
-      };
+const mapMemberListApiToModel = (data: MemberEntity[]) =>
+  data.map(gitHubMember => gitHubMember);
 
-      return member;
-    });
-
-    return members;
-  }
-}
-
-export const memberAPI = new MemberAPI();
+export const memberAPI = {
+  getAllMembers,
+};
 
 ```
 
