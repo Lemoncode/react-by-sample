@@ -1,40 +1,40 @@
 ## Intro
 
-As we saw in sample _17 Context_ this is a powerfull feature.
+Como vemos en el ejemplo _17 Context_ esto es una poderosa característica.
 
-Getting data from a _Context.Consumer_ needs some plumbing, we have used so far HOC (example 18) and Render Props (example 19) to wrap that into some reusable code, that was nice but it needed to add some extra markup to our components, making heavy use of HOC and RenderProps can lead you to the _markup hell_ (lot of nested HOC / Render props).
+Obtener datos de un _Context.Consumer_ necesita un poco de tubería, hasta ahora hemos utilizado HOC (ejemplo 18) y Render Props (ejemplo 19) para incluir eso en un código reutilizable, eso estuvo bien, pero necesitabas agregar un margen de beneficio adicional a nuestros componentes, hacer un uso intensivo de HOC y RenderProps puede llevarlo a _markup hell_ (muchos accesorios de HOC / Render props).
 
-Let's see how this is solved using Hooks + Use Context.
+Veamos como se resuelve esto utilizando Hooks + Use Context.
 
-## Prerequisites
+## Prerequisitos
 
-Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0) if they are not already installed on your computer.
+Instalar [Node.js y npm](https://nodejs.org/en/) (v6.6.0 o superior) si no las tenemos instaladas en nuestro ordenador.
 
-> Verify that you are running at least node v6.x.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window. Older versions may produce errors.
+> Verifica que estás usando al menos node v6.x.x y npm 3.x.x usando los comandos `node -v` y `npm -v` en una terminal o consola. Las versiones anteriores pueden producir errores.
 
-## Steps to build it
+## Pasos para construirlo
 
-- Let's copy the code from sample _19 RenderProps_.
+- Vamos a copiar el código del ejemplo _19 RenderProps_.
 
-- Let's install the dependencies.
+- Vamos a instalar las dependencias.
 
 ```bash
 npm install
 ```
 
-- Now we are going to uninstall current version of react and react-dom:
+- Ahora vamos a desistalar la versión actual de react y react-dom:
 
 ```bash
 npm uninstall react react-dom --save
 ```
 
-- And install the 16.7 alfa version:
+- E instalamos la versión alfa 16.7:
 
 ```bash
 npm install react@16.7.0-alpha.0 react-dom@16.7.0-alpha.0 --save
 ```
 
-- Let's replace the render props solution with a _UseContext_.
+- Vamos a reemplazar la solución de render props con un _UseContext_
 
 _./src/pages/pageB.tsx_
 
@@ -52,7 +52,7 @@ import { Link } from 'react-router-dom';
 +
 + return (
 
-  <div>
+    <div>
 -     <Session
 -         render={
 -           login => (
@@ -64,7 +64,7 @@ import { Link } from 'react-router-dom';
 +}
 ```
 
-- So now our _PageB_ component looks as simple as:
+- Asi que ahora nuestro componente _PageB_ se muestra tan simple como:
 
 _./src/pages/pageB.tsx_
 
@@ -80,7 +80,7 @@ export const PageB = () => {
 }
 ```
 
-- Now we can get rid of the _renderProps_ helper we created.
+- Ahora podemos eliminar el helper de _renderProps_ que creamos.
 
 _./src/common/sessionContext.tsx_
 
@@ -148,4 +148,3 @@ interface Props {
 -  }
 - }
 ```
-
