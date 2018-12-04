@@ -53,7 +53,7 @@ _./src/api/memberMockData.ts_
 ```javascript
 import {MemberEntity} from '../model/member';
 
-var	MembersMockData : MemberEntity[] =
+const	MembersMockData : MemberEntity[] =
 	[
 		{
       id: 1457912,
