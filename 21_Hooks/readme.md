@@ -91,7 +91,7 @@ _./src/membersTable.tsx_
 }
 ```
 
-- Now we have tetchy issue... _componentDidMount_ we don't have this on hooks component, how can we dod that? To do that we can make use of react hooks _useEffect_.
+- Now we have tetchy issue... _componentDidMount_ we don't have this on hooks component, how can we do that? To do that we can make use of react hooks _useEffect_.
 
 _./src/membersTable.tsx_
 

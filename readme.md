@@ -30,79 +30,79 @@ then cd to one of the demos projects.
 
 ## samples
 
-### [00 Boiler plate](https://github.com/Lemoncode/react-by-sample/tree/master/00%20Boilerplate)
+### [00 Boiler plate](react-by-sample/00_Boilerplate/readme.md)
 
 Bundling + npm start based on webpack.
 
-### [01 Hello React](https://github.com/Lemoncode/react-by-sample/tree/master/01%20HelloReact)
+### [01 Hello React](react-by-sample/01_HelloReact/readme.md)
 
 Hello world, simples react render sample.
 
-### [02 Properties](https://github.com/Lemoncode/react-by-sample/tree/master/02%20Properties)
+### [02 Properties](react-by-sample/02_Properties/readme.md)
 
 Introduce a basic React concept, handling properties.
 
-### [03 State](https://github.com/Lemoncode/react-by-sample/tree/master/03%20State)
+### [03 State](react-by-sample/03_State/readme.md)
 
 Introduce a basic React concept, handling State.
 
-### [04 Callback](https://github.com/Lemoncode/react-by-sample/tree/master/04%20Callback)
+### [04 Callback](react-by-sample/04_Callback/readme.md)
 
 Using callbacks.
 
-### [05 Refactor](https://github.com/Lemoncode/react-by-sample/tree/master/05%20Refactor)
+### [05 Refactor](react-by-sample/05_Refactor/readme.md)
 
 Refactor the job done.
 
-### [06 Move Back To Stateless](https://github.com/Lemoncode/react-by-sample/tree/master/06%20MoveBackToStateless)
+### [06 Move Back To Stateless](react-by-sample/06_MoveBackToStateless/readme.md)
 
 Remove state from a child control just to have clear governance of state.
 
-### [07 Enable](https://github.com/Lemoncode/react-by-sample/tree/master/07%20Enable)
+### [07 Enable](react-by-sample/07_Enable/readme.md)
 
 Enable/disable components.
 
-### [08 ColorPicker](https://github.com/Lemoncode/react-by-sample/tree/master/08%20Colorpicker)
+### [08 ColorPicker](react-by-sample/08_Colorpicker/readme.md)
 
 Simple color picker demo (show how properties work).
 
-### [09 ColorPicker Refactor](https://github.com/Lemoncode/react-by-sample/tree/master/09%20ColorpRefactor)
+### [09 ColorPicker Refactor](react-by-sample/09_ColorpRefactor/readme.md)
 
 ColorPicker refactor.
 
-### [10 Sidebar](https://github.com/Lemoncode/react-by-sample/tree/master/10%20Sidebar)
+### [10 Sidebar](react-by-sample/10_Sidebar/readme.md)
 
 Implementation of a single sidebar.
 
-### [11 Table Mock](https://github.com/Lemoncode/react-by-sample/tree/master/11%20TableMock)
+### [11 Table Mock](react-by-sample/11_TableMock/readme.md)
 
 Render a table and use a child component to render each row.
 
-### [12 Table Http](https://github.com/Lemoncode/react-by-sample/tree/master/12%20TableHttp)
+### [12 Table Http](react-by-sample/12_TableHttp/readme.md)
 
 Using Promises.
 
-### [13 Should Update](https://github.com/Lemoncode/react-by-sample/tree/master/13%20ShouldUpdate)
+### [13 Should Update](react-by-sample/13_ShouldUpdate/readme.md)
 
 Enhance rendering performance hooking to 'shouldComponentUpdate'.
 
-### [14 React Router](https://github.com/Lemoncode/react-by-sample/tree/master/14%20ReactRouter)
+### [14 React Router](react-by-sample/14_ReactRouter/readme.md)
 
 React Router navigation example.
 
-### [15 Login Form](https://github.com/Lemoncode/react-by-sample/tree/master/15%20LoginForm)
+### [15 Login Form](react-by-sample/15_LoginForm/readme.md)
 
 Basic implementation of a login page.
 
-### [16 Validation](https://github.com/Lemoncode/react-by-sample/tree/master/16%20Validation)
+### [16 Validation](react-by-sample/16_Validation/readme.md)
 
 React Form validation, using lc-form-validation library
 
-### [17 Context](https://github.com/Lemoncode/react-by-sample/tree/master/17%20Context)
+### [17 Context](react-by-sample/17_Context/readme.md)
 
 How to use React 16 context api.
 
-### [18 HOC](https://github.com/Lemoncode/react-by-sample/tree/master/17%20Context)
+### [18 HOC](react-by-sample/17_Context/readme.md)
 
 Hig Order component sample..
 
