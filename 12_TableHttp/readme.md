@@ -34,13 +34,23 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
 npm install whatwg-fetch --save-dev
 ```
 
+- In _webpack.config.js_ let's add the new _whatwg-fetch_ polyfill as entry point:
+
+_webpack.config.js_
+
+```diff
+entry: ['@babel/polyfill',
++        'whatwg-fetch',
+        './main.tsx'
+],
+```
+
 - Let's replace _memberAPI_ load members with the fetch / promise one:
 
 _./src/api/memberAPI.ts_
 
 ```javascript
 import { MemberEntity } from '../model/member';
-import {} from 'whatwg-fetch';
 
 // Sync mock data API, inspired from:
 // https://gist.github.com/coryhouse/fd6232f95f9d601158e4

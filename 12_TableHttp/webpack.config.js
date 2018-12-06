@@ -11,6 +11,7 @@ module.exports = {
     extensions: ['.js', '.ts', '.tsx']
   },
   entry: ['@babel/polyfill', 
+          'whatwg-fetch',
           './main.tsx'
          ],
   output: {
