@@ -30,93 +30,93 @@ then cd to one of the demos projects.
 
 ## samples
 
-### [00 Boiler plate](00_Boilerplate/readme.md)
+### [00 Boiler plate](./00_Boilerplate/readme.md)
 
 Bundling + npm start based on webpack.
 
-### [01 Hello React](01_HelloReact/readme.md)
+### [01 Hello React](./01_HelloReact/readme.md)
 
 Hello world, simples react render sample.
 
-### [02 Properties](02_Properties/readme.md)
+### [02 Properties](./02_Properties/readme.md)
 
 Introduce a basic React concept, handling properties.
 
-### [03 State](03_State/readme.md)
+### [03 State](./03_State/readme.md)
 
 Introduce a basic React concept, handling State.
 
-### [04 Callback](04_Callback/readme.md)
+### [04 Callback](./04_Callback/readme.md)
 
 Using callbacks.
 
-### [05 Refactor](05_Refactor/readme.md)
+### [05 Refactor](./05_Refactor/readme.md)
 
 Refactor the job done.
 
-### [06 Move Back To Stateless](06_MoveBackToStateless/readme.md)
+### [06 Move Back To Stateless](./06_MoveBackToStateless/readme.md)
 
 Remove state from a child control just to have clear governance of state.
 
-### [07 Enable](07_Enable/readme.md)
+### [07 Enable](./07_Enable/readme.md)
 
 Enable/disable components.
 
-### [08 ColorPicker](08_Colorpicker/readme.md)
+### [08 ColorPicker](./08_Colorpicker/readme.md)
 
 Simple color picker demo (show how properties work).
 
-### [09 ColorPicker Refactor](09_ColorpRefactor/readme.md)
+### [09 ColorPicker Refactor](./09_ColorpRefactor/readme.md)
 
 ColorPicker refactor.
 
-### [10 Sidebar](10_Sidebar/readme.md)
+### [10 Sidebar](./10_Sidebar/readme.md)
 
 Implementation of a single sidebar.
 
-### [11 Table Mock](11_TableMock/readme.md)
+### [11 Table Mock](./11_TableMock/readme.md)
 
 Render a table and use a child component to render each row.
 
-### [12 Table Http](12_TableHttp/readme.md)
+### [12 Table Http](./12_TableHttp/readme.md)
 
 Using Promises.
 
-### [13 Should Update](13_ShouldUpdate/readme.md)
+### [13 Should Update](./13_ShouldUpdate/readme.md)
 
 Enhance rendering performance hooking to 'shouldComponentUpdate'.
 
-### [14 React Router](14_ReactRouter/readme.md)
+### [14 React Router](./14_ReactRouter/readme.md)
 
 React Router navigation example.
 
-### [15 Login Form](15_LoginForm/readme.md)
+### [15 Login Form](./15_LoginForm/readme.md)
 
 Basic implementation of a login page.
 
-### [16 Validation](16_Validation/readme.md)
+### [16 Validation](./16_Validation/readme.md)
 
 React Form validation, using lc-form-validation library
 
-### [17 Context](17_Context/readme.md)
+### [17 Context](./17_Context/readme.md)
 
 How to use React 16 context api.
 
-### [18 HOC](18_Hoc/readme.md)
+### [18 HOC](./18_Hoc/readme.md)
 
 High Order component sample..
 
-### [19 RenderProps](19_RenderProps/readme.md)
+### [19 RenderProps](./19_RenderProps/readme.md)
 Learn how use render props in React
 
-### [20 Error Boundaries](20_ErrorBoundaries/readme.md)
+### [20 Error Boundaries](./20_ErrorBoundaries/readme.md)
 Play with the Error Boundary concept
 
-### [21 Hooks](21_Hooks/readme.md)
+### [21 Hooks](./21_Hooks/readme.md)
 Play with the Error Boundary concept
 make use of hooks a cool concept introduced in React 16.7.0
 
-### [22 Hooks_UseContext](22_Hooks_UseContext/readme.md)
+### [22 Hooks_UseContext](./22_Hooks_UseContext/readme.md)
 Let's see how this is solved using Hooks + Use Context.
 
 
