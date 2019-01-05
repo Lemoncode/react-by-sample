@@ -116,7 +116,7 @@ Play with the Error Boundary concept
 Play with the Error Boundary concept
 make use of hooks a cool concept introduced in React 16.7.0
 
-### [22 Hooks_UseContext](./22_Hooks_UseContext/Readme.md)
+### [22 Hooks_UseContext](./22_Hooks_UseContext/readme.md)
 Let's see how this is solved using Hooks + Use Context.
 
 
