@@ -98,15 +98,15 @@ Basic implementation of a login page.
 
 React Form validation, using lc-form-validation library
 
-### [17 Context](./17_Context/readme.md)
+### [17 Context](./17_Context/Readme.md)
 
 How to use React 16 context api.
 
-### [18 HOC](./18_Hoc/readme.md)
+### [18 HOC](./18_Hoc/Readme.md)
 
 High Order component sample..
 
-### [19 RenderProps](./19_RenderProps/readme.md)
+### [19 RenderProps](./19_RenderProps/Readme.md)
 Learn how use render props in React
 
 ### [20 Error Boundaries](./20_ErrorBoundaries/readme.md)
@@ -116,7 +116,7 @@ Play with the Error Boundary concept
 Play with the Error Boundary concept
 make use of hooks a cool concept introduced in React 16.7.0
 
-### [22 Hooks_UseContext](./22_Hooks_UseContext/readme.md)
+### [22 Hooks_UseContext](./22_Hooks_UseContext/Readme.md)
 Let's see how this is solved using Hooks + Use Context.
 
 
