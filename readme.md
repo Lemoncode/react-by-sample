@@ -112,7 +112,7 @@ Learn how use render props in React
 ### [20 Error Boundaries](./20_ErrorBoundaries/readme.md)
 Play with the Error Boundary concept
 
-### [21 Hooks](./21_Hooks/readme.md)
+### [21 Hooks](./21_Hooks/Readme.md)
 Play with the Error Boundary concept
 make use of hooks a cool concept introduced in React 16.7.0
 
