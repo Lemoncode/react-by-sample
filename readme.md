@@ -30,81 +30,95 @@ then cd to one of the demos projects.
 
 ## samples
 
-### [00 Boiler plate](react-by-sample/00_Boilerplate)
+### [00 Boiler plate](00_Boilerplate/readme.md)
 
 Bundling + npm start based on webpack.
 
-### [01 Hello React](react-by-sample/01_HelloReact)
+### [01 Hello React](01_HelloReact/readme.md)
 
 Hello world, simples react render sample.
 
-### [02 Properties](react-by-sample/02_Properties)
+### [02 Properties](02_Properties/readme.md)
 
 Introduce a basic React concept, handling properties.
 
-### [03 State](react-by-sample/03_State)
+### [03 State](03_State/readme.md)
 
 Introduce a basic React concept, handling State.
 
-### [04 Callback](react-by-sample/04_Callback)
+### [04 Callback](04_Callback/readme.md)
 
 Using callbacks.
 
-### [05 Refactor](react-by-sample/05_Refactor)
+### [05 Refactor](05_Refactor/readme.md)
 
 Refactor the job done.
 
-### [06 Move Back To Stateless](react-by-sample/06_MoveBackToStateless)
+### [06 Move Back To Stateless](06_MoveBackToStateless/readme.md)
 
 Remove state from a child control just to have clear governance of state.
 
-### [07 Enable](react-by-sample/07_Enable)
+### [07 Enable](07_Enable/readme.md)
 
 Enable/disable components.
 
-### [08 ColorPicker](react-by-sample/08_Colorpicker)
+### [08 ColorPicker](08_Colorpicker/readme.md)
 
 Simple color picker demo (show how properties work).
 
-### [09 ColorPicker Refactor](react-by-sample/09_ColorpRefactor)
+### [09 ColorPicker Refactor](09_ColorpRefactor/readme.md)
 
 ColorPicker refactor.
 
-### [10 Sidebar](react-by-sample/10_Sidebar)
+### [10 Sidebar](10_Sidebar/readme.md)
 
 Implementation of a single sidebar.
 
-### [11 Table Mock](react-by-sample/11_TableMock)
+### [11 Table Mock](11_TableMock/readme.md)
 
 Render a table and use a child component to render each row.
 
-### [12 Table Http](react-by-sample/12_TableHttp)
+### [12 Table Http](12_TableHttp/readme.md)
 
 Using Promises.
 
-### [13 Should Update](react-by-sample/13_ShouldUpdate)
+### [13 Should Update](13_ShouldUpdate/readme.md)
 
 Enhance rendering performance hooking to 'shouldComponentUpdate'.
 
-### [14 React Router](react-by-sample/14_ReactRouter)
+### [14 React Router](14_ReactRouter/readme.md)
 
 React Router navigation example.
 
-### [15 Login Form](react-by-sample/15_LoginForm)
+### [15 Login Form](15_LoginForm/readme.md)
 
 Basic implementation of a login page.
 
-### [16 Validation](react-by-sample/16_Validation)
+### [16 Validation](16_Validation/readme.md)
 
 React Form validation, using lc-form-validation library
 
-### [17 Context](react-by-sample/17_Context)
+### [17 Context](17_Context/readme.md)
 
 How to use React 16 context api.
 
-### [18 HOC](react-by-sample/17_Context)
+### [18 HOC](18_Hoc/readme.md)
 
-Hig Order component sample..
+High Order component sample..
+
+### [19 RenderProps](19_RenderProps/readme.md)
+Learn how use render props in React
+
+### [20 Error Boundaries](20_ErrorBoundaries/readme.md)
+Play with the Error Boundary concept
+
+### [21 Hooks](21_Hooks/readme.md)
+Play with the Error Boundary concept
+make use of hooks a cool concept introduced in React 16.7.0
+
+### [22 Hooks_UseContext](22_Hooks_UseContext/readme.md)
+Let's see how this is solved using Hooks + Use Context.
+
 
 
 # About Lemoncode
