@@ -130,7 +130,7 @@ interface Props {
   login : string;
 }
 
-const LoginComponent = (props: Props) =>
+const PageBComponent = (props: Props) =>
   <>
     <h2>Hello from page B</h2>
     <br />
@@ -146,7 +146,7 @@ export const PageB = () =>
     <Session
         render={
           login => (
-            <LoginComponent login={login}></LoginComponent>
+            <PageBComponent login={login}></PageBComponent>
           )}
     >
     </Session>
