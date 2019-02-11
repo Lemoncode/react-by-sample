@@ -123,8 +123,7 @@ Let's see how this is solved using Hooks + Use Context.
 
 # About Basefactor + Lemoncode
 
-We are a team of long-term experienced freelance developers, established as a group in 2010.
-We are specialized in Front End technologies. 
+We are an innovating team of Javascript experts, passionate about turning your ideas into robust products.
 
 [Basefactor, consultancy by Lemoncode](http://www.basefactor.com) provides consultancy and coaching services.
 
